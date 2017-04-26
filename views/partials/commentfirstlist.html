@@ -1,0 +1,97 @@
+<% if (data.comments.length > 0) { %>
+<% data.comments.forEach(function(first, i) { %>
+<% if (data.hasprev && i === 0) { %>
+<div data-rid="<%= first._reply_c %>" data-reply="1" data-cnext="1" data-sort="1" rel="load-comments-prev" class="more"><a class="btn">查看上层留言</a></div>
+<% } %>
+<li class="list-item">
+    <div>
+        <% if (!first.isremove) { %>
+        <% if (first._belong_u) { %>
+        <p class="user-info">
+            <a class="avatar" href="/user/<%= first._belong_u.id %>">
+                <img width="25" height="25" src="<%= first._belong_u.avatar_mini %>" />
+            </a>
+            <em class="username">
+                <a href="/user/<%= first._belong_u.id %>">
+                    <%= first._belong_u.nickname %>
+                </a>
+                &nbsp;<%= timeFormat(first.date) %>
+            </em>
+        </p>
+        <% } else { %>
+        <p class="user-info">
+            <a class="avatar" href="/user/unknow">
+                <img width="25" height="25" src="/images/avatar_mini.png" />
+            </a>
+            <em class="username">
+                <a href="/user/unknow">未知用户</a>
+                &nbsp;
+                <%= timeFormat(first.date) %>
+            </em>
+        </p>
+        <% } %>
+        <div class="comment-content"><%= first.content %></div>
+        <% } else { %>
+        <div class="comment-content no-exist-content">[该留言已删除]</div>
+        <% } %>
+    </div>
+    <div data-rid="<%= first._id %>" data-haslogged="<%= !!user %>" class="comment-ctrl">
+        <div class="vote-ctrl-box">
+            <% if (user) { %>
+            <% if (first.good && first.good.length > 0) { %>
+            <a href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-lg s-ac"></i></a>
+            <% } else { %>
+            <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+            <% } %>
+            <% } else { %>
+            <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+            <% } %>
+            <span class="vote-num" rel="vote-num"><%= first.vote %></span>
+            <% if (user) { %>
+            <% if (first.bad && first.bad.length > 0) { %>
+            <a href="javascript:;" data-hasbad="true" rel="comment-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>
+            <% } else { %>
+            <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
+            <% } %>
+            <% } else { %>
+            <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
+            <% } %>
+        </div>
+        <div class="more-ctrl-box">
+            <% if (!first.isremove) { %>
+            <a class="remove" data-cid="<%= first._id %>" rel="comment-delete" href="javascript:;"><i class="remove-icon"></i>删除</a>
+            <% } else { %>
+            <span>已删除</span>
+            <% } %>
+        </div>
+        <div class="reply-ctrl-box">
+            <a rel="comment-new" data-show="false" href="javascript:;">
+                <i class="comment-icon"></i>
+                <%= data.text.EXPANSION_COMMENT %>
+            </a>
+        </div>
+    </div>
+    <div data-rid="<%= first._id %>" data-haslogged="<%= !!user %>" class="comment-child">
+        <div class="comment-input" style="display: none;">
+            <textarea rel="comment-input" placeholder="说说你的看法..."></textarea>
+            <div class="btn-group">
+                <button rel="cancel-reply" class="btn">取消 ×</button>
+                <button rel="comment-reply" class="btn">送出 ></button>
+                <div class="common-new-state" style="display: none;"></div>
+            </div>
+        </div>
+        <% include ../partials/commentsecondlist.html %>
+    </div>
+</li>
+<% }); %>
+<% if (data.hasmore) { %>
+<div data-rid="<%= data.current._id %>" data-reply="0" data-cnext="<%= data.cnext %>" data-sort="<%= data.role %>" rel="load-comments-next" class="more"><a class="btn">查看更多 ></a></div>
+<% } %>
+<% } else { %>
+<li class="list-item">
+    <div class="result">
+        :&nbsp;(&nbsp;该贴文没有留言。
+    </div>
+</li>
+<% } %>
+

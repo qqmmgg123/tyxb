@@ -1,0 +1,98 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= settings.APP_NAME %></title>
+    <link rel="shortcut icon" href="/favicon.ico" /> 
+    <% include ../partials/head_css.html %>
+    <% if (is_mobile) { %>
+    <link href="/mobilecss/index.css" rel="stylesheet" type="text/css" />
+    <% } else { %>
+    <link href="/css/index.css" rel="stylesheet" type="text/css" />
+    <% } %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <% if (is_mobile) { %>
+    <div class="container top-tag-list mar-top">
+        <div class="main">
+            <ul>
+                <% if (data.tags && data.tags.length > 0) { %>
+                <% data.tags.forEach(function(tag) { %>
+                <li class="list-item">
+                    <a href="/tag/<%= tag._id %>"><%= tag.key %></a>
+                </li>
+                <% }); %>
+                <% } %>
+            </ul>
+            <a class="top-tag-more" href="/tag/hot">•••</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main">
+            <% include ../partials/postlist.html %>
+        </div>
+    </div>
+    <% } else { %>
+    <div class="container mar-top clearfix">
+        <div class="main">
+            <div class="col-8">
+                <% include ../partials/postlist.html %>
+            </div>
+            <div class="col-4 sider">
+                <div class="user-list">
+                    <h2>活跃作者</h2>
+                    <ul class="list-group">
+                        <% if (data.users && data.users.length > 0) { %>
+                        <% data.users.forEach(function(user) { %>
+                        <li class="list-item">
+                            <a class="user-pic avatar" href="/user/<%= user._id %>">
+                                <img src="<%= user.avatar_mini %>" />
+                            </a>
+                            <a class="user-name" href="/user/<%= user._id %>">
+                                <%= user.nickname %>
+                            </a>
+                        </li>
+                        <% }); %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="tag-list">
+                    <h2>热门版面</h2>
+                    <ul class="list-group">
+                        <% if (data.tags && data.tags.length > 0) { %>
+                        <% data.tags.forEach(function(tag) { %>
+                        <li class="list-item">
+                            <a class="tag" href="/tag/<%= tag._id %>"><%= tag.key %></a>
+                        </li>
+                        <% }); %>
+                        <% } %>
+                    </ul>
+                    <a class="top-tag-more" href="/tag/hot">更多...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <div class="footer">
+        <% include ../partials/company.html %>
+    </div>
+    <script>
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function(searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
+    </script>
+    <% if (is_mobile) { %>
+    <script src="/mobilejs/index_unlogged.js"></script>
+    <% } else { %>
+    <script src="/js/index_unlogged.js"></script>
+    <% } %>
+    
+</body>
+</html>

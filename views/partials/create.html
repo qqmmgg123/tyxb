@@ -1,0 +1,46 @@
+<div class="modal fade-in" style="display: none;"></div>
+<div id="dream-pop" class="dialog" style="display: none;">
+    <div class="hd">
+        <span class="title">添加文章</span>
+        <a href="javascript:;" class="close"></a>
+    </div>
+    <div class="bd">
+        <div class="dream-step">
+            <!--<ul>-->
+                <!--<li>步骤：</li>-->
+                <!--<li><div>填写您的心愿或想法 → </div></li>-->
+                <!--<li><div>分享您的心路历程</div></li>-->
+            <!--</ul>-->
+        </div>
+        <div class="dream-area">
+            <form id="deamcreat-form" action="/dream/new" method="post">
+                <div class="title-head">
+                    <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>
+                    此刻的想法（必填）
+                    <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>
+                </div>
+                <div>
+                    <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>
+                    <p class="validate-error"></p>
+                </div>
+                <div class="desc-head">
+                    文章
+                </div>
+                <div><p class="field"><textarea id="dream-desc" name="text" placeholder="正文..."></textarea></p></div>
+                <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>
+                <!--<div>
+                    <p class="field"><input id="public" name="sharestate" type="radio" value="0" /></p>
+                    <p class="label"><label for="public">共享</label></p>
+                    <p>选择共享，其他和你有同样想法的人将和你一起展开该想法的实践旅程。</p>
+                </div>
+                <div>
+                    <p class="field"><input id="private" name="sharestate" type="radio" value="1" /></p>
+                    <p class="label"><label for="private">独享</label></p>
+                    <p>选择独享，该想法的实践旅程的参与者只能有你一个人。</p>
+                </div>-->
+                <input type="hidden" name="did" value="" />
+                <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>
+            </form>
+        </div>
+    </div>
+</div>

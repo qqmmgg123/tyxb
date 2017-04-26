@@ -1,0 +1,77 @@
+@import './editor.less';
+
+.user-page-head {
+    padding: 20px;
+    background-color: #fefefe;
+    border-bottom: 1px solid #f2f3f4;
+    .user-head-info {
+        overflow: hidden;
+        position: relative;
+        .user-head-avatar {
+            float: left;
+            margin-right: 10px;
+        }
+        .userHead-infoInner {
+            float: left;
+            h2.nick-name {
+                padding: 0;
+                margin: 0;
+            }
+            .user-ctrl {
+                text-align: right;
+                float: right;
+                width: 50%;
+            }
+            margin-right: 150px;
+        }
+        .user-head-ctrl {
+            float: right;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            a.btn {
+                display: block;
+            }
+        }
+    }
+}
+
+.user-tab-bar {
+    h2 {
+        font-size: 16px;
+    }
+    p {
+        font-size: 10px;
+    }
+    ul {
+        li {
+            width: 33.33%;
+        }
+    }
+}
+
+#dream-tab-bar {
+    .tab-nav {
+        ul {
+            li {
+                &:first-child .tab{
+                    border-right: 1px solid #eaeaea;
+                }
+                .tab {
+                    margin: 5px 0;
+                    height: 24px;
+                    line-height: 24px;
+                    &.cur {
+                        border-bottom: none;
+                        color: #333;
+                    }
+                    &:hover {
+                        border-bottom: none;
+                        color: #333;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+    }
+}

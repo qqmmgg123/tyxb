@@ -1,0 +1,98 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页 - <%= settings.APP_NAME %></title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <% include ../partials/head_css.html %>
+    <% if (is_mobile) { %>
+    <link href="/mobilecss/tags.css" rel="stylesheet" type="text/css" />
+    <% } else { %>
+    <link href="/css/tags.css" rel="stylesheet" type="text/css" />
+    <% } %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <div class="container mar-top">
+        <div id="home-page" class="main">
+            <% if (user) { %>
+            <div class="dream-release">
+                <div class="dream-user"><img width="48" height="48" src="/images/avatar.png" /></div>
+                <div class="dream-ctrl clearfix">
+                    <span class="dream-arrow"></span>
+                    <div class="tag-input">
+                        <form id="tagSearchForm" action="/search" method="get">
+                            <input type="text" name="query" placeholder="进入或查找<%= settings.OBJECT.TAG.CNNAME %>..." autocomplete="off" />
+                            <input type="hidden" name="type" value="tag">
+                        </form>
+                    </div>
+                    <div class="btn-group">
+                        <button id="tagSearchBtn" href="javascript:;" class="btn">查找</button>
+                        <!--<button id="tagAddBtn" data-islogin="<%= !!user %>" href="javascript:;" class="btn">创建</button>-->
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="top-opration">
+                <div class="tag-input">
+                    <form id="tagSearchForm" action="/search" method="get">
+                        <input type="text" name="query" placeholder="进入、查找或创建<%= settings.OBJECT.TAG.CNNAME %>..." autocomplete="off" />
+                        <input type="hidden" name="type" value="tag">
+                    </form>
+                </div>
+                <div class="btn-group">
+                    <button id="tagSearchBtn" href="javascript:;" class="btn">查找</button>
+                    <!--<button id="tagAddBtn" data-islogin="<%= !!user %>" href="javascript:;" class="btn">创建</button>-->
+                </div>
+            </div>
+            <% } %>
+            <div class="tab-nav">
+                <ul>
+                    <% if (user) { %>
+                    <li style="<% if (user) { %>width: 33.33%<% } %>">
+                        <a class="tab <% if (data.tab === 'mine') { %>cur<% } %>" href="/tag/mine">
+                            我的<%= settings.OBJECT.TAG.CNNAME %>
+                        </a>
+                    </li>
+                    <% } %>
+                    <li style="<% if (user) { %>width: 33.33%<% } else { %>width: 50%<% } %>">
+                        <a class="tab <% if (data.tab === 'hot') { %>cur<% } %>" href="/tag/hot">
+                            热门
+                        </a>
+                    </li>
+                    <li style="<% if (user) { %>width: 33.33%<% } else { %>width: 50%<% } %>">
+                        <a class="tab <% if (data.tab === 'new') { %>cur<% } %>" href="/tag/newest">
+                            最新
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ul id="tag-list" class="list-group">
+                <% if (data.tags && data.tags.length > 0) { %>
+                <% data.tags.forEach(function(tag) { %>
+                <% include ../partials/tagitem.html %>
+                <% }); %>
+                <% } else { %>
+                <li class="list-item">
+                    <div class="nodata">
+                        您当前没有订阅版面
+                        <% if (user) { %>
+                        &nbsp;<a href="/tag/hot" class="btn">去订阅&nbsp;></a>
+                        <% } %>
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <% if (is_mobile) { %>
+    <script src="/mobilejs/tags.js"></script>
+    <% } else { %>
+    <script src="/js/tags.js"></script>
+    <% } %>
+</body>
+</html>
+

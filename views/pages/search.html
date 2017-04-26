@@ -1,0 +1,126 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>搜索结果 - <%= settings.APP_NAME %></title>
+    <% include ../partials/head_css.html %>
+    <% if (is_mobile) { %>
+    <link href="/mobilecss/search.css" rel="stylesheet" type="text/css" />
+    <% } else { %>
+    <link href="/css/search.css" rel="stylesheet" type="text/css" />
+    <% } %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <div class="container mar-top">
+        <div class="search-area">
+            <div class="tab-nav">
+                <ul>
+                    <li><a class="tab<% if (data.type === 'all') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=all">全部</a></li>
+                    <li><a class="tab<% if (data.type === 'tag') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=tag">版面</a></li>
+                    <li><a class="tab<% if (data.type === 'dream') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=dream">贴文</a></li>
+                    <!--<li><a class="tab<% if (data.type === 'user') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=user">作者</a></li>-->
+                </ul>
+            </div>
+            <div class="search-result">
+            <% if (data.type === 'all') { %>
+            <h2>版面</h2>
+            <ul id="tag-list" class="list-group">
+                <% if (data.results.tags && data.results.tags.length > 0) { %>
+                <% data.results.tags.forEach(function(tag) { %>
+                <% include ../partials/tagitem.html %>
+                <% }); %>
+                <% } else { %>
+                <li class="list-item">
+                    <div class="nodata">
+                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的版面
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+            <h2>贴文</h2>
+            <ul id="dream-list" class="list-group">
+                <% if (data.results.dreams && data.results.dreams.length > 0) { %>
+                <% data.results.dreams.forEach(function(dream) { %>
+                <% include ../partials/postitem.html %>
+                <% }); %>
+                <li>
+                    <% if (data.hasprev && data.next > 1) { %>
+                    <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
+                    <% } %>
+                    <% if (data.hasmore) { %>
+                    <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
+                    <% } %>
+                </li>
+                <% } else { %>
+                <li>
+                    <div class="nodata">
+                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的贴文
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
+            <% if (data.type === 'tag') { %>
+            <h2>版面</h2>
+            <ul id="tag-list" class="list-group">
+                <% if (data.results && data.results.length > 0) { %>
+                <% data.results.forEach(function(tag) { %>
+                <% include ../partials/tagitem.html %>
+                <% }); %>
+                <% } else { %>
+                <li class="list-item">
+                    <div class="nodata">
+                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的版面
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
+            <% if (data.type === 'dream') { %>
+            <h2>贴文</h2>
+            <ul id="dream-list" class="list-group">
+                <% if (data.results && data.results.length > 0) { %>
+                <% data.results.forEach(function(dream) { %>
+                <% include ../partials/postitem.html %>
+                <% }); %>
+                <li>
+                    <% if (data.hasprev && data.next > 1) { %>
+                    <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
+                    <% } %>
+                    <% if (data.hasmore) { %>
+                    <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
+                    <% } %>
+                </li>
+                <% } else { %>
+                <li>
+                    <div class="nodata">
+                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的贴文
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
+            <% if (data.type === 'user') { %>
+            <ul id="search-list">
+            <% data.results.forEach(function(result) { %>
+            <li>
+                <h3><a href="/user/<%= result._id %>"><%= result.nickname %></a></h3>
+                <a class="btn">关注</a>
+            </li>
+            <% }); %>
+            </ul>
+            <% } %>
+            </div>
+        </div>
+    </div>
+    <% if (is_mobile) { %>
+    <script src="/mobilejs/search.js"></script>
+    <% } else { %>
+    <script src="/js/search.js"></script>
+    <% } %>
+</body>
+</html>

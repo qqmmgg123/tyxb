@@ -1,0 +1,12 @@
+// 删除言论
+node script --command createperm --type dream_remove --name 删除言论 --desc 拥有该权限可以删除学派中的言论
+
+// 学派更名
+db.tags.updateOne({_id: ObjectId("586244c9d6fdb86643bd8109")}, {$set:{key: '吐槽星人'}});
+
+// 添加掌门字段
+db.tags.update({},{$set : {"president": ObjectId("586244c9d6fdb86643bd8109")}},false,true);
+
+// 言论删除权限
+58a6fd23c97b9c4a1953ea7e
+db.tags.update({},{$set : {"permissions":[ObjectId("58a6fd23c97b9c4a1953ea7e")]}},false,true);

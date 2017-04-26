@@ -1,0 +1,81 @@
+<div id="dream-tab-bar" class="nav-bar">
+    <div class="tab-nav">
+        <% if (data.role == '1') { %>
+        <a rel="nav-toggle" class="nav-toggle">好评<i class="s s-arrow s-lg"></i></a>
+        <% } %>
+        <% if (data.role == '2') { %>
+        <a rel="nav-toggle" class="nav-toggle">最新<i class="s s-arrow s-lg"></i></a>
+        <% } %>
+        <ul class="nav-list">
+            <li><a hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" href="/">好评</a></li>
+            <li><a hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" href="/?r=2">最新</a></li>
+        </ul>
+    </div>
+    <div class="nav-ctrl">
+        <a id="dream-refresh" class="refresh" href="javascript:;">
+            <i class="s s-refresh s-lg"></i>
+        </a>
+        <div class="order-select dropdown">
+            <a rel="order-select" class="dropdown-toggle">
+                <% if (data.order === -1) { %>
+                正序
+                <% } else if (data.order === 1) { %>
+                倒序
+                <% } %>
+                <i class="s s-arrow s-lg"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/?r=<%= data.role %>&o=-1">正序</a></li>
+                <li><a href="/?r=<%= data.role %>&o=1">倒序</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<ul id="dream-list" class="list-group">
+    <% if (data.dreams && data.dreams.length > 0) { %>
+    <% data.dreams.forEach(function(dream) { %>
+    <% include ../partials/postitem.html %>
+    <% }); %>
+    <li class="list-item">
+        <% if (data.hasprev && data.next > 1) { %>
+        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
+        <% } %>
+        <% if (data.hasmore) { %>
+        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
+        <% } %>
+    </li>
+    <% } else { %>
+    <% if (user) { %>
+    <li class="list-item">
+        <div class="nodata">
+            <% if (!data.tags || data.tags.length === 0 ) { %>
+            您还没有订阅任何版面&nbsp;<a href="/tag/hot" class="btn">去订阅 ></a>
+            <% } else { %>
+            您订阅的版面下没有分享内容&nbsp;<button class="btn">分享 ></button>
+            <% } %>
+        </div>
+    </li>
+    <% } else { %>
+    <li>
+        <div class="nodata">
+            没有获取到内容
+        </div>
+    </li>
+    <% } %>
+    <% } %>
+</ul>
+<div class="global-ctrl">
+    <ul>
+        <li>
+            <button id="dreamReleaseText" title="发布文章" class="btn btn-round btn-success">
+                <i class="s s-plus s-lg"></i>
+            </button>
+        </li>
+        <li>
+            <button title="回到顶部" class="btn btn-round btn-success">
+                <i class="s s-arrow_up s-lg"></i>
+            </button>
+        </li>
+    </ul>
+</div>
+

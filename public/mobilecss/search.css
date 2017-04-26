@@ -1,0 +1,15 @@
+.search-area .tab-nav ul li {
+  width: 33.33%;
+}
+.search-area .search-result {
+  margin-top: 1em;
+}
+.search-area .search-result h2 {
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+.search-area .search-result .post-content a {
+  font-weight: normal;
+}

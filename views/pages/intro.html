@@ -1,0 +1,47 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>关于我们-<%= settings.APP_NAME %></title>
+    <link rel="shortcut icon" href="/favicon.ico" /> 
+    <% include ../partials/head_css.html %>
+    <% if (is_mobile) { %>
+    <link href="/mobilecss/intro.css" rel="stylesheet" type="text/css" />
+    <% } else { %>
+    <link href="/css/intro.css" rel="stylesheet" type="text/css" />
+    <% } %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <% include ../partials/banner.html %>
+    <div id="intro-page" class="container">
+        <div class="team-area">
+            <div class="tab-nav">
+                <ul>
+                    <li><a class="tab cur" href="/intro">关于我们</a></li>
+                    <li><a class="tab" href="/contact">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="team-content">
+                <h2>娑婆世界是什么</h2>
+                <h3>背景</h3>
+                <p>儿时我们有过许多绚烂的愿望和想法，那时我们眼里未来是无比憧憬和美好的。
+随着年龄的增长，现实渐渐脱去它美丽的外衣，裸露出它深藏的残酷。
+我们迫于现实的淫威， 变得像上了发条的机器人儿，被社会驱赶着，不停的忙碌着，
+也许生活在一天天的改善，但有时却感觉快乐在一天天的减少，
+我们渐渐忘记了自己的初心，失去了自我的节奏。
+我们萌生的美好愿望和想法变得越来越无力，甚至乏于提及。</p>
+                <h3>愿景</h3>
+                <p>娑婆世界是一个分享心愿和想法的心灵交流平台，娑婆世界觉得愿望和想法，能否实现和达成，并不重要，重要的是我们是否还拥有它们，是否还愿意把它们拾起；愿望和想法能否实现和达成并不重要，重要的是我们是否有在反复的试探自己和自省，而不是在浮华，颠倒黑白的人生世界里迷失；
+总而言之，娑婆世界不希望有人生活在对现实的恐惧和绝望中，失去希望和梦想；
+也不希望人们生活在浮华，物质享受和迷离幻想中失去自己。</p>
+            </div>
+        </div>
+    </div>
+    <% include ../partials/footer.html %>
+    <script src="/js/default.js"></script>
+</body>
+</html>

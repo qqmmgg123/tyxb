@@ -1,0 +1,22 @@
+<div class="dream-area">
+    <form id="deamcreat-form" action="/dream/new" method="post">
+        <div class="title-head">
+            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>
+            此刻的想法（必填）
+            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>
+        </div>
+        <div>
+            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>
+            <p class="validate-error"></p>
+        </div>
+        <div class="desc-head">
+            图片
+        </div>
+        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>
+        <div><img id="image-preview" src="" /></div>
+        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>
+        <input type="hidden" name="did" value="" />
+        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>
+    </form>
+</div>
+

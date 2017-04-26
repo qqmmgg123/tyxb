@@ -1,0 +1,69 @@
+.dream-release {
+    padding: 36px 10px 10px;
+}
+
+.dream-ctrl {
+    .tag-input {
+        float: left;
+        margin-right: 10px;
+        input {
+            width: 250px;
+            padding-left: 10px;
+            height: 39px;
+            font-size: 14px;
+        }
+    }
+    .btn-group {
+        float: left;
+    }
+}
+
+.top-opration {
+    padding-top: 30px;
+    > div {
+        letter-spacing: -5px;
+    }
+    .tag-input {
+        input {
+            width: 280px;
+            padding-left: 10px;
+            height: 36px;
+            font-size: 14px;
+        }
+    }
+    .btn-group {
+        margin-top: 10px;
+        button.btn {
+            margin-right: 10px;
+        }
+    }
+}
+
+
+/* for 480px or less */
+@media screen and (max-width: 480px) {
+    .dream-ctrl {
+        .tag-input {
+            float: inherit;
+            input {
+                width: 170px;
+            }
+            .select-list {
+                position: static;
+                box-shadow: none;
+            }
+        }
+        .btn-group {
+            float: inherit;
+            margin-top: 10px;
+        }
+    }
+    .top-opration {
+        .tag-input {
+            .select-list {
+                position: static;
+                box-shadow: none;
+            }
+        }
+    }
+}

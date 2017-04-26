@@ -1,0 +1,93 @@
+<div class="header">
+    <!--<button id="create_dream_node_btn">+</button>-->
+    <!--<button id="prev_dream_btn"><</button>-->
+    <!--<button id="next_dream_btn">></button>-->
+    <div class="head-con">
+        <div class="h-left">
+            <div class="suopo">
+                <a class="logo" href="http://www.suopoearth.com"></a>
+                <a id="app-list-arrow" class="app-list-arrow" href="javascript:;">
+                    <%= settings.APP_NAME %>&nbsp;
+                    <i class="s s-arrow s-lg"></i>
+                </a>
+            </div>
+            <ul id="app-list" class="app-list">
+                <li><a href="/"><%= settings.APP_NAME %></a></li>
+                <% if (user) { %>
+                <li><a href="/subscription">我订阅的</a></li>
+                <li>
+                    <div id="message-nav" class="dropdown">
+                        <% if (is_mobile) { %>
+                        <a class="message-view dropdown-toggle" rel="msg-view" href="/message">
+                            <% } else { %>
+                            <a class="message-view dropdown-toggle" rel="msg-view" href="javascript:;">
+                                <% } %>
+                                消息
+                            </a>
+                            <% if (data.messages && data.messages > 0) { %>
+                            <span class="message-new"></span>
+                            <% } %>
+                            <ul class="message-list dropdown-menu" style="display: none;">
+                            </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="/user/<%= user.id %>"><%= user.nickname %></a>
+                </li>
+
+                <% } else { %>
+                <li>
+                    <a href="javascript:;" id="signup-btn">成为作者</a>
+                </li>
+                <li>
+                    <a href="javascript:;" id="signin-btn">登录</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <button class="btn btn-search" type="button" id="search_dream_btn">
+                    <i class="s s-search s-lg"></i>
+                </button>
+                <div id="search-area" class="search-area">
+                    <a id="search-back" href="javascript:;" class="btn-back" type="button">
+                        <i class="s s-back s-lg"></i>
+                    </a>
+                    <a id="search-reset" href="javascript:;" class="btn-close" type="button">
+                        <i class="s s-close s-lg"></i>
+                    </a>
+                    <form action="/search">
+                        <input id="search-input" style="color: #999;" class="search-in" type="text" name="query" placeholder="查找您感兴趣的内容..." <% if (data.query) { %>value="<%= data.query %>"<% } %> />
+                        <button class="btn btn-search" type="submit">
+                            <i class="s s-search s-lg"></i>
+                        </button>
+                    </form>
+                </div>
+            </li>
+
+            <% if (user) { %>
+            <li class="user-in">
+                <button id="navbar-toggle" data-expanded="false" class="collapsed navbar-toggle" type="button">
+                    <i class="s s-list s-lg"></i>
+                </button>
+                <nav id="navbar-collapse" class="navbar-collapse">
+                    <ul class="navbar-nav nav clearfix">
+                        <li id="config-dropdown" class="config-dropdown">
+                            <div class="user-nav">
+                                <a href="javascript:;" rel="conf-toggle" class="list-arrow">
+                                    <i class="s s-list s-lg"></i>
+                                </a>
+                            </div>
+                            <ul class="config-list">
+                                <li><a href="/settings">设置</a></li>
+                                <li><a href="/signout">退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+.top-tag-list {
+    background-color: #fefefe;
+    border-bottom: 1px solid #eaeaea;
+    .main {
+        white-space:nowrap;
+        overflow: hidden;
+        text-transform: uppercase;
+        position: relative;
+        ul {
+            display: inline;
+            li {
+                display: inline;
+                white-space:nowrap;
+                a {
+                    color: #999;
+                    line-height: 36px;
+                    margin: 0 10px;
+                }
+            }
+        }
+        a.top-tag-more {
+            color: #999;
+            font-size: 10px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: #fefefe;
+            padding: 0 10px;
+            height: 36px;
+            line-height: 36px;
+        }
+        a.top-tag-add {
+            color: #999;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: #fefefe;
+            padding: 0 10px;
+            height: 36px;
+            i {
+                &:before {
+                    line-height: 36px;
+                }
+            }
+        }
+    }
+    .loggedPage {
+        a.top-tag-more {
+            right: 36px;
+        }
+    }
+}
+
+.top-opration {
+    h2 {
+        font-weight: normal;
+    }
+    .btn-group {
+        margin-top: 1em;
+        a.btn-big {
+            display: block;
+            width: 120px;
+            height: 36px;
+            margin: 0 5px 0;
+            box-sizing: border-box;
+        }
+    }
+}

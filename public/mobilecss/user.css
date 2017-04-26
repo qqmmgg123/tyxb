@@ -1,0 +1,61 @@
+.user-page-head {
+  padding: 20px;
+  background-color: #fefefe;
+  border-bottom: 1px solid #f2f3f4;
+}
+.user-page-head .user-head-info {
+  overflow: hidden;
+  position: relative;
+}
+.user-page-head .user-head-info .user-head-avatar {
+  float: left;
+  margin-right: 10px;
+}
+.user-page-head .user-head-info .userHead-infoInner {
+  float: left;
+  margin-right: 150px;
+}
+.user-page-head .user-head-info .userHead-infoInner h2.nick-name {
+  padding: 0;
+  margin: 0;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-ctrl {
+  text-align: right;
+  float: right;
+  width: 50%;
+}
+.user-page-head .user-head-info .user-head-ctrl {
+  float: right;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+.user-page-head .user-head-info .user-head-ctrl a.btn {
+  display: block;
+}
+.user-tab-bar h2 {
+  font-size: 16px;
+}
+.user-tab-bar p {
+  font-size: 10px;
+}
+.user-tab-bar ul li {
+  width: 33.33%;
+}
+#dream-tab-bar .tab-nav ul li:first-child .tab {
+  border-right: 1px solid #eaeaea;
+}
+#dream-tab-bar .tab-nav ul li .tab {
+  margin: 5px 0;
+  height: 24px;
+  line-height: 24px;
+}
+#dream-tab-bar .tab-nav ul li .tab.cur {
+  border-bottom: none;
+  color: #333;
+}
+#dream-tab-bar .tab-nav ul li .tab:hover {
+  border-bottom: none;
+  color: #333;
+  font-weight: normal;
+}

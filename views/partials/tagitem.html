@@ -1,0 +1,34 @@
+<li class="list-item">
+    <div class="tag-info">
+        <h2><a class="tag" href="/tag/<%= tag._id %>"><%= tag.key %></a></h2>
+        <% if (tag.description) { %>
+        <div class="tag-desc"><%= tag.description %></div>
+        <% } %>
+        <div class="tag-about">
+            <% if (tag._create_u && tag._create_u._id) { %>
+            <a href="<%= tag._create_u._id %>"><%= tag._create_u.nickname %></a>
+            <% } else { %>
+            <a href="/user/unknow">未知用户</a>
+            <% } %>
+            创建于<%= timeFormat(tag.date) %>
+        </div>
+    </div>
+    <div class="tag-hot">
+        <span>订阅&nbsp;:&nbsp;<%= tag.unum %></span>
+        <span>文章&nbsp;:&nbsp;<%= tag.dnum %></span>
+    </div>
+    <div class="tag-ctrl">
+        <% if (user) { %>
+        <a data-tid="<%= tag._id %>" data-hassubscribe="<%= (tag.followers && tag.followers.length > 0) %>" rel="tag-subscribe" class="btn" >
+            <% if (tag.followers && tag.followers.length > 0) { %>
+            <%= settings.CANCEL_SUBSCRIBE %>
+            <%} else {%>
+            <%= settings.SUBSCRIBE %>
+            <% } %>
+        </a>
+        <% } else { %>
+        <a data-tid="<%= tag._id %>" data-hassubscribe="false" rel="tag-subscribe" class="btn" >订阅&nbsp;+</a>
+        <% } %>
+    </div>
+</li>
+

@@ -1,0 +1,35 @@
+<div class="dream-area">
+    <form id="deamcreat-form" action="/dream/new" method="post">
+        <div id="dreamCreateInfo" class="alert" style="display: none;">
+        </div>
+        <div class="title-head">
+            <!--<p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>-->
+            <span class="require">*&nbsp;</span>标题
+        </div>
+        <div>
+            <p class="field"><textarea data-cname="标题" id="dream-title" name="content" placeholder="标题..."></textarea></p>
+        </div>
+        <div class="desc-head">
+            书写您的文章
+        </div>
+        <div id="artcleEditor"></div>
+        <div class="tag-head">
+            <span class="require">*&nbsp;</span>请选择版面
+        </div>
+        <div id="dreamTagBox"><p class="field"><input data-cname="版面" id="dream-tag" type="text" name="tag" placeholder="版面..." autocomplete="off"></p></div>
+        <div id="dreamTagInfo" class="alert" style="display: none;">
+        </div>
+        <% if (data.tags && data.tags.length > 0) { %>
+        <div id="tagSelect" class="tagList">
+            <div>我订阅的版面:</div>
+            <ul>
+                <% data.tags.forEach(function(tag) { %>
+                <li><a data-tid="<%= tag._id %>" class="tag"><%= tag.key %></a></li>
+                <% }); %>
+            </ul>
+        </div>
+        <% } %>
+        <input type="hidden" name="did" value="" />
+        <div><button id="finish_cdream_btn" type="button" class="btn">分享 > </button></div>
+    </form>
+</div>

@@ -1,0 +1,54 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>密码安全 - <%= settings.APP_NAME %></title>
+    <% include ../partials/head_css.html %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <div class="container mar-top">
+        <div class="settings-area">
+            <% include ../partials/settingsider.html %>
+            <div class="settings-content">
+                <div class="content-area">
+                    <div class="account-form">
+                        <h1>密码安全</h1>
+                        <form id="account-form" accept-charset="UTF-8" action="/settings/account/pwdupdate" method="post">
+                            <% if (data.error) { %>
+                            <div class="info-text alert alert-danger"><%= data.error %></div>
+                            <% } %>
+                            <% if (data.info) { %>
+                            <div class="info-text alert alert-success"><%= data.info %></div>
+                            <% } %>
+                            <div class="form-group">
+                                <p class="label"><label for="password_old">旧密码</label></p>
+                                <p class="field"><input id="password_old" data-label="新密码" name="password_old" placeholder="输入旧密码" type="password" autocomplete="off" /></p>
+                                <p class="validate-error"></p>
+                            </div>
+                            <div class="form-group">
+                                <p class="label"><label for="password_new">新密码</label></p>
+                                <p class="field"><input id="password_new" data-label="新密码" name="password_new" placeholder="输入新密码" type="password" autocomplete="off" /></p>
+                                <p class="validate-error"></p>
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary">更新密码</button>
+                                &nbsp;<div class="state-text" style="display: none;"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include ../partials/footer.html %>
+    <% if (is_mobile) { %>
+    <script src="/mobilejs/account.js"></script>
+    <% } else { %>
+    <script src="/js/account.js"></script>
+    <% } %>
+</body>
+</html>

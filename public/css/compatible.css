@@ -1,0 +1,60 @@
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.8;
+  word-wrap: break-word;
+  color: #333;
+}
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+img {
+  border: none;
+  out-line: none;
+}
+.btn.disabled {
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+}
+a.prev-btn {
+  background-position: 1px -45px;
+}
+a.next-btn {
+  background-position: 1px -94px;
+}
+input.search-in {
+  height: 26px;
+}
+input.search-in,
+ul.h-right li {
+  padding-top: 7px;
+}
+.modal.fade-in {
+  cursor: pointer;
+  /* IE 4-9 */
+  filter: alpha(opacity=50);
+  /*This works in IE 8 & 9 too*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /*IE4-IE9*/
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+}
+.member ul,
+.demand ul,
+.result ul {
+  zoom: 1;
+}
+.container .dream-con div.process-area div.edit-area li textarea {
+  width: 416px;
+}
+.banner .signin-area p.field input {
+  color: #999;
+  width: 210px;
+}
+.container h1.title {
+  font-family: '黑体';
+}

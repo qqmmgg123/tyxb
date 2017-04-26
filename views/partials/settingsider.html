@@ -1,0 +1,9 @@
+<div class="tab-nav">
+    <ul>
+        <li><a title="个人信息" class="tab <% if (data.tab === 'profile') { %>cur<% } %>" href="/settings/profile">个人信息</a></li>
+        <li><a title="密码安全" class="tab <% if (data.tab === 'account') { %>cur<% } %>" href="/settings/account">密码安全</a></li>
+        <li><a title="邮箱（<% if (!user.isAuthenticated) { %>未<% } else { %>已<% } %>认证）" class="tab <% if (data.tab === 'emails') { %>cur<% } %>" href="/settings/emails">
+            邮箱（<% if (!user.isAuthenticated) { %>未<% } else { %>已<% } %>认证）
+        </a></li>
+    </ul>
+</div>

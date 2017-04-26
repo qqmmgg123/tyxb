@@ -1,0 +1,34 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>忘记密码 - <%= settings.APP_NAME %></title>
+    <% include ../partials/head_css.html %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <div class="banner for-signin">
+        <div class="forgot-area">
+            <form id="forgot-form" action="/forgot" method="post">
+                <div class="validate-error"><%= error %></div>
+                <div>
+                    <p class="label"><label for="email">输入您的邮箱地址，我们将会发一个人链接让您重置您的密码。</label></p>
+                    <p class="field"><input type="text" id="email" name="email" placeholder="输入您的邮箱" required></p>
+                </div>
+                <div>
+                    <button id="pwdreset-btn" class="btn btn-primary" type="submit">发送重置邮件</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <% include ../partials/footer.html %>
+    <% if (is_mobile) { %>
+    <script src="/mobilejs/forgot.js"></script>
+    <% } else { %>
+    <script src="/js/forgot.js"></script>
+    <% } %>
+    </body>
+</html>

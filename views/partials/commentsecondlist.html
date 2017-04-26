@@ -1,0 +1,89 @@
+<% if (first.replys && first.replys.length > 0) { %>
+<ul class="comment-list">
+    <% first.replys.forEach(function(second) { %>
+    <li class="list-item">
+        <div>
+            <% if (!second.isremove) { %>
+            <% if (second._belong_u) { %>
+            <p class="user-info">
+            <a class="avatar" href="/user/<%= second._belong_u.id %>">
+                <img width="25" height="25" src="<%= second._belong_u.avatar_mini %>" />
+            </a>
+            <em class="username">
+                <a href="/user/<%= second._belong_u.id %>">
+                    <%= second._belong_u.nickname %>
+                </a>
+                &nbsp;<%= timeFormat(second.date) %>
+            </em>
+            </p>
+            <% } else { %>
+            <p class="user-info">
+            <a class="avatar" href="/user/unknow">
+                <img width="25" height="25" src="/images/avatar_mini.png" />
+            </a>
+            <em class="username">
+                <a href="/user/unknow">未知用户</a>
+                &nbsp;
+                <%= timeFormat(second.date) %>
+            </em>
+            </p>
+            <% } %>
+            <div class="comment-content"><%= second.content %></div>
+            <% } else { %>
+            <div class="comment-content no-exist-content">[该留言已删除]</div>
+            <% } %>
+        </div>
+        <div data-rid="<%= second._id %>" data-haslogged="<%= !!user %>" class="comment-ctrl">
+            <div class="vote-ctrl-box">
+                <% if (user) { %>
+                <% if (second.good && second.good.length > 0) { %>
+                <a href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-lg s-ac"></i></a>
+                <% } else { %>
+                <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+                <% } %>
+                <% } else { %>
+                <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+                <% } %>
+                <span class="vote-num" rel="vote-num"><%= second.vote %></span>
+                <% if (user) { %>
+                <% if (second.bad && second.bad.length > 0) { %>
+                <a href="javascript:;" data-hasbad="true" rel="comment-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>
+                <% } else { %>
+                <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
+                <% } %>
+                <% } else { %>
+                <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
+                <% } %>
+            </div>
+            <div class="more-ctrl-box">
+                <% if (!second.isremove) { %>
+                <a class="remove" data-cid="<%= second._id %>" rel="comment-delete" href="javascript:;"><i class="remove-icon"></i>删除</a>
+                <% } else { %>
+                <span>已删除</span>
+                <% } %>
+            </div>
+            <div class="reply-ctrl-box">
+                <a rel="comment-new" data-show="false" href="javascript:;">
+                    <i class="comment-icon"></i>
+                    <%= data.text.EXPANSION_COMMENT %>
+                </a>
+            </div>
+        </div>
+        <div data-rid="<%= second._id %>" class="comment-child">
+            <div class="comment-input" style="display: none;">
+                <textarea rel="comment-input" placeholder="说说你的看法..."></textarea>
+                <div class="btn-group">
+                    <button rel="cancel-reply" class="btn">取消 ×</button>
+                    <button rel="comment-reply" class="btn">送出 ></button>
+                    <div class="common-new-state" style="display: none;"></div>
+                </div>
+            </div>
+            <% include ../partials/commentthirdlist.html %>
+        </div>
+    </li>
+    <% }); %>
+    <% if (first.hasmore) { %>
+    <div data-rid="<%= first._id %>" data-reply="1" data-cnext="2" data-sort="<%= data.role %>" rel="load-comments-next" class="more"><a class="btn">查看更多 ></a></div>
+    <% } %>
+</ul>
+<% } %>

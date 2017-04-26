@@ -1,0 +1,84 @@
+<div>
+    <% if (!comment.isremove) { %>
+    <% if (comment._belong_u) { %>
+    <p class="user-info">
+    <a class="avatar" href="/user/<%= comment._belong_u.id %>">
+        <img width="25" height="25" src="<%= comment._belong_u.avatar_mini %>" />
+    </a>
+    <em class="username">
+        <a href="/user/<%= comment._belong_u.id %>">
+            <%= comment._belong_u.nickname %>
+        </a>
+        &nbsp;<%= timeFormat(comment.date) %>
+    </em>
+    </p>
+    <% } else { %>
+    <p class="user-info">
+    <a class="avatar" href="/user/unknow">
+        <img width="25" height="25" src="/images/avatar_mini.png" />
+    </a>
+    <em class="username">
+        <a href="/user/unknow">未知用户</a>
+        &nbsp;
+        <%= timeFormat(comment.date) %>
+    </em>
+    </p>
+    <% } %>
+    <div class="comment-content"><%= comment.content %></div>
+    <% } else { %>
+    <div class="comment-content no-exist-content">[该留言已删除]</div>
+    <% } %>
+</div>
+<div data-rid="<%= comment._id %>" data-haslogged="<%= !!user %>" class="comment-ctrl">
+    <div class="vote-ctrl-box">
+        <% if (user) { %>
+        <% if (comment.good && comment.good.length > 0) { %>
+        <a href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-lg s-ac"></i></a>
+        <% } else { %>
+        <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+        <% } %>
+        <% } else { %>
+        <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+        <% } %>
+        <span class="vote-num" rel="vote-num"><%= comment.vote %></span>
+        <% if (user) { %>
+        <% if (comment.bad && comment.bad.length > 0) { %>
+        <a href="javascript:;" data-hasbad="true" rel="comment-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>
+        <% } else { %>
+        <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
+        <% } %>
+        <% } else { %>
+        <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
+        <% } %>
+    </div>
+    <div class="more-ctrl-box">
+        <% if (!comment.isremove) { %>
+        <a class="remove" data-cid="<%= comment._id %>" rel="comment-delete" href="javascript:;"><i class="remove-icon"></i>
+        删除
+        <% } else { %>
+        <span>已删除</span>
+        <% } %>
+    </div>
+    <div class="reply-ctrl-box">
+        <a rel="comment-new" data-show="false" href="javascript:;">
+            <i class="comment-icon"></i>
+            <%= text.EXPANSION_COMMENT %>
+        </a>
+    </div>
+</div>
+<div data-rid="<%= comment._id %>" data-haslogged="<%= !!user %>" class="comment-child">
+    <div class="comment-input" style="display: none;">
+        <textarea rel="comment-input" placeholder="说说你的看法..."></textarea>
+        <div class="btn-group">
+            <button rel="cancel-reply" class="btn">取消 ×</button>
+            <button rel="comment-reply" class="btn">送出 ></button>
+            <div class="common-new-state" style="display: none;"></div>
+        </div>
+    </div>
+    <% if (comment.replys && comment.replys.length > 0) { %>
+    <ul class="comment-list">
+        <%= comment.replys %>
+    </ul>
+    <% } %>
+</div>
+
