@@ -6,7 +6,7 @@ var mongoose = require('mongoose')
 , Schema     = mongoose.Schema;
 
 var Tag = new Schema({
-    key         : { type: String, unique: true, index: true, required: true, minlength: 1, trim: true, dropDups: true },
+    key         : { type: String, unique: true, index: true, required: true, minlength: 2, maxlength: 24, trim: true, dropDups: true },
     description : { type: String, trim: true, default: '' },
     _create_u   : { type: Schema.Types.ObjectId, ref: 'Account' },
     president   : { type: Schema.Types.ObjectId, ref: 'Account' },

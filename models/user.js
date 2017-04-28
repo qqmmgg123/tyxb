@@ -50,11 +50,19 @@ module.exports = function(schema, options) {
             text: '您的账号认证成功，感谢您的支持!'
         };
 
+    // Populate field names with defaults if not set
+    var usernameField  = 'username';
+        usernameUnique = true;
+
     // Populate field email with defaults if not set
     var emailField  = 'email';
         emailUnique = true;
 
-    var emailQueryFields    = [emailField];
+    var usernameQueryFields = [usernameField],
+        emailQueryFields    = [emailField];
+
+    // option to convert username to lowercase when finding
+    var usernameLowerCase = true;
 
     var emailLowerCase = true;
 
@@ -78,6 +86,9 @@ module.exports = function(schema, options) {
 
     var schemaFields = {};
 
+    if (!schema.path(usernameField)) {
+        schemaFields[usernameField] = {type: String, unique: usernameUnique, required: true, trim: true, minlength: 2, maxlength: 24};
+    }
     if (!schema.path(emailField)) {
         schemaFields[emailField] = {type: String, unique: emailUnique, required: true, trim: true, minlength: 1, maxlength: 50};
     }
@@ -100,6 +111,16 @@ module.exports = function(schema, options) {
     schema.add(schemaFields);
 
     var transporter = nodemailer.createTransport(transportOptions);
+
+    if (usernameLowerCase) {
+        schema.pre('save', function(next) {
+            if (this[usernameField]) {
+                this[usernameField] = this[usernameField].toLowerCase();
+            }
+
+            next();
+        });
+    }
 
     if (emailLowerCase) {
         schema.pre('save', function(next) {
@@ -244,7 +265,7 @@ module.exports = function(schema, options) {
 
         // With hash/salt marked as "select: false" - load model including the salt/hash fields form db and authenticate
         if (!self.get(saltField)) {
-            self.constructor.findByEmail(self.get(emailField), true, function(err, user) {
+            self.constructor.findByUsername(self.get(usernameField), true, function(err, user) {
                 if (err) { return cb(err); }
 
                 if (user) {
@@ -328,8 +349,8 @@ module.exports = function(schema, options) {
     schema.statics.authenticate = function() {
         var self = this;
 
-        return function(email, password, cb) {
-            self.findByEmail(email, true, function(err, user) {
+        return function(username, password, cb) {
+            self.findByUsername(username, true, function(err, user) {
                 if (err) { return cb(err); }
 
                 if (user) {
@@ -371,14 +392,14 @@ module.exports = function(schema, options) {
         return obj;
     };
 
-    schema.statics.register = function(domain, user, password, cb) {
-        if (domain) {
-            verificationURL = domain + '/email-verification/${URL}';
-        }
-
+    schema.statics.register = function(user, password, cb) {
         // Create an instance of this in case user isn't already an instance
         if (!(user instanceof this)) {
             user = new this(user);
+        }
+
+        if (!user.get(usernameField)) {
+            return cb(new errors.MissingUsernameError(errorMessages.MissingUsernameError));
         }
 
         if (!user.get(emailField)) {
@@ -388,6 +409,17 @@ module.exports = function(schema, options) {
         var self = this;
 
         async.parallel([
+            function(cb) {
+                self.findByUsername(user.get(usernameField), function(err, existingUser) {
+                    if (err) { return cb(err); }
+
+                    if (existingUser) {
+                        return cb(new errors.UserExistsError(errorMessages.UserExistsError));
+                    }
+
+                    cb(null);
+                });
+            },
             function(cb) {
                 self.findByEmail(user.get(emailField), function(err, existingEmail) {
                     if (err) { return cb(err); }
@@ -406,7 +438,6 @@ module.exports = function(schema, options) {
                         return cb(setPasswordErr);
                     }
 
-                    user[URLFieldName] = randtoken.generate(URLLength);
                     user.isAuthenticated = false;
                     user.save(function(saveErr) {
                         if (saveErr) {

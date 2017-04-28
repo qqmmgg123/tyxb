@@ -51,11 +51,7 @@ define([], function() {
             }
         },
         isUserName: function(name) {
-            var pattern = /^([a-z\d_\u4e00-\u9fa5]){6,12}$/i;
-            return pattern.test(name);
-        },
-        isNickName: function(name) {
-            var pattern = /^[a-z\d_\u4e00-\u9fa5]{2,12}$/i;
+            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/i;
             return pattern.test(name);
         },
         isPassword: function(pwd) {
@@ -63,7 +59,7 @@ define([], function() {
             return pattern.test(pwd);
         },
         isTag: function(name) {
-            var pattern = /^[\w|\u4e00-\u9fa5]{1,24}$/i;
+            var pattern = /^[\w|\u4e00-\u9fa5]{2,24}$/i;
             return pattern.test(name);
         },
         getData: function(el, key) {

@@ -13,7 +13,7 @@ var settings = {
     TAG_EXIST_ERR: "该版面已经存在，不能重复创建了",
     TAG_MORE_ERR: "抱歉，目前一个用户只能创建3个版面，可以留给他人些机会，版面名称是唯一的，也请谨慎创建",
     COMMENT_REQUIRE_ERR: "回复不能为空",
-    NICK_NAME_VALIDATION: "必须是由2~12个小写字母、数字、中文组成",
+    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
     PASSWORD_VALIDATION: "必须是6~16个字符的小写字母或数字组成",
     BUILDING_WORD: "该功能正在建设中，敬请谅解太阳の小报小站长一个人战斗，会累死~抱歉",
     DREAM_PASS_ERROR: '您的发布的内容由于不符合本版面或本站的发文规则，因此被该版面驳回，敬请谅解。',

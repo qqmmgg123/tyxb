@@ -51,7 +51,7 @@
                 <% if (data.current.text) { %>
                 <div class="dream-detail-info">
                     <% if (data.current._belong_u) { %>
-                    <a href="/user/<%= data.current._belong_u._id %>"><%= data.current._belong_u.nickname %></a>
+                    <a href="/user/<%= data.current._belong_u._id %>"><%= data.current._belong_u.username %></a>
                     发表于&nbsp;<%= timeFormat(data.current.date) %>
                     <% } else { %>
                     作者不详

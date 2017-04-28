@@ -24,7 +24,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
     var start = new Date().getTime(),
         aproject = {
             avatar   : 1,
-            nickname : 1,
+            username : 1,
             bio      : 1,
             date     : 1,
             dnum     : { $size: '$dreams' },
@@ -417,7 +417,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -482,7 +482,7 @@ router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
 
     Account.findOne({_id: curId})
     .lean()
-    .select('avatar nickname bio date')
+    .select('avatar username bio date')
     .exec(function(err, account) {
         var unexisterr = new Error(settings.USER_NOT_EXIST_TIPS);
         if (err) {
@@ -592,7 +592,7 @@ router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
 
                         Account.populate(comments, [{ 
                             path: '_belong_u',
-                            select: '_id nickname avatar_mini',
+                            select: '_id username avatar_mini',
                             option: { lean: true },
                             model: Account
                         }], function(err, comments) {
@@ -715,7 +715,7 @@ router.get('/user/:id([a-z0-9]+)/following', function(req, res, next) {
 
     Account.find(fields)
     .lean()
-    .select('_id nickname avatar_mini fans')
+    .select('_id username avatar_mini fans')
     .sort('-date')
     .populate(populate)
     .exec(function(err, following) {
@@ -772,7 +772,7 @@ router.get('/user/:id([a-z0-9]+)/follower', function(req, res, next) {
 
     Account.find(fields)
     .lean()
-    .select('_id avatar_mini nickname fans')
+    .select('_id avatar_mini username fans')
     .sort('-date')
     .populate(populate)
     .exec(function(err, followers) {

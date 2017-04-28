@@ -196,7 +196,7 @@ function renderRecommand(req, res, next) {
                  $project: {
                      _id         : 1,
                      avatar_mini : 1,
-                     nickname    : 1,
+                     username    : 1,
                      bio         : 1
                  }
              }, {
@@ -248,6 +248,7 @@ function renderRecommand(req, res, next) {
                     order   : order,
                     prev    : prev,
                     next    : next,
+                    nav     : 'home',
                     domain  : req.get('origin') || req.get('host')
                 },
                 success: 1
@@ -490,6 +491,7 @@ function renderSubscription(req, res, next) {
                     order   : order,
                     prev    : prev,
                     next    : next,
+                    nav     : 'subscription',
                     domain  : req.get('origin') || req.get('host')
                 },
                 success: 1
@@ -755,7 +757,7 @@ router.get('/', function(req, res, next) {
 
 // 我的订阅
 router.get('/subscription', function(req, res, next) {
-    req.session.redirectTo = '/signin';
+    req.session.redirectTo = '/';
 
     const user = req.user;
 
@@ -797,32 +799,28 @@ router.get('/contact', function(req, res) {
     }, res));
 });
 
-// 登录页面
-router.get('/signin', function(req, res) {
-    res.render('pages/signin', common.makeCommon({
-        title : settings.APP_NAME,
-        notice: common.getFlash(req, 'notice'),
-        error:  common.getFlash(req, 'info'),
-        user : req.user
-    }, res));
-});
-
 // 登录
 router.post('/signin', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
-        if (err) { return next(err) }
+        if (err) {
+            return res.json({
+                info: err.message,
+                result: 3
+            });
+        }
         if (!user) {
-            req.flash('info', info.message);
-            return res.redirect('/signin');
+            return res.json({
+                info: info.message,
+                result: 3
+            });
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
 
-            if (err) { return next(err); }
-            var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
-            delete req.session.redirectTo;
-            // is authenticated ?
-            return res.redirect(redirectTo);
+            res.json({
+                info: '登录成功',
+                result: 0
+            });
         });
     })(req, res, next);
 });
@@ -830,211 +828,91 @@ router.post('/signin', function(req, res, next) {
 // 注册
 router.post('/signup', function(req, res, next) {
     if (!req.body) {
-        req.flash('signuperror', new Error("参数传递错误").message);
-        return res.redirect('/signup');
+        return res.json({
+            info: settings.PARAMS_PASSED_ERR_TIPS,
+            result: 3
+        });
     }
 
-    if (!req.body.email || !req.body.nickname) {
-        req.flash('signuperror', new Error("用户名、邮箱、昵称不能为空").message);
-        return res.redirect('/signup');
-    }
+    const { username = '', email = '', password = '' } = req.body;
 
-    Account.register(req.protocol + '://' + settings.DOMAIN, new Account({
-        email    : req.body.email,
-        nickname : req.body.nickname
-    }), req.body.password, function(err, tempaccount) {
+    Account.register(new Account({
+        username : username.trim(),
+        email    : email.trim()
+    }), password.trim(), function(err, doc) {
         if (err) {
-            req.flash('signuperror', err.message);
-            return res.redirect('/signup');
+            return res.json({
+                info: err.message,
+                result: 3
+            });
         }
 
         passport.authenticate('local')(req, res, function() {
-            if (err) { return next(err); }
-            res.redirect('/');
+            if (err) {
+                return res.json({
+                    info: err.message,
+                    result: 3
+                });
+            }
+            
+            res.json({
+                info: '注册成功',
+                result: 0
+            });
         });
     });
-});
-
-// 忘记密码
-router.get('/forgot', function(req, res) {
-    res.render('pages/forgot', common.makeCommon({
-        notice: '',
-        error:  common.getFlash(req, 'error'),
-        title : settings.APP_NAME,
-        user: req.user,
-        data: {}
-    }, res));
 });
 
 // 发送重置邮件
 router.post('/forgot', function(req, res, next) {
-    Account.forgot(req.protocol + '://' + settings.DOMAIN, req.body.email, function(err, info) {
+    if (!req.body || !req.body.email || !req.body.email.trim()) {
+        var err = new Error("参数传递错误，密码重置失败！");
+        return next(err);
+    }
+
+    Account.forgot(req.body.email.trim(), function(err, info) {
         if (err) {
-            req.flash('error', err.message);
-            return res.redirect('/forgot');
+            return res.json({
+                info: err.message,
+                result: 3
+            });
         }
 
-        req.flash('emailinfo', "密码重置邮件已经发送至你的邮箱， 请确认重置地址并操作重置您的密码。");
-        res.redirect('/forgot');
-    });
-});
-
-// 重置密码页面
-router.get('/reset/:token([A-Za-z0-9]+)', function(req, res) {
-    var token = req.params.token;
-    Account.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        if (err) {
-            req.flash('error', err.message);
-            return res.redirect('/forgot');
-        }
-
-        if (!user) {
-            req.flash('error', '密码重置激活码无效，可能已经过期, 请重新发送重置邮件.');
-            return res.redirect('/forgot');
-        }
-
-        res.render('pages/reset', common.makeCommon({
-            token : token,
-            notice: common.getFlash(req, 'notice'),
-            title : settings.APP_NAME,
-            user: req.user
-        }, res));
+        res.json({
+            info: '验证码发送成功',
+            result: 0
+        });
     });
 });
 
 // 重置密码
-router.post('/reset/:token([A-Za-z0-9]+)', function(req, res, next) {
-    var token = req.params.token;
-    if (!req.body || !req.body.password) {
+router.post('/reset', function(req, res, next) {
+    function resFailed(err) {
+        res.json({
+            info: err.message,
+            result: 3
+        });
+    }
+
+    if (!req.body || !req.body.password || 
+        !req.body.token || !req.body.password.trim() || 
+        !req.body.token.trim()) {
         var err = new Error("参数传递错误，密码重置失败！");
         return next(err);
     }
-    var password = req.body.password;
 
-    Account.resetPassword(token, password, function(err, user) {
+    Account.resetPassword(req.body.token.trim(), req.body.password.trim(), function(err, user) {
         if (err) {
-            req.flash('error', '密码重置激活码无效，可能已经过期, 请重新发送重置邮件.');
-            return res.redirect('/forgot');
+            let err = new Error("验证码过期, 请重新发送");
+            resFailed(err);
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            res.redirect('/');
-        });
-    });
-});
-
-// 邮箱验证
-router.get('/email-verification/:token([A-Za-z0-9]+)', function(req, res, next) {
-    var token = req.params.token;
-    Account.confirmTempUser(token, function(err, account) {
-        if (err) return next(err);
-        
-        req.logIn(account, function(err) {
-            if (err) { return next(err); }
-            res.redirect('/settings/emails');
-        });
-    })
-});
-
-// 注册页面
-router.get('/signup', function(req, res) {
-    res.render('pages/signup', common.makeCommon({
-        info : common.getFlash(req, 'signuperror'),
-        notice: common.getFlash(req, 'notice'),
-        title : settings.APP_NAME,
-        user : req.user
-    }, res));
-});
-
-// 查询用户和邮箱是否存在
-router.post('/signup/check', function(req, res, next) {
-    function resFailed(err) {
-        res.json({
-            info: err.message,
-            result: 1
-        });
-    }
-
-    if (!req.body) return next(new Error('参数传递错误'));
-
-    if (typeof req.body.email !== 'string') {
-        return resFailed(new Error('请正确输入邮箱'));
-    }
-
-    var email = req.body.email.trim();
-
-    if (!email) {
-        return resFailed(new Error('请输入邮箱'));
-    }
-
-    async.parallel([
-        function(cb) {
-            Account.findByEmail(email, function(err, existingEmail) {
-                if (err) { return cb(err); }
-
-                if (existingEmail) {
-                    return cb(new errors.UserExistsError(errorMessages.EmailExistsError));
-                }
-
-                cb(null);
-            });
-        }], function(err) {
-            if (err) {
-                return resFailed(err);
-            }
-
-            return res.json({
-                info: "注册验证成功",
+            res.json({
+                info: "密码重置成功",
                 result: 0
             });
         });
-});
-
-// 查询邮箱是否存在
-router.post('/signin/check', function(req, res, next) {
-    function resFailed(err) {
-        res.json({
-            info: err.message,
-            result: 1
-        });
-    }
-
-    if (!req.query) return next(new Error('参数传递错误'));
-
-    if (typeof req.body.email !== 'string') {
-        return resFailed(new Error('请正确输入注册时的邮箱'));
-    }
-
-    var email = req.body.email;
-    
-    if (!email) {
-        return resFailed(new Error('请正确输入注册时的邮箱'));
-    }
-
-    var password = req.body.password;
-    
-    if (!password) {
-        return resFailed(new Error('请输入密码'));
-    }
-
-    Account.findByEmail(email, true, function(err, user) {
-        if (err) { return next(err); }
-
-        if (user) {
-            return user.authenticate(password, function(err, user, info) {
-                if (err) { return next(err) }
-                if (!user) {
-                    return resFailed(info);
-                }
-
-                return res.json({
-                    info: "登录验证成功",
-                    result: 0
-                });
-            });
-        } else {
-            return resFailed(new errors.IncorrectUsernameError(errorMessages.IncorrectUsernameError));
-        }
     });
 });
 
@@ -1043,9 +921,17 @@ router.get('/signout', function(req, res) {
     res.clearCookie('remember_me');
     req.logout();
 
-    var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
-    delete req.session.redirectTo;
-    res.redirect(redirectTo);
+    if (req.xhr) {
+        res.json({
+            info: '退出成功',
+            result: 0
+        });
+    }
+    else{
+        var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
+        delete req.session.redirectTo;
+        res.redirect(redirectTo);
+    }
 });
 
 // 上传并缓存图片

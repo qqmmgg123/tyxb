@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= data.account.nickname %> - <%= settings.APP_NAME %></title>
+    <title><%= data.account.username %> - <%= settings.APP_NAME %></title>
     <% include ../partials/head_css.html %>
     <% if (is_mobile) { %>
     <link href="/mobilecss/user.css" rel="stylesheet" type="text/css" />
@@ -22,7 +22,7 @@
                     <img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />
                 </div>
                 <div class="userHead-infoInner">
-                    <h2 class="nick-name"><%= data.account.nickname %></h2>
+                    <h2 class="nick-name"><%= data.account.username %></h2>
                     <div class="user-bio">
                         <%= data.account.bio %>
                     </div>

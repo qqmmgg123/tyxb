@@ -10,7 +10,7 @@ class Validate {
                 'fun': function(val) {
                     return utils.isUserName(val);
                 },
-                'err': "昵称必须是6~12个小写字母、数字、下划线组成"
+                'err': `笔名${settings.USERNAME_VALIDATION}`
             },
 
             'email': {
@@ -18,13 +18,6 @@ class Validate {
                     return utils.isValidEmail(val);
                 },
                 'err': "邮箱的格式书写错误"
-            },
-
-            'nickname': {
-                'fun': function(val) {
-                    return utils.isNickName(val);
-                },
-                'err': '笔名' + settings.NICK_NAME_VALIDATION
             },
 
             'password': {
@@ -42,30 +35,11 @@ class Validate {
         this.defaultOpts = {
             form: '#signup-form',
             fields: [
+                { name: 'username', require: true, label: '笔名' },
                 { name: 'email', require: true, label: '邮箱' },
-                { name: 'nickname', require: true, label: '笔名' },
                 { name: 'password',  require: true, label: '密码' }
             ],
-            onCheckInput: function() {
-                var self = this;
-                req.post(
-                    '/signup/check',
-                    { 
-                        email: self.formData.email
-                    },
-                    function(data) {
-                        if (data.result === 0) {
-                            self.form.style.display = 'none';
-                            self.form.nextElementSibling.style.display = 'block';
-                            self.form.submit();
-                        } else {
-                            var infoBox = self.form.querySelector('#signupInfo');
-                            infoBox && (infoBox.innerHTML = data.info);
-                            infoBox && (infoBox.style.display = "block");
-                        }
-                    }
-                );
-            },
+            onCheckInput: null,
             needP: false
         }
 

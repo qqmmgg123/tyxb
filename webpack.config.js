@@ -33,6 +33,8 @@ var build_list = [
     'default',
 ];
 
+var file = 'all';
+
 var entry_opts = {};
 
 if (file === 'all') {

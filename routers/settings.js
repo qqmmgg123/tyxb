@@ -75,15 +75,15 @@ router.post('/profile/update', function(req, res, next) {
 
     var uid = req.user.id;
 
-    if (!req.body || !req.body.nickname) {
+    if (!req.body || !req.body.username) {
         var err = new Error("修改内容为空，个人信息更新失败！");
         return next(err);
     }
-    var nickname = req.body.nickname,
+    var username = req.body.username,
         bio = req.body.bio? req.body.bio:'';
 
     req.user.update({
-        nickname : nickname,
+        username : username,
         bio      : bio
     }, function(err, course) {
         if (err) {

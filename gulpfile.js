@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var gutil = require('gulp-util');
+var sftp = require('gulp-sftp');
 var less = require('gulp-less');
 var uglifyJs = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
@@ -48,16 +50,16 @@ gulp.task("compress_m", function() {
         .pipe(gulp.dest('./mini/mobilejs'));
 });
 
-gulp.task("compress_s", function() {
-    return gulp.src('./public/js/' + file + '.js')
-        .pipe(uglifyJs())
-        .pipe(gulp.dest('./mini/js'));
-});
-
 gulp.task('minify-html', function() {
     return gulp.src('./views/**/*.html')
         .pipe(minifyejs())
         .pipe(gulp.dest('./mini/html'));
+});
+
+gulp.task("compress_s", function() {
+    return gulp.src('./public/js/' + file + '.js')
+        .pipe(uglifyJs())
+        .pipe(gulp.dest('./mini/js'));
 });
 
 gulp.task('mh', function() {
@@ -66,7 +68,18 @@ gulp.task('mh', function() {
         .pipe(gulp.dest('./mini/html'));
 });
 
-// 默认任务
+// sftp
+gulp.task('sftp', function () {
+    return gulp.src('mini/**')
+        .pipe(sftp({
+            host: '139.224.40.203',
+            user: 'root',
+            pass: 'Qnmdwbd0000',
+            remotePath: '/home/test'
+        }))
+});
+
+// css任务
 gulp.task('default', function() {
     gulp.run(file || 'less');
 
@@ -77,9 +90,13 @@ gulp.task('default', function() {
     });
 });
 
-//gulp.task('mini', ['minify-css', 'minify-html', 'compress', 'compress_m'], function() {
-//});
-
-
-gulp.task('mini', ['minify-css', 'minify-html'], function() {
+// 打包任务
+gulp.task('build', [
+    'minify-css',
+    'minify-mcss',
+    'minify-html',
+    'compress',
+    'compress_m'
+], function() {
 });
+

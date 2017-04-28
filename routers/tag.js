@@ -136,7 +136,7 @@ router.get('/mine', function(req, res, next) {
 
     var populate = [{
         path: '_create_u',
-        select: '_id nickname',
+        select: '_id username',
         option: { lean: true }
     }];
     
@@ -221,7 +221,7 @@ router.get('/hot', function(req, res, next) {
 
     var populate = [{
         path: '_create_u',
-        select: '_id nickname',
+        select: '_id username',
         option: { lean: true }
     }];
 
@@ -303,7 +303,7 @@ router.get('/newest', function(req, res, next) {
 
     var populate = [{
         path: '_create_u',
-        select: '_id nickname',
+        select: '_id username',
         option: { lean: true }
     }];
 
@@ -489,7 +489,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -517,7 +517,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
             var populate = [{
                 path   : "_create_u",
-                select : "_id nickname",
+                select : "_id username",
                 option: { lean: true }
             }];
 
@@ -622,7 +622,7 @@ router.get('/:id([a-z0-9]+)/role', function(req, res, next) {
 
     var populate = [{
         path   : "_create_u",
-        select : "_id nickname",
+        select : "_id username",
         option: { lean: true }
     }];
 

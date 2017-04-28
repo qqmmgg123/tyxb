@@ -7,7 +7,6 @@ var mongoose = require('mongoose')
 var Account = new Schema({
     avatar         : { type: String, maxlength: 150, default: '/images/avatar.png' },
     avatar_mini    : { type: String, maxlength: 150, default: '/images/avatar_mini.png' },
-    nickname       : { type: String, trim: true, minlength: 2, maxlength: 12 },
     bio            : { type: String, trim: true, maxlength: 140, default: '' },
     follow_tags    : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     follows        : [{ type: Schema.Types.ObjectId, ref: 'Account' }],

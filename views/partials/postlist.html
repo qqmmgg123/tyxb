@@ -48,17 +48,17 @@
     <% if (user) { %>
     <li class="list-item">
         <div class="nodata">
-            <% if (!data.tags || data.tags.length === 0 ) { %>
-            您还没有订阅任何版面&nbsp;<a href="/tag/hot" class="btn">去订阅 ></a>
+            <% if (data.nav === 'subscription') { %>
+            您还没有订阅任何任容&nbsp;<a href="/tag/hot" class="btn">去订阅 ></a>
             <% } else { %>
-            您订阅的版面下没有分享内容&nbsp;<button class="btn">分享 ></button>
+            当前没有内容
             <% } %>
         </div>
     </li>
     <% } else { %>
-    <li>
+    <li class="list-item">
         <div class="nodata">
-            没有获取到内容
+            当前没有内容
         </div>
     </li>
     <% } %>
@@ -67,7 +67,7 @@
 <div class="global-ctrl">
     <ul>
         <li>
-            <button id="dreamReleaseText" title="发布文章" class="btn btn-round btn-success">
+            <button id="dreamReleaseText" title="发布文章" class="btn btn-round btn-new">
                 <i class="s s-plus s-lg"></i>
             </button>
         </li>

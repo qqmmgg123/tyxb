@@ -423,6 +423,16 @@ a:hover {
   box-sizing: border-box;
   border-radius: 50%;
 }
+.btn-new {
+  border: none;
+  background: #ff5a62;
+  color: #ffffff;
+}
+.btn-new:hover {
+  border: none;
+  background: #ff5a62;
+  color: #ffffff;
+}
 .btn-primary {
   color: #fff;
   background-color: #337ab7;

@@ -6,7 +6,7 @@
         <% } %>
         <div class="tag-about">
             <% if (tag._create_u && tag._create_u._id) { %>
-            <a href="<%= tag._create_u._id %>"><%= tag._create_u.nickname %></a>
+            <a href="<%= tag._create_u._id %>"><%= tag._create_u.username %></a>
             <% } else { %>
             <a href="/user/unknow">未知用户</a>
             <% } %>

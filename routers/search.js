@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
     var tagQuery = function(cb, limit) {
         var populate = [{
             path   : '_create_u',
-            select : '_id nickname',
+            select : '_id username',
             option : { lean: true },
             domain : req.get('origin') || req.get('host')
         }];
@@ -195,7 +195,7 @@ router.get('/', function(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -262,10 +262,10 @@ router.get('/', function(req, res, next) {
         case 'user':
             Account
             .find({
-                nickname: new RegExp(common.quote(query), 'i')
+                username: new RegExp(common.quote(query), 'i')
             })
             .lean()
-            .select('_id username nickname avatar_mini bio dreams fans')
+            .select('_id username avatar_mini bio dreams fans')
             .limit(9)
             .sort('username')
             .exec(function(err, users) {

@@ -26,10 +26,7 @@ mongoose.connect('mongodb://localhost/suopoearth');
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 // Use the LocalStrategy within Passport.
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-}, Account.authenticate()));
+passport.use(new LocalStrategy(Account.authenticate()));
 
 var needWebpack = false;
 

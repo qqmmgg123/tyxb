@@ -816,9 +816,28 @@ class RegPop extends Win {
          });
     }
 
+    loginFinish(data) {
+        var self = this;
+        switch (data.result) {
+            case 0:
+                window.location.reload();
+                break;
+            case 1:
+                alert(data.info);
+                break;
+            case 3:
+                var infoBox = self.form.querySelector('[rel=info]');
+                infoBox && (infoBox.innerHTML = data.info);
+                infoBox && (infoBox.style.display = "block");
+                break;
+            default:
+                break;
+        };
+    }
+
     bindEvents() {
         super.bindEvents();
-
+        var self = this;
         this.tabNav = this.bd.querySelector('.tab-nav');
         this.tabCon = this.bd.querySelector('.tab-content');
         this.tabUl  = this.tabNav.querySelector('ul');
@@ -831,6 +850,17 @@ class RegPop extends Win {
 
         v.validate({
             form: this.signupForm,
+            onCheckInput: function() {
+                req.post(
+                    '/signup',
+                    { 
+                        username : this.formData.username,
+                        email    : this.formData.email,
+                        password : this.formData.password
+                    },
+                    self.loginFinish.bind(this)
+                );
+            },
             needP: true
         });
 
@@ -838,31 +868,21 @@ class RegPop extends Win {
     }
 
     vSignin() {
+        var self = this;
         v.validate({
             form: this.signinForm,
             fields: [
-                { name: 'email', require: true, label: '邮箱' },
+                { name: 'username', require: true, label: '笔名' },
                 { name: 'password',  require: true, label: '密码' }
             ],
             onCheckInput: function() {
-                var self = this;
                 req.post(
-                    '/signin/check',
+                    '/signin',
                     { 
-                        email: self.formData.email,
-                        password: self.formData.password
+                        username: this.formData.username,
+                        password: this.formData.password
                     },
-                    function(data) {
-                        if (data.result === 0) {
-                            self.form.style.display = 'none';
-                            self.form.nextElementSibling.style.display = 'block';
-                            self.form.submit();
-                        } else {
-                            var infoBox = self.form.querySelector('#signinInfo');
-                            infoBox && (infoBox.innerHTML = data.info);
-                            infoBox && (infoBox.style.display = "block");
-                        }
-                    }
+                    self.loginFinish.bind(this)
                 );
             },
             needP: true

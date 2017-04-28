@@ -18,7 +18,6 @@ router.post('/new', function(req, res, next) {
     }
 
     var uid = req.user._id,
-        nickname = req.user.nickname,
         params   = req.body;
 
     if (!params || !params.reply || !params.rid) {
@@ -432,7 +431,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
             Account.populate(comments, [{ 
                 path: '_belong_u',
-                select: '_id nickname avatar_mini',
+                select: '_id username avatar_mini',
                 option: { lean: true },
                 model: Account
             }],
@@ -657,7 +656,7 @@ router.get('/:id([a-z0-9]+)/comments', function(req, res, next) {
 
             Account.populate(comments, [{ 
                 path: '_belong_u',
-                select: '_id nickname avatar_mini',
+                select: '_id username avatar_mini',
                 option: { lean: true },
                 model: Account
             }],
