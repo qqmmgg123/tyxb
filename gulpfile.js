@@ -29,43 +29,67 @@ gulp.task('mobileless', function () {
 gulp.task('minify-css', function() {
     return gulp.src('./public/css/*.css')
         .pipe(minifyCss())
-        .pipe(gulp.dest('./mini/css'))
+        .pipe(gulp.dest('./release/public/css'))
 });
 
 gulp.task('minify-mcss', function() {
     return gulp.src('./public/mobilecss/*.css')
         .pipe(minifyCss())
-        .pipe(gulp.dest('./mini/mobilecss'))
+        .pipe(gulp.dest('./release/public/mobilecss'))
 });
 
 gulp.task("compress", function() {
     return gulp.src('./public/js/*.js')
         .pipe(uglifyJs())
-        .pipe(gulp.dest('./mini/js'));
+        .pipe(gulp.dest('./release/public/js'));
 });
 
 gulp.task("compress_m", function() {
     return gulp.src('./public/mobilejs/*.js')
         .pipe(uglifyJs())
-        .pipe(gulp.dest('./mini/mobilejs'));
+        .pipe(gulp.dest('./release/public/mobilejs'));
 });
 
 gulp.task('minify-html', function() {
     return gulp.src('./views/**/*.html')
         .pipe(minifyejs())
-        .pipe(gulp.dest('./mini/html'));
+        .pipe(gulp.dest('./release/views'));
 });
 
 gulp.task("compress_s", function() {
     return gulp.src('./public/js/' + file + '.js')
         .pipe(uglifyJs())
-        .pipe(gulp.dest('./mini/js'));
+        .pipe(gulp.dest('./release/public/js'));
 });
 
 gulp.task('mh', function() {
     return gulp.src('./views/**/' + file + '.html')
         .pipe(minifyejs())
-        .pipe(gulp.dest('./mini/html'));
+        .pipe(gulp.dest('./release/views'));
+});
+
+gulp.task('copy_models', function () {
+    gulp.src('./models/**/*.js')
+        .pipe(gulp.dest('./release/models'));
+});
+
+gulp.task('copy_const', function () {
+    gulp.src('./const/**/*.js')
+        .pipe(gulp.dest('./release/const'));
+});
+
+gulp.task('copy_routers', function () {
+    gulp.src('./routers/**/*.js')
+        .pipe(gulp.dest('./release/routers'));
+});
+
+gulp.task('copy_files', function () {
+    gulp.src([
+      './routes.js',
+      './common.js',
+      './striptags.js'
+    ], {base: './'})
+        .pipe(gulp.dest('./release'));
 });
 
 // sftp
@@ -92,11 +116,17 @@ gulp.task('default', function() {
 
 // 打包任务
 gulp.task('build', [
+    'less',
+    'mobileless',
     'minify-css',
     'minify-mcss',
     'minify-html',
     'compress',
-    'compress_m'
+    'compress_m',
+    'copy_models',
+    'copy_const',
+    'copy_routers',
+    'copy_files'
 ], function() {
 });
 

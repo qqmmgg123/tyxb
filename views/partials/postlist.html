@@ -36,14 +36,15 @@
     <% data.dreams.forEach(function(dream) { %>
     <% include ../partials/postitem.html %>
     <% }); %>
+    <% if (data.hasprev && data.next > 1) { %>
     <li class="list-item">
-        <% if (data.hasprev && data.next > 1) { %>
         <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
-        <% } %>
-        <% if (data.hasmore) { %>
-        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
-        <% } %>
     </li>
+    <% } %>
+    <% if (data.hasmore) { %>
+    <li class="list-item">
+        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
+    <% } %>
     <% } else { %>
     <% if (user) { %>
     <li class="list-item">
@@ -66,11 +67,13 @@
 </ul>
 <div class="global-ctrl">
     <ul>
+        <% if (!data.site) { %>
         <li>
             <button id="dreamReleaseText" title="发布文章" class="btn btn-round btn-new">
                 <i class="s s-plus s-lg"></i>
             </button>
         </li>
+        <% } %>
         <li>
             <button title="回到顶部" class="btn btn-round btn-success">
                 <i class="s s-arrow_up s-lg"></i>

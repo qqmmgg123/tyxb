@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/tag/mine');
 });
 
-// 获取所有订阅
+// 创建小报
 router.post('/new', function(req, res, next) {
     if (!req.user) {
         return res.redirect('/signin');
@@ -31,7 +31,7 @@ router.post('/new', function(req, res, next) {
     Tag.count({ _create_u: uid }, function(err, num) {
         if (err) return next(err);
 
-        if (num >= 3) {
+        if (num >= 1) {
             return next(new Error(settings.TAG_MORE_ERR));
         }
 
@@ -497,18 +497,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                         return next(err, []);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
-                        option: { lean: true },
-                        model: Text
-                    }, function(err, dreams) {
-                        if (err) {
-                            return cb(err, []);
-                        }
-
-                        cb(null, dreams);
-                    });
+                    cb(null, dreams);
                 });
             });
         },
@@ -552,7 +541,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
             });
         }], function(err, results) {
             if (err && results.length < 2) {
-                return next(err, req, res, next);
+                return next(err);
             }
 
             var dreams    = results[0],
@@ -571,7 +560,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
             }
 
             var prev = Math.max(page - 1, 1),
-                next = page + 1;
+                pnext = page + 1;
 
             var delperm = (tag.president &&
                     tag.president.equals(uid) &&
@@ -592,7 +581,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     role    : role,
                     order   : order,
                     prev    : prev,
-                    next    : next,
+                    next    : pnext,
                     nav     : 'dream',
                     domain  : req.get('origin') || req.get('host')
                 },

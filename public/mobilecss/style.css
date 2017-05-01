@@ -1126,7 +1126,6 @@ i.refresh-icon {
 .container .following-area,
 .container .followers-area,
 .container #recommand-area,
-.container .dream-con,
 .container .main,
 .container .top-tag-list {
   width: 1024px;
@@ -1230,52 +1229,27 @@ i.refresh-icon {
   color: #999;
   font-family: Microsoft YaHei, "黑体";
 }
-.container .dream-con {
-  overflow: hidden;
-  margin: 0 auto;
-  text-align: left;
-}
-.container .dream-con .no-dream-content {
+.container .no-dream-content {
   width: 300px;
   margin: 0 auto;
 }
-.container .dream-con .no-dream-content .no-dream-tips {
+.container .no-dream-content .no-dream-tips {
   text-align: center;
   padding: 10px;
   margin-top: 10px;
 }
-.container .dream-con .no-dream-content .btn-group {
+.container .no-dream-content .btn-group {
   overflow: hidden;
 }
-.container .dream-con .no-dream-content .btn {
+.container .no-dream-content .btn {
   float: left;
   display: block;
   width: 100px;
   margin: 10px;
 }
-.container .dream-con .dream-comment {
+.container .dream-comment {
   margin-top: 1em;
   overflow: hidden;
-}
-.container .dream-con .dream-left {
-  float: left;
-  width: 62%;
-}
-.container .dream-con .dream-left .dream-left-inner {
-  padding: 10px;
-}
-.container .dream-con .dream-right {
-  float: left;
-  width: 38%;
-}
-.container .dream-con .dream-right .dream-right-inner {
-  padding: 10px;
-}
-@media screen and (max-width: 1024px) {
-  .container .dream-con .dream-left,
-  .container .dream-con .dream-right {
-    width: 100%;
-  }
 }
 #tag-list .list-item {
   position: relative;
@@ -1919,7 +1893,6 @@ div.more a.btn {
   .container .following-area,
   .container .followers-area,
   .container #recommand-area,
-  .container .dream-con,
   .container .main,
   .container .top-tag-list {
     width: 95%;
@@ -2067,7 +2040,6 @@ div.more a.btn {
   .container .following-area,
   .container .followers-area,
   .container #recommand-area,
-  .container .dream-con,
   .container .main,
   .container .top-tag-list {
     width: auto;

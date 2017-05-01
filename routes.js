@@ -62,6 +62,33 @@ function renderRecommand(req, res, next) {
             }
         };
 
+        let user = req.user,
+        uid = user? user._id:null;
+
+    if (uid) {
+        project.good = {
+            $filter: {
+                input: '$good',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+        project.bad = {
+            $filter: {
+                input: '$bad',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+        project._followers_u = {
+            $filter: {
+                input: '$_followers_u',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+    }
+
     if (req.query && req.query.p) {
         page = parseInt(req.query.p) || page;
     }
@@ -125,7 +152,7 @@ function renderRecommand(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -133,37 +160,26 @@ function renderRecommand(req, res, next) {
                         return cb(err, []);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
+                    Tag.populate(dreams, { 
+                        path: '_belong_t',
+                        select: "_id key",
                         option: { lean: true },
-                        model: Text
+                        model: Tag
                     }, function(err, dreams) {
                         if (err) {
                             return cb(err, []);
                         }
 
-                        Tag.populate(dreams, { 
-                            path: '_belong_t',
-                            select: "_id key",
-                            option: { lean: true },
-                            model: Tag
-                        }, function(err, dreams) {
-                            if (err) {
-                                return cb(err, []);
-                            }
-
-                            cb(null, dreams);
-                        });
+                        cb(null, dreams);
                     });
                 });
             });
         },
         function(cb) {
-             Tag.aggregate([{
-                 $project: {
-                     _id       : 1,
-                     key       : 1,
+            Tag.aggregate([{
+                $project: {
+                    _id       : 1,
+                    key       : 1,
                      weight    : 1,
                      hot       : {
                          '$let': {
@@ -232,7 +248,7 @@ function renderRecommand(req, res, next) {
             }
 
             var prev = Math.max(page - 1, 1),
-                next = page + 1;
+                pnext = page + 1;
 
             res.render('pages/index_unlogged', common.makeCommon({
                 title: settings.APP_NAME,
@@ -247,7 +263,7 @@ function renderRecommand(req, res, next) {
                     role    : role,
                     order   : order,
                     prev    : prev,
-                    next    : next,
+                    next    : pnext,
                     nav     : 'home',
                     domain  : req.get('origin') || req.get('host')
                 },
@@ -382,7 +398,7 @@ function renderSubscription(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -457,7 +473,7 @@ function renderSubscription(req, res, next) {
              });
         }], function(err, results) {
             if (err && results.length < 2) {
-                return next(err, req, res, next);
+                return next(err);
             }
 
             var dreams    = results[0],
@@ -476,7 +492,7 @@ function renderSubscription(req, res, next) {
             }
 
             var prev = Math.max(page - 1, 1),
-                next = page + 1;
+                pnext = page + 1;
 
             res.render('pages/index_logged', common.makeCommon({
                 user: req.user,
@@ -490,7 +506,7 @@ function renderSubscription(req, res, next) {
                     role    : role,
                     order   : order,
                     prev    : prev,
-                    next    : next,
+                    next    : pnext,
                     nav     : 'subscription',
                     domain  : req.get('origin') || req.get('host')
                 },
@@ -510,9 +526,7 @@ function renderSite(req, res, next) {
     let domain  = req.params.domain;
 
     // 确定显示规则逻辑
-    let user = req.user, 
-        uid = user._id,
-        role    = 1,
+    let role    = 1,
         page    = 1,
         order   = -1,
         limit   = 10,
@@ -523,7 +537,7 @@ function renderSite(req, res, next) {
             link      : 1,
             site      : 1,
             nodes     : 1,
-            cnum   : { $size: '$comments' },
+            //cnum   : { $size: '$comments' },
             _belong_u : 1,
             _belong_t : 1,
             date      : 1,
@@ -536,27 +550,32 @@ function renderSite(req, res, next) {
             }
         };
 
-    project.good = {
-        $filter: {
-            input: '$good',
-            as   : 'uid',
-            cond : { $eq: ['$$uid', uid] }
-        }
-    };
-    project.bad = {
-        $filter: {
-            input: '$bad',
-            as   : 'uid',
-            cond : { $eq: ['$$uid', uid] }
-        }
-    };
-    project._followers_u = {
-        $filter: {
-            input: '$_followers_u',
-            as   : 'uid',
-            cond : { $eq: ['$$uid', uid] }
-        }
-    };
+    let user = req.user,
+        uid = user? user._id:null;
+
+    if (uid) {
+        project.good = {
+            $filter: {
+                input: '$good',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+        project.bad = {
+            $filter: {
+                input: '$bad',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+        project._followers_u = {
+            $filter: {
+                input: '$_followers_u',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+    }
 
     if (req.query && req.query.p) {
         page = parseInt(req.query.p) || page;
@@ -625,7 +644,7 @@ function renderSite(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -633,28 +652,17 @@ function renderSite(req, res, next) {
                         return cb(err, []);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
+                    Tag.populate(dreams, { 
+                        path: '_belong_t',
+                        select: "_id key",
                         option: { lean: true },
-                        model: Text
+                        model: Tag
                     }, function(err, dreams) {
                         if (err) {
-                            return cb(err, []);
+                            return next(err, []);
                         }
 
-                        Tag.populate(dreams, { 
-                            path: '_belong_t',
-                            select: "_id key",
-                            option: { lean: true },
-                            model: Tag
-                        }, function(err, dreams) {
-                            if (err) {
-                                return next(err, []);
-                            }
-
-                            cb(null, dreams);
-                        });
+                        cb(null, dreams);
                     });
                 });
             });
@@ -700,7 +708,7 @@ function renderSite(req, res, next) {
              });
         }], function(err, results) {
             if (err && results.length < 2) {
-                return next(err, req, res, next);
+                return next(err);
             }
 
             var dreams    = results[0],
@@ -719,9 +727,9 @@ function renderSite(req, res, next) {
             }
 
             var prev = Math.max(page - 1, 1),
-                next = page + 1;
+                pnext = page + 1;
 
-            res.render('pages/index_logged', common.makeCommon({
+            res.render('pages/site', common.makeCommon({
                 user: req.user,
                 title: settings.APP_NAME,
                 notice: common.getFlash(req, 'notice'),
@@ -733,7 +741,8 @@ function renderSite(req, res, next) {
                     role    : role,
                     order   : order,
                     prev    : prev,
-                    next    : next,
+                    next    : pnext,
+                    site    : domain,
                     domain  : req.get('origin') || req.get('host')
                 },
                 success: 1
@@ -757,11 +766,13 @@ router.get('/', function(req, res, next) {
 
 // 我的订阅
 router.get('/subscription', function(req, res, next) {
-    req.session.redirectTo = '/';
+    req.session.redirectTo = '/subscription';
 
     const user = req.user;
 
-    if (!user) return res.redirect(redirectTo);
+    if (!user) {
+        return res.redirect('/');
+    }
 
     // 到订阅页
     renderSubscription(req, res, next);
@@ -834,12 +845,12 @@ router.post('/signup', function(req, res, next) {
         });
     }
 
-    const { username = '', email = '', password = '' } = req.body;
+    const { tag = '', username = '', email = '', password = '' } = req.body;
 
     Account.register(new Account({
         username : username.trim(),
         email    : email.trim()
-    }), password.trim(), function(err, doc) {
+    }), password.trim(), function(err, user) {
         if (err) {
             return res.json({
                 info: err.message,
@@ -847,17 +858,49 @@ router.post('/signup', function(req, res, next) {
             });
         }
 
-        passport.authenticate('local')(req, res, function() {
+        let uid = user._id;
+
+        let fields = {
+            key         : tag.trim(),
+            _create_u   : uid,
+            president   : uid,
+            followers   : [uid],
+            permissions : [mongoose.Types.ObjectId(settings.PERMS.DREAM_REMOVE)]
+        };
+        
+        // 创建小报
+        Tag.create(fields, function(err, tag) {
             if (err) {
                 return res.json({
                     info: err.message,
                     result: 3
                 });
             }
-            
-            res.json({
-                info: '注册成功',
-                result: 0
+
+            var tid = tag._id;
+            Account.update({ '_id': uid }, 
+                { 
+                    $addToSet: { 'follow_tags' : tid } 
+                } 
+            ).exec((err, ret) => {
+                if (err) return res.json({
+                    info: err.message,
+                    result: 3
+                });
+                
+                passport.authenticate('local')(req, res, function() {
+                    if (err) {
+                        return res.json({
+                            info: err.message,
+                            result: 3
+                        });
+                    }
+
+                    res.json({
+                        info: '注册成功',
+                        result: 0
+                    });
+                });
             });
         });
     });

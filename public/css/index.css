@@ -185,22 +185,23 @@
 .public-DraftStyleDefault-depth4.public-DraftStyleDefault-reset {
   counter-reset: ol4;
 }
-.nav-bar {
-  margin-top: 15px;
-}
 .user-list,
 .tag-list {
   margin-left: 20px;
-  margin-top: 15px;
+  padding-bottom: 15px;
 }
 .user-list h2,
 .tag-list h2 {
   font-weight: normal;
   font-size: 14px;
+  height: 36px;
+  line-height: 36px;
+  border-bottom: 1px solid #f0f0f0;
 }
 .user-list .list-group,
 .tag-list .list-group {
   overflow: hidden;
+  padding: 10px 0;
 }
 .user-list .list-item,
 .tag-list .list-item {
@@ -218,6 +219,6 @@
   float: left;
   margin-left: 5px;
 }
-.user-list {
+.tag-list {
   border-bottom: 1px solid #f0f0f0;
 }

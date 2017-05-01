@@ -51,15 +51,15 @@ define([], function() {
             }
         },
         isUserName: function(name) {
-            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/i;
+            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/;
             return pattern.test(name);
         },
         isPassword: function(pwd) {
-            var pattern = /^\w{6,16}$/i;
+            var pattern = /^\w{6,16}$/;
             return pattern.test(pwd);
         },
         isTag: function(name) {
-            var pattern = /^[\w|\u4e00-\u9fa5]{2,24}$/i;
+            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/;
             return pattern.test(name);
         },
         getData: function(el, key) {

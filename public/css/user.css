@@ -196,10 +196,10 @@
 }
 .user-page-head .user-head-info .user-head-avatar {
   float: left;
-  margin-right: 10px;
 }
 .user-page-head .user-head-info .userHead-infoInner {
   float: left;
+  margin-left: 20px;
   margin-right: 150px;
 }
 .user-page-head .user-head-info .userHead-infoInner h2.nick-name {

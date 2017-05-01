@@ -22,20 +22,6 @@
     var drtBtn = _d.querySelector('#dreamReleaseText');
     drtBtn && drtBtn.addEventListener('click', textNew);
 
-    var ltnBtn = _d.querySelector('#listTextNew');
-    ltnBtn && ltnBtn.addEventListener('click', textNew);
-
-    // 新增版面
-    var tagAddBtn = _d.querySelector('#tagCreate');
-    tagAddBtn && tagAddBtn.addEventListener('click', function() {
-        popup.tagNewPop({
-            id  : 'tagNewPop',
-            data : {
-                tagName: ''
-            }
-        }).show();
-    });
-
     // 排序下拉
     var sortSelect = dropdown.create({
         el: '[rel="nav-toggle"]',
@@ -350,3 +336,4 @@
 
     common.statistics();
 }));
+

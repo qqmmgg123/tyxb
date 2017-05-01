@@ -18,9 +18,9 @@
     <div class="container user-page-head mar-top">
         <div class="main">
             <div class="user-head-info">
-                <div class="user-head-avatar avatar">
-                    <img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />
-                </div>
+                <!--<div class="user-head-avatar avatar">-->
+                    <!--<img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />-->
+                <!--</div>-->
                 <div class="userHead-infoInner">
                     <h2 class="nick-name"><%= data.account.username %></h2>
                     <div class="user-bio">
@@ -39,10 +39,10 @@
         <div class="main">
             <div class="tab-nav user-tab-bar">
                 <ul>
-                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab"><h2>贴文</h2><p>（<%= data.account.dnum %>）</p></a></li>
-                    <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab"><h2>留言</h2><p>（<%= data.account.cnum %>）</p></a></li>
+                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">发文</a></li>
+                    <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
                     <% if (user) { %>
-                    <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab"><h2>收藏</h2><p>（<%= data.account.fnum %>）</p></a></li>
+                    <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
                     <% } %>
                 </ul>
             </div>

@@ -7,7 +7,7 @@
         require('dropdown'),
         require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, effect, req, common, dropdown, dreamTpl) {
+}(function(utils, req, effect, common, dropdown, dreamTpl) {
     var _d = document;
 
     // 发布文字
@@ -53,7 +53,7 @@
     });
 
     // 支持
-    var dreamList = document.querySelector('#dream-list');
+    var dreamList = _d.querySelector('#dream-list');
     dreamList && dreamList.addEventListener('click', function(ev) {
         var cur  = ev.target;
 
@@ -308,7 +308,6 @@
                     utils.setData(cur, {'show': true});
                     var img = new Image();
                     img.src = thumb.src.replace('picmini', 'pic');
-
                     preview.innerHTML = "<p>图片预览加载中...</p>"
                     if(img.complete) {
                         preview.innerHTML = "";

@@ -6,6 +6,7 @@ var async = require("async")
   , Dream = require("./models/dream")
   , Account = require("./models/account")
   , Tag = require("./models/tag")
+  , Text = require("./models/text")
   , argv = require('yargs').argv
   , cheerio = require('cheerio')
   , charset = require("superagent-charset")
@@ -15,8 +16,10 @@ charset(request);
 
 var command = argv.command;
 
+ console.log(command);
+
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/suopoearth');
+mongoose.connect('mongodb://localhost/sapohr');
 
 // 创建权限
 function createPermission(type, name, desc) {
@@ -34,6 +37,7 @@ function createPermission(type, name, desc) {
     });
 }
 
+// 查找链接
 function queryLink() {
     const pageUrl = "http://www.suopoearth.com";
 
@@ -50,6 +54,25 @@ function queryLink() {
         })
 }
 
+// 查找链接
+function setUsername() {
+    console.log('setUsername');
+    Text.find({}, '_id summary content', function(err, docs) {
+        docs.forEach((doc) => {
+            console.log(doc.summary, doc.content);
+            Dream.update({ _id: doc._belong_d }, {
+                $set: {
+                    summary: doc.summary,
+                    text   : doc.content
+                }
+            }, { upsert: true }, function(err) {
+                if (err) return console.log(err.message);
+                console.log('Set Username Success!')
+            });
+        })
+    });
+}
+
 switch(command) {
     case 'createperm':
         if (!argv.type || !argv.name || !argv.desc) {
@@ -59,6 +82,9 @@ switch(command) {
         break;
     case 'queryLink':
         queryLink();
+        break;
+    case 'setUsername':
+        setUsername();
         break;
     default:
         break;

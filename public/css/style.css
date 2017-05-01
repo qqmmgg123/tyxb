@@ -1515,9 +1515,46 @@ i.refresh-icon {
   resize: none;
   overflow: auto;
 }
+#dream-list {
+  min-height: 800px;
+}
+.list-group li:last-child {
+  border-bottom: none;
+}
 .list-item {
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
+}
+.tag-top-head {
+  background-color: #fefefe;
+  border-bottom: 1px solid #f2f3f4;
+  padding: 20px;
+}
+.tag-top-head .main h2 {
+  margin: 0;
+  padding: 0;
+}
+.tag-top-head .main .tag-head-info {
+  overflow: hidden;
+  position: relative;
+}
+.tag-top-head .main .tag-head-info .tagHead-infoInner {
+  float: left;
+  margin-left: 20px;
+  margin-right: 150px;
+}
+.tag-top-head .main .tag-head-about {
+  font-size: 12px;
+  color: #666;
+}
+.tag-top-head .main .tag-head-ctrl {
+  float: right;
+  right: 10;
+  bottom: 0;
+  position: absolute;
+}
+.tag-top-head .main .tag-head-ctrl a.btn {
+  display: block;
 }
 .summary {
   margin-top: 10px;

@@ -76,7 +76,9 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                 project = {
                     _id       : 1,
                     content   : 1,
-                    text      : 1,
+                    summary   : 1,
+                    link      : 1,
+                    image     : 1,
                     nodes     : 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
@@ -188,7 +190,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id nickname avatar_mini',
+                    select: '_id username avatar_mini',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -196,42 +198,31 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                         return resRender(resData);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
+                    Tag.populate(dreams, { 
+                        path: '_belong_t',
+                        select: "_id key",
                         option: { lean: true },
-                        model: Text
+                        model: Tag
                     }, function(err, dreams) {
                         if (err) {
                             return resRender(resData);
                         }
 
-                        Tag.populate(dreams, { 
-                            path: '_belong_t',
-                            select: "_id key",
-                            option: { lean: true },
-                            model: Tag
-                        }, function(err, dreams) {
-                            if (err) {
-                                return resRender(resData);
+                        if (dreams.length > 0) {
+                            if (page > 1) {
+                                resData.hasprev = true;
                             }
-
-                            if (dreams.length > 0) {
-                                if (page > 1) {
-                                    resData.hasprev = true;
-                                }
-                                if (dreams[10]) {
-                                    resData.hasmore = true;
-                                }
-                                dreams = dreams.slice(0, 10);
+                            if (dreams[10]) {
+                                resData.hasmore = true;
                             }
-                            
-                            resData.dreams = dreams;
-                            resData.prev   = Math.max(page - 1, 1);
-                            resData.next   = page + 1;
+                            dreams = dreams.slice(0, 10);
+                        }
 
-                            resRender(resData);
-                        });
+                        resData.dreams = dreams;
+                        resData.prev   = Math.max(page - 1, 1);
+                        resData.next   = page + 1;
+
+                        resRender(resData);
                     });
                 });
             });
@@ -305,7 +296,9 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                 project = {
                     _id       : 1,
                     content   : 1,
-                    text      : 1,
+                    summary   : 1,
+                    link      : 1,
+                    image     : 1,
                     nodes     : 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
@@ -425,42 +418,31 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                         return resRender(resData);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
+                    Tag.populate(dreams, { 
+                        path: '_belong_t',
+                        select: "_id key",
                         option: { lean: true },
-                        model: Text
+                        model: Tag
                     }, function(err, dreams) {
                         if (err) {
                             return resRender(resData);
                         }
 
-                        Tag.populate(dreams, { 
-                            path: '_belong_t',
-                            select: "_id key",
-                            option: { lean: true },
-                            model: Tag
-                        }, function(err, dreams) {
-                            if (err) {
-                                return resRender(resData);
+                        if (dreams.length > 0) {
+                            if (page > 1) {
+                                resData.hasprev = true;
                             }
-
-                            if (dreams.length > 0) {
-                                if (page > 1) {
-                                    resData.hasprev = true;
-                                }
-                                if (dreams[10]) {
-                                    resData.hasmore = true;
-                                }
-                                dreams = dreams.slice(0, 10);
+                            if (dreams[10]) {
+                                resData.hasmore = true;
                             }
-                            
-                            resData.dreams = dreams;
-                            resData.prev   = Math.max(page - 1, 1);
-                            resData.next   = page + 1;
+                            dreams = dreams.slice(0, 10);
+                        }
 
-                            resRender(resData);
-                        });
+                        resData.dreams = dreams;
+                        resData.prev   = Math.max(page - 1, 1);
+                        resData.next   = page + 1;
+
+                        resRender(resData);
                     });
                 });
             });

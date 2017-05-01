@@ -37,12 +37,38 @@
         </div>
     </div>
     <% } else { %>
-    <div class="container mar-top clearfix">
+    <div class="container tag-top-head mar-top">
+        <div class="main">
+            <div class="tag-head-info">
+                <div class="tagHead-infoInner">
+                    <h2><%= settings.APP_NAME %></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container clearfix">
         <div class="main">
             <div class="col-8">
                 <% include ../partials/postlist.html %>
             </div>
             <div class="col-4 sider">
+                <div class="tag-list">
+                    <h2>热门小报</h2>
+                    <ul class="list-group">
+                        <% if (data.tags && data.tags.length > 0) { %>
+                        <% data.tags.forEach(function(tag) { %>
+                        <li class="list-item">
+                            <a class="tag" href="/tag/<%= tag._id %>"><%= tag.key %></a>
+                        </li>
+                        <% }); %>
+                        <% } else { %>
+                        <li class="list-item">
+                            当前木有小报
+                        </li>
+                        <% } %>
+                    </ul>
+                    <a class="top-tag-more" href="/tag/hot">更多...</a>
+                </div>
                 <div class="user-list">
                     <h2>活跃作者</h2>
                     <ul class="list-group">
@@ -57,21 +83,12 @@
                             </a>
                         </li>
                         <% }); %>
-                        <% } %>
-                    </ul>
-                </div>
-                <div class="tag-list">
-                    <h2>热门版面</h2>
-                    <ul class="list-group">
-                        <% if (data.tags && data.tags.length > 0) { %>
-                        <% data.tags.forEach(function(tag) { %>
+                        <% } else { %>
                         <li class="list-item">
-                            <a class="tag" href="/tag/<%= tag._id %>"><%= tag.key %></a>
+                            当前木有作者
                         </li>
-                        <% }); %>
                         <% } %>
                     </ul>
-                    <a class="top-tag-more" href="/tag/hot">更多...</a>
                 </div>
             </div>
         </div>

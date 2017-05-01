@@ -51,7 +51,7 @@ Tag.statics.validation = function(req, cb) {
     return cb(null, formData);
 }
 
-// 创建学派
+// 创建小报
 Tag.statics.create = function(fields, cb) {
     var self = this;
 

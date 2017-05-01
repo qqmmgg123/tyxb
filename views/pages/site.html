@@ -1,0 +1,56 @@
+<!DCOTYPE html>
+<html lang="zh-cms-Hans">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= settings.APP_NAME %></title>
+    <link rel="shortcut icon" href="/favicon.ico" /> 
+    <% include ../partials/head_css.html %>
+    <% if (is_mobile) { %>
+    <link href="/mobilecss/index.css" rel="stylesheet" type="text/css" />
+    <% } else { %>
+    <link href="/css/index.css" rel="stylesheet" type="text/css" />
+    <% } %>
+    <% include ../partials/head_js.html %>
+</head>
+<body>
+    <% include ../partials/header.html %>
+    <div class="container tag-top-head mar-top">
+        <div class="main">
+            <div class="tag-head-info">
+                <div class="tagHead-infoInner">
+                    <h2><%= data.site %></h2>
+                </div>
+                <% if (data.site !== "i.share.it") { %>
+                <div class="tag-head-ctrl">
+                    <a class="btn" href="http://<%= data.site %>">访问&nbsp;→</a>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main">
+            <% include ../partials/postlist.html %>
+        </div>
+    </div>
+    <div class="footer">
+        <% include ../partials/company.html %>
+    </div>
+    <script>
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function(searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
+    </script>
+    <% if (is_mobile) { %>
+    <script src="/mobilejs/index_unlogged.js"></script>
+    <% } else { %>
+    <script src="/js/index_unlogged.js"></script>
+    <% } %>
+    
+</body>
+</html>

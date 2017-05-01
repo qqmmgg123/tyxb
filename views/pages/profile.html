@@ -16,18 +16,17 @@
             <div class="settings-content">
                 <div class="content-area">
                     <div class="profile-form">
-                        <h1>个人信息</h1>
                         <form id="profile-form" accept-charset="UTF-8" action="/settings/profile/update" method="post">
                             <% if (data.info) { %>
                             <div class="info-text alert alert-success"><%= info %></div>
                             <% } %>
-                            <div class="photo-area form-group">
-                                <p>头像<span class="prompt-text">（该功能正在努力建设中...）</span></p>
-                                <p class="avatar"><img width="96" height="96" src="<%= (user.avatar || '/images/user_pic.png') %>" /></p>
-                            </div>
+                            <!--<div class="photo-area form-group">-->
+                                <!--<p>头像<span class="prompt-text">（该功能正在努力建设中...）</span></p>-->
+                                <!--<p class="avatar"><img width="96" height="96" src="<%= (user.avatar || '/images/user_pic.png') %>" /></p>-->
+                            <!--</div>-->
                             <div class="form-group">
                                 <p class="label"><label for="username">笔名（您对外公开的别名）</label></p>
-                                <p class="field"><input data-label="笔名" name="username" id="username" type="text" placeholder="输入您的笔名" value="<%= user.username %>" /></p>
+                                <p class="field"><span><%= user.username %></span></p>
                                 <p class="validate-error"></p>
                             </div>
                             <div class="form-group">

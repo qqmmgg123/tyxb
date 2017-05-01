@@ -1469,9 +1469,53 @@ i.refresh-icon {
     }
 }
 
+#dream-list {
+    min-height: 800px;
+}
+
+.list-group {
+    li:last-child {
+        border-bottom: none;
+    }
+}
+
 .list-item {
     padding: 10px 0;
     border-bottom: 1px solid @gray6;
+}
+
+.tag-top-head {
+    background-color: #fefefe;
+    border-bottom: 1px solid #f2f3f4;
+    padding: 20px;
+    .main {
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+        .tag-head-info {
+            overflow: hidden;
+            position: relative;
+            .tagHead-infoInner {
+                float: left;
+                margin-left: 20px;
+                margin-right: 150px;
+            }
+        }
+        .tag-head-about {
+            font-size: 12px;
+            color: #666;
+        }
+        .tag-head-ctrl {
+            float: right;
+            right: 10;
+            bottom: 0;
+            position: absolute;
+            a.btn {
+                display: block;
+            }
+        }
+    }
 }
 
 .summary {

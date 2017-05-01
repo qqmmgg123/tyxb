@@ -52,19 +52,18 @@ router.post('/new', function(req, res, next) {
         return next(new Error(settings.PARAMS_PASSED_ERR_TIPS));
     }
 
-    let { content, tag, link, text, image, category } = req.body;
+    let { content, link, text, image, category } = req.body;
         
     if (!content || !content.trim() || 
-        !tag || !tag.trim() ||
         !category || !category.trim()) {
-        return next(new Error("没有填写标题或者没选择版面或者内容类别错误!"));
+        return next(new Error("没有填写标题或者内容类别错误!"));
     }
 
     // 插入耗时测试
     let start = new Date().getTime();
 
     Tag.findOne({
-        key: tag
+        _create_u: uid
     }, function(err, doc) {
         if (err) {
             return next(err);

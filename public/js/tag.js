@@ -433,15 +433,6 @@
 
 	    common.statistics();
 	});
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 1 */
@@ -8437,15 +8428,15 @@
 	            }
 	        },
 	        isUserName: function isUserName(name) {
-	            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/i;
+	            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/;
 	            return pattern.test(name);
 	        },
 	        isPassword: function isPassword(pwd) {
-	            var pattern = /^\w{6,16}$/i;
+	            var pattern = /^\w{6,16}$/;
 	            return pattern.test(pwd);
 	        },
 	        isTag: function isTag(name) {
-	            var pattern = /^[\w|\u4e00-\u9fa5]{2,24}$/i;
+	            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/;
 	            return pattern.test(name);
 	        },
 	        getData: function getData(el, key) {
@@ -8549,15 +8540,6 @@
 
 	    return utilities;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 38 */
@@ -10509,23 +10491,7 @@
 
 	var req = new Req();
 
-	var _default = req;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
-
-	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
-
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
-	}();
-
-	;
+	exports.default = req;
 
 /***/ }),
 /* 58 */
@@ -14928,13 +14894,14 @@
 	    PAGE_NOT_FOND_TIPS: "该页面不存在",
 	    USER_NOT_EXIST_TIPS: "该用户不存在",
 	    DREAM_NOT_EXIST_TIPS: "抱歉，你查看的内容不存在",
-	    TAG_EXIST_ERR: "该版面已经存在，不能重复创建了",
-	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建3个版面，可以留给他人些机会，版面名称是唯一的，也请谨慎创建",
+	    TAG_EXIST_ERR: "该小报已经存在，不能重复创建了",
+	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建1个小报，可以留给他人些机会，小报名称是唯一的，也请谨慎创建",
 	    COMMENT_REQUIRE_ERR: "回复不能为空",
-	    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文组成",
-	    PASSWORD_VALIDATION: "必须是6~16个字符的小写字母或数字组成",
+	    TAG_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
+	    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
+	    PASSWORD_VALIDATION: "必须是6~16个字符的字母或数字组成",
 	    BUILDING_WORD: "该功能正在建设中，敬请谅解太阳の小报小站长一个人战斗，会累死~抱歉",
-	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本版面或本站的发文规则，因此被该版面驳回，敬请谅解。',
+	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本小报或本站的发文规则，因此被该小报驳回，敬请谅解。',
 	    SUBSCRIBE: '订阅 +',
 	    CANCEL_SUBSCRIBE: '取消订阅 -',
 	    COMMENT_TEXT: {
@@ -14951,7 +14918,7 @@
 	            CNNAME: '文章'
 	        },
 	        TAG: {
-	            CNNAME: '版面'
+	            CNNAME: '小报'
 	        }
 	    },
 
@@ -15227,23 +15194,7 @@
 
 	var tools = new Tools();
 
-	var _default = tools;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
-
-	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
-
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
-	}();
-
-	;
+	exports.default = tools;
 
 /***/ }),
 /* 137 */
@@ -20871,15 +20822,6 @@
 	        item.forEach = item.forEach || Array.prototype.forEach;
 	    });
 	})([NodeList.prototype, HTMLCollection.prototype]);
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 197 */
@@ -20934,23 +20876,7 @@
 
 	var effect = new Effect();
 
-	var _default = effect;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/src/effect.js');
-
-	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/src/effect.js');
-
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/effect.js');
-	}();
-
-	;
+	exports.default = effect;
 
 /***/ }),
 /* 198 */
@@ -21296,23 +21222,6 @@
 
 	exports.create = create;
 	exports.shareDrop = shareDrop;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
-
-	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
-
-	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
-
-	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
-	}();
-
-	;
 
 /***/ }),
 /* 199 */
@@ -21779,7 +21688,7 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    { style: { display: 'none' }, className: 'field' },
-	                    _react2.default.createElement('textarea', { id: 'textContent', onChange: this.textChange.bind(this), placeholder: '\u6B63\u6587', name: 'text', value: this.state.text })
+	                    _react2.default.createElement('textarea', { id: 'textContent', onChange: this.textChange.bind(this), placeholder: '(\u53EF\u9009)\u6B63\u6587', name: 'text', value: this.state.text })
 	                ),
 	                _react2.default.createElement('p', { className: 'validate-error' })
 	            );
@@ -21793,7 +21702,7 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    { className: 'field' },
-	                    _react2.default.createElement('input', { 'data-cname': '\u7F51\u5740', type: 'url', name: 'link', placeholder: '\u7F51\u5740\u4F8B: http://www.ty-xb.com' })
+	                    _react2.default.createElement('input', { 'data-cname': '\u7F51\u5740', type: 'url', name: 'link', placeholder: '(\u53EF\u9009)\u7F51\u5740\uFF0C\u4F8B: http://www.ty-xb.com' })
 	                ),
 	                _react2.default.createElement('p', { className: 'validate-error' })
 	            );
@@ -21832,24 +21741,13 @@
 	                    break;
 	            }
 
-	            var _ref = [],
-	                MyTags = _ref[0],
-	                _ref$ = _ref[1],
-	                tags = _ref$ === undefined ? this.props.tags : _ref$,
-	                selTips = "请选择将发布到的" + settings.OBJECT.TAG.CNNAME + '[必填]';
-
-
-	            if (tags && tags.length > 0) {
-	                MyTags = _react2.default.createElement(MyTagList, { tags: tags });
-	            }
-
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    { ref: function ref(_ref2) {
-	                            _this6._tabNav = _ref2;
+	                    { ref: function ref(_ref) {
+	                            _this6._tabNav = _ref;
 	                        }, className: 'tab-nav' },
 	                    _react2.default.createElement(
 	                        'ul',
@@ -21880,27 +21778,10 @@
 	                            }, className: 'alert', style: { display: "none" } }),
 	                        _react2.default.createElement(
 	                            'form',
-	                            { ref: function ref(_ref3) {
-	                                    return _this6._form = _ref3;
+	                            { ref: function ref(_ref2) {
+	                                    return _this6._form = _ref2;
 	                                }, action: '/dream/new', method: 'post' },
 	                            _react2.default.createElement('input', { type: 'hidden', name: 'category', value: this.state.curForm }),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'form-group', id: 'dreamTagBox' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'field' },
-	                                    _react2.default.createElement('input', { 'data-cname': settings.OBJECT.TAG.CNNAME, ref: function ref(dreamTagInp) {
-	                                            _this6._dreamTagInp = dreamTagInp;
-	                                        }, id: 'dream-tag', type: 'text', name: 'tag', placeholder: selTips, autoComplete: 'off' })
-	                                ),
-	                                _react2.default.createElement('p', { className: 'validate-error' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { style: { display: "none" }, id: 'tagSelect', onClick: this.tagSelected.bind(this), className: 'tagList form-group' },
-	                                MyTags
-	                            ),
 	                            _react2.default.createElement('div', { ref: function ref(tagInfo) {
 	                                    _this6._tagInfo = tagInfo;
 	                                }, className: 'alert form-group', style: { display: "none" } }),
@@ -21910,7 +21791,7 @@
 	                                _react2.default.createElement(
 	                                    'p',
 	                                    { className: 'field' },
-	                                    _react2.default.createElement('textarea', { 'data-cname': '\u6807\u9898', id: 'dream-title', name: 'content', placeholder: '\u6807\u9898[\u5FC5\u586B]' })
+	                                    _react2.default.createElement('textarea', { maxLength: '140', 'data-cname': '\u6807\u9898', id: 'dream-title', name: 'content', placeholder: '(\u5FC5\u586B)\u6807\u9898' })
 	                                ),
 	                                _react2.default.createElement('p', { className: 'validate-error' })
 	                            ),
@@ -22007,9 +21888,7 @@
 	            });
 
 	            if (validate) {
-	                this.checkTag(self._dreamTagInp.value, function () {
-	                    self.submit();
-	                });
+	                self.submit();
 	            }
 	        }
 	    }, {
@@ -22289,15 +22168,6 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            /*var ins = [].slice
-	                .call(this.bd.querySelectorAll('textarea'));
-	              ins.push(this.bd.querySelector('input'));
-	              var hasCon = ins.filter(function(item) {
-	                if (item.value.trim()) {
-	                    return true;
-	                }
-	            }).length > 0;*/
-
 	            if (this.form.hasCon()) {
 	                if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) {
 	                    (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', this).call(this);
@@ -22367,10 +22237,18 @@
 	            this.signupForm = this.bd.querySelector('#signup-form');
 	            this.signinForm = this.bd.querySelector('#signinForm');
 
+	            this.vSignup();
+	            this.vSignin();
+	        }
+	    }, {
+	        key: 'vSignup',
+	        value: function vSignup() {
+	            var self = this;
 	            v.validate({
 	                form: this.signupForm,
 	                onCheckInput: function onCheckInput() {
 	                    _req2.default.post('/signup', {
+	                        tag: this.formData.tag,
 	                        username: this.formData.username,
 	                        email: this.formData.email,
 	                        password: this.formData.password
@@ -22378,8 +22256,6 @@
 	                },
 	                needP: true
 	            });
-
-	            this.vSignin();
 	        }
 	    }, {
 	        key: 'vSignin',
@@ -22595,49 +22471,6 @@
 	exports.registrationPop = registrationPop;
 	exports.tagNewPop = tagNewPop;
 	exports.presidentPop = presidentPop;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(INDENT, 'INDENT', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(BREAK, 'BREAK', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(MyTagList, 'MyTagList', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(TextNewPop, 'TextNewPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
-
-	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
-	}();
-
-	;
 
 /***/ }),
 /* 200 */
@@ -22670,6 +22503,13 @@
 
 	        this.opts = opts;
 	        this.defValidates = {
+	            'tag': {
+	                'fun': function fun(val) {
+	                    return utils.isTag(val);
+	                },
+	                'err': '\u5C0F\u62A5\u540D' + settings.TAG_VALIDATION
+	            },
+
 	            'username': {
 	                'fun': function fun(val) {
 	                    return utils.isUserName(val);
@@ -22688,7 +22528,7 @@
 	                'fun': function fun(val) {
 	                    return utils.isPassword(val);
 	                },
-	                'err': "密码必须是6~16个字符的小写字母或数字组成"
+	                'err': '\u5BC6\u7801' + settings.PASSWORD_VALIDATION
 	            }
 	        };
 	        this.init();
@@ -22700,7 +22540,7 @@
 	            var opts = this.opts || {};
 	            this.defaultOpts = {
 	                form: '#signup-form',
-	                fields: [{ name: 'username', require: true, label: '笔名' }, { name: 'email', require: true, label: '邮箱' }, { name: 'password', require: true, label: '密码' }],
+	                fields: [{ name: 'tag', require: true, label: '小报名' }, { name: 'username', require: true, label: '笔名' }, { name: 'email', require: true, label: '邮箱' }, { name: 'password', require: true, label: '密码' }],
 	                onCheckInput: null,
 	                needP: false
 	            };
@@ -22770,7 +22610,7 @@
 	                        // 判断是否为空
 	                        if (field.require) {
 	                            if (val.length === 0) {
-	                                tips.innerHTML = field.empty_msg || label + "未填写";
+	                                tips.innerHTML = field.empty_msg || label + "木有填写";
 	                                tips.style.display = 'block';
 	                                validate = false;
 	                                return;
@@ -22838,21 +22678,6 @@
 	}
 
 	exports.validate = validate;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
-
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
-
-	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
-	}();
-
-	;
 
 /***/ }),
 /* 201 */
@@ -23890,23 +23715,7 @@
 	    return new AutoComplete(opts);
 	}
 
-	var _default = autocomplete;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(AutoComplete, 'AutoComplete', 'E:/mypro/tyxb/src/autocomplete.js');
-
-	    __REACT_HOT_LOADER__.register(autocomplete, 'autocomplete', 'E:/mypro/tyxb/src/autocomplete.js');
-
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/autocomplete.js');
-	}();
-
-	;
+	exports.default = autocomplete;
 
 /***/ }),
 /* 235 */
@@ -23962,17 +23771,6 @@
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    return shareaside;
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
-	}();
-
-	;
 
 /***/ }),
 /* 236 */
@@ -24042,21 +23840,7 @@
 
 	;
 
-	var _default = BaseCom;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
-
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
-	}();
-
-	;
+	exports.default = BaseCom;
 
 /***/ }),
 /* 237 */
@@ -24392,15 +24176,6 @@
 
 	    return common;
 	});
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 238 */
@@ -24573,23 +24348,7 @@
 
 	var keyboard = new Keyboard();
 
-	var _default = keyboard;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
-
-	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
-
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
-	}();
-
-	;
+	exports.default = keyboard;
 
 /***/ }),
 /* 239 */
@@ -31342,11 +31101,11 @@
 	with (obj) {
 	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">成为作者</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 建个小报</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
-	'">登录</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
+	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="笔名" name="username" id="username" placeholder="笔名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
+	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="小报名" name="tag" id="tag" placeholder="小报名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="笔名" name="username" id="username" placeholder="笔名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
 	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="笔名" id="username" name="username" placeholder="笔名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
 
@@ -44053,7 +43812,7 @@
 	'" /></a>\r\n                <a class="postHeaderUname" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
 	'">' +
-	((__t = ( dream._belong_u.nickname )) == null ? '' : __t) +
+	((__t = ( dream._belong_u.username )) == null ? '' : __t) +
 	'</a>\r\n                ';
 	 } else { ;
 	__p += '\r\n                <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>\r\n                <a class="postHeaderUname" href="/user/unknow">未知用户</a>\r\n                ';
@@ -44108,13 +43867,7 @@
 	 } ;
 	__p += '\r\n            ';
 	 } ;
-	__p += '\r\n        </div>\r\n        <div class="post-footer">\r\n             <div class="comment-ctrl-box"><a href="/dream/' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'#dreamCtrlBox"><i class="s s-comment s-lg"></i>&nbsp;留言(' +
-	((__t = ( dream.cnum )) == null ? '' : __t) +
-	')&nbsp;';
-	 dream.nodes.length ;
-	__p += '</a></div>\r\n            <div class="vote-ctrl-box">\r\n                ';
+	__p += '\r\n        </div>\r\n        <div class="post-footer">\r\n            <div class="vote-ctrl-box">\r\n                ';
 	 if (user) { ;
 	__p += '\r\n                ';
 	 if (dream.good && dream.good.length > 0) { ;
@@ -44152,7 +43905,13 @@
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>\r\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n            <div class="more-ctrl-toggle">\r\n                <a href="javascript:;">•••</a>\r\n            </div>\r\n            <div class="more-ctrl-box">\r\n                ';
+	__p += '\r\n            </div>\r\n            <div class="comment-ctrl-box"><a href="/dream/' +
+	((__t = ( dream._id )) == null ? '' : __t) +
+	'#dreamCtrlBox">留言(' +
+	((__t = ( dream.cnum )) == null ? '' : __t) +
+	')&nbsp;';
+	 dream.nodes.length ;
+	__p += '</a></div>\r\n            <div class="more-ctrl-toggle">\r\n                <a href="javascript:;">•••</a>\r\n            </div>\r\n            <div class="more-ctrl-box">\r\n                ';
 	 if (user) { ;
 	__p += '\r\n                ';
 	 if (dream._followers_u && dream._followers_u.length > 0) { ;

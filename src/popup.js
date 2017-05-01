@@ -347,7 +347,7 @@ class DreamForm extends BaseCom {
         return (
             <div className="form-group">
                 <MyEditor onTextChange={this.changeText.bind(this)} />
-                <p style={{ display: 'none' }} className="field"><textarea id="textContent" onChange={this.textChange.bind(this)} placeholder="正文" name="text" value={this.state.text}></textarea></p>
+                <p style={{ display: 'none' }} className="field"><textarea id="textContent" onChange={this.textChange.bind(this)} placeholder="(可选)正文" name="text" value={this.state.text}></textarea></p>
                 <p className="validate-error"></p>
             </div>
         )
@@ -356,7 +356,7 @@ class DreamForm extends BaseCom {
     renderLinkForm() {
         return (
             <div className="form-group">
-                <p className="field"><input data-cname="网址" type="url" name="link" placeholder="网址例: http://www.ty-xb.com" /></p>
+                <p className="field"><input data-cname="网址" type="url" name="link" placeholder="(可选)网址，例: http://www.ty-xb.com" /></p>
                 <p className="validate-error"></p>
             </div>
         )
@@ -394,13 +394,6 @@ class DreamForm extends BaseCom {
                 break;
         }
 
-        let [MyTags, tags = this.props.tags] = [],
-            selTips = "请选择将发布到的" + settings.OBJECT.TAG.CNNAME + '[必填]';
-
-        if (tags && tags.length > 0) {
-            MyTags = <MyTagList tags={tags} />
-        }
-
         return (
             <div>
                 <div ref={(ref) => { this._tabNav = ref }} className="tab-nav">
@@ -418,17 +411,10 @@ class DreamForm extends BaseCom {
                         </div>
                         <form ref={(ref) => this._form = ref} action="/dream/new" method="post">
                             <input type="hidden" name="category" value={this.state.curForm} />
-                            <div className="form-group" id="dreamTagBox">
-                                <p className="field"><input data-cname={settings.OBJECT.TAG.CNNAME} ref={(dreamTagInp) => {this._dreamTagInp = dreamTagInp}} id="dream-tag" type="text" name="tag" placeholder={selTips} autoComplete="off" /></p>
-                                <p className="validate-error"></p>
-                            </div>
-                            <div style={{display: "none"}} id="tagSelect" onClick={this.tagSelected.bind(this)} className="tagList form-group">
-                            {MyTags}
-                            </div>
                             <div ref={(tagInfo) => { this._tagInfo = tagInfo }} className="alert form-group" style={{ display: "none" }}>
                             </div>
                             <div className="form-group">
-                                <p className="field"><textarea data-cname="标题" id="dream-title" name="content" placeholder="标题[必填]"></textarea></p>
+                                <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="(必填)标题"></textarea></p>
                                 <p className="validate-error"></p>
                             </div>
                             {formEl}
@@ -521,9 +507,7 @@ class DreamForm extends BaseCom {
         });
 
         if (validate) {
-            this.checkTag(self._dreamTagInp.value, function() {
-                 self.submit();
-            });
+            self.submit();
         }
     }
 
@@ -780,17 +764,6 @@ class TextNewPop extends Win {
     }
 
     close() {
-        /*var ins = [].slice
-            .call(this.bd.querySelectorAll('textarea'));
-
-        ins.push(this.bd.querySelector('input'));
-
-        var hasCon = ins.filter(function(item) {
-            if (item.value.trim()) {
-                return true;
-            }
-        }).length > 0;*/
-
         if (this.form.hasCon()) {
             if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) { 
                 super.close();
@@ -848,12 +821,19 @@ class RegPop extends Win {
         this.signupForm = this.bd.querySelector('#signup-form');
         this.signinForm = this.bd.querySelector('#signinForm');
 
+        this.vSignup();
+        this.vSignin();
+    }
+
+    vSignup() {
+        var self = this;
         v.validate({
             form: this.signupForm,
             onCheckInput: function() {
                 req.post(
                     '/signup',
                     { 
+                        tag      : this.formData.tag,
                         username : this.formData.username,
                         email    : this.formData.email,
                         password : this.formData.password
@@ -863,8 +843,6 @@ class RegPop extends Win {
             },
             needP: true
         });
-
-        this.vSignin();
     }
 
     vSignin() {

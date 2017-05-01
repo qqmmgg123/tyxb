@@ -6,6 +6,13 @@ class Validate {
     constructor(opts) {
         this.opts = opts;
         this.defValidates = {
+            'tag'     : {
+                'fun': function(val) {
+                    return utils.isTag(val);
+                },
+                'err': `小报名${settings.TAG_VALIDATION}`
+            },
+
             'username': {
                 'fun': function(val) {
                     return utils.isUserName(val);
@@ -24,7 +31,7 @@ class Validate {
                 'fun': function(val) {
                     return utils.isPassword(val);
                 },
-                'err': "密码必须是6~16个字符的小写字母或数字组成"
+                'err': `密码${settings.PASSWORD_VALIDATION}`
             }
         };
         this.init();
@@ -35,6 +42,7 @@ class Validate {
         this.defaultOpts = {
             form: '#signup-form',
             fields: [
+                { name: 'tag', require: true, label: '小报名' },
                 { name: 'username', require: true, label: '笔名' },
                 { name: 'email', require: true, label: '邮箱' },
                 { name: 'password',  require: true, label: '密码' }
@@ -104,7 +112,7 @@ class Validate {
                     // 判断是否为空
                     if (field.require) {
                         if (val.length === 0) {
-                            tips.innerHTML = field.empty_msg || (label + "未填写");
+                            tips.innerHTML = field.empty_msg || (label + "木有填写");
                             tips.style.display = 'block';
                             validate = false;
                             return;

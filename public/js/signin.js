@@ -80,15 +80,6 @@
 	        s.parentNode.insertBefore(hm, s);
 	    })();
 	});
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 1 */,
@@ -390,15 +381,15 @@
 	            }
 	        },
 	        isUserName: function isUserName(name) {
-	            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/i;
+	            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/;
 	            return pattern.test(name);
 	        },
 	        isPassword: function isPassword(pwd) {
-	            var pattern = /^\w{6,16}$/i;
+	            var pattern = /^\w{6,16}$/;
 	            return pattern.test(pwd);
 	        },
 	        isTag: function isTag(name) {
-	            var pattern = /^[\w|\u4e00-\u9fa5]{2,24}$/i;
+	            var pattern = /^([a-z\d_\u4e00-\u9fa5]){2,24}$/;
 	            return pattern.test(name);
 	        },
 	        getData: function getData(el, key) {
@@ -502,15 +493,6 @@
 
 	    return utilities;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 38 */,
@@ -685,23 +667,7 @@
 
 	var req = new Req();
 
-	var _default = req;
-	exports.default = _default;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
-
-	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
-
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
-	}();
-
-	;
+	exports.default = req;
 
 /***/ }),
 /* 58 */
@@ -1027,13 +993,14 @@
 	    PAGE_NOT_FOND_TIPS: "该页面不存在",
 	    USER_NOT_EXIST_TIPS: "该用户不存在",
 	    DREAM_NOT_EXIST_TIPS: "抱歉，你查看的内容不存在",
-	    TAG_EXIST_ERR: "该版面已经存在，不能重复创建了",
-	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建3个版面，可以留给他人些机会，版面名称是唯一的，也请谨慎创建",
+	    TAG_EXIST_ERR: "该小报已经存在，不能重复创建了",
+	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建1个小报，可以留给他人些机会，小报名称是唯一的，也请谨慎创建",
 	    COMMENT_REQUIRE_ERR: "回复不能为空",
-	    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文组成",
-	    PASSWORD_VALIDATION: "必须是6~16个字符的小写字母或数字组成",
+	    TAG_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
+	    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
+	    PASSWORD_VALIDATION: "必须是6~16个字符的字母或数字组成",
 	    BUILDING_WORD: "该功能正在建设中，敬请谅解太阳の小报小站长一个人战斗，会累死~抱歉",
-	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本版面或本站的发文规则，因此被该版面驳回，敬请谅解。',
+	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本小报或本站的发文规则，因此被该小报驳回，敬请谅解。',
 	    SUBSCRIBE: '订阅 +',
 	    CANCEL_SUBSCRIBE: '取消订阅 -',
 	    COMMENT_TEXT: {
@@ -1050,7 +1017,7 @@
 	            CNNAME: '文章'
 	        },
 	        TAG: {
-	            CNNAME: '版面'
+	            CNNAME: '小报'
 	        }
 	    },
 
@@ -1368,15 +1335,6 @@
 	        item.forEach = item.forEach || Array.prototype.forEach;
 	    });
 	})([NodeList.prototype, HTMLCollection.prototype]);
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-	}();
-
-	;
 
 /***/ }),
 /* 197 */,
@@ -1412,6 +1370,13 @@
 
 	        this.opts = opts;
 	        this.defValidates = {
+	            'tag': {
+	                'fun': function fun(val) {
+	                    return utils.isTag(val);
+	                },
+	                'err': '\u5C0F\u62A5\u540D' + settings.TAG_VALIDATION
+	            },
+
 	            'username': {
 	                'fun': function fun(val) {
 	                    return utils.isUserName(val);
@@ -1430,7 +1395,7 @@
 	                'fun': function fun(val) {
 	                    return utils.isPassword(val);
 	                },
-	                'err': "密码必须是6~16个字符的小写字母或数字组成"
+	                'err': '\u5BC6\u7801' + settings.PASSWORD_VALIDATION
 	            }
 	        };
 	        this.init();
@@ -1442,7 +1407,7 @@
 	            var opts = this.opts || {};
 	            this.defaultOpts = {
 	                form: '#signup-form',
-	                fields: [{ name: 'username', require: true, label: '笔名' }, { name: 'email', require: true, label: '邮箱' }, { name: 'password', require: true, label: '密码' }],
+	                fields: [{ name: 'tag', require: true, label: '小报名' }, { name: 'username', require: true, label: '笔名' }, { name: 'email', require: true, label: '邮箱' }, { name: 'password', require: true, label: '密码' }],
 	                onCheckInput: null,
 	                needP: false
 	            };
@@ -1512,7 +1477,7 @@
 	                        // 判断是否为空
 	                        if (field.require) {
 	                            if (val.length === 0) {
-	                                tips.innerHTML = field.empty_msg || label + "未填写";
+	                                tips.innerHTML = field.empty_msg || label + "木有填写";
 	                                tips.style.display = 'block';
 	                                validate = false;
 	                                return;
@@ -1580,21 +1545,6 @@
 	}
 
 	exports.validate = validate;
-	;
-
-	var _temp = function () {
-	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	        return;
-	    }
-
-	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
-
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
-
-	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
-	}();
-
-	;
 
 /***/ }),
 /* 201 */
