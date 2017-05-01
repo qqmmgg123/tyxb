@@ -666,48 +666,8 @@ function renderSite(req, res, next) {
                     });
                 });
             });
-        },
-        function(cb) {
-            Tag.aggregate([{
-                $match: {
-                    _id: {
-                        $in: user.follow_tags
-                    }
-                }
-            }, {
-                 $project: {
-                     _id       : 1,
-                     key       : 1,
-                     weight    : 1,
-                     hot       : {
-                         '$let': {
-                             vars: {
-                                 time : {
-                                     "$subtract": [
-                                         "$date",
-                                         new Date("1970-01-01")
-                                     ]
-                                 },
-                                 score: { $size: '$followers' }
-                             },
-                             in: common.hotSort()
-                         }
-                     }
-                 }
-             }, {
-                 $sort: { weight: -1, hot: -1 }
-             }, {
-                 $limit: 11
-             }], function(err, tags) {
-                if (err || !tags) {
-                    var unKonwErr = new Error('未知错误。')
-                    return cb(err || unKonwErr, []);
-                }
-                
-                cb(null, tags);
-             });
         }], function(err, results) {
-            if (err && results.length < 2) {
+            if (err) {
                 return next(err);
             }
 
@@ -734,7 +694,6 @@ function renderSite(req, res, next) {
                 title: settings.APP_NAME,
                 notice: common.getFlash(req, 'notice'),
                 data: {
-                    tags       : tags,
                     dreams     : dreams,
                     hasprev : hasprev,
                     hasmore : hasmore,
