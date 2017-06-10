@@ -1,4 +1,4 @@
-# suopoearth
+# tyrc
 
 A website.
 
