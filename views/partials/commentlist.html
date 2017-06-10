@@ -74,8 +74,8 @@
 <% } %>
 <% } else { %>
 <li class="list-item">
-    <div class="result">
-        你目前没有发表任何留言。
+    <div class="nodata">
+        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>您<% } else { %>他<% } %>目前没有发表任何留言。
     </div>
 </li>
 <% } %>

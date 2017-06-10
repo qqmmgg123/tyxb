@@ -38,25 +38,30 @@ if (needWebpack) {
 
 var common = {
     dateBeautify: function(date) {
-        var hour      = 60 * 60 * 1000,
+        var now       = new Date(),
+            year      = date.getFullYear(),
+            hour      = 60 * 60 * 1000,
             day       = 24 * hour,
             currDate  = this.dateFormat(new Date, 'yyyy-MM-dd'),
             today     = new Date(currDate + ' 00:00:00').getTime(),
             yesterday = today - day,
             currTime  = date.getTime(),
-            cHStr     = this.dateFormat(date, 'hh:mm:ss');
+            cHStr     = this.dateFormat(date, 'hh:mm');
 
         if (currTime >= today) {
             var time    = (currTime - today) / hour;
             var cHour   = date.getHours();
             var amCHour = cHour - 12;
-            var cMStr   = this.dateFormat(date, 'mm:ss');
+            var cMStr   = this.dateFormat(date, 'mm');
             var str     = time <= 12? '上午 ' + cHStr:'下午 ' + (amCHour < 10? amCHour: '0' + amCHour) + ':' + cMStr;
             return str;
         }else if (currTime < today && currTime >= yesterday) {
             return "昨天 " + cHStr;
         }else {
-            return this.dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
+            var curYear = now.getFullYear(),
+                format  = 'MM-dd hh:mm';
+            if (year < curYear) { format  = 'yyyy-MM-dd hh:mm' };
+            return this.dateFormat(date, format);
         }
     },
     dateFormat: function(date, format){
@@ -129,12 +134,20 @@ app.locals.dlimit = function(str) {
     return str.length > limit? (str.slice(0, limit - 3) + '...'):str;
 }
 
+// 计算年龄
+app.locals.age = function(date) {
+    //return new Date()
+}
+
 // Settings
 app.locals.settings = settings;
 
 app.set('port', process.env.PORT || 8080);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'pic')));
+app.use(express.static(path.join(__dirname, 'picmini')));
+app.use(express.static(path.join(__dirname, 'mpicmini')));
 app.use(cookieParser('suopoearth'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

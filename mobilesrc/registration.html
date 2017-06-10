@@ -1,20 +1,24 @@
 <div class="tab-nav">
     <ul>
-        <li><a href="javascript:;" class="tab <%= data.current === 'signup'? 'cur':'' %>">成为作者</a></li>
-        <li><a href="javascript:;" class="tab <%= data.current === 'signin'? 'cur':'' %>">登录</a></li>
+        <li><a href="javascript:;" class="tab <%= data.current === 'signup'? 'cur':'' %>">+ 建个小报</a></li>
+        <li><a href="javascript:;" class="tab <%= data.current === 'signin'? 'cur':'' %>">登录 →</a></li>
     </ul>
 </div>
 <div class="tab-content">
     <div class="signup-area" style="display: <%= data.current === "signup"? '':'none' %>">
         <form id="signup-form" action="/signup" method="post" novalidate>
-            <div id="signupInfo" class="color-warning" style="display: none;">
+            <div rel="info" class="alert alert-danger" style="display: none;">
+            </div>
+            <div class="form-group">
+                <p class="field"><input type="text" data-label="小报名" name="tag" id="tag" placeholder="小报名" required></p>
+                <p class="validate-error"></p>
+            </div>
+            <div class="form-group">
+                <p class="field"><input type="text" data-label="笔名" name="username" id="username" placeholder="笔名" required></p>
+                <p class="validate-error"></p>
             </div>
             <div class="form-group">
                 <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>
-                <p class="validate-error"></p>
-            </div class="form-group">
-            <div class="form-group">
-                <p class="field"><input type="text" data-label="笔名" name="nickname" id="nickname" placeholder="笔名" required></p>
                 <p class="validate-error"></p>
             </div class="form-group">
             <div class="form-group">
@@ -31,9 +35,9 @@
     </div>
     <div class="signin-area" style="display: <%= data.current === "signin"? '':'none' %>">
         <form id="signinForm" action="/signin" method="post" autocomplete="off">
-            <div id="signinInfo" class="color-warning" style="display: none;"></div>
+            <div rel="info" class="alert alert-danger" style="display: none;"></div>
             <div class="form-group">
-                <p class="field"><input type="text" data-label="用户名" id="email" name="email" placeholder="邮箱" required></p>
+                <p class="field"><input type="text" data-label="笔名" id="username" name="username" placeholder="笔名" required></p>
                 <p class="validate-error"></p>
             </div>
             <div class="form-group">

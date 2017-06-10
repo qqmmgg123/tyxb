@@ -54,9 +54,8 @@ function queryLink() {
         })
 }
 
-// 查找链接
+// 设置用户名
 function setUsername() {
-    console.log('setUsername');
     Text.find({}, '_id summary content', function(err, docs) {
         docs.forEach((doc) => {
             console.log(doc.summary, doc.content);
@@ -86,6 +85,7 @@ switch(command) {
     case 'setUsername':
         setUsername();
         break;
+    case ''
     default:
         break;
 }

@@ -1,14 +1,25 @@
 <li class="list-item">
     <div class="tag-info">
-        <h2><a class="tag" href="/tag/<%= tag._id %>"><%= tag.key %></a></h2>
+        <div class="user-info">
+            <a class="user-pic avatar" href="/tag/5909d63fca5d7b5fa8a56b58">
+                <img src="/images/news_mini.png">
+            </a>
+            <a class="user-name" href="/tag/<%= tag._id %>">
+                <%= tag.key %>
+                <% if (data.nav === "user") { %>
+                <% if (tag.ismain) { %>[主推]<% } %>
+                <% } %>
+                <% if (tag.weight > 0) { %>[置顶]<% } %>
+            </a>
+        </div>
         <% if (tag.description) { %>
         <div class="tag-desc"><%= tag.description %></div>
         <% } %>
         <div class="tag-about">
             <% if (tag._create_u && tag._create_u._id) { %>
-            <a href="<%= tag._create_u._id %>"><%= tag._create_u.username %></a>
+            <a href="<%= tag._create_u._id %>">发起人：<%= tag._create_u.username %></a>
             <% } else { %>
-            <a href="/user/unknow">未知用户</a>
+            <a href="/user/unknow">发起人：未知</a>
             <% } %>
             创建于<%= timeFormat(tag.date) %>
         </div>
@@ -19,15 +30,24 @@
     </div>
     <div class="tag-ctrl">
         <% if (user) { %>
-        <a data-tid="<%= tag._id %>" data-hassubscribe="<%= (tag.followers && tag.followers.length > 0) %>" rel="tag-subscribe" class="btn" >
+        <!--<a data-tid="<%= tag._id %>" data-hassubscribe="false" rel="tag-subscribe" class="btn" >设为主推</a>-->
+        <a data-tid="<%= tag._id %>" 
+            data-hassubscribe="<%= (tag.followers && tag.followers.length > 0) %>" 
+            rel="tag-subscribe"
+            <% if (tag.isdisable) { %>
+            class="btn small disabled" >
+            <% } else { %>
+            class="btn small" >
+            <% } %>
             <% if (tag.followers && tag.followers.length > 0) { %>
             <%= settings.CANCEL_SUBSCRIBE %>
             <%} else {%>
             <%= settings.SUBSCRIBE %>
             <% } %>
         </a>
+        <!--<a data-tid="<%= tag._id %>" data-hassubscribe="false" rel="tag-subscribe" class="btn" >删除</a>-->
         <% } else { %>
-        <a data-tid="<%= tag._id %>" data-hassubscribe="false" rel="tag-subscribe" class="btn" >订阅&nbsp;+</a>
+        <a data-tid="<%= tag._id %>" data-hassubscribe="false" rel="tag-subscribe" class="btn small" ><%= settings.SUBSCRIBE %></a>
         <% } %>
     </div>
 </li>

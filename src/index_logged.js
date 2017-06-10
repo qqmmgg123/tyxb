@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Dialog from 'Dialog';
+import ImageViewer from 'ImageViewer';
+
 (function(factory) {
     module.exports = factory(
         require('utils'),
@@ -9,18 +14,78 @@
         require('ejs!../views/partials/postitem.html')
     );
 }(function(utils, req, effect, common, popup, dropdown, dreamTpl) {
-    // 发布文字
-    var textNew = function() {
-        popup.textNewPop({
-            id  : 'textReleasePop',
-            tags: tags
-        }).show();
-    }
-    
     var _d = document;
 
-    var drtBtn = _d.querySelector('#dreamReleaseText');
-    drtBtn && drtBtn.addEventListener('click', textNew);
+    let viewerCon = document.querySelector('#imageViewer');
+    
+    let imageViewer = ReactDOM.render(
+        <Dialog 
+            needMouse={true} 
+            needKey={true} 
+            needWin={false}
+            sence={{
+            name: "ImageViewer",
+            component: ImageViewer
+        }} />,
+        viewerCon
+    );
+
+    imageViewer.create();
+
+    let textPop = null,
+        regPop  = null;
+        
+    window.onpopstate = function(event) {
+        if (!event.state) {
+            imageViewer && imageViewer.close();
+            textPop && textPop.close();
+            regPop && regPop.close();
+            if (window.needRegPop) {
+                regPop = popup.registrationPop({ 
+                    cur: 'signin'
+                });
+                regPop.show();
+                window.needRegPop = false;
+            }
+        }
+
+        let state = event.state;
+        if (state && state.release) {
+            if (state.release === "dialog") {
+                imageViewer.show();
+            }
+            else if (state.release === "register") {
+                regPop = popup.registrationPop({ 
+                    cur: 'signin'
+                });
+                regPop.show();
+            }
+            else{
+                textPop = common.textNew(state.release);
+            }
+        }
+    }
+
+    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    drtImageBtn && drtImageBtn.addEventListener('click', () => {
+        textPop = common.textNew('image');
+    });
+
+    // 发布文字
+    var drtTextBtn = _d.querySelector('#dreamReleaseText');
+    drtTextBtn && drtTextBtn.addEventListener('click', () => {
+        textPop = common.textNew('text');
+    });
+
+    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+    drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
+        textPop = common.textNew('link');
+    });
+
+    var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
+    drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
+        textPop = common.textNew('news');
+    });
 
     // 排序下拉
     var sortSelect = dropdown.create({
@@ -48,7 +113,10 @@
     var shareSelect = dropdown.shareDrop({
         el: '[rel="dream-share"]',
         container: '#dream-list',
-        modal: true
+        selector: '.share-box',
+        menu: '.share-list',
+        width: 'auto',
+        modal: false
     });
 
     // 更多操作下拉
@@ -301,35 +369,13 @@
                 );
             }else if (rel === 'dream-picsrc') {
                 ev.preventdefault;
+                let thumb   = cur.querySelector('img'),
+                    src     = thumb.src.replace('picmini', 'pic');
 
-                var thumbs = utils.closest(cur, '.thumbnail'),
-                    preview = thumbs.nextElementSibling,
-                    thumb   = cur.querySelector('img'),
-                    show    = utils.getData(cur, 'show');
-
-                if (!preview) return;
-
-                if (!show) {
-                    thumbs.querySelectorAll('li').forEach(function(img) {
-                        utils.setData(img, {'show': false});
-                    });
-                    utils.setData(cur, {'show': true});
-                    var img = new Image();
-                    img.src = thumb.src.replace('picmini', 'pic');
-                    preview.innerHTML = "<p>图片预览加载中...</p>"
-                    if(img.complete) {
-                        preview.innerHTML = "";
-                        preview.appendChild(img);
-                        return;
-                    }
-                    img.onload = function () {
-                        preview.querySelector('p').style.display = "none";
-                        preview.appendChild(img);
-                    };
-                }else{
-                    utils.setData(cur, {'show': false});
-                    preview.innerHTML = "";
-                }
+                imageViewer.setComProps({
+                    imageSrc: src
+                });
+                imageViewer.show();
             }
         }
     });

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>我的小报 - <%= settings.APP_NAME %></title>
+    <title>我的圈子 - <%= settings.APP_NAME %></title>
     <link rel="shortcut icon" href="/favicon.ico" /> 
     <% include ../partials/head_css.html %>
     <% if (is_mobile) { %>
@@ -42,7 +42,7 @@
         <div class="main">
             <div class="tag-head-info">
                 <div class="tagHead-infoInner">
-                    <h2>我的小报</h2>
+                    <h2>订阅内容</h2>
                 </div>
             </div>
         </div>
@@ -54,17 +54,29 @@
             </div>
             <div class="col-4">
                 <div class="tag-list">
-                    <h2>我的小报</h2>
+                    <h2>我的订阅</h2>
                     <ul class="list-group">
                         <% if (data.tags && data.tags.length > 0) { %>
                         <% data.tags.forEach(function(tag) { %>
                         <li class="list-item">
-                            <a class="tag" href="/tag/<%= tag._id %>"><%= tag.key %></a>
+                            <a class="user-pic avatar" href="/tag/<%= tag._id %>">
+                                <img src="/images/news_mini.png" />
+                            </a>
+                            <a class="user-name" href="/tag/<%= tag._id %>">
+                                <%= tag.key %>
+                                <% if (tag.weight > 0) { %>
+                                    [主推]
+                                <% } %>
+                            </a>
                         </li>
                         <% }); %>
+                        <% } else { %>
+                        <li class="list-item">
+                            当前木有圈子
+                        </li>
                         <% } %>
                     </ul>
-                    <a class="top-tag-more" href="/tag/mine">编辑&nbsp;→</a>
+                    <a class="top-tag-more" href="/user/<%= user._id %>/subscribe">编辑&nbsp;→</a>
                 </div>
             </div>
         </div>

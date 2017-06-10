@@ -14,7 +14,10 @@
             <ul id="app-list" class="app-list">
                 <li><a href="/"><%= settings.APP_NAME %></a></li>
                 <% if (user) { %>
-                <li><a href="/subscription">我的小报</a></li>
+                <li><a href="/subscription">关注</a></li>
+                <li>
+                    <a href="/user/<%= user.id %>"><%= user.username %></a>
+                </li>
                 <li>
                     <div id="message-nav" class="dropdown">
                         <% if (is_mobile) { %>
@@ -31,13 +34,9 @@
                             </ul>
                     </div>
                 </li>
-                <li>
-                    <a href="/user/<%= user.id %>"><%= user.username %></a>
-                </li>
-
                 <% } else { %>
                 <li>
-                    <a href="javascript:;" id="signup-btn">+&nbsp;建个小报</a>
+                    <a href="javascript:;" id="signup-btn">+&nbsp;加个日常</a>
                 </li>
                 <li>
                     <a href="javascript:;" id="signin-btn">登录&nbsp;→</a>

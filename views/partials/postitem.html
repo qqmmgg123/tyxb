@@ -3,27 +3,31 @@
         <div class="post-header">
              <div class="postHeaderUserInfo">
                 <% if (dream._belong_u) { %>
-                <a class="avatar" href="/user/<%= dream._belong_u._id %>"><img width="25" height="25" src="<%= dream._belong_u.avatar_mini || '/images/avatar_mini.png' %>" /></a>
-                <a class="postHeaderUname" href="/user/<%= dream._belong_u._id %>"><%= dream._belong_u.username %></a>
+                <a class="postHeaderUname" href="/user/<%= dream._belong_u._id %>">作者：<%= dream._belong_u.username %></a>
                 <% } else { %>
-                <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>
-                <a class="postHeaderUname" href="/user/unknow">未知用户</a>
+                <a class="postHeaderUname" href="/user/unknow">作者：未知</a>
                 <% } %>
             </div>
             <% if (dream._belong_t) { %>
             <div class="postHeaderTagInfo">
-                <a class="tag" href="/tag/<%= dream._belong_t._id || 'unknow' %>"><%= dream._belong_t? dream._belong_t.key:'未知' %></a>
+                <a href="/tag/<%= dream._belong_t._id || 'unknow' %>">小报：<%= dream._belong_t? dream._belong_t.key:'未知' %></a>
+            </div>
+            <% } %>
+            <% if (dream.site) { %>
+            <div class="postHeaderSiteInfo">
+                <a href="/site/<%= dream.site %>">网站：<%= dream.site %></a>
             </div>
             <% } %>
             <div class="postHeaderDateInfo">
                 <%= timeFormat(dream.date) %>
             </div>
         </div>
-        <div class="post-content thumb-mode">
+        <div class="post-content <% if (dream.thumbnail) { %>thumb-mode<% } %>">
             <% if (dream.isremove) { %>
                 [已被作者删除]
             <% } else { %>
             <div class="entry">
+            <div class="title">
             <a 
                 <% if (dream.link) { %>
                 href="<%= dream.link %>"
@@ -37,14 +41,29 @@
             <%= dlimit(dream.content) %>
             <% } %>
             </a>
-            <% if (dream.site) { %>
-            <a href="/site/<%= dream.site %>">(<%= dream.site %>)</a>
-            <% } %>
             </div>
             <% if (dream.summary) { %>
             <div class="summary">
+                <% if (is_mobile) { %>
+                <%- (dream.summary.slice(0, 80) + '...') %>
+                <% } else { %>
                 <%- dream.summary %>
+                <% } %>
             </div>
+            <% } %>
+            </div>
+            <% if (is_mobile) { %>
+                <% if (dream.mthumbnail) { %>
+                <div class="thumbnail" rel="dream-picsrc">
+                    <img src="<%= dream.mthumbnail %>" />
+                </div>
+                <% } %>
+            <% } else { %>
+                <% if (dream.thumbnail) { %>
+                <div class="thumbnail" rel="dream-picsrc">
+                    <img src="<%= dream.thumbnail %>" />
+                </div>
+                <% } %>
             <% } %>
             <% } %>
         </div>
@@ -70,7 +89,19 @@
                 <a href="javascript:;" title="给他挤下去" data-did="<%= dream._id %>" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>
                 <% } %>
             </div>
-            <div class="comment-ctrl-box"><a href="/dream/<%= dream._id %>#dreamCtrlBox">留言(<%= dream.cnum %>)&nbsp;<% dream.nodes.length %></a></div>
+            <div class="comment-ctrl-box"><a href="/dream/<%= dream._id %>#dreamCtrlBox">留言(<%= dream.cnum %>)</a></div>
+            <div class="share-box">
+                <a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= dream._id %>">分享</a>
+                <ul class="share-list">
+                    <li class="only-pc"><a rel="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>
+                    <li class="only-pc"><a rel="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>
+                    <!--<li><a rel="weixin_share" href="javascript:;"><i class="s s-weixin s-3x"></i></a></li>-->
+                    <!--<li>-->
+                    <!--<div class="only-mobile">长按以下地址拷贝到你要分享到的站点...</div>-->
+                    <!--<input name="query" placeholder="拷贝地址到你要分享到的站点..." value="http://<%= data.domain %>/dream/<%= dream._id %>" />-->
+                    <!--</li>-->
+                </ul>
+            </div>
             <div class="more-ctrl-toggle">
                 <a href="javascript:;">•••</a>
             </div>
@@ -96,18 +127,6 @@
                 <% } %>
                 <% } %>
                 <% } %>
-                <!--<div class="share-box dropdown">
-                    <a rel="dream-share" href="javascript:;" class="dropdown-toggle" data-did="<%= dream._id %>">分享到</a>
-                    <ul class="dropdown-menu">
-                        <li class="only-pc"><a rel="wb_share" href="javascript:;"><i class="s s-wb s-3x"></i></a></li>
-                        <li class="only-pc"><a rel="qzone_share" href="javascript:;"><i class="s s-qzone s-3x"></i></a></li>
-                        <li><a rel="weixin_share" href="javascript:;"><i class="s s-weixin s-3x"></i></a></li>
-                        <li>
-                            <div class="only-mobile">长按以下地址拷贝到你要分享到的站点...</div>
-                            <input name="query" placeholder="拷贝地址到你要分享到的站点..." value="http://<%= data.domain %>/dream/<%= dream._id %>" />
-                        </li>
-                    </ul>
-                </div>-->
             </div>
         </div>
     </div>

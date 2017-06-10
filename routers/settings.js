@@ -8,26 +8,9 @@ var async = require("async")
 // 用户配置
 router.get('/', function(req, res) {
     if (!req.user) {
-        res.redirect('/signin');
+        res.redirect('/');
     } else {
-        res.redirect('/settings/profile');
-    }
-});
-
-// 用户资料
-router.get('/profile', function(req, res, next) {
-    if (!req.user) {
-        res.redirect('/signin');
-    } else {
-        res.render('pages/profile', common.makeCommon({
-            title : settings.APP_NAME,
-            data  : {
-                info  : common.getFlash(req, 'info'),
-                tab   : 'profile'
-            },
-            user  : req.user,
-            success: 1
-        }, res));
+        res.redirect('/settings/emails');
     }
 });
 
@@ -65,34 +48,6 @@ router.get('/emails', function(req, res, next) {
             success: 1
         }, res));
     }
-});
-
-// 更改用户资料
-router.post('/profile/update', function(req, res, next) {
-    if (!req.user) {
-        return res.redirect('/signin');
-    }
-
-    var uid = req.user.id;
-
-    if (!req.body || !req.body.username) {
-        var err = new Error("修改内容为空，个人信息更新失败！");
-        return next(err);
-    }
-    var username = req.body.username,
-        bio = req.body.bio? req.body.bio:'';
-
-    req.user.update({
-        username : username,
-        bio      : bio
-    }, function(err, course) {
-        if (err) {
-            return next(err);
-        }
-
-        req.flash('info', "个人信息更新完成。");
-        res.redirect('/settings/profile');
-    });
 });
 
 // 更新密码

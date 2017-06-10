@@ -1,34 +1,24 @@
 <div id="dream-tab-bar" class="nav-bar">
     <div class="tab-nav">
         <% if (data.role == '1') { %>
-        <a rel="nav-toggle" class="nav-toggle">好评<i class="s s-arrow s-lg"></i></a>
+        <a rel="nav-toggle" class="nav-toggle">受欢迎的<i class="s s-arrow s-lg"></i></a>
         <% } %>
         <% if (data.role == '2') { %>
-        <a rel="nav-toggle" class="nav-toggle">最新<i class="s s-arrow s-lg"></i></a>
+        <a rel="nav-toggle" class="nav-toggle">新发布的<i class="s s-arrow s-lg"></i></a>
         <% } %>
         <ul class="nav-list">
-            <li><a hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" href="/">好评</a></li>
-            <li><a hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" href="/?r=2">最新</a></li>
+            <li><a 
+                hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" 
+                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>">受欢迎的</a></li>
+            <li><a 
+                hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" 
+                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2">新发布的</a></li>
         </ul>
     </div>
     <div class="nav-ctrl">
         <a id="dream-refresh" class="refresh" href="javascript:;">
             <i class="s s-refresh s-lg"></i>
         </a>
-        <div class="order-select dropdown">
-            <a rel="order-select" class="dropdown-toggle">
-                <% if (data.order === -1) { %>
-                正序
-                <% } else if (data.order === 1) { %>
-                倒序
-                <% } %>
-                <i class="s s-arrow s-lg"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="/?r=<%= data.role %>&o=-1">正序</a></li>
-                <li><a href="/?r=<%= data.role %>&o=1">倒序</a></li>
-            </ul>
-        </div>
     </div>
 </div>
 <ul id="dream-list" class="list-group">
@@ -36,21 +26,16 @@
     <% data.dreams.forEach(function(dream) { %>
     <% include ../partials/postitem.html %>
     <% }); %>
-    <% if (data.hasprev && data.next > 1) { %>
-    <li class="list-item">
-        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
-    </li>
-    <% } %>
     <% if (data.hasmore) { %>
     <li class="list-item">
-        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
+        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">阅读更多&nbsp;↓</a></div>
     <% } %>
     <% } else { %>
     <% if (user) { %>
     <li class="list-item">
         <div class="nodata">
             <% if (data.nav === 'subscription') { %>
-            您还没有订阅任何任容&nbsp;<a href="/tag/hot" class="btn">去订阅 ></a>
+            您还没有订阅任何任容&nbsp;<a href="/tag/hot" class="btn">去订阅 →</a>
             <% } else { %>
             当前没有内容
             <% } %>
@@ -59,26 +44,68 @@
     <% } else { %>
     <li class="list-item">
         <div class="nodata">
+            <% if (data.nav === 'tag') { %>
+            <% if ((!data.site && !data.tag) || (data.tag && data.tag.ispublic) || (user && user._id && data.tag && data.tag.president && data.tag.president._id.equals(user._id) && !data.tag.ispublic)) { %>
+            该小报下没有发布内容&nbsp;<button id="listTextNew" class="btn"><i class="s s-plus s-lg"></i></button>
+            <% } else { %>
+            该小报下没有发布内容&nbsp;
+            <% } %>
+            <% } else if (data.nav === 'user') { %>
+            <% if (user &&  user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
+            您还没有分享任何内容&nbsp;<button id="listTextNew" class="btn"><i class="s s-plus s-lg"></i></button>
+            <% } else { %>
+            主人没有分享任何内容
+            <% } %>
+            <% } else { %>
             当前没有内容
+            <% } %>
         </div>
     </li>
     <% } %>
     <% } %>
 </ul>
+<div id="imageViewer"></div>
 <div class="global-ctrl">
     <ul>
-        <% if (!data.site) { %>
+        <% if ((!data.site && !data.tag) || (data.tag && data.tag.ispublic) || (user && user._id && data.tag && data.tag.president && data.tag.president._id.equals(user._id) && !data.tag.ispublic)) { %>
+        <!--<li>
+            <div id="dreamReleaseImage" class="release-box">
+                <div class="tips">发图片</div>
+                <button title="发图片" class="btn btn-round btn-new small">
+                    <i class="s s-image s-2x"></i>
+                </button>
+            </div>
+        </li>
         <li>
-            <button id="dreamReleaseText" title="发布文章" class="btn btn-round btn-new">
-                <i class="s s-plus s-lg"></i>
-            </button>
+            <div id="dreamReleaseText" class="release-box">
+                <div class="tips">发文字</div>
+                <button title="发文字" class="btn btn-round btn-new small">
+                    <i class="s s-text s-2x"></i>
+                </button>
+            </div>
+        </li>
+        <li>
+            <div id="dreamReleaseLink" class="release-box">
+                <div class="tips">发网址</div>
+                <button title="发网址" class="btn btn-round btn-new small">
+                    <i class="s s-link s-2x"></i>
+                </button>
+            </div>
+        </li>-->
+        <li>
+            <div id="dreamReleaseNews" class="release-box">
+                <div class="tips">发布内容</div>
+                <button id="dreamReleaseNews" title="发布内容" data-tid="<%= data.tag && data.tag._id %>" class="btn btn-round btn-new">
+                    <i class="s s-plus s-2x"></i>
+                </button>
+            </div>
         </li>
         <% } %>
-        <li>
-            <button title="回到顶部" class="btn btn-round btn-success">
-                <i class="s s-arrow_up s-lg"></i>
-            </button>
-        </li>
+        <!--<li>-->
+            <!--<button title="回到顶部" class="btn btn-round btn-success">-->
+                <!--<i class="s s-arrow_up s-lg"></i>-->
+            <!--</button>-->
+        <!--</li>-->
     </ul>
 </div>
 

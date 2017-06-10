@@ -23,122 +23,98 @@
                 <!--</div>-->
                 <div class="userHead-infoInner">
                     <h2 class="nick-name"><%= data.account.username %></h2>
-                    <div class="user-bio">
-                        <%= data.account.bio %>
-                    </div>
+                    <!--<div class="user-bio">-->
+                        <!--<%= data.account.bio %>-->
+                    <!--</div>-->
                 </div>
                 <div class="user-head-ctrl">
-                    <% if (user) { %>
-                    <a href="/settings" class="edit-profile btn">个人设定 ></a>
+                    <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
+                    <a href="/settings" class="edit-profile btn small">个人设定 ></a>
                     <% } %>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container clearfix">
         <div class="main">
+            <div class="col-8">
             <div class="tab-nav user-tab-bar">
                 <ul>
-                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">发文</a></li>
+                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
                     <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
-                    <% if (user) { %>
+                    <li><a href="/user/<%= data.account._id %>/subscribe" class="<%if (data.tab == "subscribe") {%>cur<% } %> tab">关注</a></li>
                     <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
-                    <% } %>
                 </ul>
             </div>
             <% if (data.tab == "dream") { %>
-            <div id="dream-tab-bar" class="nav-bar">
-                <div class="tab-nav">
-                    <% if (data.role == '1') { %>
-                    <a rel="nav-toggle" class="nav-toggle">热门<i class="s s-arrow s-lg"></i></a>
-                    <% } %>
-                    <% if (data.role == '2') { %>
-                    <a rel="nav-toggle" class="nav-toggle">最新<i class="s s-arrow s-lg"></i></a>
-                    <% } %>
-                    <ul class="nav-list">
-                        <li><a hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" href="/user/<%= data.account._id %>">热门</a></li>
-                        <li><a hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" href="/user/<%= data.account._id %>?r=2">最新</a></li>
-                    </ul>
-                </div>
-                <div class="nav-ctrl">
-                    <a id="dream-refresh" class="refresh" href="javascript:;">
-                        <i class="s s-refresh s-lg"></i>
-                    </a>
-                    <div class="order-select dropdown">
-                        <a rel="order-select" class="dropdown-toggle">
-                            <% if (data.order === -1) { %>
-                            正序
-                            <% } else if (data.order === 1) { %>
-                            倒序
-                            <% } %>
-                            <i class="s s-arrow s-lg"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/user/<%= data.account._id %>?r=<%= data.role %>&o=-1">正序</a></li>
-                            <li><a href="/user/<%= data.account._id %>?r=<%= data.role %>&o=1">倒序</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <ul id="dream-list" class="list-group">
-                <% if (data.dreams && data.dreams.length > 0) { %>
-                <% data.dreams.forEach(function(dream) { %>
-                <% include ../partials/postitem.html %>
-                <% }); %>
-                <li>
-                    <% if (data.hasprev && data.next > 1) { %>
-                    <div class="more"><a href="/user/<%= data.account._id %>?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
-                    <% } %>
-                    <% if (data.hasmore) { %>
-                    <div class="more"><a href="/user/<%= data.account._id %>?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
-                    <% } %>
-                </li>
-
-                <% } else { %>
-                <% if (user && user._id.equals(data.account._id)) { %>
-                <li>
-                    <div class="nodata">
-                        您还没有分享任何内容&nbsp;<button id="dreamReleaseText" class="btn"><i class="s s-plus s-lg"></i></button>
-                    </div>
-                </li>
-                <% } else { %>
-                <li>
-                    <div class="nodata">
-                        主人没有分享任何内容
-                    </div>
-                </li>
-                <% } %>
-                <% } %>
-            <ul>
+            <% include ../partials/postlist.html %>
             <% } else if (data.tab == "comment") { %>
             <ul id="commentList" class="list-group comment-list">
                 <% include ../partials/commentlist.html %>
             </ul>
             <% } else if (data.tab == "favourite") { %>
-            <% if (user) { %>
             <ul id="dream-list" class="list-group">
                 <% if (data.dreams && data.dreams.length > 0) { %>
                 <% data.dreams.forEach(function(dream) { %>
                 <% include ../partials/postitem.html %>
                 <% }); %>
-                <li>
+                <li class="list-item">
                     <% if (data.hasprev && data.next > 1) { %>
                     <div class="more"><a href="/user/<%= data.account._id %>/favourite?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
                     <% } %>
                     <% if (data.hasmore) { %>
-                    <div class="more"><a href="/user/<%= data.account._id %>/favourite?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
+                    <div class="more"><a href="/user/<%= data.account._id %>/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
                     <% } %>
                 </li>
                 <% } else { %>
-                <li>
+                <li class="list-item">
                     <div class="nodata">
-                        您还没有收藏内容
+                        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>您<% } else { %>他<% } %>还没有收藏内容
                     </div>
                 </li>
                 <% } %>
             <ul>
+            <% } else if (data.tab == "subscribe") { %>
+            <ul id="tag-list" class="list-group">
+                <% if (data.tags && data.tags.length > 0) { %>
+                <% data.tags.forEach(function(tag) { %>
+                <% include ../partials/tagitem.html %>
+                <% }); %>
+                <% } else { %>
+                <li class="list-item">
+                    <div class="nodata">
+                        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>您<% } else { %>他<% } %>当前没有订阅版面
+                        <% if (user) { %>
+                        &nbsp;<a href="/tag/hot" class="btn">去订阅&nbsp;></a>
+                        <% } %>
+                    </div>
+                </li>
+                <% } %>
+            </ul>
             <% } %>
-            <% } %>
+            </div>
+            <div class="col-4">
+                <div class="bio">
+                    <h2>签名</h2>
+                    <div id="descContent" class="bio-des">
+                    <% if (data.account.bio) { %>
+                        <%= data.account.bio %>
+                    <% } else { %>
+                        作者帅爆了，没签名...
+                    <% } %>
+                    </div>
+                    <% if (user && data.account._id.equals(user._id)) { %>
+                    <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;">修改 +</a>
+                    <% } %>
+                </div>
+                <div class="karma-list">
+                    <h2>业力</h2>
+                    <ul class="list-group">
+                        <li class="list-item">发文：<%= data.dnum %></li>
+                        <li class="list-item">留言：<%= data.cnum %></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <% include ../partials/footer.html %>

@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Dialog from 'Dialog';
+import ImageViewer from 'ImageViewer';
+
 (function(factory) {
     module.exports = factory(
         require('utils'),
@@ -10,20 +15,130 @@
         require('ejs!../views/partials/postitem.html')
     );
 }(function(utils, settings, req, effect, common, popup, dropdown, dreamTpl) {
-    var drBtn = document.querySelector('#dreamReleaseText');
-    drBtn && drBtn.addEventListener('click', common.textNew);
+    var _d = document;
 
-    var ltnBtn = document.querySelector('#listTextNew');
-    ltnBtn && ltnBtn.addEventListener('click', common.textNew);
+    let viewerCon = document.querySelector('#imageViewer');
+    
+    let imageViewer = ReactDOM.render(
+        <Dialog 
+            needMouse={true} 
+            needKey={true} 
+            needWin={false}
+            sence={{
+            name: "ImageViewer",
+            component: ImageViewer
+        }} />,
+        viewerCon
+    );
 
-    var preBtn = document.querySelector('#presidentVote');
-    preBtn && preBtn.addEventListener('click', function() {
-        popup.presidentPop({
-            id  : 'tagNewPop'
-        }).show();
+    imageViewer.create();
+
+    let textPop = null,
+        regPop  = null;
+        
+    window.onpopstate = function(event) {
+        if (event.state === null) {
+            imageViewer && imageViewer.close();
+            textPop && textPop.close();
+            regPop && regPop.close();
+            if (window.needRegPop) {
+                regPop = popup.registrationPop({ 
+                    cur: 'signin'
+                });
+                regPop.show();
+                window.needRegPop = false;
+            }
+        }
+
+        let state = event.state;
+        if (state && state.release) {
+            if (state.release === "dialog") {
+                imageViewer.show();
+            }
+            else if (state.release === "register") {
+                regPop = popup.registrationPop({ 
+                    cur: 'signin'
+                });
+                regPop.show();
+            }
+            else{
+                textPop = common.textNew(state.release);
+            }
+        }
+    }
+
+    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    drtImageBtn && drtImageBtn.addEventListener('click', () => {
+        textPop = common.textNew('image');
     });
 
-    // 排序下a
+    // 发布文字
+    var drtTextBtn = _d.querySelector('#dreamReleaseText');
+    drtTextBtn && drtTextBtn.addEventListener('click', () => {
+        textPop = common.textNew('text');
+    });
+
+    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+    drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
+        textPop = common.textNew('link');
+    });
+
+    var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
+    drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
+        textPop = common.textNew('news');
+    });
+
+    var ltnBtn = document.querySelector('#listTextNew');
+    ltnBtn && ltnBtn.addEventListener('click', () => {
+        textPop = common.textNew('news');
+    });
+
+    // 编辑黑板
+    var descBtn = document.querySelector('#modifyDesc'),
+        descContent = document.querySelector('#descContent');
+    descBtn && utils.setData(descBtn, { editState: 'normal' });
+    descBtn && descBtn.addEventListener('click', () => {
+        if (descContent) {
+            var state = utils.getData(descBtn, 'editState'),
+                tid   = utils.getData(descBtn, 'tid');
+            if (state === 'normal') {
+                var desc = descContent.textContent.trim();
+                descContent.innerHTML = `<textarea>${desc}</textarea>`;
+                descBtn.textContent = "保存 →";
+                utils.setData(descBtn, { editState: 'editing' });
+            }
+            else{
+                if (state !== 'saving') {
+                    descBtn.textContent = "保存中...";
+                    utils.setData(descBtn, { editState: 'saving' });
+                    var editor = descContent.querySelector('textarea');
+
+                    if (editor) {
+                        var desc = editor.value.trim();
+                        req.post(
+                            "/tag/update",
+                            {
+                                tid: tid,
+                                description: desc
+                            },
+                            function(data) {
+                                common.xhrReponseManage(data, (data) => {
+                                    descContent.innerHTML = desc;
+                                    descBtn.textContent = "修改 +";
+                                    utils.setData(descBtn, { editState: 'normal' });
+                                });
+                            },
+                            function() {
+                                alert('服务器错误');
+                            }
+                        );
+                    }
+                }
+            }
+        }
+    });
+
+    // 排序下拉
     var sortSelect = dropdown.create({
         el: '[rel="nav-toggle"]',
         container: '#dream-tab-bar',
@@ -49,7 +164,10 @@
     var shareSelect = dropdown.shareDrop({
         el: '[rel="dream-share"]',
         container: '#dream-list',
-        modal: true
+        selector: '.share-box',
+        menu: '.share-list',
+        width: 'auto',
+        modal: false
     });
 
     // 更多操作下拉
@@ -77,7 +195,7 @@
                 function(data) {
                     switch(data.result) {
                         case 0:
-                            cur.innerHTML = settings.SUBSCRIBE;
+                            cur.innerHTML = settings.CANCEL_SUBSCRIBE;
                             utils.setData(cur, { 
                                 'hassubscribe': true
                             });
@@ -104,7 +222,7 @@
                 function(data) {
                     switch(data.result) {
                         case 0:
-                            cur.innerHTML = settings.CANCEL_SUBSCRIBE;
+                            cur.innerHTML = settings.SUBSCRIBE;
                             utils.setData(cur, { 
                                 'hassubscribe': false
                             });
@@ -396,36 +514,13 @@
             }
             else if (rel === 'dream-picsrc') {
                 ev.preventdefault;
+                let thumb   = cur.querySelector('img'),
+                    src     = thumb.src.replace('mpicmini', 'pic');
 
-                var thumbs = utils.closest(cur, '.thumbnail'),
-                    preview = thumbs.nextElementSibling,
-                    thumb   = cur.querySelector('img'),
-                    show    = utils.getData(cur, 'show');
-
-                if (!preview) return;
-
-                if (!show) {
-                    thumbs.querySelectorAll('li').forEach(function(img) {
-                        utils.setData(img, {'show': false});
-                    });
-                    utils.setData(cur, {'show': true});
-                    var img = new Image();
-                    img.src = thumb.src.replace('picmini', 'pic');
-
-                    preview.innerHTML = "<p>图片预览加载中...</p>"
-                    if(img.complete) {
-                        preview.innerHTML = "";
-                        preview.appendChild(img);
-                        return;
-                    }
-                    img.onload = function () {
-                        preview.querySelector('p').style.display = "none";
-                        preview.appendChild(img);
-                    };
-                }else{
-                    utils.setData(cur, {'show': false});
-                    preview.innerHTML = "";
-                }
+                imageViewer.setComProps({
+                    imageSrc: src
+                });
+                imageViewer.show();
             }
         }
     });

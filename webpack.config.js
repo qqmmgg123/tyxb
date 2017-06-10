@@ -23,13 +23,10 @@ var build_list = [
     'search',
     'user',
     'forgot',
-    'profile',
     'account',
     'reset',
     'emails',
     'message',
-    'signin',
-    'signup',
     'default',
 ];
 

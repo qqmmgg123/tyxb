@@ -6,11 +6,18 @@ class Validate {
     constructor(opts) {
         this.opts = opts;
         this.defValidates = {
+            'tag'     : {
+                'fun': function(val) {
+                    return utils.isTag(val);
+                },
+                'err': `小报名${settings.TAG_VALIDATION}`
+            },
+
             'username': {
                 'fun': function(val) {
                     return utils.isUserName(val);
                 },
-                'err': "昵称必须是6~12个小写字母、数字、下划线组成"
+                'err': `笔名${settings.USERNAME_VALIDATION}`
             },
 
             'email': {
@@ -20,18 +27,11 @@ class Validate {
                 'err': "邮箱的格式书写错误"
             },
 
-            'nickname': {
-                'fun': function(val) {
-                    return utils.isNickName(val);
-                },
-                'err': '笔名' + settings.NICK_NAME_VALIDATION
-            },
-
             'password': {
                 'fun': function(val) {
                     return utils.isPassword(val);
                 },
-                'err': "密码必须是6~16个字符的小写字母或数字组成"
+                'err': `密码${settings.PASSWORD_VALIDATION}`
             }
         };
         this.init();
@@ -42,30 +42,12 @@ class Validate {
         this.defaultOpts = {
             form: '#signup-form',
             fields: [
+                { name: 'tag', require: true, label: '小报名' },
+                { name: 'username', require: true, label: '笔名' },
                 { name: 'email', require: true, label: '邮箱' },
-                { name: 'nickname', require: true, label: '笔名' },
                 { name: 'password',  require: true, label: '密码' }
             ],
-            onCheckInput: function() {
-                var self = this;
-                req.post(
-                    '/signup/check',
-                    { 
-                        email: self.formData.email
-                    },
-                    function(data) {
-                        if (data.result === 0) {
-                            self.form.style.display = 'none';
-                            self.form.nextElementSibling.style.display = 'block';
-                            self.form.submit();
-                        } else {
-                            var infoBox = self.form.querySelector('#signupInfo');
-                            infoBox && (infoBox.innerHTML = data.info);
-                            infoBox && (infoBox.style.display = "block");
-                        }
-                    }
-                );
-            },
+            onCheckInput: null,
             needP: false
         }
 
@@ -130,7 +112,7 @@ class Validate {
                     // 判断是否为空
                     if (field.require) {
                         if (val.length === 0) {
-                            tips.innerHTML = label + "未填写";
+                            tips.innerHTML = field.empty_msg || (label + "木有填写");
                             tips.style.display = 'block';
                             validate = false;
                             return;
@@ -157,16 +139,15 @@ class Validate {
                                 errorText = defv.err || '';
                             }
                         }
-
-                        if (!isValid) {
-                            tips.style.display = 'block';
-                            tips.innerHTML = errorText;
-                            validate = false;
-                            return;
-                        }else{
-                            tips.innerHTML = '';
-                            tips.style.display = 'none';
-                        }
+                    }
+                    if (!isValid) {
+                        tips.style.display = 'block';
+                        tips.innerHTML = errorText;
+                        validate = false;
+                        return;
+                    }else{
+                        tips.innerHTML = '';
+                        tips.style.display = 'none';
                     }
                 }
             });

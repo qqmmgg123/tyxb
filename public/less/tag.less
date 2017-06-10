@@ -1,27 +1,29 @@
 @import './editor.less';
 
-#dream-tab-bar {
-    .tab-nav {
-        ul {
-            li {
-                &:first-child .tab{
-                    border-right: 1px solid #eaeaea;
-                }
-                .tab {
-                    margin: 5px 0;
-                    height: 24px;
-                    line-height: 24px;
-                    &.cur {
-                        border-bottom: none;
-                        color: #333;
-                    }
-                    &:hover {
-                        border-bottom: none;
-                        color: #333;
-                        font-weight: normal;
-                    }
-                }
-            }
-        }
+.blackboard, .tag-info {
+    margin-left: 20px;
+    padding-bottom: 15px;
+    h2 {
+        font-weight: normal;
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .tag-des {
+        overflow: hidden;
+        padding: 10px 0;
+        word-wrap: break-word; 
+        word-break: normal;
+        min-height: 80px;
     }
 }
+
+.blackboard {
+    textarea {
+        padding: 5px;
+        height: 150px;
+    }
+    border-bottom: 1px solid #f0f0f0;
+}
+

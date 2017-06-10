@@ -101,15 +101,15 @@ class AutoComplete {
         let style = {
             link: (
             <ul>
-                {this.data.list.map((item) => 
-                    <li><a href="javascript:;" data-value={item.value}>{item.key} <i className="enter-in">→</i></a></li>
+                {this.data.list.map((item, i) => 
+                    <li key={i}><a href="javascript:;" data-value={item.value}>{item.key} <i className="enter-in">→</i></a></li>
                 )}
                 </ul>
             ),
             normal: (
             <ul>
-                {this.data.list.map((item) => 
-                    <li><a href="javascript:;" data-value={item.value}>{item.key}</a></li>
+                {this.data.list.map((item, i) => 
+                    <li key={i}><a href="javascript:;" data-value={item.value}>{item.key}</a></li>
                 )}
                 </ul>
             )

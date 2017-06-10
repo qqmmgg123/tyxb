@@ -43,6 +43,10 @@ h1.dream-title {
     color: @gray2;
 }
 
+.image-viewer {
+    padding: 10px 0;
+}
+
 .read-viewer {
     font-size: 14px;
     margin-top: 1.5em;
@@ -121,10 +125,6 @@ h1.dream-title {
             display: inline-block;
             margin: 0 10px;
             color: #a8a8a8;
-            &:hover {
-                color: #3aabff;
-                text-decoration: underline;
-            }
         }
     }
 }
@@ -167,3 +167,31 @@ h1.dream-title {
         }
     }
 }
+
+.blackboard, .tag-info {
+    margin-left: 20px;
+    padding-bottom: 15px;
+    h2 {
+        font-weight: normal;
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .tag-des {
+        overflow: hidden;
+        padding: 10px 0;
+        word-wrap: break-word; 
+        word-break: normal;
+        min-height: 80px;
+    }
+}
+
+.blackboard {
+    textarea {
+        padding: 5px;
+        height: 150px;
+    }
+    border-bottom: 1px solid #f0f0f0;
+}
+

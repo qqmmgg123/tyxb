@@ -105,26 +105,14 @@
 
             return format;
         },
-        textNew: function() {
-            req.getJSON(
-                '/tag/simplemine',
-                null,
-                function(data) {
-                    common.xhrReponseManage(data, function() {
-                        if (data.data) {
-                            var tags = data.data.tags;
-
-                            tags && popup.textNewPop({
-                                id  : 'textReleasePop',
-                                tags: tags
-                            }).show();
-                        }
-                    });
-                },
-                function() {
-                    alert('网络异常');
-                }
-            );
+        textNew: function(type, tag) {
+            let pop = popup.textNewPop({
+                id   : 'textReleasePop',
+                type : type,
+                tag  : tag
+            });
+            pop.show();
+            return pop;
         },
         showSigninPop: function() {
             popup.registrationPop({ cur: 'signin' }).show();
@@ -161,7 +149,7 @@
             var _hmt = _hmt || [];
             (function() {
                 var hm = document.createElement("script");
-                hm.src = "//hm.baidu.com/hm.js?9ef942b0d6b160b80ac87ad7fdbb7d5f";
+                hm.src = "https://hm.baidu.com/hm.js?93021e0f5cc3538c992cf608b6c30431";
                 var s = document.getElementsByTagName("script")[0]; 
                 s.parentNode.insertBefore(hm, s);
             })();

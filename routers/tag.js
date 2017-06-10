@@ -8,15 +8,10 @@ var router = require('express').Router()
 ,   Tag    = require('../models/tag')
 ,   Permission = require('../models/permission')
 ,   Dream  = require('../models/dream')
-,   log = require('util').log
-,   Text  = require('../models/text');
+,   log = require('util').log;
 
 router.get('/', function(req, res, next) {
-    if (!req.user) {
-        return res.redirect('/tag/hot');
-    }
-
-    res.redirect('/tag/mine');
+    res.redirect('/tag/hot');
 });
 
 // 创建小报
@@ -123,96 +118,40 @@ router.get('/simplemine', function(req, res, next) {
         });
 });
 
-// 获取所有我的订阅
-router.get('/mine', function(req, res, next) {
-    req.session.redirectTo = '/tag';
-
+// 获取默认小报
+router.get('/getinfo', function(req, res, next) {
     if (!req.user) {
-        return res.redirect('/signin');
+        return res.json({
+            info: "请登录",
+            result: 2
+        });
     }
 
-    var user = req.user,
-        uid = req.user._id;
+    var user = req.user;
 
-    var populate = [{
-        path: '_create_u',
-        select: '_id username',
-        option: { lean: true }
-    }];
-    
-    populate.push({
-        path: 'followers',
-        match: { _id: uid },
-        select: '_id',
-        option: { lean: true },
-        model: Account
-    });
+    const { tid } = req.query;
 
-    // 查询耗时测试
-    var start = new Date().getTime();
-
-    Tag.aggregate([{
-        $match: {
-            _id: {
-                $in: user.follow_tags
-            }
-        }
-    }, {
-        $project: {
-            _id       : 1,
-            key       : 1,
-            _create_u : 1,
-            followers : 1,
-            unum      : { $size: '$followers' },
-            dnum      : { $size: '$dreams' },
-            date      : 1,
-            hot       : {
-                '$let': {
-                    vars: {
-                        time : {
-                            "$subtract": [
-                                "$date",
-                                new Date("1970-01-01")
-                            ]
-                        },
-                        score: { $size: '$followers' }
-                    },
-                    in: common.hotSort()
-                }
-            }
-        }
-    }, {
-        $sort: { hot: -1 }
-    }, {
-        $limit: 11
-    }], function(err, tags) {
-        if (err) {
-            return next(err);
-        }
-
-        Account.populate(tags, populate, function(err, tags) {
+    Tag.findOne({
+        _id: tid
+    }, "_id key")
+        .lean()
+        .exec(function(err, tag) {
             if (err) {
                 return next(err);
             }
 
-            res.render('pages/tags', common.makeCommon({
-                title: settings.APP_NAME,
-                notice: common.getFlash(req, 'notice'),
-                user : req.user,
-                data: {
-                    tags: tags,
-                    tab  : 'mine'
-                },
-                success: 1
-            }, res));
-
-            var end = new Date().getTime(),
-                spend = end - start;
-            if (spend > common.maxtime) {
-                console.log(req.originalUrl + ' spend' + spend + 'ms');
+            if (!tag) {
+                return next(new Error('找不到当前的圈子~~'))
             }
+
+            res.json({
+                info: 'success!',
+                data: {
+                    tag: tag.key
+                },
+                result: 0
+            });
         });
-    });
 });
 
 // 获取所有最热订阅
@@ -239,32 +178,25 @@ router.get('/hot', function(req, res, next) {
     // 查询耗时测试
     var start = new Date().getTime();
 
-    Tag.aggregate([{
-        $project: {
+    let querys = {
             _id       : 1,
             key       : 1,
             _create_u : 1,
             followers : 1,
+            weight    : 1,
             unum      : { $size: '$followers' },
             dnum      : { $size: '$dreams' },
-            date      : 1,
-            hot       : {
-                '$let': {
-                    vars: {
-                        time : {
-                            "$subtract": [
-                                "$date",
-                                new Date("1970-01-01")
-                            ]
-                        },
-                        score: { $size: '$followers' }
-                    },
-                    in: common.hotSort()
-                }
-            }
-        }
+            date      : 1
+        };
+
+    if (req.user) {
+        querys.isdisable = { $eq  : ["$president", req.user._id] };
+    }
+
+    Tag.aggregate([{
+        $project: querys
     }, {
-        $sort: { hot: -1 }
+        $sort: { weight: -1, unum: -1, dnum: -1 }
     }, {
         $limit: 11
     }], function(err, tags) {
@@ -321,8 +253,7 @@ router.get('/newest', function(req, res, next) {
     // 查询耗时测试
     var start = new Date().getTime();
 
-    Tag.aggregate([{
-        $project: {
+    let querys =  {
             _id       : 1,
             key       : 1,
             _create_u : 1,
@@ -330,7 +261,14 @@ router.get('/newest', function(req, res, next) {
             unum      : { $size: '$followers' },
             dnum      : { $size: '$dreams' },
             date      : 1
-        }
+        };
+
+    if (req.user) {
+        querys.isdisable = { $eq  : ["$president", req.user._id] };
+    }
+
+    Tag.aggregate([{
+        $project: querys
     }, {
         $sort: { date: -1 }
     }, {
@@ -386,8 +324,11 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
         project = {
             _id       : 1,
             content   : 1,
-            text      : 1,
-            nodes     : 1,
+            summary   : 1,
+            link      : 1,
+            thumbnail : 1,
+            mthumbnail: 1,
+            site      : 1,
             cnum      : { $size: '$comments' },
             _belong_u : 1,
             date      : 1,
@@ -527,6 +468,11 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                 });
             }
 
+            populate.push({ 
+                path: 'president',
+                select: '_id username',
+            });
+
             Tag.findById(_curId)
                 .select("_id key description _create_u followers permissions president date")
                 .lean()
@@ -563,7 +509,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                 pnext = page + 1;
 
             var delperm = (tag.president &&
-                    tag.president.equals(uid) &&
+                    tag.president._id.equals(uid) &&
                     tag.permissions &&
                     tag.permissions.length > 0);
 
@@ -582,7 +528,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     order   : order,
                     prev    : prev,
                     next    : pnext,
-                    nav     : 'dream',
+                    nav     : 'tag',
                     domain  : req.get('origin') || req.get('host')
                 },
                 success: 1
@@ -697,7 +643,11 @@ router.post('/csubscribe', function(req, res, next) {
         });
     }
 
-    var uid = user._id
+    var uid = user._id;
+
+    if (uid && user.main_tag.equals(tid)) {
+        return next(new Error("不能取消订阅您主推的小报"));
+    }
 
     if (!req.body) {
         return next(new Error("请求参数错误..."));
@@ -719,6 +669,33 @@ router.post('/csubscribe', function(req, res, next) {
 
         res.json({
             info: "取消版面订阅成功",
+            result: 0
+        });
+    });
+});
+
+// 查看版面是否存在
+router.post('/update', function(req, res, next) {
+    if (!req.user) {
+        return res.json({
+            info: "请登录",
+            result: 2
+        });
+    }
+
+    const { tid, description = '' } = req.body;
+
+    if (!tid) return next(new Error(settings.PARAMS_PASSED_ERR_TIPS))
+
+    Tag.update({
+        _id: tid.trim()
+    }, {
+        description: description.trim()
+    }, function(err, affected, resp) {
+        if (err) return next(err);
+
+        res.json({
+            info: "更新成功",
             result: 0
         });
     });

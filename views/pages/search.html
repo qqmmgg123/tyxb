@@ -15,19 +15,28 @@
 </head>
 <body>
     <% include ../partials/header.html %>
-    <div class="container mar-top">
+    <div class="container tag-top-head mar-top">
+        <div class="main">
+            <div class="tag-head-info">
+                <div class="tagHead-infoInner">
+                    <h2>关于"<%= data.query %>"的查询结果</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
         <div class="search-area">
             <div class="tab-nav">
                 <ul>
                     <li><a class="tab<% if (data.type === 'all') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=all">全部</a></li>
-                    <li><a class="tab<% if (data.type === 'tag') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=tag">版面</a></li>
-                    <li><a class="tab<% if (data.type === 'dream') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=dream">贴文</a></li>
+                    <li><a class="tab<% if (data.type === 'tag') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=tag">小报</a></li>
+                    <li><a class="tab<% if (data.type === 'dream') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=dream">发文</a></li>
                     <!--<li><a class="tab<% if (data.type === 'user') { %> cur<% } %>" href="/search?query=<%= data.query %>&type=user">作者</a></li>-->
                 </ul>
             </div>
             <div class="search-result">
             <% if (data.type === 'all') { %>
-            <h2>版面</h2>
+            <h2>小报</h2>
             <ul id="tag-list" class="list-group">
                 <% if (data.results.tags && data.results.tags.length > 0) { %>
                 <% data.results.tags.forEach(function(tag) { %>
@@ -36,12 +45,12 @@
                 <% } else { %>
                 <li class="list-item">
                     <div class="nodata">
-                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的版面
+                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的小报
                     </div>
                 </li>
                 <% } %>
             </ul>
-            <h2>贴文</h2>
+            <h2>发文</h2>
             <ul id="dream-list" class="list-group">
                 <% if (data.results.dreams && data.results.dreams.length > 0) { %>
                 <% data.results.dreams.forEach(function(dream) { %>
@@ -65,7 +74,7 @@
             </ul>
             <% } %>
             <% if (data.type === 'tag') { %>
-            <h2>版面</h2>
+            <h2>小报</h2>
             <ul id="tag-list" class="list-group">
                 <% if (data.results && data.results.length > 0) { %>
                 <% data.results.forEach(function(tag) { %>
@@ -74,14 +83,14 @@
                 <% } else { %>
                 <li class="list-item">
                     <div class="nodata">
-                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的版面
+                        :&nbsp;(&nbsp;没有找到与"<%= data.query %>"相关的小报
                     </div>
                 </li>
                 <% } %>
             </ul>
             <% } %>
             <% if (data.type === 'dream') { %>
-            <h2>贴文</h2>
+            <h2>发文</h2>
             <ul id="dream-list" class="list-group">
                 <% if (data.results && data.results.length > 0) { %>
                 <% data.results.forEach(function(dream) { %>

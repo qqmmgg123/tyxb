@@ -6,7 +6,6 @@ var async = require("async")
     , Account = require('../models/account')
     , Dream = require('../models/dream')
     , Comment = require('../models/comment')
-    , Text = require('../models/text')
     , Tag = require('../models/tag')
     , router = require('express').Router();
 
@@ -78,8 +77,8 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     content   : 1,
                     summary   : 1,
                     link      : 1,
-                    image     : 1,
-                    nodes     : 1,
+                    thumbnail : 1,
+                    mthumbnail: 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
                     _belong_t : 1,
@@ -167,7 +166,10 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                 hasmore : false,
                 role    : role,
                 order   : order,
+                dnum    : account.dnum,
+                cnum    : account.cnum,
                 tab     : "dream",
+                nav     : "user",
                 domain  : req.get('origin') || req.get('host')
             };
 
@@ -244,7 +246,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
     var start = new Date().getTime(),
         aproject = {
             avatar   : 1,
-            nickname : 1,
+            username : 1,
             bio      : 1,
             date     : 1,
             dnum     : { $size: '$dreams' },
@@ -298,7 +300,8 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                     content   : 1,
                     summary   : 1,
                     link      : 1,
-                    image     : 1,
+                    thumbnail : 1,
+                    mthumbnail: 1,
                     nodes     : 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
@@ -385,9 +388,12 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                 dreams  : [],
                 hasprev : false,
                 hasmore : false,
+                dnum    : account.dnum,
+                cnum    : account.cnum,
                 role    : role,
                 order   : order,
                 tab     : "favourite",
+                nav     : "user",
                 domain  : req.get('origin') || req.get('host')
             };
 
@@ -661,10 +667,127 @@ router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
                     dnum      : dnum,
                     cnum      : cnum,
                     fnum      : fnum,
-                    tab       : "comment"
+                    tab       : "comment",
+                    nav       : "user"
                 };
 
                 resRender(resData);
+            });
+        }
+    });
+});
+
+// 获取所有我的订阅
+router.get('/:id([a-z0-9]+)/subscribe', function(req, res, next) {
+    req.session.redirectTo = req.originalUrl;
+
+    var curId = req.params.id,
+        _curId = mongoose.Types.ObjectId(curId);
+
+    var uid = null;
+    if (req.user && req.user._id) {
+        uid = req.user._id;
+    }
+
+    // 查询耗时测试
+    var start = new Date().getTime(),
+        aproject = {
+            avatar   : 1,
+            username : 1,
+            bio      : 1,
+            date     : 1,
+            main_tag : 1,
+            follow_tags: 1,
+            dnum     : { $size: '$dreams' },
+            cnum     : { $size: '$comments' }
+        };
+
+    if (uid) {
+        aproject.fnum = { $size: '$favourites' };
+    }
+
+    Account.aggregate([{
+        $match: {
+            "_id": _curId
+        }
+    }, {
+        $project: aproject
+    }], function(err, accounts) {
+        var unexisterr = new Error(settings.USER_NOT_EXIST_TIPS);
+
+        if (err || !accounts) {
+            return next(err || unexisterr);
+        };
+
+        var account = accounts[0];
+
+        if (!account) {
+            return next(unexisterr);
+        }else{
+            var populate = [{
+                path: '_create_u',
+                select: '_id username',
+                option: { lean: true }
+            }];
+
+            if (uid) {
+                populate.push({
+                    path: 'followers',
+                    match: { _id: uid },
+                    select: '_id',
+                    option: { lean: true },
+                    model: Account
+                });
+            }
+
+            Tag.aggregate([{
+                $match: {
+                    _id: {
+                        $in: account.follow_tags
+                    }
+                }
+            }, {
+                $project: {
+                    _id       : 1,
+                    key       : 1,
+                    _create_u : 1,
+                    followers : 1,
+                    isdisable : { $eq  : ["$president", account._id] },
+                    unum      : { $size: '$followers' },
+                    dnum      : { $size: '$dreams' },
+                    ismain    : { $eq  : ["$_id", account.main_tag] },
+                    date      : 1
+                }
+            }, {
+                $sort: { ismain: -1, unum: -1, dnum: -1 }
+            }, {
+                $limit: 11
+            }], function(err, tags) {
+                if (err) {
+                    return next(err);
+                }
+
+                res.render('pages/user', common.makeCommon({
+                    title: settings.APP_NAME,
+                    notice: common.getFlash(req, 'notice'),
+                    user : req.user,
+                    data: {
+                        account   : account,
+                        tags      : tags,
+                        dnum      : account.dnum,
+                        cnum      : account.cnum,
+                        fnum      : account.fnum,
+                        tab       : "subscribe",
+                        nav       : "user"
+                    },
+                    success: 1
+                }, res));
+
+                var end = new Date().getTime(),
+                    spend = end - start;
+                if (spend > common.maxtime) {
+                    console.log(req.originalUrl + ' spend' + spend + 'ms');
+                }
             });
         }
     });
@@ -780,6 +903,37 @@ router.get('/user/:id([a-z0-9]+)/follower', function(req, res, next) {
             console.log(req.originalUrl + ' spend' + spend + 'ms');
         }
 
+    });
+});
+
+// 更改用户资料
+router.post('/update', function(req, res, next) {
+    if (!req.user) {
+        return res.json({
+            info: "请登录",
+            result: 2
+        });
+    }
+
+    var uid = req.user.id;
+
+    if (!req.body) {
+        var err = new Error(settings.PARAMS_PASSED_ERR_TIPS);
+        return next(err);
+    }
+    let { bio = '' } = req.body;
+
+    req.user.update({
+        bio      : bio.trim()
+    }, function(err, course) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json({
+            info: "更新成功",
+            result: 0
+        });
     });
 });
 

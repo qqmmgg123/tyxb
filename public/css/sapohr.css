@@ -62,27 +62,39 @@
 .s-full:before {
   content: "\EA09";
 }
-.s-list:before {
+.s-image:before {
   content: "\EA0A";
 }
-.s-message:before {
+.s-link:before {
   content: "\EA0B";
 }
-.s-plus:before {
+.s-list:before {
   content: "\EA0C";
 }
-.s-qzone:before {
+.s-message:before {
   content: "\EA0D";
 }
-.s-refresh:before {
+.s-plus:before {
   content: "\EA0E";
 }
-.s-search:before {
+.s-qzone:before {
   content: "\EA0F";
 }
-.s-wb:before {
+.s-refresh:before {
   content: "\EA10";
 }
-.s-weixin:before {
+.s-search:before {
   content: "\EA11";
+}
+.s-subtract:before {
+  content: "\EA12";
+}
+.s-text:before {
+  content: "\EA13";
+}
+.s-wb:before {
+  content: "\EA14";
+}
+.s-weixin:before {
+  content: "\EA15";
 }

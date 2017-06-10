@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
 
 var Tag = new Schema({
     key         : { type: String, unique: true, index: true, required: true, minlength: 2, maxlength: 24, trim: true, dropDups: true },
-    description : { type: String, trim: true, default: '' },
+    description : { type: String, trim: true, default: '', maxlength: 300, },
     _create_u   : { type: Schema.Types.ObjectId, ref: 'Account' },
     president   : { type: Schema.Types.ObjectId, ref: 'Account' },
     roles       : [{ type: Schema.Types.ObjectId, ref: 'Role' }],
@@ -15,6 +15,7 @@ var Tag = new Schema({
     followers   : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
     dreams      : [{ type: Schema.Types.ObjectId, ref: 'Dream' }],
     weight      : { type: Number, default: 0 },
+    ispublic    : { type: Boolean, default: false },
     date        : { type: Date, default: Date.now }
 });
 

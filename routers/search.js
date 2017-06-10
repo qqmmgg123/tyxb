@@ -203,28 +203,21 @@ router.get('/', function(req, res, next) {
                         return cb(err, []);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
+                    if (err) {
+                        return cb(err, []);
+                    }
+
+                    Tag.populate(dreams, { 
+                        path: '_belong_t',
+                        select: "_id key",
                         option: { lean: true },
-                        model: Text
+                        model: Tag
                     }, function(err, dreams) {
                         if (err) {
                             return cb(err, []);
                         }
 
-                        Tag.populate(dreams, { 
-                            path: '_belong_t',
-                            select: "_id key",
-                            option: { lean: true },
-                            model: Tag
-                        }, function(err, dreams) {
-                            if (err) {
-                                return cb(err, []);
-                            }
-
-                            cb(null, dreams);
-                        });
+                        cb(null, dreams);
                     });
                 });
             });

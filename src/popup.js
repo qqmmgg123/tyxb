@@ -53,22 +53,16 @@ class FinishBtn extends React.Component {
 
     render() {
         return (
-            <button id="finish_cdream_btn" onClick={this.handleClick} type="button" className="btn">分享 > </button>
+            <button ref={(ref) => {this._self = ref}} id="finish_cdream_btn" onClick={this.handleClick} type="button" className="btn">分享 → </button>
         );
     }
-}
 
-class MyTagList extends React.Component {
-    constructor(props) {
-        super(props);
+    enable() {
+        utils.removeClass(this._self, 'disabled');
     }
 
-    render() {
-        return (<ul>
-            {this.props.tags.map((tag, index) => (
-                <li key={index}><a href="javascript:;" data-tid={tag._id}>{tag.key}</a></li>
-            ))}
-            </ul>);
+    disable() {
+        utils.addClass(this._self, 'disabled');
     }
 }
 
@@ -76,36 +70,54 @@ class DreamForm extends BaseCom {
     constructor(props) {
         super(props);
 
-        self.tagCheckPassed = false;
-        self.btnDis  = true;
+        this.tagCheckPassed = false;
+        this.btnDis  = true;
+        this.formData = null;
+        let btns = [
+            { label: '网址', rel: 'tab-link-post', name: 'link', active: false },
+            { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
+            { label: '图片', rel: 'tab-image-post', name: 'image', active: false },
+        ]
+
+        let formsEls = [];
+        if (props.type !== 'news') {
+            let upcase = this.firstLetter(props.type);
+            formsEls = [{
+                name: props.type,
+                com: this['render' + upcase + 'Form'].bind(this)
+            }];
+        }
 
         this.state = {
-            curForm: 'link',
-            curImage: '',
+            curForm: props.type,
+            formEls: formsEls,
+            text: '',
+            link: '',
+            linkType: '',
+            addBtns: btns
         }
     }
 
-    encodeContent(text) {
-        return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\xA0').join('&nbsp;').split('\n').join(BREAK + '\n');
-    }
 
     encodeAttr(text) {
         return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');
     }
 
     componentDidMount() {
-        let selectors = [
-            '[rel="tab-text-post"]',
-            '[rel="tab-link-post"]',
-            '[rel="tab-image-post"]',
-        ],
-            handles   = [
-                this.showTextForm,
-                this.showLinkForm,
-                this.showImageForm,
-            ];
+        if (this._tabNav) {
+            let selectors = [
+                '[rel="tab-text-post"]',
+                '[rel="tab-link-post"]',
+                '[rel="tab-image-post"]',
+            ],
+                handles   = [
+                    this.toggleTextForm,
+                    this.toggleLinkForm,
+                    this.toggleImageForm,
+                ];
 
-        this.delegate(this._tabNav, selectors, handles);
+            this.delegate(this._tabNav, selectors, handles);
+        }
 
         this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach((inp) => {
             inp.onfocus = (ev) => {
@@ -119,22 +131,52 @@ class DreamForm extends BaseCom {
         });
     }
 
-    showTextForm() {
-        this.setState({
-            curForm: 'text'
+    firstLetter(str) {
+        return str.replace(/^([a-z]{1})([a-z]+)$/, function() {
+            return RegExp.$1.toLocaleUpperCase() + RegExp.$2;
         });
     }
 
-    showLinkForm() {
+    toggleForm(type) {
+        let { addBtns, formEls } = this.state;
+        let active;
+        for (let i = 0, l = addBtns.length; i < l; i++) {
+            let btn = addBtns[i];
+            if (btn.name === type) {
+                active = btn.active;
+                btn.active = !active;
+                break;
+            }
+        }
+        if (!active) {
+            let upcase = this.firstLetter(type);
+            formEls.push({
+                name: type,
+                com: this['render' + upcase + 'Form'].bind(this)
+            });
+        }
+        else{
+            formEls = formEls.filter((form) => {
+                return form.name !== type;
+            });
+        }
+
         this.setState({
-            curForm: 'link'
+            addBtns: addBtns,
+            formEls: formEls
         });
     }
 
-    showImageForm() {
-        this.setState({
-            curForm: 'image'
-        });
+    toggleTextForm() {
+        this.toggleForm('text');
+    }
+
+    toggleLinkForm() {
+        this.toggleForm('link');
+    }
+
+    toggleImageForm() {
+        this.toggleForm('image');
     }
 
     xhrReponseManage(data, callback) {
@@ -156,100 +198,6 @@ class DreamForm extends BaseCom {
         };
     }
 
-    tagCheckStart() {
-        this.btnDis  = true;
-        this._tagInfo.innerHTML = '版面信息加载中...';
-        this._tagInfo.style.display = 'block';
-    }
-
-    tagCheckEnd(key, cb) {
-        if (typeof key != 'string') {
-            this.btnDis  = false;
-            this._tagInfo.innerHTML = '';
-            this._tagInfo.style.display = 'none';
-            return;
-        };
-
-        var self    = this,
-            tagInfo = this._tagInfo;
-
-        this._tagInfo.className = 'alert';
-        if (key) {
-            self.tagCheckPassed = true;
-            tagInfo.innerHTML = [
-                '<h3>您的贴文将发布到”' + key + '“</h3>',
-                '<p>该版面版主功能即将开放，敬请关注，</p>',
-                '<p>也因此抱歉，当前暂时无法制定版面规则。<p>'
-            ].join('');
-            utils.addClass(tagInfo, 'alert-success');
-            self.tagDescModify = self._popbd.querySelector('#tagDescModify');
-            self.tagDescModify && self.tagDescModify.addEventListener('change', function() {
-                self._popbd.querySelector('#tagDescInput').style.display = '';
-            });
-            self.btnDis = false;
-            if (cb) {
-                cb.call(self);
-            }
-        }else{
-            self.tagCheckPassed = false;
-            tagInfo.innerHTML = [
-                '<div>',
-                '您选择的版面不存在，如需创建，请点击',
-                '<a href="/tag/hot" class="btn">去创建 ></a>',
-                '</div>'
-            ].join('');
-            utils.addClass(tagInfo, 'alert-warning');
-        }
-    }
-
-    checkTag(newKey, cb) {
-        var self = this,
-            inp = this._dreamTagInp,
-            key = inp.value.trim(),
-            newKey = newKey.trim();
-
-        if (typeof newKey !== 'string' && newKey.length === 0) return;
-
-        var tagInfo = self._tagInfo;
-        if (key !== newKey) {
-            self.btnDis  = true;
-            tagInfo.innerHTML = '版面信息加载中...';
-            tagInfo.style.display = 'block';
-            req.getJSON(
-                '/search/tag',
-                { key: newKey },
-                function(data) {
-                    self.xhrReponseManage(data, function(data) {
-                        var data = data.data;
-                        
-                        if (data.tag) {
-                            self.tagCheckEnd(newKey, cb);
-                        } else {
-                            self.tagCheckEnd('');
-                        }
-                    });
-                }
-            );
-        }else{
-            if (cb) {
-                if (self.tagCheckPassed) {
-                    cb.call(self);
-                }
-            }
-        }
-    }
-
-    tagSelected(e) {
-        var self = this,
-            ctag = e.target,
-            tagSelect = e.currentTarget;
-        if(ctag && ctag.nodeName.toLowerCase() == "a") {
-            var newKey = ctag.lastChild.nodeValue.trim();
-            self.checkTag(newKey);
-            self._dreamTagInp.value = newKey;
-        }
-    }
-
     onCancelImage() {
         this.setState({
             curImage: ''
@@ -260,7 +208,6 @@ class DreamForm extends BaseCom {
         e.stopPropagation();
         e.preventDefault();
         e.target.className = (e.type == "dragover" ? "image-drag-box hover" : "image-drag-box");
-        console.log('dragover');
     }
 
     fileSelectHandler(e) {
@@ -283,7 +230,6 @@ class DreamForm extends BaseCom {
                         <button type="button" className="btn">添加图片 +</button>
                         <input ref={(imageUpload) => { this._imageUpload = imageUpload }} accept="image/*" onChange={this.uploadImage.bind(this)} style={{ display : "none" }} id="image-upload" type="file" name="upload_file" />
                     </div>
-                    <input type="hidden" name="image" value={this.state.curImage} />
                 </div>
             );
         }
@@ -294,6 +240,7 @@ class DreamForm extends BaseCom {
                         <i className="s s-close s-lg"></i>
                     </a>
                     <img src={curImage} />
+                    <input type="hidden" name="image" value={this.state.curImage} />
                 </div>
             )
         }
@@ -343,82 +290,110 @@ class DreamForm extends BaseCom {
         })
     }
 
+    linkChange(ev) {
+        let link = ev.target.value,
+            linkType = '';
+
+        if (/^http\:\/\/www\.ximalaya\.com.*$/.test(link)) {
+            linkType = "ximalaya";
+        }
+
+        this.setState({
+            linkType: linkType,
+            link: link
+        })
+    }
+
     renderTextForm() {
         return (
             <div className="form-group">
                 <MyEditor onTextChange={this.changeText.bind(this)} />
-                <p style={{ display: 'none' }} className="field"><textarea id="textContent" onChange={this.textChange.bind(this)} placeholder="(可选)正文" name="text" value={this.state.text}></textarea></p>
+                <p style={{ display: 'none' }} className="field">
+                    <textarea 
+                    id="textContent" 
+                    onChange={this.textChange.bind(this)} 
+                    placeholder="正文" name="text" 
+                    value={this.state.text}>
+                    </textarea>
+                </p>
                 <p className="validate-error"></p>
             </div>
         )
     }
 
     renderLinkForm() {
-        return (
-            <div className="form-group">
-                <p className="field"><input data-cname="网址" type="url" name="link" placeholder="(可选)网址，例: http://www.ty-xb.com" /></p>
-                <p className="validate-error"></p>
-            </div>
-        )
-    }
+            let { link, linkType } = this.state;
 
-    _getTabCls(name) {
-        const { curForm } = this.state;
-
-        if (name === curForm) {
-            return 'tab cur';
-        }
-        else{
-            return 'tab';
-        }
+            switch(linkType) {
+                case 'ximalaya':
+                    return (
+                        <div className="form-group">
+                        <p className="field"><input onChange={this.linkChange.bind(this)} value={this.state.link} data-cname="网址" type="url" name="link" placeholder="网址，例: http://www.ty-xb.com" /></p>
+                        <p className="validate-error"></p>
+                        <object type="application/x-shockwave-flash" id="ximalaya_player" data={link} width="260" height="36"></object>
+                        </div>
+                    )
+                    break;
+                default:
+                    return (
+                        <div className="form-group">
+                        <p className="field"><input onChange={this.linkChange.bind(this)} value={this.state.link} data-cname="网址" type="url" name="link" placeholder="网址，例: http://www.ty-xb.com" /></p>
+                        <p className="validate-error"></p>
+                        </div>
+                    )
+                    break;
+            }
     }
 
     render() {
-        const { curForm } = this.state;
-        let formEl = null,
-            tabs = [
-                { label: '网址', rel: 'tab-link-post', name: 'link' },
-                { label: '文字', rel: 'tab-text-post', name: 'text' },
-                { label: '图片', rel: 'tab-image-post', name: 'image' },
-            ];
+        const { formEls, addBtns, defTagWord, stateComplate } = this.state;
+        const { type } = this.props;
 
-        switch(curForm) {
-            case 'link':
-                formEl = this.renderLinkForm();
-                break;
-            case 'text':
-                formEl = this.renderTextForm();
-                break;
-            case 'image':
-                formEl = this.renderImageForm();
-                break;
-        }
-
-        return (
-            <div>
-                <div ref={(ref) => { this._tabNav = ref }} className="tab-nav">
+        let header = null;
+        if (type === "news") {
+            header = (
+                <div ref={(ref) => { this._tabNav = ref }} id="dreamReleaseBar" className="nav-group">
                     <ul>
-                        {tabs.map((tab, i) =>
+                        <li>
+                            <span className="tab">标题</span>
+                        </li>
+                        {addBtns.map((btn, i) =>
                             <li key={i}>
-                                <a href="javascript:;" rel={tab.rel} className={this._getTabCls(tab.name)}>{tab.label}</a>
+                                <a href="javascript:;" 
+                                   className={(btn.active? 'btn cur':'btn')} 
+                                   rel={btn.rel}><i className={btn.active? 's s-subtract s-lg':"s s-plus s-lg"}></i>
+                                   {btn.label}
+                                </a>
                             </li>
                         )}
                     </ul>
                 </div>
+            )
+        }
+
+        return (
+            <div>
+                {header}
                 <div className="tab-content">
                     <div ref={(popbd) => { this._popbd = popbd }} className="dream-area">
                         <div ref={(createInfo) => { this._createInfo = createInfo }} className="alert" style={{ display: "none" }}>
                         </div>
-                        <form ref={(ref) => this._form = ref} action="/dream/new" method="post">
-                            <input type="hidden" name="category" value={this.state.curForm} />
+                        <form ref={(ref) => this._form = ref}>
                             <div ref={(tagInfo) => { this._tagInfo = tagInfo }} className="alert form-group" style={{ display: "none" }}>
                             </div>
                             <div className="form-group">
-                                <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="(必填)标题"></textarea></p>
+                                <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="标题[必须]"></textarea></p>
                                 <p className="validate-error"></p>
                             </div>
-                            {formEl}
-                            <div><FinishBtn onFinishClick={this.validate.bind(this)} /></div>
+                            {formEls.map((form, i) => {
+                                let Form = form.com;
+                                return (<Form key={i} />)
+                            })}
+                            <input type="hidden" name="category" value={type} />
+                            <div className="dream-release-ctrl">
+                                {`内容将分享到您的日常`} 
+                                <FinishBtn ref={(ref) => {this._finishBtn = ref}} onFinishClick={this.validate.bind(this)} />
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -426,33 +401,37 @@ class DreamForm extends BaseCom {
         )
     }
 
+    getFormData() {
+        this.formData = {};
+        this._form && this._form
+            .querySelectorAll(
+            'input[type=text], \
+            input[type=url], \
+            input[type=hidden], \
+            textarea'
+        ).forEach((inp, key) => {
+            const val    = inp.value;
+            this.formData[inp.name] = val;
+        });
+    }
+
     validate() {
-        var self = this,
-            formData = {},
-            validate = true;
-
-        let labelMap = {
-            link: '网址',
-            text: '文字',
-            image: '图片'
-        }
-
-        const { curForm } = this.state;
+        let validate = true;
 
         self.fields = [
-            { name: 'tag', require: true, label: '版面', empty_msg: '版面未选择' },
             { name: 'content',  require: true, label: '标题' },
-            { name: curForm, label: labelMap[curForm] },
+            { name: 'link', label: '网址', err: "链接格式错误", fun: (val) => {
+                return (!val || utils.isUrl(val));
+            } }
         ]
 
-        if (curForm === 'link') {
-            let fieldLink = self.fields[2];
-            fieldLink.fun = (val) => (!val || utils.isUrl(val));
-            fieldLink.err = "链接格式错误";
-        }
-
-        this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach(function(inp, key) {
-            var val    = inp.value,
+        this._form && this._form
+            .querySelectorAll(
+            'input[type=text], \
+            input[type=url], \
+            textarea'
+        ).forEach((inp, key) => {
+            let val    = inp.value,
                 field  = utils.closest(inp, '.field'),
                 tips   = field && field.nextElementSibling;
 
@@ -462,8 +441,8 @@ class DreamForm extends BaseCom {
             }
 
             // 判断是否有效
-            self.fields && self.fields.forEach(function(field) {
-                var name = field.name,
+            self.fields && self.fields.forEach((field) => {
+                let name = field.name,
                     label = field.label;
                 if (name === inp.name) {
                     val = val.trim();
@@ -481,7 +460,7 @@ class DreamForm extends BaseCom {
                         }
                     }
 
-                    var isValid  = true,
+                    let isValid  = true,
                         errorText = "";
                     if (field.fun) {
                         if (!field.fun(val)) {
@@ -502,28 +481,22 @@ class DreamForm extends BaseCom {
                     }
                 }
             });
-
-            formData[inp.name] = val;
         });
 
         if (validate) {
-            self.submit();
+            this._finishBtn.disable();
+            this.getFormData();
+            this.submit();
         }
     }
 
     hasCon() {
-        let labelMap = {
-            link: '网址',
-            text: '文字',
-            image: '图片'
-        }
-
-        const { curForm } = this.state;
-
         let fields = [
             { name: 'tag' },
             { name: 'content' },
-            { name: curForm },
+            { name: 'link' },
+            { name: 'text' },
+            { name: 'image' },
         ];
 
         return this._form && [].slice.call(this._form.querySelectorAll(
@@ -539,8 +512,18 @@ class DreamForm extends BaseCom {
     }
 
     submit() {
-        var self = this;
-        this._form.submit();
+        req.post(
+            '/dream/new',
+            this.formData,
+            (data) => {
+                this.xhrReponseManage(data, (data) => {
+                    if (data.result === 0 && data.data) {
+                        const { did } = data.data;
+                        did && window.location.replace('/dream/' + did);
+                    }
+                });
+            }
+        );
     }
 }
 
@@ -566,9 +549,7 @@ class Popup {
             direction: 'top',
             modal: false,
             onClose: null,
-            html: '',
-            left: 0,
-            top: 0
+            html: ''
         }
 
         this.div = document.createElement('div');
@@ -597,14 +578,6 @@ class Popup {
             switch (o.toLowerCase()) {
                 case 'width':
                 case 'height':
-                case 'left':
-                case 'top':
-                    var value = this.settings[o];
-                    if (typeof value == "number")
-                        value += 'px';
-
-                    this.div.style[o] = value;
-                    break;
                 case 'arrow':
                     if (typeof this.settings[o] != "boolean") 
                         this.settings[o] = this.defaultOpts[o]
@@ -719,57 +692,101 @@ class Win extends Popup {
 class TextNewPop extends Win {
     constructor(opts) {
         super(opts);
-        this.tags = opts.tags;
+        this.tags   = opts.tags;
+        this.type   = opts.type;
+        this.curTag = opts.tag;
         this.form = null;
+
+        this._map = {
+            'link' : '发网址',
+            'text' : '发文字',
+            'image': '发图片',
+            'news' : '发图文链接',
+        }
+
         this.updateSettings({
-            title: "发布内容"
+            title: this._map[this.type]
         });
     }
 
+    checkUser(cb) {
+        if (this.curTag) {
+            req.getJSON(
+                '/getinfo',
+                { tid: this.curTag },
+                cb.bind(this),
+                () => {
+                    alert('网络异常');
+                }
+            );
+        }
+        else{
+            req.getJSON(
+                '/islogin',
+                null,
+                cb.bind(this),
+                () => {
+                    alert('网络异常');
+                }
+            );
+        }
+    }
+
     bindEvents() {
+        super.bindEvents();
         var self = this;
-        this.form = ReactDOM.render(
-            <DreamForm tags={this.tags} />,
+        const CheckUserTips = () => (
+            <div className="loading">正在验证用户状态...</div>
+        );
+        let state = History.getState();
+        if (!state.data.release) {
+            History.pushState({ release: this.type}, this._map[this.type], "release");
+        }
+        ReactDOM.render(
+            <CheckUserTips />,
             this.bd
         );
 
-        utils.placeholder(this._popbd);
-
-        super.bindEvents();
-
-        var con = this.bd.querySelector("#dreamTagBox");
-        if (con) {
-            var auc = autocomplate({
-                con: con,
-                inp: '#dream-tag',
-                url: '/search/tags',
-                map: {
-                    query: 'key',
-                    list: 'data.tags',
-                    key: 'key',
-                    value: '_id'
-                },
-                onQueryStart: function() {
-                    self.form.tagCheckStart();
-                },
-                onQueryEnd: function(key) {
-                    self.form.tagCheckEnd(key);
-                },
-                onSelected: function(item) {
-                    self.form.checkTag(item.key);
+        this.checkUser((data) => {
+            const ret = +data.result;
+            if (ret === 0) {
+                try{
+                let { tag = '' } = data.data || {};
+                this.form = ReactDOM.render(
+                    <DreamForm type={this.type} tag={tag} />,
+                    this.bd
+                );
+                utils.placeholder(this._popbd);
+                }catch(err) {
+                    console.log(err.message);
                 }
-            })
-        };
-
+            }
+            else if (ret === 2) {
+                this.close();
+                window.regPop = registrationPop({ 
+                    cur: 'signin'
+                });
+                window.regPop.show();
+            }
+            else{
+                alert(data.info);
+            }
+        });
     }
 
     close() {
-        if (this.form.hasCon()) {
-            if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) { 
+        let state = History.getState();
+        if (state && state.release) {
+            History.back();
+        }
+        else{
+            if (this.form && this.form.hasCon && this.form.hasCon()) {
+                if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) { 
+                    super.close();
+                }
+            }else{
                 super.close();
             }
-        }else{
-            super.close();
         }
     }
 }
@@ -811,6 +828,12 @@ class RegPop extends Win {
     bindEvents() {
         super.bindEvents();
         var self = this;
+
+        let state = History.getState();
+        if (!state.data.release) {
+            History.pushState({ release: 'register'}, 'register', "register");
+        }
+
         this.tabNav = this.bd.querySelector('.tab-nav');
         this.tabCon = this.bd.querySelector('.tab-content');
         this.tabUl  = this.tabNav.querySelector('ul');
@@ -850,7 +873,7 @@ class RegPop extends Win {
         v.validate({
             form: this.signinForm,
             fields: [
-                { name: 'username', require: true, label: '笔名' },
+                { name: 'username', require: true, label: '名字' },
                 { name: 'password',  require: true, label: '密码' }
             ],
             onCheckInput: function() {
@@ -903,6 +926,15 @@ class RegPop extends Win {
                 }
                 cons[index].style.display = "";
             }
+        }
+    }
+
+    close() {
+        super.close();
+        let state = History.getState();
+        if (state && state.release) {
+            console.log(state && state.release);
+            History.back();
         }
     }
 }

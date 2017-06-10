@@ -212,7 +212,8 @@ Comment.pre('save', function(next) {
         function(cb){
             self.model('Dream').update({ "_id": self._belong_d }, 
                 { 
-                    $addToSet : { 'comments'  : self._id }
+                    $addToSet : { 'comments'  : self._id },
+                    $set: { 'last_comment': new Date() },
                 }
             )
                 .exec(function(err, res) {

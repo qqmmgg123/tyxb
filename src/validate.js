@@ -42,8 +42,7 @@ class Validate {
         this.defaultOpts = {
             form: '#signup-form',
             fields: [
-                { name: 'tag', require: true, label: '小报名' },
-                { name: 'username', require: true, label: '笔名' },
+                { name: 'username', require: true, label: '名字' },
                 { name: 'email', require: true, label: '邮箱' },
                 { name: 'password',  require: true, label: '密码' }
             ],

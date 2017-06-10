@@ -24,7 +24,10 @@
     var shareSelect = dropdown.create({
         el: '[rel="dream-share"]',
         container: '#dreamCtrlBox',
-        modal: true
+        selector: '.share-box',
+        menu: '.share-list',
+        width: 'auto',
+        modal: false
     });
 
     var viewerMore = document.querySelector('.viewer-summary-more');

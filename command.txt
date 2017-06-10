@@ -10,3 +10,9 @@ db.tags.update({},{$set : {"president": ObjectId("586244c9d6fdb86643bd8109")}},f
 // 言论删除权限
 58a6fd23c97b9c4a1953ea7e
 db.tags.update({},{$set : {"permissions":[ObjectId("58a6fd23c97b9c4a1953ea7e")]}},false,true);
+
+// 设置小报公共/个人
+db.tags.updateMany({}, {$set: { ispublic: false }})
+
+// 设置个人主推小报
+db.accounts.update{}, {$set: { main_tag: false }})

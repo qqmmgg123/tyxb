@@ -14,6 +14,7 @@
 .top-tag-list .main ul li {
   display: inline;
   white-space: nowrap;
+  border-bottom: none;
 }
 .top-tag-list .main ul li a {
   color: #999;

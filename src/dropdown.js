@@ -21,8 +21,6 @@ class DropDown {
         var opts = this.opts || {};
 
         this.visible = false;
-        this.width = opts.width || 180;
-
         this.defaultOpts = {
             el: null,
             container: null,

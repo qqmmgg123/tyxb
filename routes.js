@@ -12,7 +12,6 @@ var async = require("async")
     , passport = require('passport')
     , Account = require('./models/account')
     , Dream = require("./models/dream")
-    , Text     = require("./models/text")
     , Comment = require("./models/comment")
     , Tag     = require("./models/tag")
     , log = require('util').log
@@ -43,12 +42,12 @@ function renderRecommand(req, res, next) {
         project = {
             _id       : 1,
             content   : 1,
+            category  : 1,
             link      : 1,
             site      : 1,
             summary   : 1,
-            category  : 1,
-            cover     : 1,
-            nodes     : 1,
+            thumbnail : 1,
+            mthumbnail: 1,
             cnum   : { $size: '$comments' },
             _belong_u : 1,
             _belong_t : 1,
@@ -123,7 +122,7 @@ function renderRecommand(req, res, next) {
                     in: common.hotSort()
                 }
             }
-            sort    = { hot: order };
+            sort    = { hot: order, date: order };
             break;
         case settings.SORT_ROLE.NEW:
             sort = { date: order };
@@ -180,24 +179,12 @@ function renderRecommand(req, res, next) {
                 $project: {
                     _id       : 1,
                     key       : 1,
-                     weight    : 1,
-                     hot       : {
-                         '$let': {
-                             vars: {
-                                 time : {
-                                     "$subtract": [
-                                         "$date",
-                                         new Date("1970-01-01")
-                                     ]
-                                 },
-                                 score: { $size: '$followers' }
-                             },
-                             in: common.hotSort()
-                         }
-                     }
+                    weight    : 1,
+                    unum      : { $size: "$followers" },
+                    dnum      : { $size: "$dreams" }
                  }
              }, {
-                 $sort: { weight: -1, hot: -1 }
+                 $sort: { weight: -1, unum: -1, dnum: -1 }
              }, {
                  $limit: 11
              }], function(err, tags) {
@@ -213,10 +200,12 @@ function renderRecommand(req, res, next) {
                      _id         : 1,
                      avatar_mini : 1,
                      username    : 1,
-                     bio         : 1
+                     bio         : 1,
+                     dnum        : { $size: "$dreams" },
+                     cnum        : { $size: "$comments" }
                  }
              }, {
-                 $sort: { date: -1 }
+                 $sort: { dnum: -1, cnum: -1, date: -1 }
              }, {
                  $limit: 11
              }], function(err, users) {
@@ -249,26 +238,43 @@ function renderRecommand(req, res, next) {
 
             var prev = Math.max(page - 1, 1),
                 pnext = page + 1;
-
-            res.render('pages/index_unlogged', common.makeCommon({
-                title: settings.APP_NAME,
-                notice: common.getFlash(req, 'notice'),
-                user : req.user,
-                data: {
-                    tags    : tags,
-                    users   : users,
-                    dreams  : dreams,
-                    hasprev : hasprev,
-                    hasmore : hasmore,
-                    role    : role,
-                    order   : order,
-                    prev    : prev,
-                    next    : pnext,
-                    nav     : 'home',
-                    domain  : req.get('origin') || req.get('host')
-                },
-                success: 1
-            }, res));
+            
+            if (req.xhr) { 
+                res.json({
+                    info: 'success!',
+                    data: {
+                        tags    : tags,
+                        users   : users,
+                        dreams  : dreams,
+                        hasprev : hasprev,
+                        hasmore : hasmore,
+                        role    : role,
+                        order   : order,
+                        prev    : prev,
+                        next    : pnext
+                    },
+                    result: 0
+                });
+            }else{
+                res.render('pages/index_unlogged', common.makeCommon({
+                    title: settings.APP_NAME,
+                    notice: common.getFlash(req, 'notice'),
+                    user : req.user,
+                    data: {
+                        tags    : tags,
+                        users   : users,
+                        dreams  : dreams,
+                        hasprev : hasprev,
+                        hasmore : hasmore,
+                        role    : role,
+                        order   : order,
+                        prev    : prev,
+                        next    : pnext,
+                        domain  : req.get('origin') || req.get('host')
+                    },
+                    success: 1
+                }, res));
+            }
 
             var end = new Date().getTime(),
                 spend = end - start;
@@ -291,9 +297,10 @@ function renderSubscription(req, res, next) {
             _id       : 1,
             content   : 1,
             summary   : 1,
+            thumbnail : 1,
+            mthumbnail: 1,
             link      : 1,
             site      : 1,
-            nodes     : 1,
             cnum   : { $size: '$comments' },
             _belong_u : 1,
             _belong_t : 1,
@@ -406,28 +413,17 @@ function renderSubscription(req, res, next) {
                         return cb(err, []);
                     }
 
-                    Text.populate(dreams, { 
-                        path: 'text',
-                        select: 'summary images',
+                    Tag.populate(dreams, { 
+                        path: '_belong_t',
+                        select: "_id key",
                         option: { lean: true },
-                        model: Text
+                        model: Tag
                     }, function(err, dreams) {
                         if (err) {
-                            return cb(err, []);
+                            return next(err, []);
                         }
 
-                        Tag.populate(dreams, { 
-                            path: '_belong_t',
-                            select: "_id key",
-                            option: { lean: true },
-                            model: Tag
-                        }, function(err, dreams) {
-                            if (err) {
-                                return next(err, []);
-                            }
-
-                            cb(null, dreams);
-                        });
+                        cb(null, dreams);
                     });
                 });
             });
@@ -440,27 +436,16 @@ function renderSubscription(req, res, next) {
                     }
                 }
             }, {
-                 $project: {
-                     _id       : 1,
-                     key       : 1,
-                     weight    : 1,
-                     hot       : {
-                         '$let': {
-                             vars: {
-                                 time : {
-                                     "$subtract": [
-                                         "$date",
-                                         new Date("1970-01-01")
-                                     ]
-                                 },
-                                 score: { $size: '$followers' }
-                             },
-                             in: common.hotSort()
-                         }
-                     }
+                $project: {
+                    _id       : 1,
+                    key       : 1,
+                    ismain    : { $eq  : ["$_id", user.main_tag] },
+                    weight    : 1,
+                    unum      : { $size: '$followers' },
+                    dnum      : { $size: '$dreams' }
                  }
              }, {
-                 $sort: { weight: -1, hot: -1 }
+                 $sort: { weight: -1, unum: -1, dnum: -1 }
              }, {
                  $limit: 11
              }], function(err, tags) {
@@ -535,9 +520,10 @@ function renderSite(req, res, next) {
             content   : 1,
             summary   : 1,
             link      : 1,
+            thumbnail : 1,
+            mthumbnail: 1,
             site      : 1,
-            nodes     : 1,
-            //cnum   : { $size: '$comments' },
+            cnum   : { $size: '$comments' },
             _belong_u : 1,
             _belong_t : 1,
             date      : 1,
@@ -702,6 +688,7 @@ function renderSite(req, res, next) {
                     prev    : prev,
                     next    : pnext,
                     site    : domain,
+                    nav     : 'site',
                     domain  : req.get('origin') || req.get('host')
                 },
                 success: 1
@@ -769,6 +756,21 @@ router.get('/contact', function(req, res) {
     }, res));
 });
 
+// 是否登录
+router.get('/islogin', function(req, res, next) {
+    if (!req.user) {
+        return res.json({
+            info: "请登录",
+            result: 2
+        });
+    }
+
+    res.json({
+        info: 'success!',
+        result: 0
+    });
+});
+
 // 登录
 router.post('/signin', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
@@ -804,7 +806,7 @@ router.post('/signup', function(req, res, next) {
         });
     }
 
-    const { tag = '', username = '', email = '', password = '' } = req.body;
+    const { username = '', email = '', password = '' } = req.body;
 
     Account.register(new Account({
         username : username.trim(),
@@ -816,19 +818,8 @@ router.post('/signup', function(req, res, next) {
                 result: 3
             });
         }
-
-        let uid = user._id;
-
-        let fields = {
-            key         : tag.trim(),
-            _create_u   : uid,
-            president   : uid,
-            followers   : [uid],
-            permissions : [mongoose.Types.ObjectId(settings.PERMS.DREAM_REMOVE)]
-        };
         
-        // 创建小报
-        Tag.create(fields, function(err, tag) {
+        passport.authenticate('local')(req, res, function() {
             if (err) {
                 return res.json({
                     info: err.message,
@@ -836,30 +827,9 @@ router.post('/signup', function(req, res, next) {
                 });
             }
 
-            var tid = tag._id;
-            Account.update({ '_id': uid }, 
-                { 
-                    $addToSet: { 'follow_tags' : tid } 
-                } 
-            ).exec((err, ret) => {
-                if (err) return res.json({
-                    info: err.message,
-                    result: 3
-                });
-                
-                passport.authenticate('local')(req, res, function() {
-                    if (err) {
-                        return res.json({
-                            info: err.message,
-                            result: 3
-                        });
-                    }
-
-                    res.json({
-                        info: '注册成功',
-                        result: 0
-                    });
-                });
+            res.json({
+                info: '注册成功',
+                result: 0
             });
         });
     });
@@ -947,8 +917,9 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
 
     var uid = req.user._id;
 
-    var file     = __dirname + '/public/pic/' + req.file.filename;
-    var miniFile = __dirname + '/public/picmini/' + req.file.filename;
+    var file     = __dirname + '/pic/' + req.file.filename;
+    var miniFile = __dirname + '/picmini/' + req.file.filename;
+    var m_miniFile = __dirname + '/mpicmini/' + req.file.filename;
 
     var path = req.file.path;
     var sz   = req.file.size;
@@ -978,35 +949,49 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
             }
 
             if (value.width >= 600) {
-
-            imageMagick(path)
-                .scale(600)
-                .write(file, function(err){
-                    if (err) {
-                        return fs.unlink(path, function() {
-                            next(err);
-                        });
-                    }
-                    imageMagick(file)
-                        .scale(150, 150)
-                        .write(miniFile, function(err){
-                            if (err) {
-                                return fs.unlink(path, function() {
-                                    next(err);
-                                });
-                            }
-
-                            fs.unlink(path, function() {
-                                res.json({
-                                    info: 'img save successfully',
-                                    dataUrl: '/pic/' + req.file.filename,
-                                    result: 0
-                                });
+                imageMagick(path)
+                    .scale(600)
+                    .write(file, function(err){
+                        if (err) {
+                            return fs.unlink(path, function() {
+                                next(err);
                             });
-                        });
-                });
+                        }
+                        
+                        let y = 0;
+                        if (value.height > 600) {
+                            y = (value.height - 600) * 0.5;
+                        }
 
-            }else{
+                        imageMagick(file)
+                            .crop(600, 600, 0, y)
+                            .scale(120)
+                            .write(miniFile, function(err){
+                                if (err) {
+                                    return fs.unlink(path, function() {
+                                        next(err);
+                                    });
+                                }
+                                imageMagick(miniFile)
+                                    .scale(80)
+                                    .write(m_miniFile, function(err){
+                                        if (err) {
+                                            return fs.unlink(path, function() {
+                                                next(err);
+                                            });
+                                        }
+
+                                        fs.unlink(path, function() {
+                                            res.json({
+                                                info: 'img save successfully',
+                                                dataUrl: '/pic/' + req.file.filename,
+                                                result: 0
+                                            });
+                                        });
+                                    });
+                            });
+                    });
+            }else if (value.width >= 120) {
                 fs.rename(path, file, function(err) {
                     if (err) {
                         return fs.unlink(path, function(err) {
@@ -1014,8 +999,14 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
                         });
                     }
 
+                    let y = 0;
+                    if (value.height > value.width) {
+                        y = (value.height - value.width) * 0.5;
+                    }
+
                     imageMagick(file)
-                        .scale(150, 150)
+                        .crop(value.width, value.width, 0, y)
+                        .scale(120)
                         .write(miniFile, function(err){
                             if (err) {
                                 return fs.unlink(path, function() {
@@ -1023,13 +1014,112 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
                                 });
                             }
 
-                            fs.unlink(path, function() {
-                                res.json({
-                                    info: 'img save successfully',
-                                    dataUrl: '/pic/' + req.file.filename,
-                                    result: 0
+                            imageMagick(miniFile)
+                                .scale(80)
+                                .write(m_miniFile, function(err){
+                                    if (err) {
+                                        return fs.unlink(path, function() {
+                                            next(err);
+                                        });
+                                    }
+
+                                    fs.unlink(path, function() {
+                                        res.json({
+                                            info: 'img save successfully',
+                                            dataUrl: '/pic/' + req.file.filename,
+                                            result: 0
+                                        });
+                                    });
                                 });
-                            });
+                        });
+                });
+            }
+            else if (value.width >= 80) {
+                fs.rename(path, file, function(err) {
+                    if (err) {
+                        return fs.unlink(path, function(err) {
+                            next(err);
+                        });
+                    }
+
+                    let y = 0,
+                        my = 0;
+                    if (value.height > 120) {
+                        y = (value.height - 120) * 0.5;
+                        my = 20;
+                    }
+
+                    imageMagick(file)
+                        .crop(120, 120, 0, y)
+                        .write(miniFile, function(err){
+                            if (err) {
+                                return fs.unlink(path, function() {
+                                    next(err);
+                                });
+                            }
+
+                            imageMagick(miniFile)
+                                .scale(80)
+                                .crop(80, 80, 0, my)
+                                .write(m_miniFile, function(err){
+                                    if (err) {
+                                        return fs.unlink(path, function() {
+                                            next(err);
+                                        });
+                                    }
+
+                                    fs.unlink(path, function() {
+                                        res.json({
+                                            info: 'img save successfully',
+                                            dataUrl: '/pic/' + req.file.filename,
+                                            result: 0
+                                        });
+                                    });
+                                });
+                        });
+                });
+            }
+            else {
+                fs.rename(path, file, function(err) {
+                    if (err) {
+                        return fs.unlink(path, function(err) {
+                            next(err);
+                        });
+                    }
+
+                    let y = 0,
+                        my = 0;
+                    if (value.height > 120) {
+                        y = (value.height - 120) * 0.5;
+                        my = (value.height - 80) * 0.5;;
+                    }
+
+                    imageMagick(file)
+                        .crop(120, 120, 0, y)
+                        .write(miniFile, function(err){
+                            if (err) {
+                                return fs.unlink(path, function() {
+                                    next(err);
+                                });
+                            }
+
+                            imageMagick(miniFile)
+                                .crop(80, 80, 0, my)
+                                .write(m_miniFile, function(err){
+                                    if (err) {
+                                        return fs.unlink(path, function() {
+                                            next(err);
+                                        });
+                                    }
+
+                                    fs.unlink(path, function() {
+                                        res.json({
+                                            info: 'img save successfully',
+                                            dataUrl: '/pic/' + req.file.filename,
+                                            result: 0
+                                        });
+                                    });
+                                });
                         });
                 });
             }

@@ -37,8 +37,9 @@
             </ul>
         </div>
     </div>
-    <div class="container">
+    <div class="container clearfix">
         <div class="main">
+            <div class="col-8">
             <div class="content-area">
                 <% if (data.current.link) { %>
                 <a href="<%= data.current.link %>"> <h1 id="sharetitle" class="dream-title"><%= data.current.content %></h1></a>
@@ -48,7 +49,6 @@
                 <% } else { %>
                 <h1 id="sharetitle" class="dream-title"><%= data.current.content %></h1>
                 <% } %>
-                <% if (data.current.text) { %>
                 <div class="dream-detail-info">
                     <% if (data.current._belong_u) { %>
                     <a href="/user/<%= data.current._belong_u._id %>"><%= data.current._belong_u.username %></a>
@@ -58,6 +58,12 @@
                     <% } %>
                 </div>
                 <% if (!data.current.isremove) { %>
+                <% if (data.current.image) { %>
+                <div class="image-viewer">
+                    <img src="<%= data.current.image %>" >
+                </div>
+                <% } %>
+                <% if (data.current.text) { %>
                 <div class="read-viewer">
                     <% if (data.focus === 'comment') { %>
                     <div class="viewer-summary">
@@ -69,28 +75,50 @@
                         </div>
                     </div>
                     <div class="viewer-content" style="display: none;">
-                        <% if (data.current.link) { %>
-                            <a href="<%= data.current.link %>"><%- data.current.text %></a>
-                        <% } else { %>
-                            <%- data.current.text %>
-                        <% } %>
+                        <%- data.current.text %>
                     </div>
                     <% } else { %>
                     <div class="viewer-content">
-                        <% if (data.current.link) { %>
-                            <a href="<%= data.current.link %>"><%- data.current.text %></a>
-                        <% } else { %>
-                            <%- data.current.text %>
-                        <% } %>
+                        <%- data.current.text %>
                     </div>
                     <% } %>
                 </div>
+                <% } %>
                 <% } else { %>
                 <div class="panel read-viewer no-exist-content">[该帖文已被作者删除]</div>
                 <% } %>
-                <% } %>
             </div>
             <div id="dreamCtrlBox" class="dream-ctrl clearfix">
+                <div class="more-ctrl-box">
+                    <% if (user) { %>
+                    <% if (data.current._followers_u && data.current._followers_u.length > 0) { %>
+                    <a data-did="<%= data.current._id %>" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>
+                    <% } else { %>
+                    <a data-did="<%= data.current._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
+                    <% } %>
+                    <% } else { %>
+                    <a data-did="<%= data.current._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
+                    <% } %>
+                    <% if (user && data.current._belong_u) { %>
+                    <% if (data.current._belong_u._id.equals(user._id)) { %>
+                    <% if (!data.current.isremove) { %>
+                    <a href="javascript:;" data-did="<%= data.current._id %>" rel="dream-delete">删除</a>
+                    <%} else {%>
+                    <span>已删除</span>
+                    <% } %>
+                    <% } %>
+                    <% } %>
+                </div>
+                <div class="share-box">
+                    <a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= data.current._id %>">分享</a>
+                    <ul class="share-list">
+                        <li><a id="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>
+                        <li><a id="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>
+                    </ul>
+                </div>
+                <div class="comment-ctrl-box">
+                    <span>留言&nbsp;(<em id="commentNum"><%= data.current.cnum %></em>)</span>
+                </div>
                 <div class="vote-ctrl-box">
                     <% if (user) { %>
                     <% if (data.current.good && data.current.good.length > 0) { %>
@@ -111,37 +139,6 @@
                     <% } else { %>
                     <a href="javascript:;" data-did="<%= data.current._id %>" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>
                     <% } %>
-                </div>
-                <div class="more-ctrl-box">
-                    <% if (user) { %>
-                    <% if (data.current._followers_u && data.current._followers_u.length > 0) { %>
-                    <a data-did="<%= data.current._id %>" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>
-                    <% } else { %>
-                    <a data-did="<%= data.current._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
-                    <% } %>
-                    <% } else { %>
-                    <a data-did="<%= data.current._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
-                    <% } %>
-                    <% if (user && data.current._belong_u) { %>
-                    <% if (data.current._belong_u._id.equals(user._id)) { %>
-                    <% if (!data.current.isremove) { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" rel="dream-delete">删除</a>
-                    <%} else {%>
-                    <span>已删除</span>
-                    <% } %>
-                    <% } %>
-                    <% } %>
-                    <div rel="dream-share" class="share-box dropdown">
-                        <!--<a href="javascript:;" class="dropdown-toggle" data-did="<%= data.current._id %>">分享到</a>-->
-                        <ul class="dropdown-menu">
-                            <li><a id="wb_share" href="javascript:;"><i class="s s-wb s-3x"></i></a></li>
-                            <li><a id="qzone_share" href="javascript:;"><i class="s s-qzone s-3x"></i></a></li>
-                            <!--<li><a id="weixin_share" href="javascript:;"><i class="s s-weixin s-3x"></i></a></li>-->
-                        </ul>
-                    </div>
-                </div>
-                <div class="comment-ctrl-box">
-                    <span>留言&nbsp;(<em id="commentNum"><%= data.current.cnum %></em>)</span>
                 </div>
             </div>
             <div data-rid="<%= data.current._id %>" id="dreamComment" class="dream-comment">
@@ -194,15 +191,33 @@
                     <% include ../partials/commentfirstlist.html %>
                 </ul>
             </div>
-            <div class="global-ctrl">
-                <ul>
-                    <li>
-                        <button title="回到顶部" class="btn btn-round btn-success">
-                            <i class="s s-arrow_up s-lg"></i>
-                        </button>
-                    </li>
-                </ul>
             </div>
+            <div class="col-4 sider">
+                <% if (data.current._belong_t) { %>
+                <div class="tag-info">
+                    <a href="/tag/<%= data.current._belong_t._id %>"><h2><%= data.current._belong_t.key %>&nbsp;→</h2></a>
+                    <h2>小报类型：<%= data.current._belong_t.ispublic? '公共':'个人' %></h2>
+                </div>
+                <div class="blackboard">
+                    <div id="descContent" class="tag-des">
+                    <% if (data.current._belong_t.description) { %>
+                        <%= data.current._belong_t.description %>
+                    <% } else { %>
+                        木有内容...
+                    <% } %>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <!--<div class="global-ctrl">-->
+                <!--<ul>-->
+                    <!--<li>-->
+                        <!--<button id="dreamReleaseText" title="回复作者" class="btn btn-round btn-new">-->
+                            <!--<i class="s s-plus s-lg"></i>-->
+                        <!--</button>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
         </div>
     </div>
     <% include ../partials/footer.html %>

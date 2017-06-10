@@ -9,19 +9,19 @@ var Dream = new Schema({
     content      : { type: String, required: true, minlength: 1, trim: true },
     _belong_u    : { type: Schema.Types.ObjectId, ref: 'Account', require: true },
     _belong_t    : { type: Schema.Types.ObjectId, ref: 'Tag' }, 
-    nodes        : [{ type: Schema.Types.ObjectId, ref: 'Node' }],
     comments     : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     good         : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
     bad          : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
     weight       : { type: Number, default: 0 },
     _followers_u : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
-    category     : { type: String, trim: true },
-    summary      : { type: String, maxlength: 150, trim: true },
+    category     : { type: String, trim: true, default: 'news' },
+    summary      : { type: String, require: true, maxlength: 150, trim: true },
     text         : { type: String, trim: true },
     link         : { type: String, trim: true },
     site         : { type: String, trim: true, default: 'i.share.it' },
     cover        : { type: String, trim: true },
     thumbnail    : { type: String, trim: true },
+    mthumbnail   : { type: String, trim: true },
     image        : { type: String, trim: true },
     isremove     : { type: Boolean, default: false },
     date         : { type: Date, default: Date.now },
@@ -188,34 +188,46 @@ Dream.methods.cfollowing = function(uid, cb) {
 }
 
 Dream.pre('save', function(next) {
-    var self = this;
-    async.parallel([
-        function(cb) {
-            self.model('Account').update({ 
-                "_id": self._belong_u
-            }, { $addToSet: { "dreams": self._id } }, function(err, res) {
-                if (err) {
-                    return cb(err);
-                }
+    let pushToUser     = (cb) => {
+        this.model('Account').update({ '_id': this._create_u }, 
+            { 
+                $addToSet: { 'dreams' : this._id } 
+            } 
+        ).exec((err, ret) => { 
+            if (err) {
+                return cb(err);
+            }
 
-                cb(null);
-            });
-        },
-        function(cb) {
-            self.model('Tag').update({ 
-                "_id": self._belong_t
-            }, { $addToSet: { "dreams": self._id } }, function(err, res) {
-                if (err) {
-                    return cb(err);
-                }
+            cb(null);
+        });
+    };
 
-                cb(null);
-            });
-        }], function(err) {
+    let pushToTag = (cb) => {
+        this.model('Tag').update({ '_id': this._belong_t }, 
+            { 
+                $addToSet: { 'dreams' : this._id } 
+            } 
+        ).exec((err, ret) => { 
+            if (err) {
+                return cb(err);
+            }
+
+            cb(null);
+        });
+    };
+
+    if (this._belong_t) {
+        var promises = [pushToUser, pushToTag];
+        async.parallel(promises, function(err, rets) {
             if (err) return next(err);
-            next(null);
-        }
-    );
+            next(null)
+        });
+    }else{
+        pushToUser((err, ret) => {
+            if (err) return next(err);
+            next(null)
+        });
+    }
 });
 
 Dream.pre('remove', function(next) {

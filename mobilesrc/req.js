@@ -44,7 +44,7 @@ class Req {
             error && error.call(this, err);
             xhr.onerror = null;
         }
-        
+
         if (type === 'get') {
             var t = (new Date()).getTime();
             url = url + (params? "?" + params + '&_t=' + t:'?_t=' + t);

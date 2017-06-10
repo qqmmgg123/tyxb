@@ -14,7 +14,7 @@ var async = require("async")
     , router = require('express').Router();
 
 
-// 创建一个想法
+// 抓取网站
 router.get('/getsite', function(req, res, next) {
     const { link } = req.query;
 
@@ -43,7 +43,10 @@ router.post('/new', function(req, res, next) {
     let user     = req.user;
     
     if (!user) {
-        res.redirect('/signin');
+        return res.json({
+            info: "请登录",
+            result: 2
+        });
     }
 
     let uid = user._id;
@@ -52,65 +55,60 @@ router.post('/new', function(req, res, next) {
         return next(new Error(settings.PARAMS_PASSED_ERR_TIPS));
     }
 
-    let { content, link, text, image, category } = req.body;
+    let { tag, content, link, text, image, category } = req.body;
         
-    if (!content || !content.trim() || 
+    if (!content || !content.trim() ||
         !category || !category.trim()) {
-        return next(new Error("没有填写标题或者内容类别错误!"));
+        return next(new Error("没有填写标题或参数错误!"));
     }
 
     // 插入耗时测试
     let start = new Date().getTime();
 
-    Tag.findOne({
-        _create_u: uid
-    }, function(err, doc) {
-        if (err) {
-            return next(err);
-        }
+    let fields = {
+        content    : content.trim(),
+        _belong_u  : uid,
+        category   : category.trim()
+    }
 
-        var tid = doc._id,
-            dream = new Dream({
-                content    : content,
-                _belong_u  : uid,
-                _belong_t  : tid
-            });
+    if (tag && tag.trim()) {
+        fields._belong_t = tag;
+    }
 
-        var did      = dream._id;
+    var dream = new Dream(fields);
 
-        switch(category) {
-            case 'link':
-                if (link && link.trim()) {
-                    dream.link = link;
-                    dream.site = common.extractHostname(link);
-                }
-                break;
-            case 'text':
-                if (text && text.trim()) {
-                    dream.text = text;
-                    dream.extract();
-                }
-                break;
-            case 'image':
-                if (image && image.trim()) {
-                    dream.image = image;
-                }
-                break;
-            default:
-                break;
-        }
+    var did      = dream._id;
 
-        dream.save(function(err) {
-            if (err) return next(err);
+    if ((category === "link" || category === 'news') &&  link && link.trim()) {
+        dream.link = link;
+        dream.site = common.extractHostname(link);
+    }
+    if ((category === "text" || category === 'news') && text && text.trim()) {
+        dream.text = text;
+        dream.extract();
+    }
+    if ((category === "image" || category === 'news') && image && image.trim()) {
+        dream.image = image;
+        dream.thumbnail = image.replace('/pic/', '/picmini/');
+        dream.mthumbnail = image.replace('/pic/', '/mpicmini/');
+    }
 
-            res.redirect(did.toString());
+    dream.save(function(err) {
+        if (err) return next(err);
 
-            let end = new Date().getTime(),
-                spend = end - start;
-            if (spend > common.maxtime) {
-                console.log(req.originalUrl + ' spend' + spend + 'ms');
-            }
+        return res.json({
+            info: "发布成功",
+            data: {
+                did: did
+            },
+            result: 0
         });
+
+        let end = new Date().getTime(),
+            spend = end - start;
+        if (spend > common.maxtime) {
+            console.log(req.originalUrl + ' spend' + spend + 'ms');
+        }
     });
 });
 
@@ -127,7 +125,6 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
     var dproject = {
         _id       : 1,
         content   : 1,
-        text      : 1,
         text      : 1,
         link      : 1,
         site      : 1,
@@ -390,7 +387,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
                                         Tag.populate(dreams, { 
                                             path: '_belong_t',
-                                            select: "_id key",
+                                            select: "_id key description ispublic",
                                             option: { lean: true },
                                             model: Tag
                                         }, function(err, dreams) {

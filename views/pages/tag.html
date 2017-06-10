@@ -29,96 +29,53 @@
                         <% } %>
                         创建于<%= timeFormat(data.tag.date) %>
                     </div>
-                    <% if (data.tag.description) { %>
-                    <div><%= data.tag.description %></div>
-                    <% } %>
                 </div>
                 <div class="tag-head-ctrl">
                     <% if (user) { %>
-                    <a data-tid="<%= data.tag._id %>" data-hassubscribe="<%= (data.tag.followers && data.tag.followers.length > 0) %>" id="tagSubscribe" class="btn" >
-                        <% if (data.tag.followers && data.tag.followers.length > 0) { %>
-                        退出&nbsp;-
+                    <a data-tid="<%= data.tag._id %>" data-hassubscribe="<%= (data.tag.followers && data.tag.followers.length > 0) %>" id="tagSubscribe" 
+                        <% if (user && user._id && data.tag && data.tag.president && data.tag.president._id.equals(user._id)) { %>
+                        class="btn disabled">
                         <%} else {%>
-                        加入&nbsp;+
+                        class="btn">
+                        <% } %>
+                        <% if (data.tag.followers && data.tag.followers.length > 0) { %>
+                        <%= settings.CANCEL_SUBSCRIBE %>
+                        <%} else {%>
+                        <%= settings.SUBSCRIBE %>
                         <% } %>
                     </a>
                     <% } else { %>
-                    <a data-tid="<%= data.tag._id %>" data-hassubscribe="false" id="tagSubscribe" class="btn" >加入&nbsp;+</a>
+                    <a data-tid="<%= data.tag._id %>" data-hassubscribe="false" id="tagSubscribe" class="btn" >订阅&nbsp;+</a>
                     <% } %>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container clearfix">
         <div class="main">
-            <div id="tag-nav-bar" class="nav-bar">
-                <div class="tab-nav">
-                    <ul class="nav-list">
-                        <li><a hidefocus="true" class="tab <% if (data.nav == 'dream') { %>cur"<% } %>" href="/tag/<%= data.tag._id %>">言论</a></li>
-                        <li><a hidefocus="true" class="tab <% if (data.nav == 'role') { %>cur"<% } %>" href="/tag/<%= data.tag._id %>/role">公示</a></li>
-                    </ul>
-                </div>
+            <div class="col-8">
+                <% include ../partials/postlist.html %>
             </div>
-            <% if (data.nav == 'dream') { %>
-            <div id="dream-tab-bar" class="nav-bar">
-                <div class="tab-nav">
-                    <% if (data.role == '1') { %>
-                    <a rel="nav-toggle" class="nav-toggle">好评<i class="s s-arrow s-lg"></i></a>
+            <div class="col-4 sider">
+                <div class="blackboard">
+                    <h2>黑板</h2>
+                    <div id="descContent" class="tag-des">
+                    <% if (data.tag.description) { %>
+                        <%= data.tag.description %>
+                    <% } else { %>
+                        木有内容...
                     <% } %>
-                    <% if (data.role == '2') { %>
-                    <a rel="nav-toggle" class="nav-toggle">最新<i class="s s-arrow s-lg"></i></a>
-                    <% } %>
-                    <ul class="nav-list">
-                        <li><a hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" href="/tag/<%= data.tag._id %>">好评</a></li>
-                        <li><a hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" href="/tag/<%= data.tag._id %>?r=2">最新</a></li>
-                    </ul>
-                </div>
-                <div class="nav-ctrl">
-                    <a id="dream-refresh" class="refresh" href="javascript:;">
-                        <i class="s s-refresh s-lg"></i>
-                    </a>
-                    <div class="order-select dropdown">
-                        <a rel="order-select" class="dropdown-toggle">
-                            <% if (data.order === -1) { %>
-                            正序
-                            <% } else if (data.order === 1) { %>
-                            倒序
-                            <% } %>
-                            <i class="s s-arrow s-lg"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/tag/<%= data.tag._id %>?r=<%= data.role %>&o=-1">正序</a></li>
-                            <li><a href="/tag/<%= data.tag._id %>?r=<%= data.role %>&o=1">倒序</a></li>
-                        </ul>
                     </div>
+                    <% if (user && user._id && data.tag && data.tag.president && data.tag.president._id.equals(user._id)) { %>
+                    <a id="modifyDesc" data-tid="<%= data.tag._id %>" href="javascript:;">修改 +</a>
+                    <% } %>
                 </div>
-            </div>
-            <ul id="dream-list" class="list-group">
-                <% if (data.dreams && data.dreams.length > 0) { %>
-                <% data.dreams.forEach(function(dream) { %>
-                <% include ../partials/postitem.html %>
-                <% }); %>
-                <li>
-                    <% if (data.hasprev && data.next > 1) { %>
-                    <div class="more"><a href="/tag/<%= data.tag._id %>?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
-                    <% } %>
-                    <% if (data.hasmore) { %>
-                    <div class="more"><a href="/tag/<%= data.tag._id %>?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
-                    <% } %>
-                </li>
-                <% } else { %>
-                <li>
-                    <div class="nodata">
-                        当前学派下没有任何言论&nbsp;<button id="listTextNew" class="btn">发表 ></button>
-                    </div>
-                </li>
+                <% if (data.tag.president) { %>
+                <div class="tag-info">
+                    <h2>发起人：<a href="/user/<%= data.tag.president._id %>"><%= data.tag.president.username %></a></h2>
+                </div>
                 <% } %>
-            </ul>
-            <% } else if (data.nav == 'role') { %>
-            <div class="building">
-                :&nbsp;(&nbsp;<%= settings.BUILDING_WORD %>
             </div>
-            <% } %>
         </div>
     </div>
     <% include ../partials/footer.html %>
