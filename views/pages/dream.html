@@ -196,12 +196,24 @@
                 <% if (data.current._belong_t) { %>
                 <div class="tag-info">
                     <a href="/tag/<%= data.current._belong_t._id %>"><h2><%= data.current._belong_t.key %>&nbsp;→</h2></a>
-                    <h2>小报类型：<%= data.current._belong_t.ispublic? '公共':'个人' %></h2>
                 </div>
                 <div class="blackboard">
                     <div id="descContent" class="tag-des">
                     <% if (data.current._belong_t.description) { %>
                         <%= data.current._belong_t.description %>
+                    <% } else { %>
+                        木有内容...
+                    <% } %>
+                    </div>
+                </div>
+                <% } else if (data.current._belong_u) { %>
+                <div class="tag-info">
+                    <a href="/user/<%= data.current._belong_u._id %>"><h2><%= data.current._belong_u.username %>&nbsp;→</h2></a>
+                </div>
+                <div class="blackboard">
+                    <div id="descContent" class="tag-des">
+                    <% if (data.current._belong_u.bio) { %>
+                        <%= data.current._belong_u.bio %>
                     <% } else { %>
                         木有内容...
                     <% } %>

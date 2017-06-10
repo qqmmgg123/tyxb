@@ -74,25 +74,27 @@ import ImageViewer from 'ImageViewer';
 
     // 发布文字
     var drtTextBtn = _d.querySelector('#dreamReleaseText');
-    drtTextBtn && drtTextBtn.addEventListener('click', () => {
+    drtTextBtn && drtTextBtn.addEventListener('click', (ev) => {
         textPop = common.textNew('text');
     });
 
     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
-    drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
+    drtLinkBtn && drtLinkBtn.addEventListener('click', (ev) => {
         textPop = common.textNew('link');
     });
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
-    drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        const tag = utils.getData(this, 'tid');
-        textPop = common.textNew('news');
+    drtNewsBtn && drtNewsBtn.addEventListener('click', (ev) => {
+        const btn = ev.currentTarget,
+              tag = utils.getData(btn, 'tid');
+        textPop = common.textNew('news', tag);
     });
 
     var ltnBtn = document.querySelector('#listTextNew');
-    ltnBtn && ltnBtn.addEventListener('click', () => {
-        const tag = utils.getData(this, 'tid');
-        textPop = common.textNew('news');
+    ltnBtn && ltnBtn.addEventListener('click', (ev) => {
+        const btn = ev.currentTarget,
+            tag = utils.getData(btn, 'tid');
+        textPop = common.textNew('news', tag);
     });
 
     // 编辑黑板

@@ -371,6 +371,20 @@ class DreamForm extends BaseCom {
             )
         }
 
+        let tagField = null,
+            tagTips = '内容将分享到您的日常',
+            { tid, tag } = this.props;
+        if (tid && tag) {
+            tagField = (
+                <input 
+                type="hidden" 
+                name="tag" 
+                value={tid} 
+                />
+            );
+            tagTips = `内容将分享到圈子”${tag}“`;
+        }
+
         return (
             <div>
                 {header}
@@ -378,9 +392,10 @@ class DreamForm extends BaseCom {
                     <div ref={(popbd) => { this._popbd = popbd }} className="dream-area">
                         <div ref={(createInfo) => { this._createInfo = createInfo }} className="alert" style={{ display: "none" }}>
                         </div>
-                        <form ref={(ref) => this._form = ref}>
+                        <form ref={(ref) => this._form = ref} action="/dream/new" method="post">
                             <div ref={(tagInfo) => { this._tagInfo = tagInfo }} className="alert form-group" style={{ display: "none" }}>
                             </div>
+                            {tagField}
                             <div className="form-group">
                                 <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="标题[必须]"></textarea></p>
                                 <p className="validate-error"></p>
@@ -391,7 +406,7 @@ class DreamForm extends BaseCom {
                             })}
                             <input type="hidden" name="category" value={type} />
                             <div className="dream-release-ctrl">
-                                {`内容将分享到您的日常`} 
+                                {tagTips} 
                                 <FinishBtn ref={(ref) => {this._finishBtn = ref}} onFinishClick={this.validate.bind(this)} />
                             </div>
                         </form>
@@ -712,7 +727,7 @@ class TextNewPop extends Win {
     checkUser(cb) {
         if (this.curTag) {
             req.getJSON(
-                '/getinfo',
+                '/tag/getinfo',
                 { tid: this.curTag },
                 cb.bind(this),
                 () => {
@@ -738,10 +753,7 @@ class TextNewPop extends Win {
         const CheckUserTips = () => (
             <div className="loading">正在验证用户状态...</div>
         );
-        let state = History.getState();
-        if (!state.data.release) {
-            History.pushState({ release: this.type}, this._map[this.type], "release");
-        }
+
         ReactDOM.render(
             <CheckUserTips />,
             this.bd
@@ -750,16 +762,16 @@ class TextNewPop extends Win {
         this.checkUser((data) => {
             const ret = +data.result;
             if (ret === 0) {
-                try{
                 let { tag = '' } = data.data || {};
                 this.form = ReactDOM.render(
-                    <DreamForm type={this.type} tag={tag} />,
+                    <DreamForm 
+                    type={this.type}
+                    tid={this.curTag}
+                    tag={tag}
+                    />,
                     this.bd
                 );
                 utils.placeholder(this._popbd);
-                }catch(err) {
-                    console.log(err.message);
-                }
             }
             else if (ret === 2) {
                 this.close();
@@ -776,7 +788,7 @@ class TextNewPop extends Win {
 
     close() {
         let state = History.getState();
-        if (state && state.release) {
+        if (state.data && state.data.release) {
             History.back();
         }
         else{
@@ -828,11 +840,6 @@ class RegPop extends Win {
     bindEvents() {
         super.bindEvents();
         var self = this;
-
-        let state = History.getState();
-        if (!state.data.release) {
-            History.pushState({ release: 'register'}, 'register', "register");
-        }
 
         this.tabNav = this.bd.querySelector('.tab-nav');
         this.tabCon = this.bd.querySelector('.tab-content');
@@ -932,8 +939,7 @@ class RegPop extends Win {
     close() {
         super.close();
         let state = History.getState();
-        if (state && state.release) {
-            console.log(state && state.release);
+        if (state.data && state.data.release) {
             History.back();
         }
     }

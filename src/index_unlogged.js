@@ -38,25 +38,25 @@ import ImageViewer from 'ImageViewer';
         console.log('come on...')
         let state = History.getState();
         console.log(state);
-        if (!state.data.release) {
-            imageViewer && imageViewer.close();
-            textPop && textPop.close();
-            window.regPop && window.regPop.close();
-        }
-
-        if (state && state.release) {
-            if (state.release === "dialog") {
+        if (state.data && state.data.release) {
+            if (state.data.release === "dialog") {
                 imageViewer.show();
             }
-            else if (state.release === "register") {
+            else if (state.data.release === "register") {
                 window.regPop = popup.registrationPop({ 
                     cur: 'signin'
                 });
                 window.regPop.show();
             }
             else{
-                textPop = common.textNew(state.release);
+                console.log('~~~~~~~~~~~~~~~~~~~')
+                textPop = common.textNew(state.data.release);
             }
+        }
+        else{
+            imageViewer && imageViewer.close();
+            textPop && textPop.close();
+            window.regPop && window.regPop.close();
         }
     });
 
@@ -78,7 +78,10 @@ import ImageViewer from 'ImageViewer';
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+        let state = History.getState();
+        if (!state.data.release) {
+            History.pushState({ release: "news"}, "发图文链接", "/release");
+        }
     });
 
     // 排序下拉

@@ -182,10 +182,14 @@
         signupBtn = document.getElementById('signup-btn');
 
     signinBtn && signinBtn.addEventListener('click', function() {
-        common.showSigninPop();
+        let state = History.getState();
+        if (!state.data.release) {
+            History.pushState({ release: 'register'}, 'register', "register");
+        }
+        //common.showSigninPop();
     });
     signupBtn && signupBtn.addEventListener('click', function() {
-        common.showSignupPop();
+        //common.showSignupPop();
     });
 
     // 错误提示

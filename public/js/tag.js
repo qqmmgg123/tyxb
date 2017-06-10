@@ -90,8 +90,6 @@
 	(function (factory) {
 	    module.exports = factory(__webpack_require__(41), __webpack_require__(125), __webpack_require__(57).default, __webpack_require__(196).default, __webpack_require__(205), __webpack_require__(197), __webpack_require__(198), __webpack_require__(437));
 	})(function (utils, settings, req, effect, common, popup, dropdown, dreamTpl) {
-	    var _this = this;
-
 	    var _d = document;
 
 	    var viewerCon = document.querySelector('#imageViewer');
@@ -147,25 +145,27 @@
 
 	    // 发布文字
 	    var drtTextBtn = _d.querySelector('#dreamReleaseText');
-	    drtTextBtn && drtTextBtn.addEventListener('click', function () {
+	    drtTextBtn && drtTextBtn.addEventListener('click', function (ev) {
 	        textPop = common.textNew('text');
 	    });
 
 	    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
-	    drtLinkBtn && drtLinkBtn.addEventListener('click', function () {
+	    drtLinkBtn && drtLinkBtn.addEventListener('click', function (ev) {
 	        textPop = common.textNew('link');
 	    });
 
 	    var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
-	    drtNewsBtn && drtNewsBtn.addEventListener('click', function () {
-	        var tag = utils.getData(_this, 'tid');
-	        textPop = common.textNew('news');
+	    drtNewsBtn && drtNewsBtn.addEventListener('click', function (ev) {
+	        var btn = ev.currentTarget,
+	            tag = utils.getData(btn, 'tid');
+	        textPop = common.textNew('news', tag);
 	    });
 
 	    var ltnBtn = document.querySelector('#listTextNew');
-	    ltnBtn && ltnBtn.addEventListener('click', function () {
-	        var tag = utils.getData(_this, 'tid');
-	        textPop = common.textNew('news');
+	    ltnBtn && ltnBtn.addEventListener('click', function (ev) {
+	        var btn = ev.currentTarget,
+	            tag = utils.getData(btn, 'tid');
+	        textPop = common.textNew('news', tag);
 	    });
 
 	    // 编辑黑板
@@ -21530,6 +21530,21 @@
 	                );
 	            }
 
+	            var tagField = null,
+	                tagTips = '内容将分享到您的日常',
+	                _props = this.props,
+	                tid = _props.tid,
+	                tag = _props.tag;
+
+	            if (tid && tag) {
+	                tagField = _react2.default.createElement('input', {
+	                    type: 'hidden',
+	                    name: 'tag',
+	                    value: tid
+	                });
+	                tagTips = '\u5185\u5BB9\u5C06\u5206\u4EAB\u5230\u5708\u5B50\u201D' + tag + '\u201C';
+	            }
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -21549,10 +21564,11 @@
 	                            'form',
 	                            { ref: function ref(_ref4) {
 	                                    return _this6._form = _ref4;
-	                                } },
+	                                }, action: '/dream/new', method: 'post' },
 	                            _react2.default.createElement('div', { ref: function ref(tagInfo) {
 	                                    _this6._tagInfo = tagInfo;
 	                                }, className: 'alert form-group', style: { display: "none" } }),
+	                            tagField,
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'form-group' },
@@ -21571,7 +21587,7 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'dream-release-ctrl' },
-	                                '\u5185\u5BB9\u5C06\u5206\u4EAB\u5230\u60A8\u7684\u65E5\u5E38',
+	                                tagTips,
 	                                _react2.default.createElement(FinishBtn, { ref: function ref(_ref3) {
 	                                        _this6._finishBtn = _ref3;
 	                                    }, onFinishClick: this.validate.bind(this) })
@@ -21910,7 +21926,7 @@
 	        key: 'checkUser',
 	        value: function checkUser(cb) {
 	            if (this.curTag) {
-	                _req2.default.getJSON('/getinfo', { tid: this.curTag }, cb.bind(this), function () {
+	                _req2.default.getJSON('/tag/getinfo', { tid: this.curTag }, cb.bind(this), function () {
 	                    alert('网络异常');
 	                });
 	            } else {
@@ -21933,25 +21949,22 @@
 	                    '\u6B63\u5728\u9A8C\u8BC1\u7528\u6237\u72B6\u6001...'
 	                );
 	            };
-	            var state = History.getState();
-	            if (!state.data.release) {
-	                History.pushState({ release: this.type }, this._map[this.type], "release");
-	            }
+
 	            _reactDom2.default.render(_react2.default.createElement(CheckUserTips, null), this.bd);
 
 	            this.checkUser(function (data) {
 	                var ret = +data.result;
 	                if (ret === 0) {
-	                    try {
-	                        var _ref5 = data.data || {},
-	                            _ref5$tag = _ref5.tag,
-	                            tag = _ref5$tag === undefined ? '' : _ref5$tag;
+	                    var _ref5 = data.data || {},
+	                        _ref5$tag = _ref5.tag,
+	                        tag = _ref5$tag === undefined ? '' : _ref5$tag;
 
-	                        _this11.form = _reactDom2.default.render(_react2.default.createElement(DreamForm, { type: _this11.type, tag: tag }), _this11.bd);
-	                        utils.placeholder(_this11._popbd);
-	                    } catch (err) {
-	                        console.log(err.message);
-	                    }
+	                    _this11.form = _reactDom2.default.render(_react2.default.createElement(DreamForm, {
+	                        type: _this11.type,
+	                        tid: _this11.curTag,
+	                        tag: tag
+	                    }), _this11.bd);
+	                    utils.placeholder(_this11._popbd);
 	                } else if (ret === 2) {
 	                    _this11.close();
 	                    window.regPop = registrationPop({
@@ -21967,7 +21980,7 @@
 	        key: 'close',
 	        value: function close() {
 	            var state = History.getState();
-	            if (state && state.release) {
+	            if (state.data && state.data.release) {
 	                History.back();
 	            } else {
 	                if (this.form && this.form.hasCon && this.form.hasCon()) {
@@ -22031,11 +22044,6 @@
 	        value: function bindEvents() {
 	            (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'bindEvents', this).call(this);
 	            var self = this;
-
-	            var state = History.getState();
-	            if (!state.data.release) {
-	                History.pushState({ release: 'register' }, 'register', "register");
-	            }
 
 	            this.tabNav = this.bd.querySelector('.tab-nav');
 	            this.tabCon = this.bd.querySelector('.tab-content');
@@ -22127,8 +22135,7 @@
 	        value: function close() {
 	            (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'close', this).call(this);
 	            var state = History.getState();
-	            if (state && state.release) {
-	                console.log(state && state.release);
+	            if (state.data && state.data.release) {
 	                History.back();
 	            }
 	        }
@@ -23627,10 +23634,14 @@
 	        signupBtn = document.getElementById('signup-btn');
 
 	    signinBtn && signinBtn.addEventListener('click', function () {
-	        common.showSigninPop();
+	        var state = History.getState();
+	        if (!state.data.release) {
+	            History.pushState({ release: 'register' }, 'register', "register");
+	        }
+	        //common.showSigninPop();
 	    });
 	    signupBtn && signupBtn.addEventListener('click', function () {
-	        common.showSignupPop();
+	        //common.showSignupPop();
 	    });
 
 	    // 错误提示
