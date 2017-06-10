@@ -1,6 +1,6 @@
-# suopoearth
+# tyrc
 
 A website.
 
 # help
-git update-index --skip-worktree [file] 
+## git update-index --skip-worktree [file] 
