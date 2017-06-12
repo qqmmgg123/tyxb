@@ -31,32 +31,47 @@ import ImageViewer from 'ImageViewer';
     );
 
     imageViewer.create();
-
-    let textPop = null;
         
     History.Adapter.bind(window, 'statechange', function() {
-        console.log('come on...')
         let state = History.getState();
         console.log(state);
-        if (state.data && state.data.release) {
-            if (state.data.release === "dialog") {
-                imageViewer.show();
-            }
-            else if (state.data.release === "register") {
-                window.regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                window.regPop.show();
-            }
-            else{
-                console.log('~~~~~~~~~~~~~~~~~~~')
-                textPop = common.textNew(state.data.release);
+        let { action, object, params } =  state.data;
+        if (action) {
+            switch(action) {
+                case "imageview":
+                    imageViewer.show();
+                    break;
+                case "signin":
+                    window.signinPop = popup.registrationPop({ 
+                        cur : 'signin'
+                    });
+                    window.signinPop.show();
+                    break;
+                case "signup":
+                    window.signupPop = popup.registrationPop({ 
+                        cur : 'signup'
+                    });
+                    window.signupPop.show();
+                    break;
+                case "share":
+                    if (object && params) {
+                        window.textPop = popup.textNewPop({
+                            id   : 'textReleasePop',
+                            type : object,
+                            tag  : params && params.tag
+                        });
+                        window.textPop.show();
+                        console.log(window.textPop);
+                    }
+                    break;
             }
         }
         else{
             imageViewer && imageViewer.close();
-            textPop && textPop.close();
-            window.regPop && window.regPop.close();
+            console.log(window.textPop);
+            window.textPop && window.textPop.close();
+            window.signinPop && window.signinPop.close();
+            window.signupPop && window.signupPop.close();
         }
     });
 
@@ -78,10 +93,7 @@ import ImageViewer from 'ImageViewer';
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        let state = History.getState();
-        if (!state.data.release) {
-            History.pushState({ release: "news"}, "发图文链接", "/release");
-        }
+        textPop = common.textNew('news');
     });
 
     // 排序下拉

@@ -106,19 +106,40 @@
             return format;
         },
         textNew: function(type, tag) {
-            let pop = popup.textNewPop({
+            /*let pop = popup.textNewPop({
                 id   : 'textReleasePop',
                 type : type,
                 tag  : tag
             });
             pop.show();
-            return pop;
+            return pop;*/
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'share') {
+                History.pushState({ 
+                    action: 'share',
+                    object: type,
+                    params: {
+                        tag: tag
+                    }
+                }, 'share', "share");
+            }
         },
         showSigninPop: function() {
-            popup.registrationPop({ cur: 'signin' }).show();
+            //popup.registrationPop({ cur: 'signin' }).show();
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'signin') {
+                History.pushState({ action: 'signin'}, 'signin', "signin");
+            }
         },
         showSignupPop: function() {
-            popup.registrationPop({ cur: 'signup' }).show();
+            //popup.registrationPop({ cur: 'signup' }).show();
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'signup') {
+                History.pushState({ action: 'signup'}, 'signup', "signup");
+            }
         },
         autoScroll: function(obj) {
             if (this.isScroll) {
@@ -182,14 +203,10 @@
         signupBtn = document.getElementById('signup-btn');
 
     signinBtn && signinBtn.addEventListener('click', function() {
-        let state = History.getState();
-        if (!state.data.release) {
-            History.pushState({ release: 'register'}, 'register', "register");
-        }
-        //common.showSigninPop();
+        common.showSigninPop();
     });
     signupBtn && signupBtn.addEventListener('click', function() {
-        //common.showSignupPop();
+        common.showSignupPop();
     });
 
     // 错误提示

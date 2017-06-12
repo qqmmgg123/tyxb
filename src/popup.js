@@ -775,10 +775,10 @@ class TextNewPop extends Win {
             }
             else if (ret === 2) {
                 this.close();
-                window.regPop = registrationPop({ 
+                /*window.regPop = registrationPop({ 
                     cur: 'signin'
                 });
-                window.regPop.show();
+                window.regPop.show();*/
             }
             else{
                 alert(data.info);
@@ -787,11 +787,13 @@ class TextNewPop extends Win {
     }
 
     close() {
-        let state = History.getState();
-        if (state.data && state.data.release) {
+        const state = History.getState(),
+              { action } = state.data;
+        if (action && action === "share") {
             History.back();
         }
         else{
+            console.log(1111111111);
             if (this.form && this.form.hasCon && this.form.hasCon()) {
                 if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) { 
                     super.close();
@@ -937,10 +939,13 @@ class RegPop extends Win {
     }
 
     close() {
-        super.close();
-        let state = History.getState();
-        if (state.data && state.data.release) {
+        const state = History.getState(),
+            { action } = state.data;
+        if (action && (action === "signin" || action === "signup")) {
             History.back();
+        }
+        else{
+            super.close();
         }
     }
 }

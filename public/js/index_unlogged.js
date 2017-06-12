@@ -105,28 +105,49 @@
 
 	    imageViewer.create();
 
-	    var textPop = null;
-
 	    History.Adapter.bind(window, 'statechange', function () {
-	        console.log('come on...');
 	        var state = History.getState();
 	        console.log(state);
-	        if (state.data && state.data.release) {
-	            if (state.data.release === "dialog") {
-	                imageViewer.show();
-	            } else if (state.data.release === "register") {
-	                window.regPop = popup.registrationPop({
-	                    cur: 'signin'
-	                });
-	                window.regPop.show();
-	            } else {
-	                console.log('~~~~~~~~~~~~~~~~~~~');
-	                textPop = common.textNew(state.data.release);
+	        var _state$data = state.data,
+	            action = _state$data.action,
+	            object = _state$data.object,
+	            params = _state$data.params;
+
+	        if (action) {
+	            switch (action) {
+	                case "imageview":
+	                    imageViewer.show();
+	                    break;
+	                case "signin":
+	                    window.signinPop = popup.registrationPop({
+	                        cur: 'signin'
+	                    });
+	                    window.signinPop.show();
+	                    break;
+	                case "signup":
+	                    window.signupPop = popup.registrationPop({
+	                        cur: 'signup'
+	                    });
+	                    window.signupPop.show();
+	                    break;
+	                case "share":
+	                    if (object && params) {
+	                        window.textPop = popup.textNewPop({
+	                            id: 'textReleasePop',
+	                            type: object,
+	                            tag: params && params.tag
+	                        });
+	                        window.textPop.show();
+	                        console.log(window.textPop);
+	                    }
+	                    break;
 	            }
 	        } else {
 	            imageViewer && imageViewer.close();
-	            textPop && textPop.close();
-	            window.regPop && window.regPop.close();
+	            console.log(window.textPop);
+	            window.textPop && window.textPop.close();
+	            window.signinPop && window.signinPop.close();
+	            window.signupPop && window.signupPop.close();
 	        }
 	    });
 
@@ -148,10 +169,7 @@
 
 	    var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
 	    drtNewsBtn && drtNewsBtn.addEventListener('click', function () {
-	        var state = History.getState();
-	        if (!state.data.release) {
-	            History.pushState({ release: "news" }, "发图文链接", "/release");
-	        }
+	        textPop = common.textNew('news');
 	    });
 
 	    // 排序下拉
@@ -21839,10 +21857,10 @@
 	                    utils.placeholder(_this11._popbd);
 	                } else if (ret === 2) {
 	                    _this11.close();
-	                    window.regPop = registrationPop({
+	                    /*window.regPop = registrationPop({ 
 	                        cur: 'signin'
 	                    });
-	                    window.regPop.show();
+	                    window.regPop.show();*/
 	                } else {
 	                    alert(data.info);
 	                }
@@ -21851,10 +21869,13 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            var state = History.getState();
-	            if (state.data && state.data.release) {
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (action && action === "share") {
 	                History.back();
 	            } else {
+	                console.log(1111111111);
 	                if (this.form && this.form.hasCon && this.form.hasCon()) {
 	                    if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) {
 	                        (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', this).call(this);
@@ -22005,10 +22026,13 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'close', this).call(this);
-	            var state = History.getState();
-	            if (state.data && state.data.release) {
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (action && (action === "signin" || action === "signup")) {
 	                History.back();
+	            } else {
+	                (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'close', this).call(this);
 	            }
 	        }
 	    }]);
@@ -23430,19 +23454,43 @@
 	            }return format;
 	        },
 	        textNew: function textNew(type, tag) {
-	            var pop = popup.textNewPop({
-	                id: 'textReleasePop',
-	                type: type,
-	                tag: tag
+	            /*let pop = popup.textNewPop({
+	                id   : 'textReleasePop',
+	                type : type,
+	                tag  : tag
 	            });
 	            pop.show();
-	            return pop;
+	            return pop;*/
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'share') {
+	                History.pushState({
+	                    action: 'share',
+	                    object: type,
+	                    params: {
+	                        tag: tag
+	                    }
+	                }, 'share', "share");
+	            }
 	        },
 	        showSigninPop: function showSigninPop() {
-	            popup.registrationPop({ cur: 'signin' }).show();
+	            //popup.registrationPop({ cur: 'signin' }).show();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'signin') {
+	                History.pushState({ action: 'signin' }, 'signin', "signin");
+	            }
 	        },
 	        showSignupPop: function showSignupPop() {
-	            popup.registrationPop({ cur: 'signup' }).show();
+	            //popup.registrationPop({ cur: 'signup' }).show();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'signup') {
+	                History.pushState({ action: 'signup' }, 'signup', "signup");
+	            }
 	        },
 	        autoScroll: function autoScroll(obj) {
 	            if (this.isScroll) {
@@ -23506,14 +23554,10 @@
 	        signupBtn = document.getElementById('signup-btn');
 
 	    signinBtn && signinBtn.addEventListener('click', function () {
-	        var state = History.getState();
-	        if (!state.data.release) {
-	            History.pushState({ release: 'register' }, 'register', "register");
-	        }
-	        //common.showSigninPop();
+	        common.showSigninPop();
 	    });
 	    signupBtn && signupBtn.addEventListener('click', function () {
-	        //common.showSignupPop();
+	        common.showSignupPop();
 	    });
 
 	    // 错误提示
