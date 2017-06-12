@@ -75,7 +75,7 @@ import ImageViewer from 'ImageViewer';
         }
     });
 
-    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
         textPop = common.textNew('image');
     });
@@ -89,11 +89,11 @@ import ImageViewer from 'ImageViewer';
     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
     drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
         textPop = common.textNew('link');
-    });
+    });*/
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+        common.textNew('news');
     });
 
     // 排序下拉

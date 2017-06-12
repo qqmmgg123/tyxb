@@ -21577,6 +21577,7 @@
 	                action = state.data.action;
 
 	            if (action && action === "share") {
+	                console.log(window.textPop);
 	                History.back();
 	            } else {
 	                console.log(1111111111);

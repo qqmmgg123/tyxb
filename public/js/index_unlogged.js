@@ -151,25 +151,23 @@
 	        }
 	    });
 
-	    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
-	    drtImageBtn && drtImageBtn.addEventListener('click', function () {
+	    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+	    drtImageBtn && drtImageBtn.addEventListener('click', () => {
 	        textPop = common.textNew('image');
 	    });
-
-	    // 发布文字
+	      // 发布文字
 	    var drtTextBtn = _d.querySelector('#dreamReleaseText');
-	    drtTextBtn && drtTextBtn.addEventListener('click', function () {
+	    drtTextBtn && drtTextBtn.addEventListener('click', () => {
 	        textPop = common.textNew('text');
 	    });
-
-	    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
-	    drtLinkBtn && drtLinkBtn.addEventListener('click', function () {
+	      var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+	    drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
 	        textPop = common.textNew('link');
-	    });
+	    });*/
 
 	    var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
 	    drtNewsBtn && drtNewsBtn.addEventListener('click', function () {
-	        textPop = common.textNew('news');
+	        common.textNew('news');
 	    });
 
 	    // 排序下拉
@@ -21873,6 +21871,7 @@
 	                action = state.data.action;
 
 	            if (action && action === "share") {
+	                console.log(window.textPop);
 	                History.back();
 	            } else {
 	                console.log(1111111111);

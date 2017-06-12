@@ -790,6 +790,7 @@ class TextNewPop extends Win {
         const state = History.getState(),
               { action } = state.data;
         if (action && action === "share") {
+            console.log(window.textPop);
             History.back();
         }
         else{
