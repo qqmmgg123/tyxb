@@ -118,11 +118,11 @@
             if (!action && action !== 'share') {
                 History.pushState({ 
                     action: 'share',
-                    object: type,
                     params: {
-                        tag: tag
+                        type : type,
+                        tag  : tag
                     }
-                }, 'share', "share");
+                }, 'share', `/popup/share?type=${type}` + (tag? `&tag=${tag}`:''));
             }
         },
         showSigninPop: function() {
@@ -130,7 +130,7 @@
             const state = History.getState(),
                   { action } = state.data;
             if (!action && action !== 'signin') {
-                History.pushState({ action: 'signin'}, 'signin', "signin");
+                History.pushState({ action: 'signin'}, 'signin', "/popup/signin");
             }
         },
         showSignupPop: function() {
@@ -138,7 +138,14 @@
             const state = History.getState(),
                   { action } = state.data;
             if (!action && action !== 'signup') {
-                History.pushState({ action: 'signup'}, 'signup', "signup");
+                History.pushState({ action: 'signup'}, 'signup', "/popup/signup");
+            }
+        },
+        showImageViewer: function() {
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'imageview') {
+                History.pushState({ action: 'imageview'}, 'imageview', "/popup/imageview");
             }
         },
         autoScroll: function(obj) {

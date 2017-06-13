@@ -1017,8 +1017,8 @@
 	    PASSWORD_VALIDATION: "必须是6~16个字符的字母或数字组成",
 	    BUILDING_WORD: "该功能正在建设中，敬请谅解太阳圈子小站长一个人战斗，会累死~抱歉",
 	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本圈子或本站的发文规则，因此被该圈子驳回，敬请谅解。',
-	    SUBSCRIBE: '订阅 +',
-	    CANCEL_SUBSCRIBE: '取消订阅 -',
+	    SUBSCRIBE: '关注 +',
+	    CANCEL_SUBSCRIBE: '取消关注 -',
 	    COMMENT_TEXT: {
 	        EXPANSION_COMMENT: '回复'
 	    },
@@ -1030,7 +1030,7 @@
 
 	    OBJECT: {
 	        DREAM: {
-	            CNNAME: '文章'
+	            CNNAME: '日常'
 	        },
 	        TAG: {
 	            CNNAME: '圈子'
@@ -1043,7 +1043,7 @@
 	    },
 
 	    REGISTRATION: {
-	        WORDING: "欢迎使用太阳圈子~"
+	        WORDING: "欢迎使用太阳日常~"
 	    },
 
 	    PERMS: {

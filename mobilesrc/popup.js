@@ -49,8 +49,9 @@ class DreamForm extends BaseCom {
     constructor(props) {
         super(props);
 
-        self.tagCheckPassed = false;
-        self.btnDis  = true;
+        this.tagCheckPassed = false;
+        this.btnDis  = true;
+        this.formData = null;
         let btns = [
             { label: '网址', rel: 'tab-link-post', name: 'link', active: false },
             { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
@@ -179,100 +180,6 @@ class DreamForm extends BaseCom {
         };
     }
 
-    tagCheckStart() {
-        this.btnDis  = true;
-        this._tagInfo.innerHTML = '版面信息加载中...';
-        this._tagInfo.style.display = 'block';
-    }
-
-    tagCheckEnd(key, cb) {
-        if (typeof key != 'string') {
-            this.btnDis  = false;
-            this._tagInfo.innerHTML = '';
-            this._tagInfo.style.display = 'none';
-            return;
-        };
-
-        var self    = this,
-            tagInfo = this._tagInfo;
-
-        this._tagInfo.className = 'alert';
-        if (key) {
-            self.tagCheckPassed = true;
-            tagInfo.innerHTML = [
-                '<h3>您的贴文将发布到”' + key + '“</h3>',
-                '<p>该版面版主功能即将开放，敬请关注，</p>',
-                '<p>也因此抱歉，当前暂时无法制定版面规则。<p>'
-            ].join('');
-            utils.addClass(tagInfo, 'alert-success');
-            self.tagDescModify = self._popbd.querySelector('#tagDescModify');
-            self.tagDescModify && self.tagDescModify.addEventListener('change', function() {
-                self._popbd.querySelector('#tagDescInput').style.display = '';
-            });
-            self.btnDis = false;
-            if (cb) {
-                cb.call(self);
-            }
-        }else{
-            self.tagCheckPassed = false;
-            tagInfo.innerHTML = [
-                '<div>',
-                '您选择的版面不存在，如需创建，请点击',
-                '<a href="/tag/hot" class="btn">去创建 ></a>',
-                '</div>'
-            ].join('');
-            utils.addClass(tagInfo, 'alert-warning');
-        }
-    }
-
-    checkTag(newKey, cb) {
-        var self = this,
-            inp = this._dreamTagInp,
-            key = inp.value.trim(),
-            newKey = newKey.trim();
-
-        if (typeof newKey !== 'string' && newKey.length === 0) return;
-
-        var tagInfo = self._tagInfo;
-        if (key !== newKey) {
-            self.btnDis  = true;
-            tagInfo.innerHTML = '版面信息加载中...';
-            tagInfo.style.display = 'block';
-            req.getJSON(
-                '/search/tag',
-                { key: newKey },
-                function(data) {
-                    self.xhrReponseManage(data, function(data) {
-                        var data = data.data;
-                        
-                        if (data.tag) {
-                            self.tagCheckEnd(newKey, cb);
-                        } else {
-                            self.tagCheckEnd('');
-                        }
-                    });
-                }
-            );
-        }else{
-            if (cb) {
-                if (self.tagCheckPassed) {
-                    cb.call(self);
-                }
-            }
-        }
-    }
-
-    tagSelected(e) {
-        var self = this,
-            ctag = e.target,
-            tagSelect = e.currentTarget;
-        if(ctag && ctag.nodeName.toLowerCase() == "a") {
-            var newKey = ctag.lastChild.nodeValue.trim();
-            self.checkTag(newKey);
-            self._dreamTagInp.value = newKey;
-        }
-    }
-
     onCancelImage() {
         this.setState({
             curImage: ''
@@ -395,15 +302,13 @@ class DreamForm extends BaseCom {
         const { formEls, addBtns, defTagWord, stateComplate } = this.state;
         const { type } = this.props;
 
-        console.log(type);
-
         let header = null;
         if (type === "news") {
             header = (
                 <div ref={(ref) => { this._tabNav = ref }} id="dreamReleaseBar" className="nav-group">
                     <ul>
                         <li>
-                            <span className="tab">标题 [必填]</span>
+                            <span className="tab">标题</span>
                         </li>
                         {addBtns.map((btn, i) =>
                             <li key={i}>
@@ -419,6 +324,20 @@ class DreamForm extends BaseCom {
             )
         }
 
+        let tagField = null,
+            tagTips = '内容将分享到您的日常',
+            { tid, tag } = this.props;
+        if (tid && tag) {
+            tagField = (
+                <input 
+                type="hidden" 
+                name="tag" 
+                value={tid} 
+                />
+            );
+            tagTips = `内容将分享到圈子”${tag}“`;
+        }
+
         return (
             <div>
                 {header}
@@ -429,6 +348,7 @@ class DreamForm extends BaseCom {
                         <form ref={(ref) => this._form = ref} action="/dream/new" method="post">
                             <div ref={(tagInfo) => { this._tagInfo = tagInfo }} className="alert form-group" style={{ display: "none" }}>
                             </div>
+                            {tagField}
                             <div className="form-group">
                                 <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="标题[必须]"></textarea></p>
                                 <p className="validate-error"></p>
@@ -439,7 +359,7 @@ class DreamForm extends BaseCom {
                             })}
                             <input type="hidden" name="category" value={type} />
                             <div className="dream-release-ctrl">
-                                {`内容将默认分享到小报"${this.props.tag}"`} 
+                                {tagTips} 
                                 <FinishBtn ref={(ref) => {this._finishBtn = ref}} onFinishClick={this.validate.bind(this)} />
                             </div>
                         </form>
@@ -449,21 +369,37 @@ class DreamForm extends BaseCom {
         )
     }
 
+    getFormData() {
+        this.formData = {};
+        this._form && this._form
+            .querySelectorAll(
+            'input[type=text], \
+            input[type=url], \
+            input[type=hidden], \
+            textarea'
+        ).forEach((inp, key) => {
+            const val    = inp.value;
+            this.formData[inp.name] = val;
+        });
+    }
+
     validate() {
-        var self = this,
-            formData = {},
-            validate = true;
+        let validate = true;
 
         self.fields = [
-            { name: 'tag', require: true, label: '版面', empty_msg: '版面未选择' },
             { name: 'content',  require: true, label: '标题' },
-            { name: 'link', label: '网址', err: "链接格式错误", fun: function(val) {
+            { name: 'link', label: '网址', err: "链接格式错误", fun: (val) => {
                 return (!val || utils.isUrl(val));
             } }
         ]
 
-        this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach(function(inp, key) {
-            var val    = inp.value,
+        this._form && this._form
+            .querySelectorAll(
+            'input[type=text], \
+            input[type=url], \
+            textarea'
+        ).forEach((inp, key) => {
+            let val    = inp.value,
                 field  = utils.closest(inp, '.field'),
                 tips   = field && field.nextElementSibling;
 
@@ -473,8 +409,8 @@ class DreamForm extends BaseCom {
             }
 
             // 判断是否有效
-            self.fields && self.fields.forEach(function(field) {
-                var name = field.name,
+            self.fields && self.fields.forEach((field) => {
+                let name = field.name,
                     label = field.label;
                 if (name === inp.name) {
                     val = val.trim();
@@ -492,7 +428,7 @@ class DreamForm extends BaseCom {
                         }
                     }
 
-                    var isValid  = true,
+                    let isValid  = true,
                         errorText = "";
                     if (field.fun) {
                         if (!field.fun(val)) {
@@ -513,13 +449,12 @@ class DreamForm extends BaseCom {
                     }
                 }
             });
-
-            formData[inp.name] = val;
         });
 
         if (validate) {
             this._finishBtn.disable();
-            self.submit();
+            this.getFormData();
+            this.submit();
         }
     }
 
@@ -545,8 +480,18 @@ class DreamForm extends BaseCom {
     }
 
     submit() {
-        var self = this;
-        this._form.submit();
+        req.post(
+            '/dream/new',
+            this.formData,
+            (data) => {
+                this.xhrReponseManage(data, (data) => {
+                    if (data.result === 0 && data.data) {
+                        const { did } = data.data;
+                        did && window.location.replace('/dream/' + did);
+                    }
+                });
+            }
+        );
     }
 }
 
@@ -715,8 +660,9 @@ class Win extends Popup {
 class TextNewPop extends Win {
     constructor(opts) {
         super(opts);
-        this.tags = opts.tags;
-        this.type = opts.type;
+        this.tags   = opts.tags;
+        this.type   = opts.type;
+        this.curTag = opts.tag;
         this.form = null;
 
         this._map = {
@@ -732,14 +678,26 @@ class TextNewPop extends Win {
     }
 
     checkUser(cb) {
-        req.getJSON(
-            '/tag/default',
-            null,
-            cb.bind(this),
-            () => {
-                alert('网络异常');
-            }
-        );
+        if (this.curTag) {
+            req.getJSON(
+                '/tag/getinfo',
+                { tid: this.curTag },
+                cb.bind(this),
+                () => {
+                    alert('网络异常');
+                }
+            );
+        }
+        else{
+            req.getJSON(
+                '/islogin',
+                null,
+                cb.bind(this),
+                () => {
+                    alert('网络异常');
+                }
+            );
+        }
     }
 
     bindEvents() {
@@ -748,10 +706,7 @@ class TextNewPop extends Win {
         const CheckUserTips = () => (
             <div className="loading">正在验证用户状态...</div>
         );
-        let state = window.history.state;
-        if (state === null) {
-            history.pushState({ release: this.type}, this._map[this.type], "");
-        }
+
         ReactDOM.render(
             <CheckUserTips />,
             this.bd
@@ -760,21 +715,22 @@ class TextNewPop extends Win {
         this.checkUser((data) => {
             const ret = +data.result;
             if (ret === 0) {
-                if (data.data && data.data.tag) {
-                    try {
-                    this.form = ReactDOM.render(
-                        <DreamForm type={this.type} tag={data.data.tag} />,
-                        this.bd
-                    );
-                    utils.placeholder(this._popbd);
-                    }catch(err) {
-                        console.log(err.message);
-                    }
-                }
+                let { tag = '' } = data.data || {};
+                this.form = ReactDOM.render(
+                    <DreamForm 
+                    type={this.type}
+                    tid={this.curTag}
+                    tag={tag}
+                    />,
+                    this.bd
+                );
+                utils.placeholder(this._popbd);
             }
             else if (ret === 2) {
                 this.close();
-                window.needRegPop = true;
+                window.nextState = {
+                    action: "signin"
+                }
             }
             else{
                 alert(data.info);
@@ -783,9 +739,10 @@ class TextNewPop extends Win {
     }
 
     close() {
-        let state = window.history.state;
-        if (state && state.release) {
-            window.history.back();
+        const state = History.getState(),
+              { action } = state.data;
+        if (action && action === "share") {
+            History.back();
         }
         else{
             if (this.form && this.form.hasCon && this.form.hasCon()) {
@@ -818,7 +775,7 @@ class RegPop extends Win {
         var self = this;
         switch (data.result) {
             case 0:
-                window.location.reload();
+                data.redirect && window.location.replace(data.redirect);
                 break;
             case 1:
                 alert(data.info);
@@ -836,11 +793,6 @@ class RegPop extends Win {
     bindEvents() {
         super.bindEvents();
         var self = this;
-
-        let state = window.history.state;
-        if (state === null) {
-            history.pushState({ release: 'register'}, 'register', "");
-        }
 
         this.tabNav = this.bd.querySelector('.tab-nav');
         this.tabCon = this.bd.querySelector('.tab-content');
@@ -881,7 +833,7 @@ class RegPop extends Win {
         v.validate({
             form: this.signinForm,
             fields: [
-                { name: 'username', require: true, label: '笔名' },
+                { name: 'username', require: true, label: '名字' },
                 { name: 'password',  require: true, label: '密码' }
             ],
             onCheckInput: function() {
@@ -938,11 +890,13 @@ class RegPop extends Win {
     }
 
     close() {
-        super.close();
-        let state = window.history.state;
-        if (state && state.release) {
-            console.log(state && state.release);
-            window.history.back();
+        const state = History.getState(),
+            { action } = state.data;
+        if (action && (action === "signin" || action === "signup")) {
+            History.back();
+        }
+        else{
+            super.close();
         }
     }
 }

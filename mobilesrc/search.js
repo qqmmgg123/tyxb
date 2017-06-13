@@ -4,6 +4,8 @@
         req      = require('req').default,
         common   = require('common'),
         popup    = require('popup');
+
+    require('PopRouter');
     
     // 订阅版面
     var tagList = document.querySelector('#tag-list');

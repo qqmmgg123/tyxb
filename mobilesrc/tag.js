@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dialog from 'Dialog';
-import ImageViewer from 'ImageViewer';
 
 (function(factory) {
     module.exports = factory(
+        require('polyfill'),
         require('utils'),
         require('../const/settings'),
         require('req').default,
@@ -12,85 +11,41 @@ import ImageViewer from 'ImageViewer';
         require('common'),
         require('popup'),
         require('dropdown'),
+        require('PopRouter'),
         require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, settings, req, effect, common, popup, dropdown, dreamTpl) {
-    var _d = document;
+}(function(polyfill, utils, settings, req, effect, common, popup, dropdown, router, dreamTpl) {
+    const _d = document,
+          _w = window;
 
-    let viewerCon = document.querySelector('#imageViewer');
-    
-    let imageViewer = ReactDOM.render(
-        <Dialog 
-            needMouse={true} 
-            needKey={true} 
-            needWin={false}
-            sence={{
-            name: "ImageViewer",
-            component: ImageViewer
-        }} />,
-        viewerCon
-    );
-
-    imageViewer.create();
-
-    let textPop = null,
-        regPop  = null;
-        
-    window.onpopstate = function(event) {
-        if (event.state === null) {
-            imageViewer && imageViewer.close();
-            textPop && textPop.close();
-            regPop && regPop.close();
-            if (window.needRegPop) {
-                regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                regPop.show();
-                window.needRegPop = false;
-            }
-        }
-
-        let state = event.state;
-        if (state && state.release) {
-            if (state.release === "dialog") {
-                imageViewer.show();
-            }
-            else if (state.release === "register") {
-                regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                regPop.show();
-            }
-            else{
-                textPop = common.textNew(state.release);
-            }
-        }
-    }
-
-    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
         textPop = common.textNew('image');
     });
 
     // 发布文字
     var drtTextBtn = _d.querySelector('#dreamReleaseText');
-    drtTextBtn && drtTextBtn.addEventListener('click', () => {
+    drtTextBtn && drtTextBtn.addEventListener('click', (ev) => {
         textPop = common.textNew('text');
     });
 
     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
-    drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
+    drtLinkBtn && drtLinkBtn.addEventListener('click', (ev) => {
         textPop = common.textNew('link');
-    });
+    });*/
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
-    drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+    drtNewsBtn && drtNewsBtn.addEventListener('click', (ev) => {
+        const btn = ev.currentTarget,
+              tag = utils.getData(btn, 'tid');
+        common.textNew('news', tag);
     });
 
     var ltnBtn = document.querySelector('#listTextNew');
-    ltnBtn && ltnBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+    ltnBtn && ltnBtn.addEventListener('click', (ev) => {
+        const btn = ev.currentTarget,
+            tag = utils.getData(btn, 'tid');
+        common.textNew('news', tag);
     });
 
     // 编辑黑板
@@ -517,10 +472,10 @@ import ImageViewer from 'ImageViewer';
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('mpicmini', 'pic');
 
-                imageViewer.setComProps({
+                _w.imageViewer && _w.imageViewer.setComProps({
                     imageSrc: src
                 });
-                imageViewer.show();
+                _w.imageViewer && imageViewer.show();
             }
         }
     });

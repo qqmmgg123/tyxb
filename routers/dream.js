@@ -114,7 +114,7 @@ router.post('/new', function(req, res, next) {
 
 // 想法详情页
 router.get('/:id([a-z0-9]+)', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var curId  = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);

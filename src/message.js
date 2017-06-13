@@ -3,9 +3,10 @@
         require('req').default,
         require('effect').default,
         require('utils'),
-        require('common')
+        require('common'),
+        require('PopRouter')
     );
-} (function (req, effect, utils, common) {
+} (function (req, effect, utils, common, router) {
     // 消息列表
     var msgList = {
         selector: '#msg-list',

@@ -7,6 +7,8 @@
         popup    = require('popup'),
         autocomplete = require('autocomplete').default;
 
+    require('PopRouter');
+
     var _d = document;
 
     // 查找版面

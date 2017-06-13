@@ -156,7 +156,7 @@ router.get('/getinfo', function(req, res, next) {
 
 // 获取所有最热订阅
 router.get('/hot', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var populate = [{
         path: '_create_u',
@@ -231,7 +231,7 @@ router.get('/hot', function(req, res, next) {
 
 // 获取所有最新订阅
 router.get('/newest', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var populate = [{
         path: '_create_u',

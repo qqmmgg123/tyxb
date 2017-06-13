@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dialog from 'Dialog';
-import ImageViewer from 'ImageViewer';
 
 (function(factory) {
     module.exports = factory(
@@ -11,62 +9,13 @@ import ImageViewer from 'ImageViewer';
         require('common'),
         require('popup'),
         require('dropdown'),
+        require('PopRouter'),
         require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, req, effect, common, popup, dropdown, dreamTpl) {
+}(function(utils, req, effect, common, popup, dropdown, router, dreamTpl) {
     var _d = document;
 
-    let viewerCon = document.querySelector('#imageViewer');
-    
-    let imageViewer = ReactDOM.render(
-        <Dialog 
-            needMouse={true} 
-            needKey={true} 
-            needWin={false}
-            sence={{
-            name: "ImageViewer",
-            component: ImageViewer
-        }} />,
-        viewerCon
-    );
-
-    imageViewer.create();
-
-    let textPop = null,
-        regPop  = null;
-        
-    window.onpopstate = function(event) {
-        if (event.state === null) {
-            imageViewer && imageViewer.close();
-            textPop && textPop.close();
-            regPop && regPop.close();
-            if (window.needRegPop) {
-                regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                regPop.show();
-                window.needRegPop = false;
-            }
-        }
-
-        let state = event.state;
-        if (state && state.release) {
-            if (state.release === "dialog") {
-                imageViewer.show();
-            }
-            else if (state.release === "register") {
-                regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                regPop.show();
-            }
-            else{
-                textPop = common.textNew(state.release);
-            }
-        }
-    }
-
-    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
         textPop = common.textNew('image');
     });
@@ -80,7 +29,7 @@ import ImageViewer from 'ImageViewer';
     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
     drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
         textPop = common.textNew('link');
-    });
+    });*/
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
@@ -372,10 +321,10 @@ import ImageViewer from 'ImageViewer';
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('mpicmini', 'pic');
 
-                imageViewer.setComProps({
+                _w.imageViewer && _w.imageViewer.setComProps({
                     imageSrc: src
                 });
-                imageViewer.show();
+                _w.imageViewer && imageViewer.show();
             }
         }
     });

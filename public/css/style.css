@@ -729,16 +729,15 @@ a:hover {
 }
 .pagination {
   margin-top: 10px;
+  text-align: right;
 }
 .pagination a {
   font-size: 12px;
   display: inline-block;
-  height: 24px;
-  padding: 0 10px;
-  line-height: 24px;
+  height: 30px;
+  padding: 0 15px;
+  line-height: 30px;
   text-align: center;
-  border: 1px solid #eaeaea;
-  border-radius: 4px;
   margin: 0 5px;
   -moz-user-select: none;
   /* Firefox */
@@ -1482,7 +1481,7 @@ a:hover {
 }
 .global-ctrl {
   position: fixed;
-  bottom: 60px;
+  bottom: 90px;
   right: 60px;
 }
 .global-ctrl li {

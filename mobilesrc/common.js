@@ -105,19 +105,48 @@
 
             return format;
         },
-        textNew: function(type) {
-            let pop = popup.textNewPop({
+        textNew: function(type, tag) {
+            /*let pop = popup.textNewPop({
                 id   : 'textReleasePop',
-                type : type
+                type : type,
+                tag  : tag
             });
             pop.show();
-            return pop;
+            return pop;*/
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'share') {
+                History.pushState({ 
+                    action: 'share',
+                    params: {
+                        type : type,
+                        tag  : tag
+                    }
+                }, 'share', `/popup/share?type=${type}` + (tag? `&tag=${tag}`:''));
+            }
         },
         showSigninPop: function() {
-            popup.registrationPop({ cur: 'signin' }).show();
+            //popup.registrationPop({ cur: 'signin' }).show();
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'signin') {
+                History.pushState({ action: 'signin'}, 'signin', "/popup/signin");
+            }
         },
         showSignupPop: function() {
-            popup.registrationPop({ cur: 'signup' }).show();
+            //popup.registrationPop({ cur: 'signup' }).show();
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'signup') {
+                History.pushState({ action: 'signup'}, 'signup', "/popup/signup");
+            }
+        },
+        showImageViewer: function() {
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'imageview') {
+                History.pushState({ action: 'imageview'}, 'imageview', "/popup/imageview");
+            }
         },
         autoScroll: function(obj) {
             if (this.isScroll) {

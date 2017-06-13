@@ -704,7 +704,7 @@ function renderSite(req, res, next) {
 
 // 首页
 router.get('/', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     // 到推荐页
     renderRecommand(req, res, next);
@@ -726,7 +726,7 @@ router.get('/subscription', function(req, res, next) {
 
 // 网站页
 router.get('/site/:domain([^\/]+)', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     // 到网站页
     renderSite(req, res, next);
@@ -789,8 +789,10 @@ router.post('/signin', function(req, res, next) {
         req.logIn(user, function(err) {
             if (err) { return next(err); }
 
+            const redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
             res.json({
                 info: '登录成功',
+                redirect: redirectTo,
                 result: 0
             });
         });
@@ -827,8 +829,10 @@ router.post('/signup', function(req, res, next) {
                 });
             }
 
+            const redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
             res.json({
                 info: '注册成功',
+                redirect: redirectTo,
                 result: 0
             });
         });
@@ -890,7 +894,6 @@ router.post('/reset', function(req, res, next) {
 
 // 登出
 router.get('/signout', function(req, res) {
-    res.clearCookie('remember_me');
     req.logout();
 
     if (req.xhr) {

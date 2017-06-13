@@ -11,62 +11,14 @@ import ImageViewer from 'ImageViewer';
         require('common'),
         require('dropdown'),
         require('popup'),
+        require('PopRouter'),
         require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, req, effect, common, dropdown, popup, dreamTpl) {
-    var _d = document;
+}(function(utils, req, effect, common, dropdown, popup, router, dreamTpl) {
+    const _d = document,
+          _w = window;
 
-    let viewerCon = document.querySelector('#imageViewer');
-    
-    let imageViewer = ReactDOM.render(
-        <Dialog 
-            needMouse={true} 
-            needKey={true} 
-            needWin={false}
-            sence={{
-            name: "ImageViewer",
-            component: ImageViewer
-        }} />,
-        viewerCon
-    );
-
-    imageViewer.create();
-
-    let textPop = null,
-        regPop  = null;
-        
-    window.onpopstate = function(event) {
-        if (event.state === null) {
-            imageViewer && imageViewer.close();
-            textPop && textPop.close();
-            regPop && regPop.close();
-            if (window.needRegPop) {
-                regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                regPop.show();
-                window.needRegPop = false;
-            }
-        }
-
-        let state = event.state;
-        if (state && state.release) {
-            if (state.release === "dialog") {
-                imageViewer.show();
-            }
-            else if (state.release === "register") {
-                regPop = popup.registrationPop({ 
-                    cur: 'signin'
-                });
-                regPop.show();
-            }
-            else{
-                textPop = common.textNew(state.release);
-            }
-        }
-    }
-
-    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
         textPop = common.textNew('image');
     });
@@ -80,11 +32,11 @@ import ImageViewer from 'ImageViewer';
     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
     drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
         textPop = common.textNew('link');
-    });
+    });*/
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+        common.textNew('news');
     });
 
     // 排序下拉
@@ -372,10 +324,10 @@ import ImageViewer from 'ImageViewer';
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('mpicmini', 'pic');
 
-                imageViewer.setComProps({
+                _w.imageViewer && _w.imageViewer.setComProps({
                     imageSrc: src
                 });
-                imageViewer.show();
+                _w.imageViewer && imageViewer.show();
             }
         }
     });

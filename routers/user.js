@@ -11,7 +11,7 @@ var async = require("async")
 
 // 用户贴文
 router.get('/:id([a-z0-9]+)', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var curId = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);
@@ -234,7 +234,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
 // 我的收藏
 router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var curId = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);
@@ -458,7 +458,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
 
 // 我的留言
 router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var curId = req.params.id;
 
@@ -679,7 +679,7 @@ router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
 
 // 获取所有我的订阅
 router.get('/:id([a-z0-9]+)/subscribe', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
+    req.session.redirectTo = req.url;
 
     var curId = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);

@@ -27,10 +27,6 @@ export default class StepPop extends BaseCom {
     }
 
     show() {
-        let state = window.history.state;
-        if (state === null) {
-            history.pushState({ release: 'dialog'}, 'dialog', "");
-        }
         this.setState({
             visible: 'block'
         });
@@ -53,10 +49,6 @@ export default class StepPop extends BaseCom {
 
         const { needKey } = this.props;
         needKey && keyboard.removeHandle('escape_keydown', this.colsefn);
-        let state = window.history.state;
-        if (state && state.release) {
-            window.history.back();
-        }
     }
 
     destroy() {

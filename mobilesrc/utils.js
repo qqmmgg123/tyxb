@@ -38,6 +38,25 @@ define([], function() {
             return extended;
 
         },
+        // 获取URL指定参数方法
+        getUrlParams: function(staticURL, decode){
+            var currLocation = (staticURL && staticURL.length)? staticURL : window.location.href,
+                parArr_0 = currLocation.split("?"),
+                data = {};
+   
+            if(parArr_0.length > 1){
+                var parArr = parArr_0[1].split("&");
+                for(var i = 0; i < parArr.length; i++){
+                    var parr = parArr[i].split("=");
+                    if(parr.length > 1){
+                        var value = (decode) ? decodeURIComponent(parr[1]) : parr[1];
+                        data[parr[0]] = value;
+                    }
+                }
+            }
+   
+            return data;
+        },
         isValidEmail: function(emailAddress) {
             var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
             return pattern.test(emailAddress);

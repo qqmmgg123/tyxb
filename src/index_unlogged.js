@@ -11,69 +11,12 @@ import ImageViewer from 'ImageViewer';
         require('common'),
         require('dropdown'),
         require('popup'),
+        require('PopRouter'),
         require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, req, effect, common, dropdown, popup, dreamTpl) {
-    var _d = document;
-
-    let viewerCon = document.querySelector('#imageViewer');
-    
-    let imageViewer = ReactDOM.render(
-        <Dialog 
-            needMouse={true} 
-            needKey={true} 
-            needWin={false}
-            sence={{
-            name: "ImageViewer",
-            component: ImageViewer
-        }} />,
-        viewerCon
-    );
-
-    imageViewer.create();
-        
-    History.Adapter.bind(window, 'statechange', function() {
-        let state = History.getState();
-        console.log(state);
-        let { action, object, params } =  state.data;
-        if (action) {
-            switch(action) {
-                case "imageview":
-                    imageViewer.show();
-                    break;
-                case "signin":
-                    window.signinPop = popup.registrationPop({ 
-                        cur : 'signin'
-                    });
-                    window.signinPop.show();
-                    break;
-                case "signup":
-                    window.signupPop = popup.registrationPop({ 
-                        cur : 'signup'
-                    });
-                    window.signupPop.show();
-                    break;
-                case "share":
-                    if (object && params) {
-                        window.textPop = popup.textNewPop({
-                            id   : 'textReleasePop',
-                            type : object,
-                            tag  : params && params.tag
-                        });
-                        window.textPop.show();
-                        console.log(window.textPop);
-                    }
-                    break;
-            }
-        }
-        else{
-            imageViewer && imageViewer.close();
-            console.log(window.textPop);
-            window.textPop && window.textPop.close();
-            window.signinPop && window.signinPop.close();
-            window.signupPop && window.signupPop.close();
-        }
-    });
+}(function(utils, req, effect, common, dropdown, popup, router, dreamTpl) {
+    const _d = document,
+          _w = window;
 
     /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
@@ -143,7 +86,7 @@ import ImageViewer from 'ImageViewer';
         var cur  = ev.target;
 
         while(cur.getAttribute &&
-            ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc', 'dream-more'].indexOf(cur.getAttribute('rel'))
+            ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc'].indexOf(cur.getAttribute('rel'))
                 === -1 && cur.parentNode &&
                 cur.parentNode !== ev.currentTarget) {
                     cur = cur.parentNode;
@@ -381,10 +324,10 @@ import ImageViewer from 'ImageViewer';
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('picmini', 'pic');
 
-                imageViewer.setComProps({
+                _w.imageViewer && _w.imageViewer.setComProps({
                     imageSrc: src
                 });
-                imageViewer.show();
+                _w.imageViewer && imageViewer.show();
             }
         }
     });

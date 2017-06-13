@@ -8,9 +8,10 @@
         require('common'),
         require('dropdown'),
         require('share'),
+        require('PopRouter'),
         require('ejs!../views/partials/commentitem.html')
     );
-} (function(p, settings, req, effect, utils, common, dropdown, Share, commentTpl) {
+} (function(p, settings, req, effect, utils, common, dropdown, Share, router, commentTpl) {
     // 排序下拉
     var sortSelect = dropdown.create({
         el: '[rel="nav-toggle"]',

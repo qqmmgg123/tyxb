@@ -26,10 +26,16 @@
     <% data.dreams.forEach(function(dream) { %>
     <% include ../partials/postitem.html %>
     <% }); %>
-    <% if (data.hasmore) { %>
     <li class="list-item">
-        <div class="more"><a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">阅读更多&nbsp;↓</a></div>
-    <% } %>
+        <div class="pagination">
+            <% if (data.hasprev && data.next > 1) { %>
+            <a href="/?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn btn-primary">上一页&nbsp;↑</a>
+            <% } %>
+            <% if (data.hasmore) { %>
+            <a href="/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn btn-primary">下一页&nbsp;↓</a>
+            <% } %>
+        </div>
+    </li>
     <% } else { %>
     <% if (user) { %>
     <li class="list-item">
@@ -64,7 +70,7 @@
     <% } %>
     <% } %>
 </ul>
-<div id="imageViewer"></div>
+<div id="imageViewerCon"></div>
 <div class="global-ctrl">
     <ul>
         <% if ((!data.site && !data.tag) || (user && user._id)) { %>

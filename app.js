@@ -201,6 +201,26 @@ app.use(function(req, res, next) {
     }
     next();
 });
+
+// 
+app.use(function(req, res, next) {
+    const popups = ['imageview', 'signin', 'signup', 'share'],
+          { path } = req,
+          paths = path.split('/');
+
+    if (paths && paths.length >= 3) {
+        const len = paths.length,
+              firstpath = paths[len - 2],
+              secondpath = paths[len - 1];
+
+        if (firstpath === 'popup' && popups.indexOf(secondpath) !== -1) {
+            const popuppath = [firstpath, secondpath].join('/');
+            req.url = req.url.replace(popuppath, '');
+        }
+    }
+    next();
+});
+
 app.use('/', require('./routes'));
 app.use('/search', require('./routers/search'));
 app.use('/tag', require('./routers/tag'));

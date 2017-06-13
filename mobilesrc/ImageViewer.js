@@ -45,8 +45,15 @@ export default class ImageViewer extends React.Component {
     }
 
     close() {
-        const { dialog } = this.props;
-        dialog.close();
+        const state = History.getState(),
+              { dialog } = this.props,
+              { action } = state.data;
+        if (action && action === "imageview") {
+            History.back();
+        }
+        else{
+            dialog.close();
+        }
     }
 
     render() {
