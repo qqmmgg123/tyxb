@@ -390,10 +390,7 @@
 	                            var thumb = cur.querySelector('img'),
 	                                src = thumb.src.replace('picmini', 'pic');
 
-	                            _w.imageViewer && _w.imageViewer.setComProps({
-	                                imageSrc: src
-	                            });
-	                            _w.imageViewer && imageViewer.show();
+	                            common.showImageViewer(src);
 	                        }
 	        }
 	    });
@@ -16071,10 +16068,13 @@
 	                    }), _this11.bd);
 	                    utils.placeholder(_this11._popbd);
 	                } else if (ret === 2) {
-	                    _this11.close();
-	                    window.nextState = {
-	                        action: "signin"
-	                    };
+	                    (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', _this11).call(_this11);
+	                    var state = History.getState(),
+	                        action = state.data.action;
+
+	                    if (action && action !== 'signin') {
+	                        History.replaceState({ action: 'signin' }, 'signin', "?popup=signin");
+	                    }
 	                } else {
 	                    alert(data.info);
 	                }
@@ -22439,7 +22439,7 @@
 	                        type: type,
 	                        tag: tag
 	                    }
-	                }, 'share', '/popup/share?type=' + type + (tag ? '&tag=' + tag : ''));
+	                }, 'share', '?popup=share&type=' + type + (tag ? '&tag=' + tag : ''));
 	            }
 	        },
 	        showSigninPop: function showSigninPop() {
@@ -22448,7 +22448,7 @@
 	                action = state.data.action;
 
 	            if (!action && action !== 'signin') {
-	                History.pushState({ action: 'signin' }, 'signin', "/popup/signin");
+	                History.pushState({ action: 'signin' }, 'signin', "?popup=signin");
 	            }
 	        },
 	        showSignupPop: function showSignupPop() {
@@ -22457,15 +22457,20 @@
 	                action = state.data.action;
 
 	            if (!action && action !== 'signup') {
-	                History.pushState({ action: 'signup' }, 'signup', "/popup/signup");
+	                History.pushState({ action: 'signup' }, 'signup', "?popup=signup");
 	            }
 	        },
-	        showImageViewer: function showImageViewer() {
+	        showImageViewer: function showImageViewer(src) {
 	            var state = History.getState(),
 	                action = state.data.action;
 
 	            if (!action && action !== 'imageview') {
-	                History.pushState({ action: 'imageview' }, 'imageview', "/popup/imageview");
+	                History.pushState({
+	                    action: 'imageview',
+	                    params: {
+	                        src: src
+	                    }
+	                }, 'imageview', "?popup=imageview");
 	            }
 	        },
 	        autoScroll: function autoScroll(obj) {
@@ -44183,16 +44188,24 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            this.setState({
-	                visible: 'none'
-	            });
+	            var state = History.getState(),
+	                action = state.data.action,
+	                routerName = this.props.routerName;
 
-	            var body = document.body;
-	            body.className = body.className.replace('un-scroll', '');
+	            if (action && action === routerName) {
+	                History.back();
+	            } else {
+	                this.setState({
+	                    visible: 'none'
+	                });
 
-	            var needKey = this.props.needKey;
+	                var body = document.body;
+	                body.className = body.className.replace('un-scroll', '');
 
-	            needKey && _keyboard2.default.removeHandle('escape_keydown', this.colsefn);
+	                var needKey = this.props.needKey;
+
+	                needKey && _keyboard2.default.removeHandle('escape_keydown', this.colsefn);
+	            }
 	        }
 	    }, {
 	        key: 'destroy',
@@ -44344,10 +44357,7 @@
 	                this.setState({
 	                    loading: false,
 	                    imageSrc: src
-	                });var state = window.history.state;
-	                if (state && state.release) {
-	                    window.history.back();
-	                }
+	                });
 	            };
 	            img.onerror = function () {
 	                alert("网络异常，图片加载失败");
@@ -44356,15 +44366,9 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            var state = History.getState(),
-	                dialog = this.props.dialog,
-	                action = state.data.action;
+	            var dialog = this.props.dialog;
 
-	            if (action && action === "imageview") {
-	                History.back();
-	            } else {
-	                dialog.close();
-	            }
+	            dialog.close();
 	        }
 	    }, {
 	        key: 'render',
@@ -44427,25 +44431,29 @@
 	})(function (utils, common, popup) {
 	    var _d = document,
 	        _w = window,
-	        path = _w.location.pathname,
-	        paths = path.split('/'),
-	        popups = ['imageview', 'signin', 'signup', 'share'];
+	        popups = ['imageview', 'signin', 'signup', 'share'],
+	        viewerCon = _d.querySelector('#imageViewerCon');
+
+	    if (viewerCon) {
+	        _w.imageViewer = ReactDOM.render(React.createElement(_Dialog2.default, {
+	            needMouse: true,
+	            routerName: 'imageview',
+	            needKey: true,
+	            needWin: false,
+	            sence: {
+	                name: "ImageViewer",
+	                component: _ImageViewer2.default
+	            } }), viewerCon);
+	        _w.imageViewer.create();
+	    }
 
 	    function popupRouter(action, params) {
 	        switch (action) {
 	            case "imageview":
-	                var viewerCon = _d.querySelector('#imageViewerCon');
-	                if (viewerCon) {
-	                    _w.imageViewer = ReactDOM.render(React.createElement(_Dialog2.default, {
-	                        needMouse: true,
-	                        needKey: true,
-	                        needWin: false,
-	                        sence: {
-	                            name: "ImageViewer",
-	                            component: _ImageViewer2.default
-	                        } }), viewerCon);
-	                    _w.imageViewer.create();
-	                }
+	                _w.imageViewer && _w.imageViewer.setComProps({
+	                    imageSrc: params && params.src
+	                });
+	                _w.imageViewer && imageViewer.show();
 	                break;
 	            case "signin":
 	                _w.signinPop = popup.registrationPop({
@@ -44482,7 +44490,7 @@
 	        if (action) {
 	            popupRouter(action, params);
 	        } else {
-	            _w.imageViewer && _w.imageViewer.close(), _w.imageViewer = null;
+	            _w.imageViewer && _w.imageViewer.close();
 	            _w.textPop && _w.textPop.close(), _w.textPop = null;
 	            _w.signinPop && _w.signinPop.close(), _w.signinPop = null;
 	            _w.signupPop && _w.signupPop.close(), _w.signupPop = null;
@@ -44502,28 +44510,23 @@
 	        }
 	    });
 
-	    if (paths && paths.length >= 3) {
-	        var len = paths.length,
-	            firstpath = paths[len - 2],
-	            secondpath = paths[len - 1];
+	    var params = utils.getUrlParams(),
+	        paramsStr = '?' + _w.location.search.substr(1),
+	        _popup = params.popup;
 
-	        if (firstpath === 'popup' && popups.indexOf(secondpath) !== -1) {
-	            var state = History.getState();
-	            var _state$data2 = state.data,
-	                action = _state$data2.action,
-	                params = _state$data2.params;
+	    if (_popup && popups.indexOf(_popup) !== -1) {
+	        var state = History.getState();
+	        var action = state.data.action;
 
 
-	            if (!params) {
-	                params = utils.getUrlParams();
-	            }
-
-	            if (!action) {
-	                History.pushState(null, '', '/');
-	                History.pushState({ action: secondpath }, secondpath, path);
-	            } else {
-	                popupRouter(action, params);
-	            }
+	        if (!action) {
+	            History.pushState(null, '', '/');
+	            History.pushState({
+	                action: _popup,
+	                params: params
+	            }, _popup, paramsStr);
+	        } else {
+	            popupRouter(action, params);
 	        }
 	    }
 	});

@@ -15628,10 +15628,13 @@
 	                    }), _this11.bd);
 	                    utils.placeholder(_this11._popbd);
 	                } else if (ret === 2) {
-	                    _this11.close();
-	                    window.nextState = {
-	                        action: "signin"
-	                    };
+	                    (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', _this11).call(_this11);
+	                    var state = History.getState(),
+	                        action = state.data.action;
+
+	                    if (action && action !== 'signin') {
+	                        History.replaceState({ action: 'signin' }, 'signin', "?popup=signin");
+	                    }
 	                } else {
 	                    alert(data.info);
 	                }
@@ -21996,7 +21999,7 @@
 	                        type: type,
 	                        tag: tag
 	                    }
-	                }, 'share', '/popup/share?type=' + type + (tag ? '&tag=' + tag : ''));
+	                }, 'share', '?popup=share&type=' + type + (tag ? '&tag=' + tag : ''));
 	            }
 	        },
 	        showSigninPop: function showSigninPop() {
@@ -22005,7 +22008,7 @@
 	                action = state.data.action;
 
 	            if (!action && action !== 'signin') {
-	                History.pushState({ action: 'signin' }, 'signin', "/popup/signin");
+	                History.pushState({ action: 'signin' }, 'signin', "?popup=signin");
 	            }
 	        },
 	        showSignupPop: function showSignupPop() {
@@ -22014,15 +22017,20 @@
 	                action = state.data.action;
 
 	            if (!action && action !== 'signup') {
-	                History.pushState({ action: 'signup' }, 'signup', "/popup/signup");
+	                History.pushState({ action: 'signup' }, 'signup', "?popup=signup");
 	            }
 	        },
-	        showImageViewer: function showImageViewer() {
+	        showImageViewer: function showImageViewer(src) {
 	            var state = History.getState(),
 	                action = state.data.action;
 
 	            if (!action && action !== 'imageview') {
-	                History.pushState({ action: 'imageview' }, 'imageview', "/popup/imageview");
+	                History.pushState({
+	                    action: 'imageview',
+	                    params: {
+	                        src: src
+	                    }
+	                }, 'imageview', "?popup=imageview");
 	            }
 	        },
 	        autoScroll: function autoScroll(obj) {

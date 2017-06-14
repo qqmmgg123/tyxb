@@ -472,10 +472,7 @@ import ReactDOM from 'react-dom';
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('picmini', 'pic');
 
-                _w.imageViewer && _w.imageViewer.setComProps({
-                    imageSrc: src
-                });
-                _w.imageViewer && imageViewer.show();
+                 common.showImageViewer(src);
             }
         }
     });

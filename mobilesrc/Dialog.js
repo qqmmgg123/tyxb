@@ -40,15 +40,23 @@ export default class StepPop extends BaseCom {
     }
 
     close() {
-        this.setState({
-            visible: 'none'
-        });
+        const state = History.getState(),
+            { action } = state.data,
+            { routerName } = this.props;
+        if (action && action === routerName) {
+            History.back();
+        }
+        else{
+            this.setState({
+                visible: 'none'
+            });
 
-        let body = document.body;
-        body.className = body.className.replace('un-scroll', '');
+            let body = document.body;
+            body.className = body.className.replace('un-scroll', '');
 
-        const { needKey } = this.props;
-        needKey && keyboard.removeHandle('escape_keydown', this.colsefn);
+            const { needKey } = this.props;
+            needKey && keyboard.removeHandle('escape_keydown', this.colsefn);
+        }
     }
 
     destroy() {

@@ -34,10 +34,7 @@ export default class ImageViewer extends React.Component {
             this.setState({
                 loading: false,
                 imageSrc: src
-            });let state = window.history.state;
-        if (state && state.release) {
-            window.history.back();
-        }
+            });
         };
         img.onerror = function() {
             alert("网络异常，图片加载失败");
@@ -45,15 +42,8 @@ export default class ImageViewer extends React.Component {
     }
 
     close() {
-        const state = History.getState(),
-              { dialog } = this.props,
-              { action } = state.data;
-        if (action && action === "imageview") {
-            History.back();
-        }
-        else{
-            dialog.close();
-        }
+        const { dialog } = this.props;
+        dialog.close();
     }
 
     render() {

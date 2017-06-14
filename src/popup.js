@@ -774,9 +774,11 @@ class TextNewPop extends Win {
                 utils.placeholder(this._popbd);
             }
             else if (ret === 2) {
-                this.close();
-                window.nextState = {
-                    action: "signin"
+                super.close();
+                const state = History.getState(),
+                    { action } = state.data;
+                if (action && action !== 'signin') {
+                    History.replaceState({ action: 'signin'}, 'signin', "?popup=signin");
                 }
             }
             else{

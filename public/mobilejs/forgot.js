@@ -47,7 +47,7 @@
 	'use strict';
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(59), __webpack_require__(12), __webpack_require__(65));
+	    module.exports = factory(__webpack_require__(62), __webpack_require__(10), __webpack_require__(58));
 	})(function (p, util, common) {
 	    // 密码重置form校验
 	    var pwdResetBtn = document.querySelector('#pwdreset-btn');
@@ -136,7 +136,7 @@
 
 	exports.__esModule = true;
 
-	var _defineProperty = __webpack_require__(45);
+	var _defineProperty = __webpack_require__(27);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -174,8 +174,8 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
-	var IObject = __webpack_require__(62)
-	  , defined = __webpack_require__(26);
+	var IObject = __webpack_require__(61)
+	  , defined = __webpack_require__(29);
 	module.exports = function(it){
 	  return IObject(defined(it));
 	};
@@ -202,9 +202,9 @@
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var anObject       = __webpack_require__(15)
-	  , IE8_DOM_DEFINE = __webpack_require__(50)
-	  , toPrimitive    = __webpack_require__(37)
+	var anObject       = __webpack_require__(17)
+	  , IE8_DOM_DEFINE = __webpack_require__(51)
+	  , toPrimitive    = __webpack_require__(40)
 	  , dP             = Object.defineProperty;
 
 	exports.f = __webpack_require__(6) ? Object.defineProperty : function defineProperty(O, P, Attributes){
@@ -225,8 +225,8 @@
 
 	var global    = __webpack_require__(4)
 	  , core      = __webpack_require__(1)
-	  , ctx       = __webpack_require__(48)
-	  , hide      = __webpack_require__(10)
+	  , ctx       = __webpack_require__(49)
+	  , hide      = __webpack_require__(11)
 	  , PROTOTYPE = 'prototype';
 
 	var $export = function(type, name, source){
@@ -289,35 +289,6 @@
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var dP         = __webpack_require__(8)
-	  , createDesc = __webpack_require__(19);
-	module.exports = __webpack_require__(6) ? function(object, key, value){
-	  return dP.f(object, key, createDesc(1, value));
-	} : function(object, key, value){
-	  object[key] = value;
-	  return object;
-	};
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var store      = __webpack_require__(35)('wks')
-	  , uid        = __webpack_require__(20)
-	  , Symbol     = __webpack_require__(4).Symbol
-	  , USE_SYMBOL = typeof Symbol == 'function';
-
-	var $exports = module.exports = function(name){
-	  return store[name] || (store[name] =
-	    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-	};
-
-	$exports.store = store;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
@@ -369,6 +340,25 @@
 
 	            return extended;
 	        }),
+	        // 获取URL指定参数方法
+	        getUrlParams: function getUrlParams(staticURL, decode) {
+	            var currLocation = staticURL && staticURL.length ? staticURL : window.location.href,
+	                parArr_0 = currLocation.split("?"),
+	                data = {};
+
+	            if (parArr_0.length > 1) {
+	                var parArr = parArr_0[1].split("&");
+	                for (var i = 0; i < parArr.length; i++) {
+	                    var parr = parArr[i].split("=");
+	                    if (parr.length > 1) {
+	                        var value = decode ? decodeURIComponent(parr[1]) : parr[1];
+	                        data[parr[0]] = value;
+	                    }
+	                }
+	            }
+
+	            return data;
+	        },
 	        isValidEmail: function isValidEmail(emailAddress) {
 	            var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 	            return pattern.test(emailAddress);
@@ -496,6 +486,35 @@
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var dP         = __webpack_require__(8)
+	  , createDesc = __webpack_require__(21);
+	module.exports = __webpack_require__(6) ? function(object, key, value){
+	  return dP.f(object, key, createDesc(1, value));
+	} : function(object, key, value){
+	  object[key] = value;
+	  return object;
+	};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var store      = __webpack_require__(38)('wks')
+	  , uid        = __webpack_require__(22)
+	  , Symbol     = __webpack_require__(4).Symbol
+	  , USE_SYMBOL = typeof Symbol == 'function';
+
+	var $exports = module.exports = function(name){
+	  return store[name] || (store[name] =
+	    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+	};
+
+	$exports.store = store;
+
+/***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
@@ -512,8 +531,8 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-	var $keys       = __webpack_require__(54)
-	  , enumBugKeys = __webpack_require__(27);
+	var $keys       = __webpack_require__(55)
+	  , enumBugKeys = __webpack_require__(30);
 
 	module.exports = Object.keys || function keys(O){
 	  return $keys(O, enumBugKeys);
@@ -521,24 +540,6 @@
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var isObject = __webpack_require__(16);
-	module.exports = function(it){
-	  if(!isObject(it))throw TypeError(it + ' is not an object!');
-	  return it;
-	};
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-	module.exports = function(it){
-	  return typeof it === 'object' ? it !== null : typeof it === 'function';
-	};
-
-/***/ }),
-/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -656,36 +657,31 @@
 	exports.default = req;
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(77), __esModule: true };
 
 /***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(18);
+	module.exports = function(it){
+	  if(!isObject(it))throw TypeError(it + ' is not an object!');
+	  return it;
+	};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+	module.exports = function(it){
+	  return typeof it === 'object' ? it !== null : typeof it === 'function';
+	};
+
+/***/ }),
 /* 19 */
-/***/ (function(module, exports) {
-
-	module.exports = function(bitmap, value){
-	  return {
-	    enumerable  : !(bitmap & 1),
-	    configurable: !(bitmap & 2),
-	    writable    : !(bitmap & 4),
-	    value       : value
-	  };
-	};
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-	var id = 0
-	  , px = Math.random();
-	module.exports = function(key){
-	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-	};
-
-/***/ }),
-/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -700,7 +696,7 @@
 
 	var _create2 = _interopRequireDefault(_create);
 
-	var _typeof2 = __webpack_require__(25);
+	var _typeof2 = __webpack_require__(28);
 
 	var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -723,14 +719,14 @@
 	};
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _typeof2 = __webpack_require__(25);
+	var _typeof2 = __webpack_require__(28);
 
 	var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -745,6 +741,29 @@
 	};
 
 /***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+	module.exports = function(bitmap, value){
+	  return {
+	    enumerable  : !(bitmap & 1),
+	    configurable: !(bitmap & 2),
+	    writable    : !(bitmap & 4),
+	    value       : value
+	  };
+	};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+	var id = 0
+	  , px = Math.random();
+	module.exports = function(key){
+	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+	};
+
+/***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
@@ -755,13 +774,31 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__(26);
+	var defined = __webpack_require__(29);
 	module.exports = function(it){
 	  return Object(defined(it));
 	};
 
 /***/ }),
 /* 25 */
+/***/ (function(module, exports) {
+
+	module.exports = React;
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+	module.exports = ReactDOM;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(75), __esModule: true };
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -787,7 +824,7 @@
 	};
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
@@ -797,7 +834,7 @@
 	};
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	// IE 8- don't enum bug keys
@@ -806,33 +843,33 @@
 	).split(',');
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports) {
 
 	module.exports = {};
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports) {
 
 	module.exports = true;
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	var anObject    = __webpack_require__(15)
+	var anObject    = __webpack_require__(17)
 	  , dPs         = __webpack_require__(92)
-	  , enumBugKeys = __webpack_require__(27)
-	  , IE_PROTO    = __webpack_require__(34)('IE_PROTO')
+	  , enumBugKeys = __webpack_require__(30)
+	  , IE_PROTO    = __webpack_require__(37)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
 	  , PROTOTYPE   = 'prototype';
 
 	// Create object with fake `null` prototype: use iframe Object with cleared prototype
 	var createDict = function(){
 	  // Thrash, waste and sodomy: IE GC bug
-	  var iframe = __webpack_require__(49)('iframe')
+	  var iframe = __webpack_require__(50)('iframe')
 	    , i      = enumBugKeys.length
 	    , lt     = '<'
 	    , gt     = '>'
@@ -865,15 +902,15 @@
 
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var pIE            = __webpack_require__(23)
-	  , createDesc     = __webpack_require__(19)
+	  , createDesc     = __webpack_require__(21)
 	  , toIObject      = __webpack_require__(5)
-	  , toPrimitive    = __webpack_require__(37)
+	  , toPrimitive    = __webpack_require__(40)
 	  , has            = __webpack_require__(7)
-	  , IE8_DOM_DEFINE = __webpack_require__(50)
+	  , IE8_DOM_DEFINE = __webpack_require__(51)
 	  , gOPD           = Object.getOwnPropertyDescriptor;
 
 	exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O, P){
@@ -886,7 +923,7 @@
 	};
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// most Object methods by ES6 should accept primitives
@@ -901,29 +938,29 @@
 	};
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var def = __webpack_require__(8).f
 	  , has = __webpack_require__(7)
-	  , TAG = __webpack_require__(11)('toStringTag');
+	  , TAG = __webpack_require__(12)('toStringTag');
 
 	module.exports = function(it, tag, stat){
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var shared = __webpack_require__(35)('keys')
-	  , uid    = __webpack_require__(20);
+	var shared = __webpack_require__(38)('keys')
+	  , uid    = __webpack_require__(22);
 	module.exports = function(key){
 	  return shared[key] || (shared[key] = uid(key));
 	};
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var global = __webpack_require__(4)
@@ -934,7 +971,7 @@
 	};
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	// 7.1.4 ToInteger
@@ -945,11 +982,11 @@
 	};
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
-	var isObject = __webpack_require__(16);
+	var isObject = __webpack_require__(18);
 	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
 	// and the second argument - flag - preferred type is a string
 	module.exports = function(it, S){
@@ -962,13 +999,13 @@
 	};
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var global         = __webpack_require__(4)
 	  , core           = __webpack_require__(1)
-	  , LIBRARY        = __webpack_require__(29)
-	  , wksExt         = __webpack_require__(39)
+	  , LIBRARY        = __webpack_require__(32)
+	  , wksExt         = __webpack_require__(42)
 	  , defineProperty = __webpack_require__(8).f;
 	module.exports = function(name){
 	  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -976,25 +1013,19 @@
 	};
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports.f = __webpack_require__(11);
+	exports.f = __webpack_require__(12);
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports) {
 
-	module.exports = React;
+	exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-	module.exports = ReactDOM;
-
-/***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
@@ -1065,358 +1096,7 @@
 
 
 /***/ }),
-/* 43 */
-/***/ (function(module, exports) {
-
-	exports.f = Object.getOwnPropertySymbols;
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _classCallCheck2 = __webpack_require__(2);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(3);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// 公共使用小工具
-	var Tools = function () {
-	    function Tools() {
-	        (0, _classCallCheck3.default)(this, Tools);
-	    }
-
-	    (0, _createClass3.default)(Tools, [{
-	        key: "isFunction",
-	        value: function isFunction(fn) {
-	            return !!fn && !fn.nodeName && fn.constructor != String && fn.constructor != RegExp && fn.constructor != Array && /function/i.test(fn + "");
-	        }
-
-	        // 简易模板
-
-	    }, {
-	        key: "template",
-	        value: function template(tpl, data) {
-	            return tpl.replace(/\{\{\s*([\w\.]+)\s*\}\}/g, function () {
-	                var keys = arguments[1].split('.');
-	                var newData = data;
-	                for (var k = 0, l = keys.length; k < l; ++k) {
-	                    newData = newData[keys[k]];
-	                }return newData;
-	            });
-	        }
-	    }]);
-	    return Tools;
-	}();
-
-	var tools = new Tools();
-
-	exports.default = tools;
-
-/***/ }),
 /* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(75), __esModule: true };
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _getPrototypeOf = __webpack_require__(18);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _getOwnPropertyDescriptor = __webpack_require__(68);
-
-	var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function get(object, property, receiver) {
-	  if (object === null) object = Function.prototype;
-	  var desc = (0, _getOwnPropertyDescriptor2.default)(object, property);
-
-	  if (desc === undefined) {
-	    var parent = (0, _getPrototypeOf2.default)(object);
-
-	    if (parent === null) {
-	      return undefined;
-	    } else {
-	      return get(parent, property, receiver);
-	    }
-	  } else if ("value" in desc) {
-	    return desc.value;
-	  } else {
-	    var getter = desc.get;
-
-	    if (getter === undefined) {
-	      return undefined;
-	    }
-
-	    return getter.call(receiver);
-	  }
-	};
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-	var toString = {}.toString;
-
-	module.exports = function(it){
-	  return toString.call(it).slice(8, -1);
-	};
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// optional / simple context binding
-	var aFunction = __webpack_require__(82);
-	module.exports = function(fn, that, length){
-	  aFunction(fn);
-	  if(that === undefined)return fn;
-	  switch(length){
-	    case 1: return function(a){
-	      return fn.call(that, a);
-	    };
-	    case 2: return function(a, b){
-	      return fn.call(that, a, b);
-	    };
-	    case 3: return function(a, b, c){
-	      return fn.call(that, a, b, c);
-	    };
-	  }
-	  return function(/* ...args */){
-	    return fn.apply(that, arguments);
-	  };
-	};
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var isObject = __webpack_require__(16)
-	  , document = __webpack_require__(4).document
-	  // in old IE typeof document.createElement is 'object'
-	  , is = isObject(document) && isObject(document.createElement);
-	module.exports = function(it){
-	  return is ? document.createElement(it) : {};
-	};
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = !__webpack_require__(6) && !__webpack_require__(13)(function(){
-	  return Object.defineProperty(__webpack_require__(49)('div'), 'a', {get: function(){ return 7; }}).a != 7;
-	});
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var LIBRARY        = __webpack_require__(29)
-	  , $export        = __webpack_require__(9)
-	  , redefine       = __webpack_require__(55)
-	  , hide           = __webpack_require__(10)
-	  , has            = __webpack_require__(7)
-	  , Iterators      = __webpack_require__(28)
-	  , $iterCreate    = __webpack_require__(88)
-	  , setToStringTag = __webpack_require__(33)
-	  , getPrototypeOf = __webpack_require__(53)
-	  , ITERATOR       = __webpack_require__(11)('iterator')
-	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
-	  , FF_ITERATOR    = '@@iterator'
-	  , KEYS           = 'keys'
-	  , VALUES         = 'values';
-
-	var returnThis = function(){ return this; };
-
-	module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
-	  $iterCreate(Constructor, NAME, next);
-	  var getMethod = function(kind){
-	    if(!BUGGY && kind in proto)return proto[kind];
-	    switch(kind){
-	      case KEYS: return function keys(){ return new Constructor(this, kind); };
-	      case VALUES: return function values(){ return new Constructor(this, kind); };
-	    } return function entries(){ return new Constructor(this, kind); };
-	  };
-	  var TAG        = NAME + ' Iterator'
-	    , DEF_VALUES = DEFAULT == VALUES
-	    , VALUES_BUG = false
-	    , proto      = Base.prototype
-	    , $native    = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT]
-	    , $default   = $native || getMethod(DEFAULT)
-	    , $entries   = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined
-	    , $anyNative = NAME == 'Array' ? proto.entries || $native : $native
-	    , methods, key, IteratorPrototype;
-	  // Fix native
-	  if($anyNative){
-	    IteratorPrototype = getPrototypeOf($anyNative.call(new Base));
-	    if(IteratorPrototype !== Object.prototype){
-	      // Set @@toStringTag to native iterators
-	      setToStringTag(IteratorPrototype, TAG, true);
-	      // fix for some old engines
-	      if(!LIBRARY && !has(IteratorPrototype, ITERATOR))hide(IteratorPrototype, ITERATOR, returnThis);
-	    }
-	  }
-	  // fix Array#{values, @@iterator}.name in V8 / FF
-	  if(DEF_VALUES && $native && $native.name !== VALUES){
-	    VALUES_BUG = true;
-	    $default = function values(){ return $native.call(this); };
-	  }
-	  // Define iterator
-	  if((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])){
-	    hide(proto, ITERATOR, $default);
-	  }
-	  // Plug for library
-	  Iterators[NAME] = $default;
-	  Iterators[TAG]  = returnThis;
-	  if(DEFAULT){
-	    methods = {
-	      values:  DEF_VALUES ? $default : getMethod(VALUES),
-	      keys:    IS_SET     ? $default : getMethod(KEYS),
-	      entries: $entries
-	    };
-	    if(FORCED)for(key in methods){
-	      if(!(key in proto))redefine(proto, key, methods[key]);
-	    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-	  }
-	  return methods;
-	};
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-	var $keys      = __webpack_require__(54)
-	  , hiddenKeys = __webpack_require__(27).concat('length', 'prototype');
-
-	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
-	  return $keys(O, hiddenKeys);
-	};
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-	var has         = __webpack_require__(7)
-	  , toObject    = __webpack_require__(24)
-	  , IE_PROTO    = __webpack_require__(34)('IE_PROTO')
-	  , ObjectProto = Object.prototype;
-
-	module.exports = Object.getPrototypeOf || function(O){
-	  O = toObject(O);
-	  if(has(O, IE_PROTO))return O[IE_PROTO];
-	  if(typeof O.constructor == 'function' && O instanceof O.constructor){
-	    return O.constructor.prototype;
-	  } return O instanceof Object ? ObjectProto : null;
-	};
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var has          = __webpack_require__(7)
-	  , toIObject    = __webpack_require__(5)
-	  , arrayIndexOf = __webpack_require__(84)(false)
-	  , IE_PROTO     = __webpack_require__(34)('IE_PROTO');
-
-	module.exports = function(object, names){
-	  var O      = toIObject(object)
-	    , i      = 0
-	    , result = []
-	    , key;
-	  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
-	  // Don't enum bug & hidden keys
-	  while(names.length > i)if(has(O, key = names[i++])){
-	    ~arrayIndexOf(result, key) || result.push(key);
-	  }
-	  return result;
-	};
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(10);
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _classCallCheck2 = __webpack_require__(2);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(3);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// 效果处理
-	var Effect = function () {
-	    function Effect() {
-	        (0, _classCallCheck3.default)(this, Effect);
-	    }
-
-	    (0, _createClass3.default)(Effect, [{
-	        key: 'fadeOut',
-	        value: function fadeOut(el, cb) {
-	            var self = this;
-	            el.style.opacity = 1;
-
-	            window.requestAnimFrame = function () {
-	                return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
-	                    window.setTimeout(callback, 1000 / 60);
-	                };
-	            }();
-
-	            (function fade() {
-	                if ((el.style.opacity -= .1) < 0) {
-	                    el.style.display = 'none';
-	                    cb && cb.call(self, el);
-	                } else {
-	                    if (requestAnimFrame) requestAnimFrame(fade);
-	                }
-	            })();
-	        }
-	    }]);
-	    return Effect;
-	}();
-
-	var effect = new Effect();
-
-	exports.default = effect;
-
-/***/ }),
-/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1426,7 +1106,7 @@
 	});
 	exports.presidentPop = exports.tagNewPop = exports.registrationPop = exports.textNewPop = exports.popup = undefined;
 
-	var _get2 = __webpack_require__(46);
+	var _get2 = __webpack_require__(47);
 
 	var _get3 = _interopRequireDefault(_get2);
 
@@ -1434,7 +1114,7 @@
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-	var _getPrototypeOf = __webpack_require__(18);
+	var _getPrototypeOf = __webpack_require__(16);
 
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -1446,35 +1126,35 @@
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
-	var _possibleConstructorReturn2 = __webpack_require__(22);
+	var _possibleConstructorReturn2 = __webpack_require__(20);
 
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-	var _inherits2 = __webpack_require__(21);
+	var _inherits2 = __webpack_require__(19);
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _react = __webpack_require__(40);
+	var _react = __webpack_require__(25);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(41);
+	var _reactDom = __webpack_require__(26);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _basecom = __webpack_require__(60);
+	var _basecom = __webpack_require__(57);
 
 	var _basecom2 = _interopRequireDefault(_basecom);
 
-	var _keyboard = __webpack_require__(61);
+	var _keyboard = __webpack_require__(60);
 
 	var _keyboard2 = _interopRequireDefault(_keyboard);
 
-	var _autocomplete = __webpack_require__(63);
+	var _autocomplete = __webpack_require__(64);
 
 	var _autocomplete2 = _interopRequireDefault(_autocomplete);
 
-	var _req = __webpack_require__(17);
+	var _req = __webpack_require__(15);
 
 	var _req2 = _interopRequireDefault(_req);
 
@@ -1485,8 +1165,8 @@
 	 * @version 0.1
 	 * @author minggangqiu
 	 */
-	var settings = __webpack_require__(42);
-	var utils = __webpack_require__(12);
+	var settings = __webpack_require__(44);
+	var utils = __webpack_require__(10);
 	var v = __webpack_require__(66);
 	var picpop = __webpack_require__(112);
 	var wintpl = __webpack_require__(115);
@@ -1548,8 +1228,9 @@
 
 	        var _this3 = (0, _possibleConstructorReturn3.default)(this, (DreamForm.__proto__ || (0, _getPrototypeOf2.default)(DreamForm)).call(this, props));
 
-	        self.tagCheckPassed = false;
-	        self.btnDis = true;
+	        _this3.tagCheckPassed = false;
+	        _this3.btnDis = true;
+	        _this3.formData = null;
 	        var btns = [{ label: '网址', rel: 'tab-link-post', name: 'link', active: false }, { label: '文字', rel: 'tab-text-post', name: 'text', active: false }, { label: '图片', rel: 'tab-image-post', name: 'image', active: false }];
 
 	        var formsEls = [];
@@ -1677,91 +1358,6 @@
 	                default:
 	                    break;
 	            };
-	        }
-	    }, {
-	        key: 'tagCheckStart',
-	        value: function tagCheckStart() {
-	            this.btnDis = true;
-	            this._tagInfo.innerHTML = '版面信息加载中...';
-	            this._tagInfo.style.display = 'block';
-	        }
-	    }, {
-	        key: 'tagCheckEnd',
-	        value: function tagCheckEnd(key, cb) {
-	            if (typeof key != 'string') {
-	                this.btnDis = false;
-	                this._tagInfo.innerHTML = '';
-	                this._tagInfo.style.display = 'none';
-	                return;
-	            };
-
-	            var self = this,
-	                tagInfo = this._tagInfo;
-
-	            this._tagInfo.className = 'alert';
-	            if (key) {
-	                self.tagCheckPassed = true;
-	                tagInfo.innerHTML = ['<h3>您的贴文将发布到”' + key + '“</h3>', '<p>该版面版主功能即将开放，敬请关注，</p>', '<p>也因此抱歉，当前暂时无法制定版面规则。<p>'].join('');
-	                utils.addClass(tagInfo, 'alert-success');
-	                self.tagDescModify = self._popbd.querySelector('#tagDescModify');
-	                self.tagDescModify && self.tagDescModify.addEventListener('change', function () {
-	                    self._popbd.querySelector('#tagDescInput').style.display = '';
-	                });
-	                self.btnDis = false;
-	                if (cb) {
-	                    cb.call(self);
-	                }
-	            } else {
-	                self.tagCheckPassed = false;
-	                tagInfo.innerHTML = ['<div>', '您选择的版面不存在，如需创建，请点击', '<a href="/tag/hot" class="btn">去创建 ></a>', '</div>'].join('');
-	                utils.addClass(tagInfo, 'alert-warning');
-	            }
-	        }
-	    }, {
-	        key: 'checkTag',
-	        value: function checkTag(newKey, cb) {
-	            var self = this,
-	                inp = this._dreamTagInp,
-	                key = inp.value.trim(),
-	                newKey = newKey.trim();
-
-	            if (typeof newKey !== 'string' && newKey.length === 0) return;
-
-	            var tagInfo = self._tagInfo;
-	            if (key !== newKey) {
-	                self.btnDis = true;
-	                tagInfo.innerHTML = '版面信息加载中...';
-	                tagInfo.style.display = 'block';
-	                _req2.default.getJSON('/search/tag', { key: newKey }, function (data) {
-	                    self.xhrReponseManage(data, function (data) {
-	                        var data = data.data;
-
-	                        if (data.tag) {
-	                            self.tagCheckEnd(newKey, cb);
-	                        } else {
-	                            self.tagCheckEnd('');
-	                        }
-	                    });
-	                });
-	            } else {
-	                if (cb) {
-	                    if (self.tagCheckPassed) {
-	                        cb.call(self);
-	                    }
-	                }
-	            }
-	        }
-	    }, {
-	        key: 'tagSelected',
-	        value: function tagSelected(e) {
-	            var self = this,
-	                ctag = e.target,
-	                tagSelect = e.currentTarget;
-	            if (ctag && ctag.nodeName.toLowerCase() == "a") {
-	                var newKey = ctag.lastChild.nodeValue.trim();
-	                self.checkTag(newKey);
-	                self._dreamTagInp.value = newKey;
-	            }
 	        }
 	    }, {
 	        key: 'onCancelImage',
@@ -1930,8 +1526,6 @@
 	            var type = this.props.type;
 
 
-	            console.log(type);
-
 	            var header = null;
 	            if (type === "news") {
 	                header = _react2.default.createElement(
@@ -1948,7 +1542,7 @@
 	                            _react2.default.createElement(
 	                                'span',
 	                                { className: 'tab' },
-	                                '\u6807\u9898 [\u5FC5\u586B]'
+	                                '\u6807\u9898'
 	                            )
 	                        ),
 	                        addBtns.map(function (btn, i) {
@@ -1967,6 +1561,21 @@
 	                        })
 	                    )
 	                );
+	            }
+
+	            var tagField = null,
+	                tagTips = '内容将分享到您的日常',
+	                _props = this.props,
+	                tid = _props.tid,
+	                tag = _props.tag;
+
+	            if (tid && tag) {
+	                tagField = _react2.default.createElement('input', {
+	                    type: 'hidden',
+	                    name: 'tag',
+	                    value: tid
+	                });
+	                tagTips = '\u5185\u5BB9\u5C06\u5206\u4EAB\u5230\u5708\u5B50\u201D' + tag + '\u201C';
 	            }
 
 	            return _react2.default.createElement(
@@ -1992,6 +1601,7 @@
 	                            _react2.default.createElement('div', { ref: function ref(tagInfo) {
 	                                    _this5._tagInfo = tagInfo;
 	                                }, className: 'alert form-group', style: { display: "none" } }),
+	                            tagField,
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'form-group' },
@@ -2010,7 +1620,7 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'dream-release-ctrl' },
-	                                '\u5185\u5BB9\u5C06\u9ED8\u8BA4\u5206\u4EAB\u5230\u5C0F\u62A5"' + this.props.tag + '"',
+	                                tagTips,
 	                                _react2.default.createElement(FinishBtn, { ref: function ref(_ref3) {
 	                                        _this5._finishBtn = _ref3;
 	                                    }, onFinishClick: this.validate.bind(this) })
@@ -2021,17 +1631,31 @@
 	            );
 	        }
 	    }, {
+	        key: 'getFormData',
+	        value: function getFormData() {
+	            var _this6 = this;
+
+	            this.formData = {};
+	            this._form && this._form.querySelectorAll('input[type=text], \
+	            input[type=url], \
+	            input[type=hidden], \
+	            textarea').forEach(function (inp, key) {
+	                var val = inp.value;
+	                _this6.formData[inp.name] = val;
+	            });
+	        }
+	    }, {
 	        key: 'validate',
 	        value: function validate() {
-	            var self = this,
-	                formData = {},
-	                validate = true;
+	            var validate = true;
 
-	            self.fields = [{ name: 'tag', require: true, label: '版面', empty_msg: '版面未选择' }, { name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
+	            self.fields = [{ name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
 	                    return !val || utils.isUrl(val);
 	                } }];
 
-	            this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach(function (inp, key) {
+	            this._form && this._form.querySelectorAll('input[type=text], \
+	            input[type=url], \
+	            textarea').forEach(function (inp, key) {
 	                var val = inp.value,
 	                    field = utils.closest(inp, '.field'),
 	                    tips = field && field.nextElementSibling;
@@ -2082,13 +1706,12 @@
 	                        }
 	                    }
 	                });
-
-	                formData[inp.name] = val;
 	            });
 
 	            if (validate) {
 	                this._finishBtn.disable();
-	                self.submit();
+	                this.getFormData();
+	                this.submit();
 	            }
 	        }
 	    }, {
@@ -2108,8 +1731,17 @@
 	    }, {
 	        key: 'submit',
 	        value: function submit() {
-	            var self = this;
-	            this._form.submit();
+	            var _this7 = this;
+
+	            _req2.default.post('/dream/new', this.formData, function (data) {
+	                _this7.xhrReponseManage(data, function (data) {
+	                    if (data.result === 0 && data.data) {
+	                        var did = data.data.did;
+
+	                        did && window.location.replace('/dream/' + did);
+	                    }
+	                });
+	            });
 	        }
 	    }]);
 	    return DreamForm;
@@ -2262,17 +1894,17 @@
 	    function Win(opts) {
 	        (0, _classCallCheck3.default)(this, Win);
 
-	        var _this6 = (0, _possibleConstructorReturn3.default)(this, (Win.__proto__ || (0, _getPrototypeOf2.default)(Win)).call(this, opts));
+	        var _this8 = (0, _possibleConstructorReturn3.default)(this, (Win.__proto__ || (0, _getPrototypeOf2.default)(Win)).call(this, opts));
 
-	        _this6.settings.content = '';
-	        _this6.settings.title = '标题';
-	        _this6.updateSettings({
+	        _this8.settings.content = '';
+	        _this8.settings.title = '标题';
+	        _this8.updateSettings({
 	            width: 'auto',
 	            height: 'auto',
 	            html: wintpl(),
 	            onClose: function onClose() {}
 	        });
-	        return _this6;
+	        return _this8;
 	    }
 
 	    (0, _createClass3.default)(Win, [{
@@ -2303,36 +1935,43 @@
 	    function TextNewPop(opts) {
 	        (0, _classCallCheck3.default)(this, TextNewPop);
 
-	        var _this7 = (0, _possibleConstructorReturn3.default)(this, (TextNewPop.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop)).call(this, opts));
+	        var _this9 = (0, _possibleConstructorReturn3.default)(this, (TextNewPop.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop)).call(this, opts));
 
-	        _this7.tags = opts.tags;
-	        _this7.type = opts.type;
-	        _this7.form = null;
+	        _this9.tags = opts.tags;
+	        _this9.type = opts.type;
+	        _this9.curTag = opts.tag;
+	        _this9.form = null;
 
-	        _this7._map = {
+	        _this9._map = {
 	            'link': '发网址',
 	            'text': '发文字',
 	            'image': '发图片',
 	            'news': '发图文链接'
 	        };
 
-	        _this7.updateSettings({
-	            title: _this7._map[_this7.type]
+	        _this9.updateSettings({
+	            title: _this9._map[_this9.type]
 	        });
-	        return _this7;
+	        return _this9;
 	    }
 
 	    (0, _createClass3.default)(TextNewPop, [{
 	        key: 'checkUser',
 	        value: function checkUser(cb) {
-	            _req2.default.getJSON('/tag/default', null, cb.bind(this), function () {
-	                alert('网络异常');
-	            });
+	            if (this.curTag) {
+	                _req2.default.getJSON('/tag/getinfo', { tid: this.curTag }, cb.bind(this), function () {
+	                    alert('网络异常');
+	                });
+	            } else {
+	                _req2.default.getJSON('/islogin', null, cb.bind(this), function () {
+	                    alert('网络异常');
+	                });
+	            }
 	        }
 	    }, {
 	        key: 'bindEvents',
 	        value: function bindEvents() {
-	            var _this8 = this;
+	            var _this10 = this;
 
 	            (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'bindEvents', this).call(this);
 	            var self = this;
@@ -2343,26 +1982,30 @@
 	                    '\u6B63\u5728\u9A8C\u8BC1\u7528\u6237\u72B6\u6001...'
 	                );
 	            };
-	            var state = window.history.state;
-	            if (state === null) {
-	                history.pushState({ release: this.type }, this._map[this.type], "");
-	            }
+
 	            _reactDom2.default.render(_react2.default.createElement(CheckUserTips, null), this.bd);
 
 	            this.checkUser(function (data) {
 	                var ret = +data.result;
 	                if (ret === 0) {
-	                    if (data.data && data.data.tag) {
-	                        try {
-	                            _this8.form = _reactDom2.default.render(_react2.default.createElement(DreamForm, { type: _this8.type, tag: data.data.tag }), _this8.bd);
-	                            utils.placeholder(_this8._popbd);
-	                        } catch (err) {
-	                            console.log(err.message);
-	                        }
-	                    }
+	                    var _ref5 = data.data || {},
+	                        _ref5$tag = _ref5.tag,
+	                        tag = _ref5$tag === undefined ? '' : _ref5$tag;
+
+	                    _this10.form = _reactDom2.default.render(_react2.default.createElement(DreamForm, {
+	                        type: _this10.type,
+	                        tid: _this10.curTag,
+	                        tag: tag
+	                    }), _this10.bd);
+	                    utils.placeholder(_this10._popbd);
 	                } else if (ret === 2) {
-	                    _this8.close();
-	                    window.needRegPop = true;
+	                    (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', _this10).call(_this10);
+	                    var state = History.getState(),
+	                        action = state.data.action;
+
+	                    if (action && action !== 'signin') {
+	                        History.replaceState({ action: 'signin' }, 'signin', "?popup=signin");
+	                    }
 	                } else {
 	                    alert(data.info);
 	                }
@@ -2371,9 +2014,11 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            var state = window.history.state;
-	            if (state && state.release) {
-	                window.history.back();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (action && action === "share") {
+	                History.back();
 	            } else {
 	                if (this.form && this.form.hasCon && this.form.hasCon()) {
 	                    if (window.confirm("您编辑的内容将不会被保存，确认关闭?")) {
@@ -2397,18 +2042,18 @@
 	    function RegPop(opts) {
 	        (0, _classCallCheck3.default)(this, RegPop);
 
-	        if (!opts.cur) return (0, _possibleConstructorReturn3.default)(_this9);
+	        if (!opts.cur) return (0, _possibleConstructorReturn3.default)(_this11);
 
 	        var title = settings.REGISTRATION.WORDING;
 
-	        var _this9 = (0, _possibleConstructorReturn3.default)(this, (RegPop.__proto__ || (0, _getPrototypeOf2.default)(RegPop)).call(this, opts));
+	        var _this11 = (0, _possibleConstructorReturn3.default)(this, (RegPop.__proto__ || (0, _getPrototypeOf2.default)(RegPop)).call(this, opts));
 
-	        _this9.updateSettings({
+	        _this11.updateSettings({
 	            title: title,
 	            id: 'registration',
 	            content: registration({ data: { current: opts.cur } })
 	        });
-	        return _this9;
+	        return _this11;
 	    }
 
 	    (0, _createClass3.default)(RegPop, [{
@@ -2417,7 +2062,7 @@
 	            var self = this;
 	            switch (data.result) {
 	                case 0:
-	                    window.location.reload();
+	                    data.redirect && window.location.replace(data.redirect);
 	                    break;
 	                case 1:
 	                    alert(data.info);
@@ -2436,11 +2081,6 @@
 	        value: function bindEvents() {
 	            (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'bindEvents', this).call(this);
 	            var self = this;
-
-	            var state = window.history.state;
-	            if (state === null) {
-	                history.pushState({ release: 'register' }, 'register', "");
-	            }
 
 	            this.tabNav = this.bd.querySelector('.tab-nav');
 	            this.tabCon = this.bd.querySelector('.tab-content');
@@ -2477,7 +2117,7 @@
 	            var self = this;
 	            v.validate({
 	                form: this.signinForm,
-	                fields: [{ name: 'username', require: true, label: '笔名' }, { name: 'password', require: true, label: '密码' }],
+	                fields: [{ name: 'username', require: true, label: '名字' }, { name: 'password', require: true, label: '密码' }],
 	                onCheckInput: function onCheckInput() {
 	                    _req2.default.post('/signin', {
 	                        username: this.formData.username,
@@ -2530,11 +2170,13 @@
 	    }, {
 	        key: 'close',
 	        value: function close() {
-	            (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'close', this).call(this);
-	            var state = window.history.state;
-	            if (state && state.release) {
-	                console.log(state && state.release);
-	                window.history.back();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (action && (action === "signin" || action === "signup")) {
+	                History.back();
+	            } else {
+	                (0, _get3.default)(RegPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(RegPop.prototype), 'close', this).call(this);
 	            }
 	        }
 	    }]);
@@ -2547,13 +2189,13 @@
 	    function TagNewPop(opts) {
 	        (0, _classCallCheck3.default)(this, TagNewPop);
 
-	        var _this10 = (0, _possibleConstructorReturn3.default)(this, (TagNewPop.__proto__ || (0, _getPrototypeOf2.default)(TagNewPop)).call(this, opts));
+	        var _this12 = (0, _possibleConstructorReturn3.default)(this, (TagNewPop.__proto__ || (0, _getPrototypeOf2.default)(TagNewPop)).call(this, opts));
 
-	        _this10.updateSettings({
+	        _this12.updateSettings({
 	            title: '创建版面',
 	            content: tagnewtpl(opts.data)
 	        });
-	        return _this10;
+	        return _this12;
 	    }
 
 	    (0, _createClass3.default)(TagNewPop, [{
@@ -2658,13 +2300,13 @@
 	    function PresidentPop(opts) {
 	        (0, _classCallCheck3.default)(this, PresidentPop);
 
-	        var _this11 = (0, _possibleConstructorReturn3.default)(this, (PresidentPop.__proto__ || (0, _getPrototypeOf2.default)(PresidentPop)).call(this, opts));
+	        var _this13 = (0, _possibleConstructorReturn3.default)(this, (PresidentPop.__proto__ || (0, _getPrototypeOf2.default)(PresidentPop)).call(this, opts));
 
-	        _this11.updateSettings({
+	        _this13.updateSettings({
 	            title: '选版主',
 	            content: '<div class="building">' + settings.BUILDING_WORD + '</div>'
 	        });
-	        return _this11;
+	        return _this13;
 	    }
 
 	    return PresidentPop;
@@ -2697,7 +2339,1060 @@
 	exports.presidentPop = presidentPop;
 
 /***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// 公共使用小工具
+	var Tools = function () {
+	    function Tools() {
+	        (0, _classCallCheck3.default)(this, Tools);
+	    }
+
+	    (0, _createClass3.default)(Tools, [{
+	        key: "isFunction",
+	        value: function isFunction(fn) {
+	            return !!fn && !fn.nodeName && fn.constructor != String && fn.constructor != RegExp && fn.constructor != Array && /function/i.test(fn + "");
+	        }
+
+	        // 简易模板
+
+	    }, {
+	        key: "template",
+	        value: function template(tpl, data) {
+	            return tpl.replace(/\{\{\s*([\w\.]+)\s*\}\}/g, function () {
+	                var keys = arguments[1].split('.');
+	                var newData = data;
+	                for (var k = 0, l = keys.length; k < l; ++k) {
+	                    newData = newData[keys[k]];
+	                }return newData;
+	            });
+	        }
+	    }]);
+	    return Tools;
+	}();
+
+	var tools = new Tools();
+
+	exports.default = tools;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	var _getPrototypeOf = __webpack_require__(16);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _getOwnPropertyDescriptor = __webpack_require__(68);
+
+	var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function get(object, property, receiver) {
+	  if (object === null) object = Function.prototype;
+	  var desc = (0, _getOwnPropertyDescriptor2.default)(object, property);
+
+	  if (desc === undefined) {
+	    var parent = (0, _getPrototypeOf2.default)(object);
+
+	    if (parent === null) {
+	      return undefined;
+	    } else {
+	      return get(parent, property, receiver);
+	    }
+	  } else if ("value" in desc) {
+	    return desc.value;
+	  } else {
+	    var getter = desc.get;
+
+	    if (getter === undefined) {
+	      return undefined;
+	    }
+
+	    return getter.call(receiver);
+	  }
+	};
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+	var toString = {}.toString;
+
+	module.exports = function(it){
+	  return toString.call(it).slice(8, -1);
+	};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// optional / simple context binding
+	var aFunction = __webpack_require__(82);
+	module.exports = function(fn, that, length){
+	  aFunction(fn);
+	  if(that === undefined)return fn;
+	  switch(length){
+	    case 1: return function(a){
+	      return fn.call(that, a);
+	    };
+	    case 2: return function(a, b){
+	      return fn.call(that, a, b);
+	    };
+	    case 3: return function(a, b, c){
+	      return fn.call(that, a, b, c);
+	    };
+	  }
+	  return function(/* ...args */){
+	    return fn.apply(that, arguments);
+	  };
+	};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(18)
+	  , document = __webpack_require__(4).document
+	  // in old IE typeof document.createElement is 'object'
+	  , is = isObject(document) && isObject(document.createElement);
+	module.exports = function(it){
+	  return is ? document.createElement(it) : {};
+	};
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = !__webpack_require__(6) && !__webpack_require__(13)(function(){
+	  return Object.defineProperty(__webpack_require__(50)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+	});
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var LIBRARY        = __webpack_require__(32)
+	  , $export        = __webpack_require__(9)
+	  , redefine       = __webpack_require__(56)
+	  , hide           = __webpack_require__(11)
+	  , has            = __webpack_require__(7)
+	  , Iterators      = __webpack_require__(31)
+	  , $iterCreate    = __webpack_require__(88)
+	  , setToStringTag = __webpack_require__(36)
+	  , getPrototypeOf = __webpack_require__(54)
+	  , ITERATOR       = __webpack_require__(12)('iterator')
+	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
+	  , FF_ITERATOR    = '@@iterator'
+	  , KEYS           = 'keys'
+	  , VALUES         = 'values';
+
+	var returnThis = function(){ return this; };
+
+	module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
+	  $iterCreate(Constructor, NAME, next);
+	  var getMethod = function(kind){
+	    if(!BUGGY && kind in proto)return proto[kind];
+	    switch(kind){
+	      case KEYS: return function keys(){ return new Constructor(this, kind); };
+	      case VALUES: return function values(){ return new Constructor(this, kind); };
+	    } return function entries(){ return new Constructor(this, kind); };
+	  };
+	  var TAG        = NAME + ' Iterator'
+	    , DEF_VALUES = DEFAULT == VALUES
+	    , VALUES_BUG = false
+	    , proto      = Base.prototype
+	    , $native    = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT]
+	    , $default   = $native || getMethod(DEFAULT)
+	    , $entries   = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined
+	    , $anyNative = NAME == 'Array' ? proto.entries || $native : $native
+	    , methods, key, IteratorPrototype;
+	  // Fix native
+	  if($anyNative){
+	    IteratorPrototype = getPrototypeOf($anyNative.call(new Base));
+	    if(IteratorPrototype !== Object.prototype){
+	      // Set @@toStringTag to native iterators
+	      setToStringTag(IteratorPrototype, TAG, true);
+	      // fix for some old engines
+	      if(!LIBRARY && !has(IteratorPrototype, ITERATOR))hide(IteratorPrototype, ITERATOR, returnThis);
+	    }
+	  }
+	  // fix Array#{values, @@iterator}.name in V8 / FF
+	  if(DEF_VALUES && $native && $native.name !== VALUES){
+	    VALUES_BUG = true;
+	    $default = function values(){ return $native.call(this); };
+	  }
+	  // Define iterator
+	  if((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])){
+	    hide(proto, ITERATOR, $default);
+	  }
+	  // Plug for library
+	  Iterators[NAME] = $default;
+	  Iterators[TAG]  = returnThis;
+	  if(DEFAULT){
+	    methods = {
+	      values:  DEF_VALUES ? $default : getMethod(VALUES),
+	      keys:    IS_SET     ? $default : getMethod(KEYS),
+	      entries: $entries
+	    };
+	    if(FORCED)for(key in methods){
+	      if(!(key in proto))redefine(proto, key, methods[key]);
+	    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+	  }
+	  return methods;
+	};
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+	var $keys      = __webpack_require__(55)
+	  , hiddenKeys = __webpack_require__(30).concat('length', 'prototype');
+
+	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
+	  return $keys(O, hiddenKeys);
+	};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+	var has         = __webpack_require__(7)
+	  , toObject    = __webpack_require__(24)
+	  , IE_PROTO    = __webpack_require__(37)('IE_PROTO')
+	  , ObjectProto = Object.prototype;
+
+	module.exports = Object.getPrototypeOf || function(O){
+	  O = toObject(O);
+	  if(has(O, IE_PROTO))return O[IE_PROTO];
+	  if(typeof O.constructor == 'function' && O instanceof O.constructor){
+	    return O.constructor.prototype;
+	  } return O instanceof Object ? ObjectProto : null;
+	};
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var has          = __webpack_require__(7)
+	  , toIObject    = __webpack_require__(5)
+	  , arrayIndexOf = __webpack_require__(84)(false)
+	  , IE_PROTO     = __webpack_require__(37)('IE_PROTO');
+
+	module.exports = function(object, names){
+	  var O      = toIObject(object)
+	    , i      = 0
+	    , result = []
+	    , key;
+	  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
+	  // Don't enum bug & hidden keys
+	  while(names.length > i)if(has(O, key = names[i++])){
+	    ~arrayIndexOf(result, key) || result.push(key);
+	  }
+	  return result;
+	};
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(11);
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(16);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(20);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(19);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var BaseCom = function (_React$Component) {
+	    (0, _inherits3.default)(BaseCom, _React$Component);
+
+	    function BaseCom(props) {
+	        (0, _classCallCheck3.default)(this, BaseCom);
+	        return (0, _possibleConstructorReturn3.default)(this, (BaseCom.__proto__ || (0, _getPrototypeOf2.default)(BaseCom)).call(this, props));
+	    }
+
+	    (0, _createClass3.default)(BaseCom, [{
+	        key: 'delegate',
+	        value: function delegate(el, selectors, handles) {
+	            var _this2 = this;
+
+	            el.addEventListener('click', function (ev) {
+	                var el = ev.target,
+	                    matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+
+	                while (el && el !== ev.currentTarget) {
+	                    for (var i = 0, l = selectors.length; i < l; i++) {
+	                        var selector = selectors[i],
+	                            handle = handles[i];
+
+	                        if (matchesSelector.call(el, selector)) {
+	                            return handle.call(_this2, ev, el);
+	                        }
+	                    }
+	                    el = el.parentElement;
+	                }
+	            });
+	        }
+	    }]);
+	    return BaseCom;
+	}(React.Component);
+
+	;
+
+	exports.default = BaseCom;
+
+/***/ }),
 /* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	(function (factory) {
+	    module.exports = factory(__webpack_require__(46).default, __webpack_require__(62), __webpack_require__(15).default, __webpack_require__(59).default, __webpack_require__(10), __webpack_require__(63), __webpack_require__(45));
+	})(function (_t, polyfill, req, effect, utils, dropdown, popup) {
+	    var common = {
+	        isScroll: true,
+	        getPageSize: function getPageSize() {
+	            var xScroll, yScroll;
+
+	            if (window.innerHeight && window.scrollMaxY) {
+	                xScroll = document.body.scrollWidth;
+	                yScroll = window.innerHeight + window.scrollMaxY;
+	            } else if (document.body.scrollHeight > document.body.offsetHeight) {
+	                // all but Explorer Mac
+	                xScroll = document.body.scrollWidth;
+	                yScroll = document.body.scrollHeight;
+	            } else {
+	                // Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari
+	                xScroll = document.body.offsetWidth;
+	                yScroll = document.body.offsetHeight;
+	            }
+
+	            var windowWidth, windowHeight;
+	            if (self.innerHeight) {
+	                // all except Explorer
+	                windowWidth = self.innerWidth;
+	                windowHeight = self.innerHeight;
+	            } else if (document.documentElement && document.documentElement.clientHeight) {
+	                // Explorer 6 Strict Mode
+	                windowWidth = document.documentElement.clientWidth;
+	                windowHeight = document.documentElement.clientHeight;
+	            } else if (document.body) {
+	                // other Explorers
+	                windowWidth = document.body.clientWidth;
+	                windowHeight = document.body.clientHeight;
+	            }
+
+	            // for small pages with total height less then height of the viewport
+	            var pageWidth, pageHeight, arrayPageSize;
+	            if (yScroll < windowHeight) {
+	                pageHeight = windowHeight;
+	            } else {
+	                pageHeight = yScroll;
+	            }
+	            // for small pages with total width less then width of the viewport
+	            if (xScroll < windowWidth) {
+	                pageWidth = windowWidth;
+	            } else {
+	                pageWidth = xScroll;
+	            }
+
+	            arrayPageSize = new Array(pageWidth, pageHeight, windowWidth, windowHeight);
+	            return arrayPageSize;
+	        },
+	        checkMobile: function checkMobile() {
+	            if (window.innerWidth <= 800 && window.innerHeight <= 600) {
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        },
+	        dateBeautify: function dateBeautify(date) {
+	            var hour = 60 * 60 * 1000,
+	                day = 24 * hour,
+	                currDate = this.dateFormat(new Date(), 'yyyy-MM-dd'),
+	                today = new Date(currDate + ' 00:00:00').getTime(),
+	                yesterday = today - day,
+	                currTime = date.getTime(),
+	                cHStr = this.dateFormat(date, 'hh:mm:ss');
+
+	            if (currTime >= today) {
+	                var time = (currTime - today) / hour;
+	                var cHour = date.getHours();
+	                var amCHour = cHour - 12;
+	                var cMStr = this.dateFormat(date, 'mm:ss');
+	                var str = time <= 12 ? '上午 ' + cHStr : '下午 ' + (amCHour < 10 ? amCHour : '0' + amCHour) + ':' + cMStr;
+	                return str;
+	            } else if (currTime < today && currTime >= yesterday) {
+	                return "昨天 " + cHStr;
+	            } else {
+	                return this.dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
+	            }
+	        },
+	        dateFormat: function dateFormat(date, format) {
+	            var o = {
+	                "M+": date.getMonth() + 1, //month
+	                "d+": date.getDate(), //day
+	                "h+": date.getHours(), //hour
+	                "m+": date.getMinutes(), //minute
+	                "s+": date.getSeconds(), //second
+	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
+	                "S": date.getMilliseconds() //millisecond
+	            };
+
+	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+	            for (var k in o) {
+	                if (new RegExp("(" + k + ")").test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+	            }return format;
+	        },
+	        textNew: function textNew(type, tag) {
+	            /*let pop = popup.textNewPop({
+	                id   : 'textReleasePop',
+	                type : type,
+	                tag  : tag
+	            });
+	            pop.show();
+	            return pop;*/
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'share') {
+	                History.pushState({
+	                    action: 'share',
+	                    params: {
+	                        type: type,
+	                        tag: tag
+	                    }
+	                }, 'share', '?popup=share&type=' + type + (tag ? '&tag=' + tag : ''));
+	            }
+	        },
+	        showSigninPop: function showSigninPop() {
+	            //popup.registrationPop({ cur: 'signin' }).show();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'signin') {
+	                History.pushState({ action: 'signin' }, 'signin', "?popup=signin");
+	            }
+	        },
+	        showSignupPop: function showSignupPop() {
+	            //popup.registrationPop({ cur: 'signup' }).show();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'signup') {
+	                History.pushState({ action: 'signup' }, 'signup', "?popup=signup");
+	            }
+	        },
+	        showImageViewer: function showImageViewer(src) {
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (!action && action !== 'imageview') {
+	                History.pushState({
+	                    action: 'imageview',
+	                    params: {
+	                        src: src
+	                    }
+	                }, 'imageview', "?popup=imageview");
+	            }
+	        },
+	        autoScroll: function autoScroll(obj) {
+	            if (this.isScroll) {
+	                $(obj).find("ul:first").animate({
+	                    marginTop: "-25px"
+	                }, 500, function () {
+	                    $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+	                });
+	            }
+	        },
+	        xhrReponseManage: function xhrReponseManage(data, callback) {
+	            var self = this;
+	            switch (data.result) {
+	                case 0:
+	                    callback(data);
+	                    break;
+	                case 1:
+	                    alert(data.info);
+	                    break;
+	                case 2:
+	                    self.showSigninPop();
+	                    break;
+	                default:
+	                    break;
+	            };
+	        },
+	        statistics: function statistics() {
+	            var _hmt = _hmt || [];
+	            (function () {
+	                var hm = document.createElement("script");
+	                hm.src = "https://hm.baidu.com/hm.js?93021e0f5cc3538c992cf608b6c30431";
+	                var s = document.getElementsByTagName("script")[0];
+	                s.parentNode.insertBefore(hm, s);
+	            })();
+	        }
+	    };
+
+	    utils.placeholder(document);
+
+	    // 排序下拉
+	    var appSelect = dropdown.create({
+	        el: '#app-list-arrow',
+	        container: '.h-left',
+	        selector: '.h-left',
+	        menu: '#app-list',
+	        width: 'auto',
+	        modal: true
+	    });
+
+	    // 菜单下拉
+	    var navSelect = dropdown.create({
+	        el: '#navbar-toggle',
+	        container: '.user-in',
+	        selector: '.user-in',
+	        menu: '#navbar-collapse',
+	        width: 'auto',
+	        modal: true
+	    });
+
+	    var signinBtn = document.getElementById('signin-btn'),
+	        signupBtn = document.getElementById('signup-btn');
+
+	    signinBtn && signinBtn.addEventListener('click', function () {
+	        common.showSigninPop();
+	    });
+	    signupBtn && signupBtn.addEventListener('click', function () {
+	        common.showSignupPop();
+	    });
+
+	    // 错误提示
+	    var errTips = document.querySelectorAll('.validate-error');
+	    errTips && errTips.forEach(function (el) {
+	        var error = el.textContent.trim();
+	        if (error) {
+	            el.style.display = 'block';
+	        }
+	    });
+
+	    // Pad, mobile 下的搜索按钮
+	    var inputBox = document.getElementById('search-area'),
+	        backBtn = document.getElementById('search-back'),
+	        resetBtn = document.getElementById('search-reset'),
+	        searchInput = document.getElementById('search-input'),
+	        searchBtn = document.getElementById('search_dream_btn');
+
+	    searchBtn && searchBtn.addEventListener('click', function () {
+	        if (inputBox.className.indexOf(' visible') === -1) {
+	            inputBox.className += ' visible';
+	        }
+	    }, false);
+
+	    backBtn && backBtn.addEventListener('click', function () {
+	        inputBox.className = inputBox.className.replace(' visible', '');
+	    }, false);
+
+	    resetBtn && resetBtn.addEventListener('click', function () {
+	        searchInput.value = '';
+	    }, false);
+
+	    // 查看消息列表
+	    var msgNav = document.querySelector('#message-nav');
+
+	    if (msgNav) {
+	        var msgViewBtn = msgNav.querySelector('[rel="msg-view"]'),
+	            list = msgNav.querySelector('.message-list'),
+	            newTag = msgNav.querySelector('.message-new');
+
+	        utils.setData(msgViewBtn, { show: false });
+
+	        list.addEventListener('click', function (ev) {
+	            var el = ev.target,
+	                matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+
+	            while (el && el !== ev.currentTarget) {
+	                if (matchesSelector.call(el, 'a.btn')) {
+	                    var mid = utils.getData(el, 'mid'),
+	                        msgCurr = utils.closest(el, 'li');
+
+	                    req.post("/message/remove", {
+	                        mid: mid
+	                    }, function (data) {
+	                        common.xhrReponseManage(data, function () {
+	                            effect.fadeOut(msgCurr, function (cur) {
+	                                cur.parentNode.removeChild(cur);
+	                            });
+	                        });
+	                    }, function () {});
+
+	                    break;
+	                }
+	                el = el.parentElement;
+	            }
+	        });
+
+	        msgViewBtn.addEventListener('click', function () {
+	            if (common.checkMobile()) {
+	                window.location.replace('/message');
+	                return;
+	            }
+
+	            if (!utils.getData(this, 'show')) {
+	                list.innerHTML = '加载中...';
+	                list.style.display = 'block';
+	                utils.setData(this, { show: true });
+	                req.getJSON("/message/boxshow", null, function (data) {
+	                    common.xhrReponseManage(data, function () {
+	                        if (data.data && data.data.length > 0) {
+	                            var mtpl = '<li>{{ title }}<a href="{{ url }}"> {{ content }}</a> <a class="btn btn-small" data-mid="{{ _id }}">移除</a></li>',
+	                                html = data.data.map(function (item) {
+	                                return _t.template(mtpl, item);
+	                            }).join('');
+	                            list.innerHTML = html;
+	                            list.style.display = 'block';
+	                            var li = document.createElement('li');
+	                            li.className = 'view-all';
+	                            li.innerHTML = '<a href="/message">查看所有消息</a>';
+	                            list.appendChild(li);
+	                            newTag && newTag.parentNode.removeChild(newTag);
+	                            return;
+	                        }
+	                        list.innerHTML = '<li><p class="nodata">没有消息。</p></li>';
+	                        list.style.display = 'block';
+	                    });
+	                }, function () {
+	                    list.innerHTML = '加载失败。';
+	                });
+	            } else {
+	                list.style.display = 'none';
+	                utils.setData(this, { show: false });
+	            }
+	        });
+
+	        msgViewBtn.addEventListener('mousedown', function (ev) {
+	            ev.stopPropagation();
+	        });
+
+	        list.addEventListener('mousedown', function (ev) {
+	            ev.stopPropagation();
+	        });
+
+	        document.body.addEventListener('mousedown', function () {
+	            if (utils.getData(msgViewBtn, 'show')) {
+	                list.style.display = 'none';
+	                utils.setData(msgViewBtn, { show: false });
+	            }
+	        });
+	    }
+
+	    // 创建下拉
+	    var configDropdown = document.querySelector('#config-dropdown');
+	    configDropdown && dropdown.create({
+	        el: '[rel="conf-toggle"]',
+	        container: '#config-dropdown',
+	        selector: '#config-dropdown',
+	        menu: '.config-list',
+	        width: 'auto'
+	    });
+
+	    var submitBtn = document.querySelector('button[type="submit"]'),
+	        submitform = utils.closest(submitBtn, 'form');
+	    submitBtn && submitform && submitform.addEventListener('submit', function () {
+	        submitBtn.disabled = true;
+	        utils.addClass(submitBtn, 'disabled');
+	    });
+
+	    document.addEventListener("touchstart", function () {}, true);
+
+	    return common;
+	});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// 效果处理
+	var Effect = function () {
+	    function Effect() {
+	        (0, _classCallCheck3.default)(this, Effect);
+	    }
+
+	    (0, _createClass3.default)(Effect, [{
+	        key: 'fadeOut',
+	        value: function fadeOut(el, cb) {
+	            var self = this;
+	            el.style.opacity = 1;
+
+	            window.requestAnimFrame = function () {
+	                return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+	                    window.setTimeout(callback, 1000 / 60);
+	                };
+	            }();
+
+	            (function fade() {
+	                if ((el.style.opacity -= .1) < 0) {
+	                    el.style.display = 'none';
+	                    cb && cb.call(self, el);
+	                } else {
+	                    if (requestAnimFrame) requestAnimFrame(fade);
+	                }
+	            })();
+	        }
+	    }]);
+	    return Effect;
+	}();
+
+	var effect = new Effect();
+
+	exports.default = effect;
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _tools = __webpack_require__(46);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Keyboard = function () {
+	    function Keyboard() {
+	        (0, _classCallCheck3.default)(this, Keyboard);
+
+	        this.keyList = {
+	            code_17: 'ctrl',
+	            code_27: 'escape',
+	            code_32: 'space',
+	            code_37: 'left',
+	            code_38: 'up',
+	            code_39: 'right',
+	            code_40: 'down'
+	        };
+
+	        this.events = {};
+	        this.firstKey = {};
+	        this.init();
+	    }
+
+	    (0, _createClass3.default)(Keyboard, [{
+	        key: 'init',
+	        value: function init() {
+	            var self = this;
+	            var handle = function handle(ev) {
+	                var key_code = ev.keyCode;
+	                var key_type = ev.type;
+
+	                var key_name = self.getKeyName(key_code, key_type);
+	                if (!key_name) return;
+
+	                // 存储组合键首键
+	                switch (key_name) {
+	                    case 'ctrl':
+	                        if (key_type == 'keydown') self.firstKey[key_name] = true;else if (key_type == 'keyup') self.firstKey[key_name] = false;
+	                        break;
+	                    default:
+	                        break;
+	                }
+
+	                var evt = self.getKeyEvent(key_name, key_type);
+	                if (!evt) return;
+
+	                // console.log('key event...')
+
+	                // 触发键盘事件处理器
+	                for (var evi = 0; evi < evt.length; ++evi) {
+	                    var ev = evt[evi];
+	                    // console.log(ev);
+	                    ev.callback.call(self, ev);
+	                }
+	            };
+
+	            // 注册键盘事件
+	            document.addEventListener("keydown", handle, true);
+	            document.addEventListener("keyup", handle, true);
+	        }
+	    }, {
+	        key: 'getKeyName',
+	        value: function getKeyName(key_code, key_type) {
+	            var key_name = '';
+
+	            // 获得按键名
+	            if (key_code >= 65 && key_code <= 90) {
+	                // 字母键
+	                var diff = 32;
+	                key_name = String.fromCharCode(key_code + diff);
+	            } else if (key_code >= 48 && key_code <= 57) {
+	                key_name = key_code - 48 + '';
+	            } else {
+	                var code_num = 'code_' + key_code;
+	                key_name = this.keyList[code_num];
+	            }
+
+	            return key_name;
+	        }
+	    }, {
+	        key: 'getKeyEvent',
+	        value: function getKeyEvent(key_name, key_type) {
+	            // 查找并触发单键
+	            var handle_type = key_name + '_' + key_type;
+	            var events = this.events;
+
+	            // 查找并触发组合键
+	            var firstKey = this.firstKey;
+	            if (key_type == 'keydown') {
+	                for (var k in firstKey) {
+	                    if (firstKey[k] && k != key_name) {
+	                        handle_type = k + '_' + key_name;
+	                    }
+	                }
+	            }
+
+	            var evt = events[handle_type];
+
+	            return evt;
+	        }
+	    }, {
+	        key: 'addHandle',
+	        value: function addHandle(evt, callback) {
+	            var name = evt;
+
+	            // 存储事件处理器
+	            if (evt.indexOf('+') != -1) name = evt.replace(/\s/g, '').replace('+', '_');
+	            var nevt = {
+	                name: name,
+	                callback: callback
+	            };
+	            if (!(name in this.events)) this.events[name] = [];
+	            this.events[name].push(nevt);
+	        }
+	    }, {
+	        key: 'removeHandle',
+	        value: function removeHandle(evt, callback) {
+
+	            var name = evt;
+
+	            // 存储事件处理器
+	            if (evt.indexOf('+') != -1) name = evt.replace(/\s/g, '').replace('+', '_');
+
+	            if (!(name in this.events)) return;
+
+	            if (callback == undefined) {
+	                delete this.events[name];
+	                return;
+	            }
+
+	            if (_tools2.default.isFunction(callback)) {
+	                var i = this.events[name].length;
+	                while (i > 0) {
+	                    if (this.events[name][--i].callback == callback) {
+	                        this.events[name].splice(i, 1);
+	                        return;
+	                    }
+	                }
+	            }
+	        }
+	    }]);
+	    return Keyboard;
+	}(); /*
+	      * @fileOverview 键盘操作
+	      * @version 0.1
+	      * @author minggangqiu
+	      */
+
+
+	var keyboard = new Keyboard();
+
+	exports.default = keyboard;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// fallback for non-array-like ES3 and non-enumerable old V8 strings
+	var cof = __webpack_require__(48);
+	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
+	  return cof(it) == 'String' ? it.split('') : Object(it);
+	};
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _defineProperty = __webpack_require__(27);
+
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+	var _typeof2 = __webpack_require__(28);
+
+	var _typeof3 = _interopRequireDefault(_typeof2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	(function (arr) {
+	    arr.forEach(function (item) {
+	        item.replaceWith = item.replaceWith || function () {
+	            var argArr = Array.prototype.slice.call(arguments);
+	            var docFrag = document.createDocumentFragment();
+
+	            argArr.forEach(function (argItem) {
+	                var isNode = Boolean((typeof argItem === 'undefined' ? 'undefined' : (0, _typeof3.default)(argItem)) === 'object' && argItem !== null && argItem.nodeType > 0);
+	                docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
+	            });
+
+	            this.parentNode.replaceChild(docFrag, this);
+	        };
+	    });
+	})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
+
+	(function (arr) {
+	    arr.forEach(function (item) {
+	        item.forEach = item.forEach || Array.prototype.forEach;
+	    });
+	})([NodeList.prototype, HTMLCollection.prototype]);
+
+	// Safari support.
+	if (!String.prototype.startsWith) {
+	    (function () {
+	        'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
+
+	        var defineProperty = function () {
+	            // IE 8 only supports `Object.defineProperty` on DOM elements
+	            try {
+	                var object = {};
+	                var $defineProperty = _defineProperty2.default;
+	                var result = $defineProperty(object, object, object) && $defineProperty;
+	            } catch (error) {}
+	            return result;
+	        }();
+	        var toString = {}.toString;
+	        var startsWith = function startsWith(search) {
+	            if (this == null) {
+	                throw TypeError();
+	            }
+	            var string = String(this);
+	            if (search && toString.call(search) == '[object RegExp]') {
+	                throw TypeError();
+	            }
+	            var stringLength = string.length;
+	            var searchString = String(search);
+	            var searchLength = searchString.length;
+	            var position = arguments.length > 1 ? arguments[1] : undefined;
+	            // `ToInteger`
+	            var pos = position ? Number(position) : 0;
+	            if (pos != pos) {
+	                // better `isNaN`
+	                pos = 0;
+	            }
+	            var start = Math.min(Math.max(pos, 0), stringLength);
+	            // Avoid the `indexOf` call if no match is possible
+	            if (searchLength + start > stringLength) {
+	                return false;
+	            }
+	            var index = -1;
+	            while (++index < searchLength) {
+	                if (string.charCodeAt(start + index) != searchString.charCodeAt(index)) {
+	                    return false;
+	                }
+	            }
+	            return true;
+	        };
+	        if (defineProperty) {
+	            defineProperty(String.prototype, 'startsWith', {
+	                'value': startsWith,
+	                'configurable': true,
+	                'writable': true
+	            });
+	        } else {
+	            String.prototype.startsWith = startsWith;
+	        }
+	    })();
+	}
+
+/***/ }),
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2707,19 +3402,19 @@
 	});
 	exports.shareDrop = exports.create = undefined;
 
-	var _getPrototypeOf = __webpack_require__(18);
+	var _getPrototypeOf = __webpack_require__(16);
 
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-	var _possibleConstructorReturn2 = __webpack_require__(22);
+	var _possibleConstructorReturn2 = __webpack_require__(20);
 
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-	var _get2 = __webpack_require__(46);
+	var _get2 = __webpack_require__(47);
 
 	var _get3 = _interopRequireDefault(_get2);
 
-	var _inherits2 = __webpack_require__(21);
+	var _inherits2 = __webpack_require__(19);
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -2738,8 +3433,8 @@
 	 * @version 0.1
 	 * @author minggangqiu
 	 */
-	var utils = __webpack_require__(12);
-	var Share = __webpack_require__(64);
+	var utils = __webpack_require__(10);
+	var Share = __webpack_require__(65);
 	var dropdown = __webpack_require__(111);
 
 	var DropDown = function () {
@@ -3040,111 +3735,7 @@
 	exports.shareDrop = shareDrop;
 
 /***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _typeof2 = __webpack_require__(25);
-
-	var _typeof3 = _interopRequireDefault(_typeof2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	(function (arr) {
-	    arr.forEach(function (item) {
-	        item.replaceWith = item.replaceWith || function () {
-	            var argArr = Array.prototype.slice.call(arguments);
-	            var docFrag = document.createDocumentFragment();
-
-	            argArr.forEach(function (argItem) {
-	                var isNode = Boolean((typeof argItem === 'undefined' ? 'undefined' : (0, _typeof3.default)(argItem)) === 'object' && argItem !== null && argItem.nodeType > 0);
-	                docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
-	            });
-
-	            this.parentNode.replaceChild(docFrag, this);
-	        };
-	    });
-	})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
-
-	(function (arr) {
-	    arr.forEach(function (item) {
-	        item.forEach = item.forEach || Array.prototype.forEach;
-	    });
-	})([NodeList.prototype, HTMLCollection.prototype]);
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _getPrototypeOf = __webpack_require__(18);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(2);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(3);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(22);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(21);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var BaseCom = function (_React$Component) {
-	    (0, _inherits3.default)(BaseCom, _React$Component);
-
-	    function BaseCom(props) {
-	        (0, _classCallCheck3.default)(this, BaseCom);
-	        return (0, _possibleConstructorReturn3.default)(this, (BaseCom.__proto__ || (0, _getPrototypeOf2.default)(BaseCom)).call(this, props));
-	    }
-
-	    (0, _createClass3.default)(BaseCom, [{
-	        key: 'delegate',
-	        value: function delegate(el, selectors, handles) {
-	            var _this2 = this;
-
-	            el.addEventListener('click', function (ev) {
-	                var el = ev.target,
-	                    matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-
-	                while (el && el !== ev.currentTarget) {
-	                    for (var i = 0, l = selectors.length; i < l; i++) {
-	                        var selector = selectors[i],
-	                            handle = handles[i];
-
-	                        if (matchesSelector.call(el, selector)) {
-	                            return handle.call(_this2, ev, el);
-	                        }
-	                    }
-	                    el = el.parentElement;
-	                }
-	            });
-	        }
-	    }]);
-	    return BaseCom;
-	}(React.Component);
-
-	;
-
-	exports.default = BaseCom;
-
-/***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3161,204 +3752,21 @@
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
-	var _tools = __webpack_require__(44);
-
-	var _tools2 = _interopRequireDefault(_tools);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Keyboard = function () {
-	    function Keyboard() {
-	        (0, _classCallCheck3.default)(this, Keyboard);
-
-	        this.keyList = {
-	            code_17: 'ctrl',
-	            code_27: 'escape',
-	            code_32: 'space',
-	            code_37: 'left',
-	            code_38: 'up',
-	            code_39: 'right',
-	            code_40: 'down'
-	        };
-
-	        this.events = {};
-	        this.firstKey = {};
-	        this.init();
-	    }
-
-	    (0, _createClass3.default)(Keyboard, [{
-	        key: 'init',
-	        value: function init() {
-	            var self = this;
-	            var handle = function handle(ev) {
-	                var key_code = ev.keyCode;
-	                var key_type = ev.type;
-
-	                var key_name = self.getKeyName(key_code, key_type);
-	                if (!key_name) return;
-
-	                // 存储组合键首键
-	                switch (key_name) {
-	                    case 'ctrl':
-	                        if (key_type == 'keydown') self.firstKey[key_name] = true;else if (key_type == 'keyup') self.firstKey[key_name] = false;
-	                        break;
-	                    default:
-	                        break;
-	                }
-
-	                var evt = self.getKeyEvent(key_name, key_type);
-	                if (!evt) return;
-
-	                // console.log('key event...')
-
-	                // 触发键盘事件处理器
-	                for (var evi = 0; evi < evt.length; ++evi) {
-	                    var ev = evt[evi];
-	                    // console.log(ev);
-	                    ev.callback.call(self, ev);
-	                }
-	            };
-
-	            // 注册键盘事件
-	            document.addEventListener("keydown", handle, true);
-	            document.addEventListener("keyup", handle, true);
-	        }
-	    }, {
-	        key: 'getKeyName',
-	        value: function getKeyName(key_code, key_type) {
-	            var key_name = '';
-
-	            // 获得按键名
-	            if (key_code >= 65 && key_code <= 90) {
-	                // 字母键
-	                var diff = 32;
-	                key_name = String.fromCharCode(key_code + diff);
-	            } else if (key_code >= 48 && key_code <= 57) {
-	                key_name = key_code - 48 + '';
-	            } else {
-	                var code_num = 'code_' + key_code;
-	                key_name = this.keyList[code_num];
-	            }
-
-	            return key_name;
-	        }
-	    }, {
-	        key: 'getKeyEvent',
-	        value: function getKeyEvent(key_name, key_type) {
-	            // 查找并触发单键
-	            var handle_type = key_name + '_' + key_type;
-	            var events = this.events;
-
-	            // 查找并触发组合键
-	            var firstKey = this.firstKey;
-	            if (key_type == 'keydown') {
-	                for (var k in firstKey) {
-	                    if (firstKey[k] && k != key_name) {
-	                        handle_type = k + '_' + key_name;
-	                    }
-	                }
-	            }
-
-	            var evt = events[handle_type];
-
-	            return evt;
-	        }
-	    }, {
-	        key: 'addHandle',
-	        value: function addHandle(evt, callback) {
-	            var name = evt;
-
-	            // 存储事件处理器
-	            if (evt.indexOf('+') != -1) name = evt.replace(/\s/g, '').replace('+', '_');
-	            var nevt = {
-	                name: name,
-	                callback: callback
-	            };
-	            if (!(name in this.events)) this.events[name] = [];
-	            this.events[name].push(nevt);
-	        }
-	    }, {
-	        key: 'removeHandle',
-	        value: function removeHandle(evt, callback) {
-
-	            var name = evt;
-
-	            // 存储事件处理器
-	            if (evt.indexOf('+') != -1) name = evt.replace(/\s/g, '').replace('+', '_');
-
-	            if (!(name in this.events)) return;
-
-	            if (callback == undefined) {
-	                delete this.events[name];
-	                return;
-	            }
-
-	            if (_tools2.default.isFunction(callback)) {
-	                var i = this.events[name].length;
-	                while (i > 0) {
-	                    if (this.events[name][--i].callback == callback) {
-	                        this.events[name].splice(i, 1);
-	                        return;
-	                    }
-	                }
-	            }
-	        }
-	    }]);
-	    return Keyboard;
-	}(); /*
-	      * @fileOverview 键盘操作
-	      * @version 0.1
-	      * @author minggangqiu
-	      */
-
-
-	var keyboard = new Keyboard();
-
-	exports.default = keyboard;
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// fallback for non-array-like ES3 and non-enumerable old V8 strings
-	var cof = __webpack_require__(47);
-	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
-	  return cof(it) == 'String' ? it.split('') : Object(it);
-	};
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _classCallCheck2 = __webpack_require__(2);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(3);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _req = __webpack_require__(17);
+	var _req = __webpack_require__(15);
 
 	var _req2 = _interopRequireDefault(_req);
 
-	var _react = __webpack_require__(40);
+	var _react = __webpack_require__(25);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(41);
+	var _reactDom = __webpack_require__(26);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var utils = __webpack_require__(12); /*
+	var utils = __webpack_require__(10); /*
 	                               * @fileOverview 弹出窗口
 	                               * @version 0.1
 	                               * @author minggangqiu
@@ -3673,7 +4081,7 @@
 	exports.default = autocomplete;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -3728,333 +4136,6 @@
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	(function (factory) {
-	    module.exports = factory(__webpack_require__(44).default, __webpack_require__(59), __webpack_require__(17).default, __webpack_require__(56).default, __webpack_require__(12), __webpack_require__(58), __webpack_require__(57));
-	})(function (_t, polyfill, req, effect, utils, dropdown, popup) {
-	    var common = {
-	        isScroll: true,
-	        getPageSize: function getPageSize() {
-	            var xScroll, yScroll;
-
-	            if (window.innerHeight && window.scrollMaxY) {
-	                xScroll = document.body.scrollWidth;
-	                yScroll = window.innerHeight + window.scrollMaxY;
-	            } else if (document.body.scrollHeight > document.body.offsetHeight) {
-	                // all but Explorer Mac
-	                xScroll = document.body.scrollWidth;
-	                yScroll = document.body.scrollHeight;
-	            } else {
-	                // Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari
-	                xScroll = document.body.offsetWidth;
-	                yScroll = document.body.offsetHeight;
-	            }
-
-	            var windowWidth, windowHeight;
-	            if (self.innerHeight) {
-	                // all except Explorer
-	                windowWidth = self.innerWidth;
-	                windowHeight = self.innerHeight;
-	            } else if (document.documentElement && document.documentElement.clientHeight) {
-	                // Explorer 6 Strict Mode
-	                windowWidth = document.documentElement.clientWidth;
-	                windowHeight = document.documentElement.clientHeight;
-	            } else if (document.body) {
-	                // other Explorers
-	                windowWidth = document.body.clientWidth;
-	                windowHeight = document.body.clientHeight;
-	            }
-
-	            // for small pages with total height less then height of the viewport
-	            var pageWidth, pageHeight, arrayPageSize;
-	            if (yScroll < windowHeight) {
-	                pageHeight = windowHeight;
-	            } else {
-	                pageHeight = yScroll;
-	            }
-	            // for small pages with total width less then width of the viewport
-	            if (xScroll < windowWidth) {
-	                pageWidth = windowWidth;
-	            } else {
-	                pageWidth = xScroll;
-	            }
-
-	            arrayPageSize = new Array(pageWidth, pageHeight, windowWidth, windowHeight);
-	            return arrayPageSize;
-	        },
-	        checkMobile: function checkMobile() {
-	            if (window.innerWidth <= 800 && window.innerHeight <= 600) {
-	                return true;
-	            } else {
-	                return false;
-	            }
-	        },
-	        dateBeautify: function dateBeautify(date) {
-	            var hour = 60 * 60 * 1000,
-	                day = 24 * hour,
-	                currDate = this.dateFormat(new Date(), 'yyyy-MM-dd'),
-	                today = new Date(currDate + ' 00:00:00').getTime(),
-	                yesterday = today - day,
-	                currTime = date.getTime(),
-	                cHStr = this.dateFormat(date, 'hh:mm:ss');
-
-	            if (currTime >= today) {
-	                var time = (currTime - today) / hour;
-	                var cHour = date.getHours();
-	                var amCHour = cHour - 12;
-	                var cMStr = this.dateFormat(date, 'mm:ss');
-	                var str = time <= 12 ? '上午 ' + cHStr : '下午 ' + (amCHour < 10 ? amCHour : '0' + amCHour) + ':' + cMStr;
-	                return str;
-	            } else if (currTime < today && currTime >= yesterday) {
-	                return "昨天 " + cHStr;
-	            } else {
-	                return this.dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
-	            }
-	        },
-	        dateFormat: function dateFormat(date, format) {
-	            var o = {
-	                "M+": date.getMonth() + 1, //month
-	                "d+": date.getDate(), //day
-	                "h+": date.getHours(), //hour
-	                "m+": date.getMinutes(), //minute
-	                "s+": date.getSeconds(), //second
-	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
-	                "S": date.getMilliseconds() //millisecond
-	            };
-
-	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-	            for (var k in o) {
-	                if (new RegExp("(" + k + ")").test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-	            }return format;
-	        },
-	        textNew: function textNew(type) {
-	            var pop = popup.textNewPop({
-	                id: 'textReleasePop',
-	                type: type
-	            });
-	            pop.show();
-	            return pop;
-	        },
-	        showSigninPop: function showSigninPop() {
-	            popup.registrationPop({ cur: 'signin' }).show();
-	        },
-	        showSignupPop: function showSignupPop() {
-	            popup.registrationPop({ cur: 'signup' }).show();
-	        },
-	        autoScroll: function autoScroll(obj) {
-	            if (this.isScroll) {
-	                $(obj).find("ul:first").animate({
-	                    marginTop: "-25px"
-	                }, 500, function () {
-	                    $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
-	                });
-	            }
-	        },
-	        xhrReponseManage: function xhrReponseManage(data, callback) {
-	            var self = this;
-	            switch (data.result) {
-	                case 0:
-	                    callback(data);
-	                    break;
-	                case 1:
-	                    alert(data.info);
-	                    break;
-	                case 2:
-	                    self.showSigninPop();
-	                    break;
-	                default:
-	                    break;
-	            };
-	        },
-	        statistics: function statistics() {
-	            var _hmt = _hmt || [];
-	            (function () {
-	                var hm = document.createElement("script");
-	                hm.src = "https://hm.baidu.com/hm.js?93021e0f5cc3538c992cf608b6c30431";
-	                var s = document.getElementsByTagName("script")[0];
-	                s.parentNode.insertBefore(hm, s);
-	            })();
-	        }
-	    };
-
-	    utils.placeholder(document);
-
-	    // 排序下拉
-	    var appSelect = dropdown.create({
-	        el: '#app-list-arrow',
-	        container: '.h-left',
-	        selector: '.h-left',
-	        menu: '#app-list',
-	        width: 'auto',
-	        modal: true
-	    });
-
-	    // 菜单下拉
-	    var navSelect = dropdown.create({
-	        el: '#navbar-toggle',
-	        container: '.user-in',
-	        selector: '.user-in',
-	        menu: '#navbar-collapse',
-	        width: 'auto',
-	        modal: true
-	    });
-
-	    var signinBtn = document.getElementById('signin-btn'),
-	        signupBtn = document.getElementById('signup-btn');
-
-	    signinBtn && signinBtn.addEventListener('click', function () {
-	        common.showSigninPop();
-	    });
-	    signupBtn && signupBtn.addEventListener('click', function () {
-	        common.showSignupPop();
-	    });
-
-	    // 错误提示
-	    var errTips = document.querySelectorAll('.validate-error');
-	    errTips && errTips.forEach(function (el) {
-	        var error = el.textContent.trim();
-	        if (error) {
-	            el.style.display = 'block';
-	        }
-	    });
-
-	    // Pad, mobile 下的搜索按钮
-	    var inputBox = document.getElementById('search-area'),
-	        backBtn = document.getElementById('search-back'),
-	        resetBtn = document.getElementById('search-reset'),
-	        searchInput = document.getElementById('search-input'),
-	        searchBtn = document.getElementById('search_dream_btn');
-
-	    searchBtn && searchBtn.addEventListener('click', function () {
-	        if (inputBox.className.indexOf(' visible') === -1) {
-	            inputBox.className += ' visible';
-	        }
-	    }, false);
-
-	    backBtn && backBtn.addEventListener('click', function () {
-	        inputBox.className = inputBox.className.replace(' visible', '');
-	    }, false);
-
-	    resetBtn && resetBtn.addEventListener('click', function () {
-	        searchInput.value = '';
-	    }, false);
-
-	    // 查看消息列表
-	    var msgNav = document.querySelector('#message-nav');
-
-	    if (msgNav) {
-	        var msgViewBtn = msgNav.querySelector('[rel="msg-view"]'),
-	            list = msgNav.querySelector('.message-list'),
-	            newTag = msgNav.querySelector('.message-new');
-
-	        utils.setData(msgViewBtn, { show: false });
-
-	        list.addEventListener('click', function (ev) {
-	            var el = ev.target,
-	                matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-
-	            while (el && el !== ev.currentTarget) {
-	                if (matchesSelector.call(el, 'a.btn')) {
-	                    var mid = utils.getData(el, 'mid'),
-	                        msgCurr = utils.closest(el, 'li');
-
-	                    req.post("/message/remove", {
-	                        mid: mid
-	                    }, function (data) {
-	                        common.xhrReponseManage(data, function () {
-	                            effect.fadeOut(msgCurr, function (cur) {
-	                                cur.parentNode.removeChild(cur);
-	                            });
-	                        });
-	                    }, function () {});
-
-	                    break;
-	                }
-	                el = el.parentElement;
-	            }
-	        });
-
-	        msgViewBtn.addEventListener('click', function () {
-	            if (common.checkMobile()) {
-	                window.location.replace('/message');
-	                return;
-	            }
-
-	            if (!utils.getData(this, 'show')) {
-	                list.innerHTML = '加载中...';
-	                list.style.display = 'block';
-	                utils.setData(this, { show: true });
-	                req.getJSON("/message/boxshow", null, function (data) {
-	                    common.xhrReponseManage(data, function () {
-	                        if (data.data && data.data.length > 0) {
-	                            var mtpl = '<li>{{ title }}<a href="{{ url }}"> {{ content }}</a> <a class="btn btn-small" data-mid="{{ _id }}">移除</a></li>',
-	                                html = data.data.map(function (item) {
-	                                return _t.template(mtpl, item);
-	                            }).join('');
-	                            list.innerHTML = html;
-	                            list.style.display = 'block';
-	                            var li = document.createElement('li');
-	                            li.className = 'view-all';
-	                            li.innerHTML = '<a href="/message">查看所有消息</a>';
-	                            list.appendChild(li);
-	                            newTag && newTag.parentNode.removeChild(newTag);
-	                            return;
-	                        }
-	                        list.innerHTML = '<li><p class="nodata">没有消息。</p></li>';
-	                        list.style.display = 'block';
-	                    });
-	                }, function () {
-	                    list.innerHTML = '加载失败。';
-	                });
-	            } else {
-	                list.style.display = 'none';
-	                utils.setData(this, { show: false });
-	            }
-	        });
-
-	        msgViewBtn.addEventListener('mousedown', function (ev) {
-	            ev.stopPropagation();
-	        });
-
-	        list.addEventListener('mousedown', function (ev) {
-	            ev.stopPropagation();
-	        });
-
-	        document.body.addEventListener('mousedown', function () {
-	            if (utils.getData(msgViewBtn, 'show')) {
-	                list.style.display = 'none';
-	                utils.setData(msgViewBtn, { show: false });
-	            }
-	        });
-	    }
-
-	    // 创建下拉
-	    var configDropdown = document.querySelector('#config-dropdown');
-	    configDropdown && dropdown.create({
-	        el: '[rel="conf-toggle"]',
-	        container: '#config-dropdown',
-	        selector: '#config-dropdown',
-	        menu: '.config-list',
-	        width: 'auto'
-	    });
-
-	    var submitBtn = document.querySelector('button[type="submit"]'),
-	        submitform = utils.closest(submitBtn, 'form');
-	    submitBtn && submitform && submitform.addEventListener('submit', function () {
-	        submitBtn.disabled = true;
-	        utils.addClass(submitBtn, 'disabled');
-	    });
-
-	    document.addEventListener("touchstart", function () {}, true);
-
-	    return common;
-	});
-
-/***/ }),
 /* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4075,9 +4156,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var req = __webpack_require__(17).default;
-	var settings = __webpack_require__(42);
-	var utils = __webpack_require__(12);
+	var req = __webpack_require__(15).default;
+	var settings = __webpack_require__(44);
+	var utils = __webpack_require__(10);
 
 	var Validate = function () {
 	    function Validate(opts) {
@@ -4122,7 +4203,7 @@
 	            var opts = this.opts || {};
 	            this.defaultOpts = {
 	                form: '#signup-form',
-	                fields: [{ name: 'tag', require: true, label: '小报名' }, { name: 'username', require: true, label: '笔名' }, { name: 'email', require: true, label: '邮箱' }, { name: 'password', require: true, label: '密码' }],
+	                fields: [{ name: 'username', require: true, label: '名字' }, { name: 'email', require: true, label: '邮箱' }, { name: 'password', require: true, label: '密码' }],
 	                onCheckInput: null,
 	                needP: false
 	            };
@@ -4305,7 +4386,7 @@
 
 	exports.__esModule = true;
 
-	var _defineProperty = __webpack_require__(45);
+	var _defineProperty = __webpack_require__(27);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -4393,7 +4474,7 @@
 
 	__webpack_require__(106);
 	__webpack_require__(110);
-	module.exports = __webpack_require__(39).f('iterator');
+	module.exports = __webpack_require__(42).f('iterator');
 
 /***/ }),
 /* 82 */
@@ -4467,7 +4548,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
-	var cof = __webpack_require__(47);
+	var cof = __webpack_require__(48);
 	module.exports = Array.isArray || function isArray(arg){
 	  return cof(arg) == 'Array';
 	};
@@ -4477,13 +4558,13 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var create         = __webpack_require__(30)
-	  , descriptor     = __webpack_require__(19)
-	  , setToStringTag = __webpack_require__(33)
+	var create         = __webpack_require__(33)
+	  , descriptor     = __webpack_require__(21)
+	  , setToStringTag = __webpack_require__(36)
 	  , IteratorPrototype = {};
 
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	__webpack_require__(10)(IteratorPrototype, __webpack_require__(11)('iterator'), function(){ return this; });
+	__webpack_require__(11)(IteratorPrototype, __webpack_require__(12)('iterator'), function(){ return this; });
 
 	module.exports = function(Constructor, NAME, next){
 	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
@@ -4517,8 +4598,8 @@
 /* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var META     = __webpack_require__(20)('meta')
-	  , isObject = __webpack_require__(16)
+	var META     = __webpack_require__(22)('meta')
+	  , isObject = __webpack_require__(18)
 	  , has      = __webpack_require__(7)
 	  , setDesc  = __webpack_require__(8).f
 	  , id       = 0;
@@ -4576,7 +4657,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var dP       = __webpack_require__(8)
-	  , anObject = __webpack_require__(15)
+	  , anObject = __webpack_require__(17)
 	  , getKeys  = __webpack_require__(14);
 
 	module.exports = __webpack_require__(6) ? Object.defineProperties : function defineProperties(O, Properties){
@@ -4595,7 +4676,7 @@
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 	var toIObject = __webpack_require__(5)
-	  , gOPN      = __webpack_require__(52).f
+	  , gOPN      = __webpack_require__(53).f
 	  , toString  = {}.toString;
 
 	var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -4620,8 +4701,8 @@
 
 	// Works with __proto__ only. Old v8 can't work with null proto objects.
 	/* eslint-disable no-proto */
-	var isObject = __webpack_require__(16)
-	  , anObject = __webpack_require__(15);
+	var isObject = __webpack_require__(18)
+	  , anObject = __webpack_require__(17);
 	var check = function(O, proto){
 	  anObject(O);
 	  if(!isObject(proto) && proto !== null)throw TypeError(proto + ": can't set as prototype!");
@@ -4630,7 +4711,7 @@
 	  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
 	    function(test, buggy, set){
 	      try {
-	        set = __webpack_require__(48)(Function.call, __webpack_require__(31).f(Object.prototype, '__proto__').set, 2);
+	        set = __webpack_require__(49)(Function.call, __webpack_require__(34).f(Object.prototype, '__proto__').set, 2);
 	        set(test, []);
 	        buggy = !(test instanceof Array);
 	      } catch(e){ buggy = true; }
@@ -4648,8 +4729,8 @@
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(36)
-	  , defined   = __webpack_require__(26);
+	var toInteger = __webpack_require__(39)
+	  , defined   = __webpack_require__(29);
 	// true  -> String#at
 	// false -> String#codePointAt
 	module.exports = function(TO_STRING){
@@ -4670,7 +4751,7 @@
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(36)
+	var toInteger = __webpack_require__(39)
 	  , max       = Math.max
 	  , min       = Math.min;
 	module.exports = function(index, length){
@@ -4683,7 +4764,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
-	var toInteger = __webpack_require__(36)
+	var toInteger = __webpack_require__(39)
 	  , min       = Math.min;
 	module.exports = function(it){
 	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -4696,14 +4777,14 @@
 	'use strict';
 	var addToUnscopables = __webpack_require__(83)
 	  , step             = __webpack_require__(89)
-	  , Iterators        = __webpack_require__(28)
+	  , Iterators        = __webpack_require__(31)
 	  , toIObject        = __webpack_require__(5);
 
 	// 22.1.3.4 Array.prototype.entries()
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
 	// 22.1.3.30 Array.prototype[@@iterator]()
-	module.exports = __webpack_require__(51)(Array, 'Array', function(iterated, kind){
+	module.exports = __webpack_require__(52)(Array, 'Array', function(iterated, kind){
 	  this._t = toIObject(iterated); // target
 	  this._i = 0;                   // next index
 	  this._k = kind;                // kind
@@ -4734,7 +4815,7 @@
 
 	var $export = __webpack_require__(9)
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	$export($export.S, 'Object', {create: __webpack_require__(30)});
+	$export($export.S, 'Object', {create: __webpack_require__(33)});
 
 /***/ }),
 /* 100 */
@@ -4750,9 +4831,9 @@
 
 	// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 	var toIObject                 = __webpack_require__(5)
-	  , $getOwnPropertyDescriptor = __webpack_require__(31).f;
+	  , $getOwnPropertyDescriptor = __webpack_require__(34).f;
 
-	__webpack_require__(32)('getOwnPropertyDescriptor', function(){
+	__webpack_require__(35)('getOwnPropertyDescriptor', function(){
 	  return function getOwnPropertyDescriptor(it, key){
 	    return $getOwnPropertyDescriptor(toIObject(it), key);
 	  };
@@ -4764,9 +4845,9 @@
 
 	// 19.1.2.9 Object.getPrototypeOf(O)
 	var toObject        = __webpack_require__(24)
-	  , $getPrototypeOf = __webpack_require__(53);
+	  , $getPrototypeOf = __webpack_require__(54);
 
-	__webpack_require__(32)('getPrototypeOf', function(){
+	__webpack_require__(35)('getPrototypeOf', function(){
 	  return function getPrototypeOf(it){
 	    return $getPrototypeOf(toObject(it));
 	  };
@@ -4780,7 +4861,7 @@
 	var toObject = __webpack_require__(24)
 	  , $keys    = __webpack_require__(14);
 
-	__webpack_require__(32)('keys', function(){
+	__webpack_require__(35)('keys', function(){
 	  return function keys(it){
 	    return $keys(toObject(it));
 	  };
@@ -4808,7 +4889,7 @@
 	var $at  = __webpack_require__(95)(true);
 
 	// 21.1.3.27 String.prototype[@@iterator]()
-	__webpack_require__(51)(String, 'String', function(iterated){
+	__webpack_require__(52)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
 	  this._i = 0;                // next index
 	// 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -4832,25 +4913,25 @@
 	  , has            = __webpack_require__(7)
 	  , DESCRIPTORS    = __webpack_require__(6)
 	  , $export        = __webpack_require__(9)
-	  , redefine       = __webpack_require__(55)
+	  , redefine       = __webpack_require__(56)
 	  , META           = __webpack_require__(91).KEY
 	  , $fails         = __webpack_require__(13)
-	  , shared         = __webpack_require__(35)
-	  , setToStringTag = __webpack_require__(33)
-	  , uid            = __webpack_require__(20)
-	  , wks            = __webpack_require__(11)
-	  , wksExt         = __webpack_require__(39)
-	  , wksDefine      = __webpack_require__(38)
+	  , shared         = __webpack_require__(38)
+	  , setToStringTag = __webpack_require__(36)
+	  , uid            = __webpack_require__(22)
+	  , wks            = __webpack_require__(12)
+	  , wksExt         = __webpack_require__(42)
+	  , wksDefine      = __webpack_require__(41)
 	  , keyOf          = __webpack_require__(90)
 	  , enumKeys       = __webpack_require__(85)
 	  , isArray        = __webpack_require__(87)
-	  , anObject       = __webpack_require__(15)
+	  , anObject       = __webpack_require__(17)
 	  , toIObject      = __webpack_require__(5)
-	  , toPrimitive    = __webpack_require__(37)
-	  , createDesc     = __webpack_require__(19)
-	  , _create        = __webpack_require__(30)
+	  , toPrimitive    = __webpack_require__(40)
+	  , createDesc     = __webpack_require__(21)
+	  , _create        = __webpack_require__(33)
 	  , gOPNExt        = __webpack_require__(93)
-	  , $GOPD          = __webpack_require__(31)
+	  , $GOPD          = __webpack_require__(34)
 	  , $DP            = __webpack_require__(8)
 	  , $keys          = __webpack_require__(14)
 	  , gOPD           = $GOPD.f
@@ -4975,11 +5056,11 @@
 
 	  $GOPD.f = $getOwnPropertyDescriptor;
 	  $DP.f   = $defineProperty;
-	  __webpack_require__(52).f = gOPNExt.f = $getOwnPropertyNames;
+	  __webpack_require__(53).f = gOPNExt.f = $getOwnPropertyNames;
 	  __webpack_require__(23).f  = $propertyIsEnumerable;
 	  __webpack_require__(43).f = $getOwnPropertySymbols;
 
-	  if(DESCRIPTORS && !__webpack_require__(29)){
+	  if(DESCRIPTORS && !__webpack_require__(32)){
 	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
 	  }
 
@@ -5054,7 +5135,7 @@
 	});
 
 	// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-	$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(10)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+	$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(11)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
 	// 19.4.3.5 Symbol.prototype[@@toStringTag]
 	setToStringTag($Symbol, 'Symbol');
 	// 20.2.1.9 Math[@@toStringTag]
@@ -5066,13 +5147,13 @@
 /* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(38)('asyncIterator');
+	__webpack_require__(41)('asyncIterator');
 
 /***/ }),
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(38)('observable');
+	__webpack_require__(41)('observable');
 
 /***/ }),
 /* 110 */
@@ -5080,9 +5161,9 @@
 
 	__webpack_require__(98);
 	var global        = __webpack_require__(4)
-	  , hide          = __webpack_require__(10)
-	  , Iterators     = __webpack_require__(28)
-	  , TO_STRING_TAG = __webpack_require__(11)('toStringTag');
+	  , hide          = __webpack_require__(11)
+	  , Iterators     = __webpack_require__(31)
+	  , TO_STRING_TAG = __webpack_require__(12)('toStringTag');
 
 	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
 	  var NAME       = collections[i]
@@ -5139,13 +5220,13 @@
 	with (obj) {
 	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">+ 建个小报</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 加个日常</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
 	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="小报名" name="tag" id="tag" placeholder="小报名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="笔名" name="username" id="username" placeholder="笔名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
+	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="笔名" id="username" name="username" placeholder="笔名" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
+	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
 
 	}
 	return __p

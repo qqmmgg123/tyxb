@@ -50,6 +50,12 @@ gulp.task("compress_m", function() {
         .pipe(gulp.dest('./release/public/mobilejs'));
 });
 
+gulp.task("compress_lib", function() {
+    return gulp.src('./public/lib/*.js')
+        .pipe(uglifyJs())
+        .pipe(gulp.dest('./release/public/lib'));
+});
+
 gulp.task('minify-html', function() {
     return gulp.src('./views/**/*.html')
         .pipe(minifyejs())
@@ -81,6 +87,11 @@ gulp.task('copy_const', function () {
 gulp.task('copy_routers', function () {
     gulp.src('./routers/**/*.js')
         .pipe(gulp.dest('./release/routers'));
+});
+
+gulp.task('copy_fonts', function () {
+    gulp.src('./public/fonts/**/*')
+        .pipe(gulp.dest('./release/public/fonts'));
 });
 
 gulp.task('copy_files', function () {
@@ -123,9 +134,11 @@ gulp.task('build', [
     'minify-html',
     'compress',
     'compress_m',
+    //'compress_lib',
     'copy_models',
     'copy_const',
     'copy_routers',
+    'copy_fonts',
     'copy_files'
 ], function() {
 });

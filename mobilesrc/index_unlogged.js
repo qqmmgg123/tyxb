@@ -324,10 +324,7 @@ import ImageViewer from 'ImageViewer';
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('mpicmini', 'pic');
 
-                _w.imageViewer && _w.imageViewer.setComProps({
-                    imageSrc: src
-                });
-                _w.imageViewer && imageViewer.show();
+                common.showImageViewer(src);
             }
         }
     });

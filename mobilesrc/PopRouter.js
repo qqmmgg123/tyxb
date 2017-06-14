@@ -10,28 +10,32 @@ import ImageViewer from 'ImageViewer';
 } (function(utils, common, popup) {
     const _d = document,
           _w = window,
-        path = _w.location.pathname,
-        paths = path.split('/'),
-        popups = ['imageview', 'signin', 'signup', 'share'];
+        popups = ['imageview', 'signin', 'signup', 'share'],
+        viewerCon = _d.querySelector('#imageViewerCon');
+
+    if (viewerCon) {
+        _w.imageViewer = ReactDOM.render(
+            <Dialog 
+            needMouse={true}
+            routerName="imageview"
+            needKey={true}
+            needWin={false}
+            sence={{
+                name: "ImageViewer",
+                component: ImageViewer
+            }} />,
+            viewerCon
+        );
+        _w.imageViewer.create();
+    }
 
     function popupRouter(action, params) {
         switch(action) {
             case "imageview":
-                const viewerCon = _d.querySelector('#imageViewerCon');
-                if (viewerCon) {
-                    _w.imageViewer = ReactDOM.render(
-                        <Dialog 
-                            needMouse={true} 
-                            needKey={true} 
-                            needWin={false}
-                            sence={{
-                            name: "ImageViewer",
-                            component: ImageViewer
-                        }} />,
-                        viewerCon
-                    );
-                    _w.imageViewer.create();
-                }
+                _w.imageViewer && _w.imageViewer.setComProps({
+                    imageSrc: params && params.src
+                });
+                _w.imageViewer && imageViewer.show();
                 break;
             case "signin":
                 _w.signinPop = popup.registrationPop({ 
@@ -66,7 +70,7 @@ import ImageViewer from 'ImageViewer';
             popupRouter(action, params);
         }
         else{
-            _w.imageViewer && _w.imageViewer.close(),_w.imageViewer = null;
+            _w.imageViewer && _w.imageViewer.close();
             _w.textPop && _w.textPop.close(),_w.textPop = null;
             _w.signinPop && _w.signinPop.close(),_w.signinPop = null;
             _w.signupPop && _w.signupPop.close(),_w.signupPop = null;
@@ -85,26 +89,23 @@ import ImageViewer from 'ImageViewer';
         }
     });
 
-    if (paths && paths.length >= 3) {
-        const len = paths.length,
-              firstpath = paths[len - 2],
-              secondpath = paths[len - 1];
+    const params  = utils.getUrlParams(),
+        paramsStr = '?' + _w.location.search.substr(1),
+        _popup = params.popup;
 
-        if (firstpath === 'popup' && popups.indexOf(secondpath) !== -1) {
-            const state = History.getState();
-            let { action, params } = state.data;
+    if (_popup && popups.indexOf(_popup) !== -1) {
+        const state = History.getState();
+        let { action } = state.data;
 
-            if (!params) {
-                params = utils.getUrlParams();
-            }
-
-            if (!action) {
-                History.pushState(null, '', '/');
-                History.pushState({ action: secondpath}, secondpath, path);
-            }
-            else{
-                popupRouter(action, params);
-            }
+        if (!action) {
+            History.pushState(null, '', '/');
+            History.pushState({ 
+                action: _popup,
+                params: params
+            }, _popup, paramsStr);
+        }
+        else{
+            popupRouter(action, params);
         }
     }
 }));

@@ -122,7 +122,7 @@
                         type : type,
                         tag  : tag
                     }
-                }, 'share', `/popup/share?type=${type}` + (tag? `&tag=${tag}`:''));
+                }, 'share', `?popup=share&type=${type}` + (tag? `&tag=${tag}`:''));
             }
         },
         showSigninPop: function() {
@@ -130,7 +130,7 @@
             const state = History.getState(),
                   { action } = state.data;
             if (!action && action !== 'signin') {
-                History.pushState({ action: 'signin'}, 'signin', "/popup/signin");
+                History.pushState({ action: 'signin'}, 'signin', "?popup=signin");
             }
         },
         showSignupPop: function() {
@@ -138,14 +138,19 @@
             const state = History.getState(),
                   { action } = state.data;
             if (!action && action !== 'signup') {
-                History.pushState({ action: 'signup'}, 'signup', "/popup/signup");
+                History.pushState({ action: 'signup'}, 'signup', "?popup=signup");
             }
         },
-        showImageViewer: function() {
+        showImageViewer: function(src) {
             const state = History.getState(),
                   { action } = state.data;
             if (!action && action !== 'imageview') {
-                History.pushState({ action: 'imageview'}, 'imageview', "/popup/imageview");
+                History.pushState({ 
+                    action: 'imageview',
+                    params: {
+                        src: src
+                    }
+                }, 'imageview', "?popup=imageview");
             }
         },
         autoScroll: function(obj) {

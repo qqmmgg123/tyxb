@@ -241,10 +241,10 @@ a:hover {
   color: #3aabff;
 }
 .s-arrow_up.s-ac {
-  color: #19d300;
+  color: #ff4d73;
 }
 .s-arrow_down.s-ac {
-  color: #fa6d8a;
+  color: #333;
 }
 .alert {
   padding: 5px;
@@ -380,6 +380,7 @@ a:hover {
   padding: 12px 20px;
 }
 .btn-round {
+  padding: 0;
   width: 42px;
   height: 42px;
   display: block;
@@ -674,16 +675,15 @@ a:hover {
 }
 .pagination {
   margin-top: 10px;
+  text-align: right;
 }
 .pagination a {
   font-size: 12px;
   display: inline-block;
-  height: 24px;
-  padding: 0 10px;
-  line-height: 24px;
+  height: 30px;
+  padding: 0 15px;
+  line-height: 30px;
   text-align: center;
-  border: 1px solid #eaeaea;
-  border-radius: 4px;
   margin: 0 5px;
   -moz-user-select: none;
   /* Firefox */
@@ -2117,8 +2117,7 @@ div.more a.btn {
     font-size: 0.8em;
   }
   #dream-tab-bar .tab-nav {
-    width: 50px;
-    padding: 0 20px;
+    width: 80px;
   }
   #dream-tab-bar .tab-nav a.nav-toggle {
     text-align: center;
@@ -2149,7 +2148,7 @@ div.more a.btn {
     position: fixed;
     top: 20%;
     left: 50%;
-    margin-left: -90px;
+    margin-left: -60px;
     z-index: 4;
     width: 120px;
     height: auto;
