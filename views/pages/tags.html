@@ -20,7 +20,7 @@
         <div class="main">
             <div class="tag-head-info">
                 <div class="tagHead-infoInner">
-                    <h2>小报</h2>
+                    <h2><%= settings.OBJECT.TAG.CNNAME %></h2>
                 </div>
             </div>
         </div>
@@ -50,9 +50,9 @@
                     <% } else { %>
                     <li class="list-item">
                         <div class="nodata">
-                            您当前没有订阅版面
+                            您当前没有关注圈子
                             <% if (user) { %>
-                            &nbsp;<a href="/tag/hot" class="btn">去订阅&nbsp;></a>
+                            &nbsp;<a href="/tag/hot" class="btn">去关注&nbsp;></a>
                             <% } %>
                         </div>
                     </li>

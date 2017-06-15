@@ -33,7 +33,7 @@ import ReactDOM from 'react-dom';
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+        common.textNew('news');
     });
 
     // 排序下拉

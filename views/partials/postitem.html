@@ -10,7 +10,7 @@
             </div>
             <% if (dream._belong_t) { %>
             <div class="postHeaderTagInfo">
-                <a href="/tag/<%= dream._belong_t._id || 'unknow' %>">小报：<%= dream._belong_t? dream._belong_t.key:'未知' %></a>
+                <a href="/tag/<%= dream._belong_t._id || 'unknow' %>"><%= settings.OBJECT.TAG.CNNAME %>：<%= dream._belong_t? dream._belong_t.key:'未知' %></a>
             </div>
             <% } %>
             <% if (dream.site) { %>
@@ -91,7 +91,7 @@
             </div>
             <div class="comment-ctrl-box"><a href="/dream/<%= dream._id %>#dreamCtrlBox">留言(<%= dream.cnum %>)</a></div>
             <div class="share-box">
-                <a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= dream._id %>">分享</a>
+                <!--<a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= dream._id %>">分享</a>-->
                 <ul class="share-list">
                     <li class="only-pc"><a rel="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>
                     <li class="only-pc"><a rel="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>

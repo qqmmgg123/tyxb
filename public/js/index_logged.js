@@ -100,7 +100,7 @@
 
 	    var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
 	    drtNewsBtn && drtNewsBtn.addEventListener('click', function () {
-	        textPop = common.textNew('news');
+	        common.textNew('news');
 	    });
 
 	    // 排序下拉
@@ -353,6 +353,15 @@
 
 	    common.statistics();
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 1 */
@@ -8450,6 +8459,15 @@
 
 	    return utilities;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 36 */
@@ -9163,7 +9181,23 @@
 
 	var req = new Req();
 
-	exports.default = req;
+	var _default = req;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
+
+	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
+
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
+	}();
+
+	;
 
 /***/ }),
 /* 45 */
@@ -16186,6 +16220,47 @@
 	exports.registrationPop = registrationPop;
 	exports.tagNewPop = tagNewPop;
 	exports.presidentPop = presidentPop;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(INDENT, 'INDENT', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(BREAK, 'BREAK', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(TextNewPop, 'TextNewPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
+
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
+	}();
+
+	;
 
 /***/ }),
 /* 128 */
@@ -16238,7 +16313,23 @@
 
 	var tools = new Tools();
 
-	exports.default = tools;
+	var _default = tools;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
+
+	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
+
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
+	}();
+
+	;
 
 /***/ }),
 /* 129 */
@@ -22095,7 +22186,21 @@
 
 	;
 
-	exports.default = BaseCom;
+	var _default = BaseCom;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
+	}();
+
+	;
 
 /***/ }),
 /* 199 */
@@ -22461,6 +22566,15 @@
 
 	    return common;
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 200 */
@@ -22515,7 +22629,23 @@
 
 	var effect = new Effect();
 
-	exports.default = effect;
+	var _default = effect;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/src/effect.js');
+
+	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/src/effect.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/effect.js');
+	}();
+
+	;
 
 /***/ }),
 /* 201 */
@@ -22688,7 +22818,23 @@
 
 	var keyboard = new Keyboard();
 
-	exports.default = keyboard;
+	var _default = keyboard;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
+
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
+	}();
+
+	;
 
 /***/ }),
 /* 202 */
@@ -22795,6 +22941,15 @@
 	        }
 	    })();
 	}
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 204 */
@@ -23138,6 +23293,23 @@
 
 	exports.create = create;
 	exports.shareDrop = shareDrop;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
+
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
+
+	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
+
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
+	}();
+
+	;
 
 /***/ }),
 /* 205 */
@@ -23483,7 +23655,23 @@
 	    return new AutoComplete(opts);
 	}
 
-	exports.default = autocomplete;
+	var _default = autocomplete;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(AutoComplete, 'AutoComplete', 'E:/mypro/tyxb/src/autocomplete.js');
+
+	    __REACT_HOT_LOADER__.register(autocomplete, 'autocomplete', 'E:/mypro/tyxb/src/autocomplete.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/autocomplete.js');
+	}();
+
+	;
 
 /***/ }),
 /* 206 */
@@ -23539,6 +23727,17 @@
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    return shareaside;
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
+	}();
+
+	;
 
 /***/ }),
 /* 207 */
@@ -23746,6 +23945,21 @@
 	}
 
 	exports.validate = validate;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
+
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
+
+	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
+	}();
+
+	;
 
 /***/ }),
 /* 208 */
@@ -44051,7 +44265,21 @@
 	    return StepPop;
 	}(_basecom2.default);
 
-	exports.default = StepPop;
+	var _default = StepPop;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(StepPop, 'StepPop', 'E:/mypro/tyxb/src/Dialog.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/Dialog.js');
+	}();
+
+	;
 
 /***/ }),
 /* 431 */
@@ -44188,7 +44416,21 @@
 	    return ImageViewer;
 	}(_react2.default.Component);
 
-	exports.default = ImageViewer;
+	var _default = ImageViewer;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/src/ImageViewer.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/ImageViewer.js');
+	}();
+
+	;
 
 /***/ }),
 /* 432 */
@@ -44310,6 +44552,15 @@
 	        }
 	    }
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 433 */
@@ -44422,7 +44673,9 @@
 	 if (dream._belong_t) { ;
 	__p += '\r\n            <div class="postHeaderTagInfo">\r\n                <a href="/tag/' +
 	((__t = ( dream._belong_t._id || 'unknow' )) == null ? '' : __t) +
-	'">小报：' +
+	'">' +
+	((__t = ( settings.OBJECT.TAG.CNNAME )) == null ? '' : __t) +
+	'：' +
 	((__t = ( dream._belong_t? dream._belong_t.key:'未知' )) == null ? '' : __t) +
 	'</a>\r\n            </div>\r\n            ';
 	 } ;
@@ -44540,9 +44793,9 @@
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'#dreamCtrlBox">留言(' +
 	((__t = ( dream.cnum )) == null ? '' : __t) +
-	')</a></div>\r\n            <div class="share-box">\r\n                <a rel="dream-share" class="share-btn" href="javascript:;" data-did="' +
+	')</a></div>\r\n            <div class="share-box">\r\n                <!--<a rel="dream-share" class="share-btn" href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'">分享</a>\r\n                <ul class="share-list">\r\n                    <li class="only-pc"><a rel="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>\r\n                    <li class="only-pc"><a rel="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>\r\n                    <!--<li><a rel="weixin_share" href="javascript:;"><i class="s s-weixin s-3x"></i></a></li>-->\r\n                    <!--<li>-->\r\n                    <!--<div class="only-mobile">长按以下地址拷贝到你要分享到的站点...</div>-->\r\n                    <!--<input name="query" placeholder="拷贝地址到你要分享到的站点..." value="http://' +
+	'">分享</a>-->\r\n                <ul class="share-list">\r\n                    <li class="only-pc"><a rel="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>\r\n                    <li class="only-pc"><a rel="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>\r\n                    <!--<li><a rel="weixin_share" href="javascript:;"><i class="s s-weixin s-3x"></i></a></li>-->\r\n                    <!--<li>-->\r\n                    <!--<div class="only-mobile">长按以下地址拷贝到你要分享到的站点...</div>-->\r\n                    <!--<input name="query" placeholder="拷贝地址到你要分享到的站点..." value="http://' +
 	((__t = ( data.domain )) == null ? '' : __t) +
 	'/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
