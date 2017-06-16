@@ -1,3 +1,4 @@
+<% if (is_mobile) { %>
 <div class="header">
     <!--<button id="create_dream_node_btn">+</button>-->
     <!--<button id="prev_dream_btn"><</button>-->
@@ -14,7 +15,7 @@
             <ul id="app-list" class="app-list">
                 <li><a href="/"><%= settings.APP_NAME %></a></li>
                 <% if (user) { %>
-                <li><a href="/subscription">关注</a></li>
+                <!--<li><a href="/subscription">关注</a></li>-->
                 <li>
                     <a href="/user/<%= user.id %>"><%= user.username %></a>
                 </li>
@@ -45,7 +46,7 @@
             </ul>
         </div>
         <ul class="nav-list">
-            <li>
+            <!--<li>
                 <button class="btn btn-search" type="button" id="search_dream_btn">
                     <i class="s s-search s-lg"></i>
                 </button>
@@ -63,7 +64,7 @@
                         </button>
                     </form>
                 </div>
-            </li>
+            </li>-->
 
             <% if (user) { %>
             <li class="user-in">
@@ -90,3 +91,4 @@
         </ul>
     </div>
 </div>
+<% } %>

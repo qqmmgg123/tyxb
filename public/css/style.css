@@ -805,8 +805,7 @@ a:hover {
 .release-box .tips {
   top: 5px;
 }
-.suopo a.logo,
-.user-head a.logo {
+a.logo {
   background: url(/images/logo.png) no-repeat;
   background-size: cover;
   width: 34px;

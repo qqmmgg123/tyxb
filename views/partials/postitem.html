@@ -8,7 +8,7 @@
                 <a class="postHeaderUname" href="/user/unknow">作者：未知</a>
                 <% } %>
             </div>
-            <% if (dream._belong_t) { %>
+            <!--<% if (dream._belong_t) { %>
             <div class="postHeaderTagInfo">
                 <a href="/tag/<%= dream._belong_t._id || 'unknow' %>"><%= settings.OBJECT.TAG.CNNAME %>：<%= dream._belong_t? dream._belong_t.key:'未知' %></a>
             </div>
@@ -17,7 +17,7 @@
             <div class="postHeaderSiteInfo">
                 <a href="/site/<%= dream.site %>">网站：<%= dream.site %></a>
             </div>
-            <% } %>
+            <% } %>-->
             <div class="postHeaderDateInfo">
                 <%= timeFormat(dream.date) %>
             </div>

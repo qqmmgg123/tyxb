@@ -18,14 +18,14 @@
     <div class="container user-page-head mar-top">
         <div class="main">
             <div class="user-head-info">
-                <!--<div class="user-head-avatar avatar">-->
-                    <!--<img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />-->
-                <!--</div>-->
+                <div class="user-head-avatar avatar">
+                    <img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />
+                </div>
                 <div class="userHead-infoInner">
                     <h2 class="nick-name"><%= data.account.username %></h2>
-                    <!--<div class="user-bio">-->
-                        <!--<%= data.account.bio %>-->
-                    <!--</div>-->
+                    <div class="user-bio">
+                        <%= data.account.bio %>
+                    </div>
                 </div>
                 <div class="user-head-ctrl">
                     <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
@@ -42,7 +42,7 @@
                 <ul>
                     <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
                     <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
-                    <li><a href="/user/<%= data.account._id %>/subscribe" class="<%if (data.tab == "subscribe") {%>cur<% } %> tab">关注</a></li>
+                    <!--<li><a href="/user/<%= data.account._id %>/subscribe" class="<%if (data.tab == "subscribe") {%>cur<% } %> tab">关注</a></li>-->
                     <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
                 </ul>
             </div>

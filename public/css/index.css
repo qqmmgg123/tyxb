@@ -324,7 +324,6 @@
   overflow: hidden;
   border-bottom: none;
   margin-right: 10px;
-  float: left;
 }
 .user-list .list-item .user-pic,
 .tag-list .list-item .user-pic {
@@ -334,6 +333,15 @@
 .tag-list .list-item .user-name {
   float: left;
   margin-left: 5px;
+}
+.user-list .list-item .user-karma,
+.tag-list .list-item .user-karma {
+  float: right;
+}
+.user-list .list-item .user-karma span,
+.tag-list .list-item .user-karma span {
+  color: #a8a8a8;
+  margin-left: 10px;
 }
 .tag-list {
   border-bottom: 1px solid #f0f0f0;

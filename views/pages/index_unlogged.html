@@ -19,7 +19,7 @@
 <body>
     <% include ../partials/header.html %>
     <% if (is_mobile) { %>
-    <div class="container top-tag-list mar-top">
+    <!--<div class="container top-tag-list mar-top">
         <div class="main">
             <ul>
                 <% if (data.tags && data.tags.length > 0) { %>
@@ -32,18 +32,51 @@
             </ul>
             <a class="top-tag-more" href="/tag/hot">•••</a>
         </div>
-    </div>
+    </div>-->
     <div class="container">
         <div class="main">
             <% include ../partials/postlist.html %>
         </div>
     </div>
     <% } else { %>
-    <div class="container tag-top-head mar-top">
+    <div class="container tag-top-head">
         <div class="main">
             <div class="tag-head-info">
                 <div class="tagHead-infoInner">
+                    <a class="logo" href="http://www.suopoearth.com"></a>
                     <h2><%= settings.APP_NAME %>&nbsp;•&nbsp;<%= settings.SLOGAN %></h2>
+                    <ul id="app-list" class="app-list">
+                <li><a href="/"><%= settings.APP_NAME %></a></li>
+                <% if (user) { %>
+                <!--<li><a href="/subscription">关注</a></li>-->
+                <li>
+                    <a href="/user/<%= user.id %>"><%= user.username %></a>
+                </li>
+                <li>
+                    <div id="message-nav" class="dropdown">
+                        <% if (is_mobile) { %>
+                        <a class="message-view dropdown-toggle" rel="msg-view" href="/message">
+                            <% } else { %>
+                            <a class="message-view dropdown-toggle" rel="msg-view" href="javascript:;">
+                                <% } %>
+                                消息
+                            </a>
+                            <% if (data.messages && data.messages > 0) { %>
+                            <span class="message-new"></span>
+                            <% } %>
+                            <ul class="message-list dropdown-menu" style="display: none;">
+                            </ul>
+                    </div>
+                </li>
+                <% } else { %>
+                <li>
+                    <a href="javascript:;" id="signup-btn">+&nbsp;加个日常</a>
+                </li>
+                <li>
+                    <a href="javascript:;" id="signin-btn">登录&nbsp;→</a>
+                </li>
+                <% } %>
+            </ul>
                 </div>
             </div>
         </div>
@@ -54,7 +87,7 @@
                 <% include ../partials/postlist.html %>
             </div>
             <div class="col-4 sider">
-                <div class="tag-list">
+                <!--<div class="tag-list">
                     <h2>热门圈子</h2>
                     <ul class="list-group">
                         <% if (data.tags && data.tags.length > 0) { %>
@@ -78,7 +111,7 @@
                         <% } %>
                     </ul>
                     <a class="top-tag-more" href="/tag/hot">更多...</a>
-                </div>
+                </div>-->
                 <div class="user-list">
                     <h2>活跃日常</h2>
                     <ul class="list-group">
@@ -91,14 +124,19 @@
                             <a class="user-name" href="/user/<%= user._id %>">
                                 <%= user.username %>
                             </a>
+                            <div class="user-karma">
+                                <span>日常：<%= user.dnum %></span>
+                                <span>留言：<%= user.cnum %></span>
+                            </div>
                         </li>
                         <% }); %>
                         <% } else { %>
                         <li class="list-item">
-                            当前木有作者
+                            当前木有日常
                         </li>
                         <% } %>
                     </ul>
+                    <!--<a class="top-tag-more" href="/user/top">更多...</a>-->
                 </div>
             </div>
         </div>
