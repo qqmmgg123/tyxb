@@ -77,7 +77,10 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     content   : 1,
                     summary   : 1,
                     link      : 1,
-                    thumbnail : 1,
+                    category  : 1,
+                    thumbnail : {
+                        $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
+                    },
                     mthumbnail: 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
@@ -192,7 +195,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id username avatar_mini',
+                    select: '_id username avatar bio',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {
@@ -300,7 +303,10 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                     content   : 1,
                     summary   : 1,
                     link      : 1,
-                    thumbnail : 1,
+                    category  : 1,
+                    thumbnail : {
+                        $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
+                    },
                     mthumbnail: 1,
                     nodes     : 1,
                     cnum      : { $size: '$comments' },
@@ -416,7 +422,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
 
                 Account.populate(dreams, [{ 
                     path: '_belong_u',
-                    select: '_id username avatar_mini',
+                    select: '_id username avatar bio',
                     option: { lean: true },
                     model: Account
                 }], function(err, dreams) {

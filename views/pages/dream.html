@@ -22,7 +22,7 @@
                 <li class="list-item">
                     <a href="/">首页</a>
                 </li>
-                <% if (data.current._belong_t) { %>
+                <!--<% if (data.current._belong_t) { %>
                 <li class="list-item">
                     <a href="/tag/<%= data.current._belong_t._id %>"><%= data.current._belong_t.key %></a>
                 </li>
@@ -30,9 +30,9 @@
                 <li class="list-item">
                     <a href="/tag/unknow">未知板块</a>
                 </li>
-                <% } %>
+                <% } %>-->
                 <li class="list-item">
-                    正文
+                    
                 </li>
             </ul>
         </div>
@@ -99,7 +99,7 @@
                     <% } else { %>
                     <a data-did="<%= data.current._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
                     <% } %>
-                    <% if (user && data.current._belong_u) { %>
+                    <!--<% if (user && data.current._belong_u) { %>
                     <% if (data.current._belong_u._id.equals(user._id)) { %>
                     <% if (!data.current.isremove) { %>
                     <a href="javascript:;" data-did="<%= data.current._id %>" rel="dream-delete">删除</a>
@@ -107,7 +107,7 @@
                     <span>已删除</span>
                     <% } %>
                     <% } %>
-                    <% } %>
+                    <% } %>-->
                 </div>
                 <div class="share-box">
                     <a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= data.current._id %>">分享</a>
@@ -117,7 +117,7 @@
                     </ul>
                 </div>
                 <div class="comment-ctrl-box">
-                    <span>留言&nbsp;(<em id="commentNum"><%= data.current.cnum %></em>)</span>
+                    <span>留言&nbsp;<em id="commentNum"><%= data.current.cnum %></em></span>
                 </div>
                 <div class="vote-ctrl-box">
                     <% if (user) { %>
@@ -130,15 +130,6 @@
                     <a href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i></a>
                     <% } %>
                     <span class="vote-num" rel="vote-num"><%= data.current.vote %></span>
-                    <% if (user) { %>
-                    <% if (data.current.bad && data.current.bad.length > 0) { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" data-hasbad="true" rel="dream-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>
-                    <% } else { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>
-                    <% } %>
-                    <% } else { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>
-                    <% } %>
                 </div>
             </div>
             <div data-rid="<%= data.current._id %>" id="dreamComment" class="dream-comment">

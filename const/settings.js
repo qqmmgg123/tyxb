@@ -3,7 +3,7 @@ var settings = {
     APP_NAME: "太阳日常",
     CASE_NUMBER: "粤ICP备16089330号-1",
     DOMAIN: 'www.ty-xb.com',
-    SLOGAN: "做好每一天的自己。",
+    SLOGAN: "记录点滴，感受彼此",
     UNKNOW_ERR: '异常错误',
     PARAMS_PASSED_ERR_TIPS: "参数传递错误!",
     USER_EXISTS_TIPS: "对不起，该用户已经存在，请重新尝试",

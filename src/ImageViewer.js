@@ -13,7 +13,7 @@ export default class ImageViewer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.imageSrc !== this.state.imageSrc) {
+        if (nextProps.imageSrc && nextProps.imageSrc !== this.state.imageSrc) {
             this.loadImage(nextProps.imageSrc);
         }
     }
@@ -23,6 +23,7 @@ export default class ImageViewer extends React.Component {
         this.setState({
             loading: true
         });
+        img.src = src;
         if(img.complete) {
             this.setState({
                 loading: false,
@@ -30,13 +31,13 @@ export default class ImageViewer extends React.Component {
             });
             return;
         }
-        img.onload = function () {
+        img.onload = () => {
             this.setState({
                 loading: false,
                 imageSrc: src
             });
         };
-        img.onerror = function() {
+        img.onerror = () => {
             alert("网络异常，图片加载失败");
         }
     }

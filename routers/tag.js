@@ -326,7 +326,10 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
             content   : 1,
             summary   : 1,
             link      : 1,
-            thumbnail : 1,
+            category  : 1,
+            thumbnail : {
+                $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
+            },
             mthumbnail: 1,
             site      : 1,
             cnum      : { $size: '$comments' },

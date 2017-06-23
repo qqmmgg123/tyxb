@@ -474,8 +474,12 @@ a {
 }
 
 #textReleasePop {
+    .post-form {
+        height: 100%;
+    }
     .tab-content {
         border-top: 1px solid #eaeaea;
+        overflow: auto;
     }
 }
 
@@ -721,17 +725,15 @@ a {
     .pr();
 }
 
-.suopo, .user-head {
-    a.logo {
-        background: url(/images/logo.png) no-repeat;
-        background-size: cover;
-        width: 34px;
-        outline: none;
-        height: 32px;
-        display: block;
-        margin-right: 10px;
-        .pr();
-    }
+a.logo {
+    background: url(/images/logo.png) no-repeat;
+    background-size: cover;
+    width: 34px;
+    outline: none;
+    height: 32px;
+    display: block;
+    margin-right: 10px;
+    .pr();
 }
 
 .user-head {
@@ -763,7 +765,7 @@ a {
         .search-area {
             display: block;
         }
-        width: 1024px;
+        width: 969px;
         margin: 0 auto;
     }
     .h-left {
@@ -968,7 +970,7 @@ a {
     height: 300px;
     background-color: #fff;
     .banner-bg {
-        width: 1024px;
+        width: 969px;
         text-align: left;
         margin: 0 auto;
         height: 300px;
@@ -1036,9 +1038,6 @@ a {
 }
 
 .dream-area {
-    max-height: 600px;
-    overflow: auto;
-    margin-bottom: 20px;
     .DraftEditor-root {
         border-bottom: 1px solid #e8e8e8;
     }
@@ -1169,7 +1168,7 @@ a {
 .container {
     .store-area, .team-area, .notice, .search-area, .settings-area, .msg-area
     , .following-area, .followers-area, #recommand-area, .main, .top-tag-list {
-        width: 1024px;
+        width: 969px;
         text-align: left;
         margin: 0 auto;
     }
@@ -1508,7 +1507,7 @@ a {
 }
 
 .summary {
-    margin-top: 10px;
+    padding: 5px 5px;
     font-size: 12px;
     font-weight: 100;
     color: #808080;
@@ -1522,6 +1521,14 @@ a {
     position: absolute;
     border-radius: 5px;
     right: 0;
+}
+
+.piccard {
+    text-align: center;
+    cursor: pointer;
+    img {
+        width: 100%;
+    }
 }
 
 .preview {
@@ -1538,48 +1545,20 @@ a {
     }
 }
 
-.post-header {
-    line-height: 25px;
-    height: 25px;
-    color: @gray3;
-    font-size: 12px;
-    overflow: hidden;
-    a {
-        color: @gray3;
-        &:hover {
-            color:#ff7592;
+.post-box {
+    .avatar {        
+        img {
+            width: 25px;
+            height: 25px;
         }
-    }
-    > div {
-        &:not(:last-child):after {
-            content: '•';
-            margin-right: 5px;
-            padding: 0 5px;
-            font-family: Arial;
-            color: #bbb;
-        }
-    }
-    .postHeaderUserInfo {
-        float: left;
-        a.postHeaderUname {
-            margin-left: 10px;
-        }
-    }
-    .postHeaderTagInfo {
-        float: left;
-    }
-    .postHeaderSiteInfo {
-        float: left;
-    }
-    .postHeaderDateInfo {
-        float: left;
     }
 }
 
+
 .post-content {
-    padding: 10px;
     overflow: hidden;
     font-size: 14px;
+    margin-top: 10px;
     &.thumb-mode {
         .pr();
         .entry {
@@ -1593,26 +1572,74 @@ a {
         a:first-child {
             font-weight: bold;
         }
+	.title {
+	    padding: 0 5px;
+	}
+    }
+}
+.post-header {
+    padding: 0 5px;
+    color: @gray3;
+    font-size: 12px;
+    overflow: hidden;
+    a {
+        color: @gray3;
+        &:hover {
+            color:#ff7592;
+        }
     }
 }
 
-.post-footer {
-    height: 27px;
-    line-height: 27px;
-    > div {
+.user-info-box {
+    float: left;
+    height: 25px;
+    a, span {
+    	line-height: 25px;
         float: left;
+    }
+    .username {
+        margin-left: 5px;
+    }
+    .datetime:before {
+        content: '•';
+        margin-right: 5px;
+        padding: 0 5px;
+        font-family: Arial;
+        color: #bbb;
+    }
+}
+
+.ctrl-box {
+    a {
+    	width: 33.33%;
+	text-align: center;
+	i.s-lg {
+            line-height: inherit;
+	}
+    }
+
+    
+}
+
+.post-footer {
+    margin-top: 10px;
+    height: 25px;
+    line-height: 25px;
+    > div {
         > a, span {
-            display: inline-block;
-            margin: 0 10px;
             font-size: 12px;
             color: #a8a8a8;
+        }
+        > a {
+            display: block;
+	    float: left;
             &:hover {
-                color: #3aabff;
                 text-decoration: underline;
             }
         }
-        height: 27px;
-        line-height: 27px;
+	span.vote-num, span.comment-num {
+	    margin-left: 10px;
+	} 
     }
 }
 
@@ -1696,7 +1723,6 @@ div.more {
                 font-size: 12px;
                 color: #a8a8a8;
                 &:hover {
-                    color: #3aabff;
                     text-decoration: underline;
                 }
             }
@@ -1799,16 +1825,11 @@ div.more {
             font-size: 16px;
         }
         a.close {
-            i:before {
-                width: 16px;
-                height: 16px;
-            }
             float: right;
         }
     }
     .bd {
         height: 100%;
-        overflow: auto;
         box-sizing: border-box;
     }
 
@@ -2207,47 +2228,6 @@ div.more {
                     display: none;
                 }
             }
-        }
-    }
-    .more-ctrl-toggle {
-        display: block;
-    }
-    .more-ctrl-box {
-        display: none;
-        position: fixed;
-        background-color: #fff;
-        top: 20%;
-        left: 50%;
-        margin-left: -90px;
-        z-index: 4;
-        height: auto!important;
-        min-width: 160px;
-        .pop();
-        > a, > span, .share-box > a {
-            float: inherit;
-            width: 100%;
-            display: block!important;
-            padding: 3px 20px;
-            margin: 0!important;
-            clear: both;
-            font-weight: 400;
-            font-size: 14px!important;
-            line-height: 1.42857143;
-            color: #333!important;
-            white-space: nowrap;
-            box-sizing: border-box;
-            text-align: center;
-            &:hover {
-                background-color: @gray5;
-                text-decoration: none;
-            }
-        }
-        &.show {
-            display: block;
-        }
-
-        &.hide {
-            display: none;
         }
     }
 }

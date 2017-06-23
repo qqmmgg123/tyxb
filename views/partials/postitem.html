@@ -1,28 +1,24 @@
 <li class="list-item">
     <div class="post-box">
+        <% if (is_mobile) { %>
         <div class="post-header">
-             <div class="postHeaderUserInfo">
-                <% if (dream._belong_u) { %>
-                <a class="postHeaderUname" href="/user/<%= dream._belong_u._id %>">作者：<%= dream._belong_u.username %></a>
-                <% } else { %>
-                <a class="postHeaderUname" href="/user/unknow">作者：未知</a>
-                <% } %>
-            </div>
-            <!--<% if (dream._belong_t) { %>
-            <div class="postHeaderTagInfo">
-                <a href="/tag/<%= dream._belong_t._id || 'unknow' %>"><%= settings.OBJECT.TAG.CNNAME %>：<%= dream._belong_t? dream._belong_t.key:'未知' %></a>
-            </div>
-            <% } %>
-            <% if (dream.site) { %>
-            <div class="postHeaderSiteInfo">
-                <a href="/site/<%= dream.site %>">网站：<%= dream.site %></a>
-            </div>
-            <% } %>-->
-            <div class="postHeaderDateInfo">
-                <%= timeFormat(dream.date) %>
+            <div class="user-info-box">
+                 <% if (dream._belong_u) { %>
+                 <a class="avatar" href="/user/<%= dream._belong_u._id %>">
+                     <img src="<%= dream._belong_u.avatar || '/images/avatar.png' %>" />
+                 </a>
+                 <a class="username" href="/user/<%= dream._belong_u._id %>"><%= dream._belong_u.username %></a>
+                 <% } else { %>
+                 <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>
+                 <a class="username" href="/user/unknow">未知</a>
+                 <% } %>
+                 <span class="datetime">
+                     <%= timeFormat(dream.date) %>
+                 </span>
             </div>
         </div>
-        <div class="post-content <% if (dream.thumbnail) { %>thumb-mode<% } %>">
+        <% } %>
+        <div class="post-content <% if (dream.thumbnail && dream.category !== 'image') { %>thumb-mode<% } %>">
             <% if (dream.isremove) { %>
                 [已被作者删除]
             <% } else { %>
@@ -51,15 +47,20 @@
                 <% } %>
             </div>
             <% } %>
+            <% if (dream.category === 'image') { %>
+            <div rel="dream-picsrc" class="piccard">
+                <img src="<%= dream.thumbnail %>" />
+            </div>
+            <% } %>
             </div>
             <% if (is_mobile) { %>
-                <% if (dream.mthumbnail) { %>
+                <% if (dream.mthumbnail && dream.category !== 'image') { %>
                 <div class="thumbnail" rel="dream-picsrc">
                     <img src="<%= dream.mthumbnail %>" />
                 </div>
                 <% } %>
             <% } else { %>
-                <% if (dream.thumbnail) { %>
+                <% if (dream.thumbnail && dream.category !== 'image') { %>
                 <div class="thumbnail" rel="dream-picsrc">
                     <img src="<%= dream.thumbnail %>" />
                 </div>
@@ -68,44 +69,34 @@
             <% } %>
         </div>
         <div class="post-footer">
-            <div class="vote-ctrl-box">
+            <% if (!is_mobile) { %>
+            <div class="user-info-box">
+                 <% if (dream._belong_u) { %>
+                 <a class="avatar" href="/user/<%= dream._belong_u._id %>">
+                     <img src="<%= dream._belong_u.avatar || '/images/avatar.png' %>" />
+                 </a>
+                 <a class="username" href="/user/<%= dream._belong_u._id %>"><%= dream._belong_u.username %></a>
+                 <% } else { %>
+                 <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>
+                 <a class="username" href="/user/unknow">未知</a>
+                 <% } %>
+                 <span class="datetime">
+                     <%= timeFormat(dream.date) %>
+                 </span>
+            </div>
+            <% } %>
+            <div class="ctrl-box">
                 <% if (user) { %>
                 <% if (dream.good && dream.good.length > 0) { %>
-                <a href="javascript:;" title="帮他顶上去" data-did="<%= dream._id %>" data-hasgood="true" rel="dream-good"><i class="s s-arrow_up s-lg s-ac"></i></a>
+                <a class="owed" href="javascript:;" title="感恩" data-did="<%= dream._id %>" data-hasgood="true" rel="dream-good"><i class="s s-arrow_up s-lg s-ac"></i>
                 <% } else { %>
-                <a href="javascript:;" title="帮他顶上去" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i></a>
+                <a class="owed" href="javascript:;" title="感恩" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i>
                 <% } %>
                 <% } else { %>
-                <a href="javascript:;" title="帮他顶上去" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i></a>
+                <a class="owed" href="javascript:;" title="感恩" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i>
                 <% } %>
-                <span class="vote-num" rel="vote-num"><%= dream.vote %></span>
-                <% if (user) { %>
-                <% if (dream.bad && dream.bad.length > 0) { %>
-                <a href="javascript:;" title="给他挤下去" data-did="<%= dream._id %>" data-hasbad="true" rel="dream-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>
-                <% } else { %>
-                <a href="javascript:;" title="给他挤下去" data-did="<%= dream._id %>" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>
-                <% } %>
-                <% } else { %>
-                <a href="javascript:;" title="给他挤下去" data-did="<%= dream._id %>" data-hasbad="false" rel="dream-bad"><i class="s s-arrow_down s-lg"></i></a>
-                <% } %>
-            </div>
-            <div class="comment-ctrl-box"><a href="/dream/<%= dream._id %>#dreamCtrlBox">留言(<%= dream.cnum %>)</a></div>
-            <div class="share-box">
-                <!--<a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= dream._id %>">分享</a>-->
-                <ul class="share-list">
-                    <li class="only-pc"><a rel="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>
-                    <li class="only-pc"><a rel="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>
-                    <!--<li><a rel="weixin_share" href="javascript:;"><i class="s s-weixin s-3x"></i></a></li>-->
-                    <!--<li>-->
-                    <!--<div class="only-mobile">长按以下地址拷贝到你要分享到的站点...</div>-->
-                    <!--<input name="query" placeholder="拷贝地址到你要分享到的站点..." value="http://<%= data.domain %>/dream/<%= dream._id %>" />-->
-                    <!--</li>-->
-                </ul>
-            </div>
-            <div class="more-ctrl-toggle">
-                <a href="javascript:;">•••</a>
-            </div>
-            <div class="more-ctrl-box">
+                <span class="vote-num" rel="vote-num"><%= dream.vote %></span></a>
+                <a href="/dream/<%= dream._id %>#dreamCtrlBox">留言&nbsp;<span class="comment-num"><%= dream.cnum %></span></a>
                 <% if (user) { %>
                 <% if (dream._followers_u && dream._followers_u.length > 0) { %>
                 <a data-did="<%= dream._id %>" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>
@@ -118,7 +109,7 @@
                 <% if (user && (data.tag && data.tag.delperm)) { %>
                 <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-reject">学派驳回</a>
                 <% } %>
-                <% if (user && dream._belong_u) { %>
+                <!--<% if (user && dream._belong_u) { %>
                 <% if (dream._belong_u._id.equals(user._id)) { %>
                 <% if (!dream.isremove) { %>
                 <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-delete">个人删除</a>
@@ -126,7 +117,7 @@
                 <span>已删除</span>
                 <% } %>
                 <% } %>
-                <% } %>
+                <% } %>-->
             </div>
         </div>
     </div>

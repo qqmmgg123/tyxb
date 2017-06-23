@@ -504,8 +504,12 @@ a:hover {
   opacity: 1;
   background: #333;
 }
+#textReleasePop .post-form {
+  height: 100%;
+}
 #textReleasePop .tab-content {
   border-top: 1px solid #eaeaea;
+  overflow: auto;
 }
 .nav-group {
   padding: 0 0 5px;
@@ -750,8 +754,7 @@ a:hover {
 .release-box .tips {
   top: 5px;
 }
-.suopo a.logo,
-.user-head a.logo {
+a.logo {
   background: url(/images/logo.png) no-repeat;
   background-size: cover;
   width: 34px;
@@ -787,7 +790,7 @@ a:hover {
   transition: .2s;
 }
 .header .head-con {
-  width: 1024px;
+  width: 969px;
   margin: 0 auto;
 }
 .header .head-con .search-area {
@@ -991,7 +994,7 @@ a:hover {
   background-color: #fff;
 }
 .banner .banner-bg {
-  width: 1024px;
+  width: 969px;
   text-align: left;
   margin: 0 auto;
   height: 300px;
@@ -1040,11 +1043,6 @@ a:hover {
   border-width: 0 0 1px 0;
   border-radius: 0;
   box-shadow: none;
-}
-.dream-area {
-  max-height: 600px;
-  overflow: auto;
-  margin-bottom: 20px;
 }
 .dream-area .DraftEditor-root {
   border-bottom: 1px solid #e8e8e8;
@@ -1180,7 +1178,7 @@ a:hover {
 .container #recommand-area,
 .container .main,
 .container .top-tag-list {
-  width: 1024px;
+  width: 969px;
   text-align: left;
   margin: 0 auto;
 }
@@ -1504,7 +1502,7 @@ a:hover {
   display: block;
 }
 .summary {
-  margin-top: 10px;
+  padding: 5px 5px;
   font-size: 12px;
   font-weight: 100;
   color: #808080;
@@ -1517,6 +1515,13 @@ a:hover {
   position: absolute;
   border-radius: 5px;
   right: 0;
+}
+.piccard {
+  text-align: center;
+  cursor: pointer;
+}
+.piccard img {
+  width: 100%;
 }
 .preview {
   max-width: 600px;
@@ -1531,45 +1536,14 @@ a:hover {
   max-width: 100%;
   display: block;
 }
-.post-header {
-  line-height: 25px;
+.post-box .avatar img {
+  width: 25px;
   height: 25px;
-  color: #999;
-  font-size: 12px;
-  overflow: hidden;
-}
-.post-header a {
-  color: #999;
-}
-.post-header a:hover {
-  color: #ff7592;
-}
-.post-header > div:not(:last-child):after {
-  content: '•';
-  margin-right: 5px;
-  padding: 0 5px;
-  font-family: Arial;
-  color: #bbb;
-}
-.post-header .postHeaderUserInfo {
-  float: left;
-}
-.post-header .postHeaderUserInfo a.postHeaderUname {
-  margin-left: 10px;
-}
-.post-header .postHeaderTagInfo {
-  float: left;
-}
-.post-header .postHeaderSiteInfo {
-  float: left;
-}
-.post-header .postHeaderDateInfo {
-  float: left;
 }
 .post-content {
-  padding: 10px;
   overflow: hidden;
   font-size: 14px;
+  margin-top: 10px;
 }
 .post-content.thumb-mode {
   position: relative;
@@ -1587,26 +1561,67 @@ a:hover {
 .post-content .entry a:first-child {
   font-weight: bold;
 }
-.post-footer {
-  height: 27px;
-  line-height: 27px;
+.post-content .entry .title {
+  padding: 0 5px;
 }
-.post-footer > div {
+.post-header {
+  padding: 0 5px;
+  color: #999;
+  font-size: 12px;
+  overflow: hidden;
+}
+.post-header a {
+  color: #999;
+}
+.post-header a:hover {
+  color: #ff7592;
+}
+.user-info-box {
   float: left;
-  height: 27px;
-  line-height: 27px;
+  height: 25px;
+}
+.user-info-box a,
+.user-info-box span {
+  line-height: 25px;
+  float: left;
+}
+.user-info-box .username {
+  margin-left: 5px;
+}
+.user-info-box .datetime:before {
+  content: '•';
+  margin-right: 5px;
+  padding: 0 5px;
+  font-family: Arial;
+  color: #bbb;
+}
+.ctrl-box a {
+  width: 33.33%;
+  text-align: center;
+}
+.ctrl-box a i.s-lg {
+  line-height: inherit;
+}
+.post-footer {
+  margin-top: 10px;
+  height: 25px;
+  line-height: 25px;
 }
 .post-footer > div > a,
 .post-footer > div span {
-  display: inline-block;
-  margin: 0 10px;
   font-size: 12px;
   color: #a8a8a8;
 }
-.post-footer > div > a:hover,
-.post-footer > div span:hover {
-  color: #3aabff;
+.post-footer > div > a {
+  display: block;
+  float: left;
+}
+.post-footer > div > a:hover {
   text-decoration: underline;
+}
+.post-footer > div span.vote-num,
+.post-footer > div span.comment-num {
+  margin-left: 10px;
 }
 .share-btn {
   float: left;
@@ -1686,7 +1701,6 @@ div.more a.btn {
 }
 .comment-list .comment-ctrl > div a:hover,
 .comment-list .comment-ctrl > div span:hover {
-  color: #3aabff;
   text-decoration: underline;
 }
 .comment-list .comment-child {
@@ -1789,13 +1803,8 @@ div.more a.btn {
 .dialog .hd a.close {
   float: right;
 }
-.dialog .hd a.close i:before {
-  width: 16px;
-  height: 16px;
-}
 .dialog .bd {
   height: 100%;
-  overflow: auto;
   box-sizing: border-box;
 }
 .dialog .arrow-border {
@@ -2182,52 +2191,6 @@ div.more a.btn {
     display: block;
   }
   #dream-tab-bar .tab-nav ul.nav-list.hide {
-    display: none;
-  }
-  .more-ctrl-toggle {
-    display: block;
-  }
-  .more-ctrl-box {
-    display: none;
-    position: fixed;
-    background-color: #fff;
-    top: 20%;
-    left: 50%;
-    margin-left: -90px;
-    z-index: 4;
-    height: auto!important;
-    min-width: 160px;
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  }
-  .more-ctrl-box > a,
-  .more-ctrl-box > span,
-  .more-ctrl-box .share-box > a {
-    float: inherit;
-    width: 100%;
-    display: block!important;
-    padding: 3px 20px;
-    margin: 0!important;
-    clear: both;
-    font-weight: 400;
-    font-size: 14px!important;
-    line-height: 1.42857143;
-    color: #333!important;
-    white-space: nowrap;
-    box-sizing: border-box;
-    text-align: center;
-  }
-  .more-ctrl-box > a:hover,
-  .more-ctrl-box > span:hover,
-  .more-ctrl-box .share-box > a:hover {
-    background-color: #eaeaea;
-    text-decoration: none;
-  }
-  .more-ctrl-box.show {
-    display: block;
-  }
-  .more-ctrl-box.hide {
     display: none;
   }
 }

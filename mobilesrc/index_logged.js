@@ -15,13 +15,13 @@ import ReactDOM from 'react-dom';
 }(function(utils, req, effect, common, popup, dropdown, router, dreamTpl) {
     var _d = document;
 
-    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
-        textPop = common.textNew('image');
+        common.textNew('image');
     });
 
     // 发布文字
-    var drtTextBtn = _d.querySelector('#dreamReleaseText');
+    /*var drtTextBtn = _d.querySelector('#dreamReleaseText');
     drtTextBtn && drtTextBtn.addEventListener('click', () => {
         textPop = common.textNew('text');
     });
@@ -33,7 +33,7 @@ import ReactDOM from 'react-dom';
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        textPop = common.textNew('news');
+        common.textNew('news');
     });
 
     // 排序下拉

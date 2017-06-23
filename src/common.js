@@ -12,7 +12,6 @@
     );
 }(function (_t, polyfill, req, effect, utils, dropdown, popup) {
     var common = {
-        isScroll: true,
         getPageSize: function(){
             var xScroll, yScroll;
 
@@ -153,15 +152,6 @@
                 }, 'imageview', "?popup=imageview");
             }
         },
-        autoScroll: function(obj) {
-            if (this.isScroll) {
-                $(obj).find("ul:first").animate({
-                    marginTop: "-25px"
-                }, 500, function () {
-                    $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
-                });
-            }
-        }, 
         xhrReponseManage: function(data, callback) {
             var self = this;
             switch (data.result) {
@@ -188,8 +178,6 @@
             })();
         }
     };
-
-    utils.placeholder(document);
 
     // 排序下拉
     var appSelect = dropdown.create({
@@ -231,7 +219,7 @@
     });
 
     // Pad, mobile 下的搜索按钮
-    var inputBox    = document.getElementById('search-area'),
+    /*var inputBox    = document.getElementById('search-area'),
         backBtn     = document.getElementById('search-back'),
         resetBtn    = document.getElementById('search-reset'),
         searchInput = document.getElementById('search-input'),
@@ -249,7 +237,7 @@
 
     resetBtn && resetBtn.addEventListener('click', function() {
         searchInput.value = '';
-    }, false);
+    }, false);*/
 
     // 查看消息列表
     var msgNav     = document.querySelector('#message-nav');
@@ -365,14 +353,12 @@
         width: 'auto'
     });
 
-    var submitBtn = document.querySelector('button[type="submit"]'),
+    /*var submitBtn = document.querySelector('button[type="submit"]'),
         submitform = utils.closest(submitBtn, 'form');
     (submitBtn && submitform) && submitform.addEventListener('submit', function(){
         submitBtn.disabled = true;
         utils.addClass(submitBtn, 'disabled');
-    });
-
-    document.addEventListener("touchstart", function(){}, true);
+    });*/
 
     return common;
 }));

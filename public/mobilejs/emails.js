@@ -988,7 +988,7 @@
 	    APP_NAME: "太阳日常",
 	    CASE_NUMBER: "粤ICP备16089330号-1",
 	    DOMAIN: 'www.ty-xb.com',
-	    SLOGAN: "做好每一天的自己。",
+	    SLOGAN: "记录点滴，感受彼此",
 	    UNKNOW_ERR: '异常错误',
 	    PARAMS_PASSED_ERR_TIPS: "参数传递错误!",
 	    USER_EXISTS_TIPS: "对不起，该用户已经存在，请重新尝试",
@@ -1315,6 +1315,12 @@
 	            };
 	        }
 	    }, {
+	        key: 'resizeConHeight',
+	        value: function resizeConHeight() {
+	            var h = this._con.offsetHeight;
+	            this._tabCon.style.height = h - 86 + 'px';
+	        }
+	    }, {
 	        key: 'onCancelImage',
 	        value: function onCancelImage() {
 	            this.setState({
@@ -1361,6 +1367,35 @@
 	            }
 	        }
 	    }, {
+	        key: 'loadImage',
+	        value: function loadImage(url) {
+	            var _this5 = this;
+
+	            var img = new Image();
+	            /*this.setState({
+	                loading: true
+	            });*/
+	            img.src = url;
+	            if (img.complete) {
+	                this.setState({
+	                    //loading: false,
+	                    curImage: url
+	                });
+	                this.resizeConHeight();
+	                return;
+	            }
+	            img.onload = function () {
+	                _this5.setState({
+	                    //loading: false,
+	                    curImage: url
+	                });
+	                _this5.resizeConHeight();
+	            };
+	            img.onerror = function () {
+	                alert("网络异常，图片加载失败");
+	            };
+	        }
+	    }, {
 	        key: 'uploadImage',
 	        value: function uploadImage(ev) {
 	            var self = this;
@@ -1381,10 +1416,7 @@
 	                if (this.status == 200) {
 	                    var resp = JSON.parse(this.response);
 	                    var url = resp.dataUrl;
-
-	                    self.setState({
-	                        curImage: url
-	                    });
+	                    self.loadImage(url);
 	                };
 	            };
 	            xhr.send(fd);
@@ -1393,6 +1425,14 @@
 	        key: 'onAddImage',
 	        value: function onAddImage() {
 	            this._imageUpload.click();
+	        }
+	    }, {
+	        key: 'changeText',
+	        value: function changeText(text) {
+	            this.setState({
+	                text: text
+	            });
+	            this.resizeConHeight();
 	        }
 	    }, {
 	        key: 'textChange',
@@ -1471,7 +1511,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            var _state3 = this.state,
 	                formEls = _state3.formEls,
@@ -1486,7 +1526,7 @@
 	                header = _react2.default.createElement(
 	                    'div',
 	                    { ref: function ref(_ref2) {
-	                            _this5._tabNav = _ref2;
+	                            _this6._tabNav = _ref2;
 	                        }, id: 'dreamReleaseBar', className: 'nav-group' },
 	                    _react2.default.createElement(
 	                        'ul',
@@ -1535,26 +1575,30 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'post-form', ref: function ref(_ref6) {
+	                        _this6._con = _ref6;
+	                    } },
 	                header,
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'tab-content' },
+	                    { className: 'tab-content', ref: function ref(_ref5) {
+	                            _this6._tabCon = _ref5;
+	                        } },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { ref: function ref(popbd) {
-	                                _this5._popbd = popbd;
+	                                _this6._popbd = popbd;
 	                            }, className: 'dream-area' },
 	                        _react2.default.createElement('div', { ref: function ref(createInfo) {
-	                                _this5._createInfo = createInfo;
+	                                _this6._createInfo = createInfo;
 	                            }, className: 'alert', style: { display: "none" } }),
 	                        _react2.default.createElement(
 	                            'form',
 	                            { ref: function ref(_ref4) {
-	                                    return _this5._form = _ref4;
+	                                    return _this6._form = _ref4;
 	                                }, action: '/dream/new', method: 'post' },
 	                            _react2.default.createElement('div', { ref: function ref(tagInfo) {
-	                                    _this5._tagInfo = tagInfo;
+	                                    _this6._tagInfo = tagInfo;
 	                                }, className: 'alert form-group', style: { display: "none" } }),
 	                            tagField,
 	                            _react2.default.createElement(
@@ -1577,7 +1621,7 @@
 	                                { className: 'dream-release-ctrl' },
 	                                tagTips,
 	                                _react2.default.createElement(FinishBtn, { ref: function ref(_ref3) {
-	                                        _this5._finishBtn = _ref3;
+	                                        _this6._finishBtn = _ref3;
 	                                    }, onFinishClick: this.validate.bind(this) })
 	                            )
 	                        )
@@ -1588,7 +1632,7 @@
 	    }, {
 	        key: 'getFormData',
 	        value: function getFormData() {
-	            var _this6 = this;
+	            var _this7 = this;
 
 	            this.formData = {};
 	            this._form && this._form.querySelectorAll('input[type=text], \
@@ -1596,7 +1640,7 @@
 	            input[type=hidden], \
 	            textarea').forEach(function (inp, key) {
 	                var val = inp.value;
-	                _this6.formData[inp.name] = val;
+	                _this7.formData[inp.name] = val;
 	            });
 	        }
 	    }, {
@@ -1686,10 +1730,10 @@
 	    }, {
 	        key: 'submit',
 	        value: function submit() {
-	            var _this7 = this;
+	            var _this8 = this;
 
 	            _req2.default.post('/dream/new', this.formData, function (data) {
-	                _this7.xhrReponseManage(data, function (data) {
+	                _this8.xhrReponseManage(data, function (data) {
 	                    if (data.result === 0 && data.data) {
 	                        var did = data.data.did;
 
@@ -1849,17 +1893,17 @@
 	    function Win(opts) {
 	        (0, _classCallCheck3.default)(this, Win);
 
-	        var _this8 = (0, _possibleConstructorReturn3.default)(this, (Win.__proto__ || (0, _getPrototypeOf2.default)(Win)).call(this, opts));
+	        var _this9 = (0, _possibleConstructorReturn3.default)(this, (Win.__proto__ || (0, _getPrototypeOf2.default)(Win)).call(this, opts));
 
-	        _this8.settings.content = '';
-	        _this8.settings.title = '标题';
-	        _this8.updateSettings({
+	        _this9.settings.content = '';
+	        _this9.settings.title = '标题';
+	        _this9.updateSettings({
 	            width: 'auto',
 	            height: 'auto',
 	            html: wintpl(),
 	            onClose: function onClose() {}
 	        });
-	        return _this8;
+	        return _this9;
 	    }
 
 	    (0, _createClass3.default)(Win, [{
@@ -1890,24 +1934,24 @@
 	    function TextNewPop(opts) {
 	        (0, _classCallCheck3.default)(this, TextNewPop);
 
-	        var _this9 = (0, _possibleConstructorReturn3.default)(this, (TextNewPop.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop)).call(this, opts));
+	        var _this10 = (0, _possibleConstructorReturn3.default)(this, (TextNewPop.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop)).call(this, opts));
 
-	        _this9.tags = opts.tags;
-	        _this9.type = opts.type;
-	        _this9.curTag = opts.tag;
-	        _this9.form = null;
+	        _this10.tags = opts.tags;
+	        _this10.type = opts.type;
+	        _this10.curTag = opts.tag;
+	        _this10.form = null;
 
-	        _this9._map = {
+	        _this10._map = {
 	            'link': '发网址',
 	            'text': '发文字',
 	            'image': '发图片',
 	            'news': '发图文链接'
 	        };
 
-	        _this9.updateSettings({
-	            title: _this9._map[_this9.type]
+	        _this10.updateSettings({
+	            title: _this10._map[_this10.type]
 	        });
-	        return _this9;
+	        return _this10;
 	    }
 
 	    (0, _createClass3.default)(TextNewPop, [{
@@ -1926,7 +1970,7 @@
 	    }, {
 	        key: 'bindEvents',
 	        value: function bindEvents() {
-	            var _this10 = this;
+	            var _this11 = this;
 
 	            (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'bindEvents', this).call(this);
 	            var self = this;
@@ -1943,18 +1987,18 @@
 	            this.checkUser(function (data) {
 	                var ret = +data.result;
 	                if (ret === 0) {
-	                    var _ref5 = data.data || {},
-	                        _ref5$tag = _ref5.tag,
-	                        tag = _ref5$tag === undefined ? '' : _ref5$tag;
+	                    var _ref7 = data.data || {},
+	                        _ref7$tag = _ref7.tag,
+	                        tag = _ref7$tag === undefined ? '' : _ref7$tag;
 
-	                    _this10.form = _reactDom2.default.render(_react2.default.createElement(DreamForm, {
-	                        type: _this10.type,
-	                        tid: _this10.curTag,
+	                    _this11.form = _reactDom2.default.render(_react2.default.createElement(DreamForm, {
+	                        type: _this11.type,
+	                        tid: _this11.curTag,
 	                        tag: tag
-	                    }), _this10.bd);
-	                    utils.placeholder(_this10._popbd);
+	                    }), _this11.bd);
+	                    utils.placeholder(_this11._popbd);
 	                } else if (ret === 2) {
-	                    (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', _this10).call(_this10);
+	                    (0, _get3.default)(TextNewPop.prototype.__proto__ || (0, _getPrototypeOf2.default)(TextNewPop.prototype), 'close', _this11).call(_this11);
 	                    var state = History.getState(),
 	                        action = state.data.action;
 
@@ -1997,18 +2041,18 @@
 	    function RegPop(opts) {
 	        (0, _classCallCheck3.default)(this, RegPop);
 
-	        if (!opts.cur) return (0, _possibleConstructorReturn3.default)(_this11);
+	        if (!opts.cur) return (0, _possibleConstructorReturn3.default)(_this12);
 
 	        var title = settings.REGISTRATION.WORDING;
 
-	        var _this11 = (0, _possibleConstructorReturn3.default)(this, (RegPop.__proto__ || (0, _getPrototypeOf2.default)(RegPop)).call(this, opts));
+	        var _this12 = (0, _possibleConstructorReturn3.default)(this, (RegPop.__proto__ || (0, _getPrototypeOf2.default)(RegPop)).call(this, opts));
 
-	        _this11.updateSettings({
+	        _this12.updateSettings({
 	            title: title,
 	            id: 'registration',
 	            content: registration({ data: { current: opts.cur } })
 	        });
-	        return _this11;
+	        return _this12;
 	    }
 
 	    (0, _createClass3.default)(RegPop, [{
@@ -2144,13 +2188,13 @@
 	    function TagNewPop(opts) {
 	        (0, _classCallCheck3.default)(this, TagNewPop);
 
-	        var _this12 = (0, _possibleConstructorReturn3.default)(this, (TagNewPop.__proto__ || (0, _getPrototypeOf2.default)(TagNewPop)).call(this, opts));
+	        var _this13 = (0, _possibleConstructorReturn3.default)(this, (TagNewPop.__proto__ || (0, _getPrototypeOf2.default)(TagNewPop)).call(this, opts));
 
-	        _this12.updateSettings({
+	        _this13.updateSettings({
 	            title: '创建版面',
 	            content: tagnewtpl(opts.data)
 	        });
-	        return _this12;
+	        return _this13;
 	    }
 
 	    (0, _createClass3.default)(TagNewPop, [{
@@ -2255,13 +2299,13 @@
 	    function PresidentPop(opts) {
 	        (0, _classCallCheck3.default)(this, PresidentPop);
 
-	        var _this13 = (0, _possibleConstructorReturn3.default)(this, (PresidentPop.__proto__ || (0, _getPrototypeOf2.default)(PresidentPop)).call(this, opts));
+	        var _this14 = (0, _possibleConstructorReturn3.default)(this, (PresidentPop.__proto__ || (0, _getPrototypeOf2.default)(PresidentPop)).call(this, opts));
 
-	        _this13.updateSettings({
+	        _this14.updateSettings({
 	            title: '选版主',
 	            content: '<div class="building">' + settings.BUILDING_WORD + '</div>'
 	        });
-	        return _this13;
+	        return _this14;
 	    }
 
 	    return PresidentPop;
@@ -2657,7 +2701,6 @@
 	    module.exports = factory(__webpack_require__(46).default, __webpack_require__(62), __webpack_require__(15).default, __webpack_require__(59).default, __webpack_require__(10), __webpack_require__(63), __webpack_require__(45));
 	})(function (_t, polyfill, req, effect, utils, dropdown, popup) {
 	    var common = {
-	        isScroll: true,
 	        getPageSize: function getPageSize() {
 	            var xScroll, yScroll;
 
@@ -2803,15 +2846,6 @@
 	                }, 'imageview', "?popup=imageview");
 	            }
 	        },
-	        autoScroll: function autoScroll(obj) {
-	            if (this.isScroll) {
-	                $(obj).find("ul:first").animate({
-	                    marginTop: "-25px"
-	                }, 500, function () {
-	                    $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
-	                });
-	            }
-	        },
 	        xhrReponseManage: function xhrReponseManage(data, callback) {
 	            var self = this;
 	            switch (data.result) {
@@ -2838,8 +2872,6 @@
 	            })();
 	        }
 	    };
-
-	    utils.placeholder(document);
 
 	    // 排序下拉
 	    var appSelect = dropdown.create({
@@ -2881,25 +2913,22 @@
 	    });
 
 	    // Pad, mobile 下的搜索按钮
-	    var inputBox = document.getElementById('search-area'),
-	        backBtn = document.getElementById('search-back'),
-	        resetBtn = document.getElementById('search-reset'),
+	    /*var inputBox    = document.getElementById('search-area'),
+	        backBtn     = document.getElementById('search-back'),
+	        resetBtn    = document.getElementById('search-reset'),
 	        searchInput = document.getElementById('search-input'),
-	        searchBtn = document.getElementById('search_dream_btn');
-
-	    searchBtn && searchBtn.addEventListener('click', function () {
+	        searchBtn   = document.getElementById('search_dream_btn');
+	      searchBtn && searchBtn.addEventListener('click', function() {
 	        if (inputBox.className.indexOf(' visible') === -1) {
 	            inputBox.className += ' visible';
 	        }
 	    }, false);
-
-	    backBtn && backBtn.addEventListener('click', function () {
+	      backBtn && backBtn.addEventListener('click', function() {
 	        inputBox.className = inputBox.className.replace(' visible', '');
 	    }, false);
-
-	    resetBtn && resetBtn.addEventListener('click', function () {
+	      resetBtn && resetBtn.addEventListener('click', function() {
 	        searchInput.value = '';
-	    }, false);
+	    }, false);*/
 
 	    // 查看消息列表
 	    var msgNav = document.querySelector('#message-nav');
@@ -3000,14 +3029,12 @@
 	        width: 'auto'
 	    });
 
-	    var submitBtn = document.querySelector('button[type="submit"]'),
+	    /*var submitBtn = document.querySelector('button[type="submit"]'),
 	        submitform = utils.closest(submitBtn, 'form');
-	    submitBtn && submitform && submitform.addEventListener('submit', function () {
+	    (submitBtn && submitform) && submitform.addEventListener('submit', function(){
 	        submitBtn.disabled = true;
 	        utils.addClass(submitBtn, 'disabled');
-	    });
-
-	    document.addEventListener("touchstart", function () {}, true);
+	    });*/
 
 	    return common;
 	});
@@ -5211,7 +5238,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-lg"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
+	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
 
 	}
 	return __p

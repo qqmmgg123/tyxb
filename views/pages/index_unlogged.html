@@ -39,44 +39,15 @@
         </div>
     </div>
     <% } else { %>
-    <div class="container tag-top-head">
+    <div class="container tag-top-head mar-top">
         <div class="main">
             <div class="tag-head-info">
                 <div class="tagHead-infoInner">
-                    <a class="logo" href="http://www.suopoearth.com"></a>
-                    <h2><%= settings.APP_NAME %>&nbsp;•&nbsp;<%= settings.SLOGAN %></h2>
-                    <ul id="app-list" class="app-list">
-                <li><a href="/"><%= settings.APP_NAME %></a></li>
-                <% if (user) { %>
-                <!--<li><a href="/subscription">关注</a></li>-->
-                <li>
-                    <a href="/user/<%= user.id %>"><%= user.username %></a>
-                </li>
-                <li>
-                    <div id="message-nav" class="dropdown">
-                        <% if (is_mobile) { %>
-                        <a class="message-view dropdown-toggle" rel="msg-view" href="/message">
-                            <% } else { %>
-                            <a class="message-view dropdown-toggle" rel="msg-view" href="javascript:;">
-                                <% } %>
-                                消息
-                            </a>
-                            <% if (data.messages && data.messages > 0) { %>
-                            <span class="message-new"></span>
-                            <% } %>
-                            <ul class="message-list dropdown-menu" style="display: none;">
-                            </ul>
-                    </div>
-                </li>
-                <% } else { %>
-                <li>
-                    <a href="javascript:;" id="signup-btn">+&nbsp;加个日常</a>
-                </li>
-                <li>
-                    <a href="javascript:;" id="signin-btn">登录&nbsp;→</a>
-                </li>
-                <% } %>
-            </ul>
+                    <h2><%= settings.APP_NAME %></h2>
+                    <h3 class="slogan"><%= settings.SLOGAN %></h3>
+                </div>
+                <div class="intro">
+                    生命是渺小、脆弱、且短暂的，“太阳日常”是一个记录和分享生活点滴的小工具，目的是让用户放慢生活节奏，用心的感受自己、体会别人，真诚的对待生命和时间，过好在这个真实世界中的每一天。
                 </div>
             </div>
         </div>

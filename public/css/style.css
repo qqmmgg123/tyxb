@@ -92,11 +92,14 @@
 .s-text:before {
   content: "\EA13";
 }
-.s-wb:before {
+.s-time:before {
   content: "\EA14";
 }
-.s-weixin:before {
+.s-wb:before {
   content: "\EA15";
+}
+.s-weixin:before {
+  content: "\EA16";
 }
 .clearfix:after {
   clear: both;
@@ -181,6 +184,7 @@ ul,
 li,
 h1,
 h2,
+h3,
 h4,
 p,
 form,
@@ -559,8 +563,12 @@ a:hover {
 #dreamReleaseBar.nav-group ul li {
   width: 25%;
 }
+#textReleasePop .post-form {
+  height: 100%;
+}
 #textReleasePop .tab-content {
   border-top: 1px solid #eaeaea;
+  overflow: auto;
 }
 .nav-group {
   padding: 0 0 5px;
@@ -597,17 +605,72 @@ a:hover {
   border-bottom: 1px solid #eaeaea;
 }
 #dream-tab-bar .tab-nav {
-  width: 240px;
+  width: 100px;
   float: left;
+  font-size: 14px;
 }
 #dream-tab-bar .tab-nav a.nav-toggle {
-  display: none;
+  display: block;
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer */
+  -ktml-user-select: none;
+  /* KHTML浏览器（比如：Konqueror） */
+  -webkit-user-select: none;
+  /* Chrome,Safari,and Opera */
+  -webkit-touch-callout: none;
+  /* Disable Android and IOS callout */
+  cursor: pointer;
+  height: 36px;
+  line-height: 36px;
 }
-#dream-tab-bar .tab-nav ul {
+#dream-tab-bar .tab-nav a.nav-toggle i {
+  width: 16px;
+  height: 16px;
+  margin-top: 10px;
+  display: block;
+}
+#dream-tab-bar .tab-nav a.nav-toggle i.s-arrow {
+  float: right;
+}
+#dream-tab-bar .tab-nav ul.nav-list {
+  display: none;
+  position: absolute;
+  z-index: 4;
+  width: 120px;
+  height: auto;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+#dream-tab-bar .tab-nav ul.nav-list li {
+  float: inherit;
+  width: 100%;
+}
+#dream-tab-bar .tab-nav ul.nav-list li a.tab {
+  margin: 0;
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 36px;
+  color: #333;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+#dream-tab-bar .tab-nav ul.nav-list li a.tab.cur,
+#dream-tab-bar .tab-nav ul.nav-list li a.tab:hover {
   border-bottom: none;
 }
-#dream-tab-bar .tab-nav ul li {
-  width: 50%;
+#dream-tab-bar .tab-nav ul.nav-list li a.tab:hover {
+  background-color: #eaeaea;
+}
+#dream-tab-bar .tab-nav ul.nav-list.show {
+  display: block;
+}
+#dream-tab-bar .tab-nav ul.nav-list.hide {
+  display: none;
 }
 .nav-ctrl {
   height: 36px;
@@ -815,6 +878,11 @@ a.logo {
   margin-right: 10px;
   position: relative;
 }
+.slogan {
+  font-size: 14px;
+  font-weight: 100;
+  color: #666;
+}
 .user-head {
   width: 144px;
   margin: 50px auto;
@@ -841,7 +909,7 @@ a.logo {
   transition: .2s;
 }
 .header .head-con {
-  width: 1024px;
+  width: 969px;
   margin: 0 auto;
 }
 .header .head-con .search-area {
@@ -1045,7 +1113,7 @@ a.logo {
   background-color: #fff;
 }
 .banner .banner-bg {
-  width: 1024px;
+  width: 969px;
   text-align: left;
   margin: 0 auto;
   height: 300px;
@@ -1094,11 +1162,6 @@ a.logo {
   border-width: 0 0 1px 0;
   border-radius: 0;
   box-shadow: none;
-}
-.dream-area {
-  max-height: 600px;
-  overflow: auto;
-  margin-bottom: 20px;
 }
 .dream-area .DraftEditor-root {
   border-bottom: 1px solid #e8e8e8;
@@ -1238,7 +1301,7 @@ a.logo {
 .container #recommand-area,
 .container .main,
 .container .top-tag-list {
-  width: 1024px;
+  width: 969px;
   text-align: left;
   margin: 0 auto;
 }
@@ -1546,6 +1609,12 @@ a.logo {
   margin-left: 20px;
   margin-right: 150px;
 }
+.tag-top-head .main .tag-head-info .intro {
+  font-size: 14px;
+  color: #999;
+  width: 500px;
+  float: right;
+}
 .tag-top-head .main .tag-head-about {
   font-size: 12px;
   color: #666;
@@ -1560,7 +1629,7 @@ a.logo {
   display: block;
 }
 .summary {
-  margin-top: 10px;
+  padding: 5px 0;
   font-size: 12px;
   font-weight: 100;
   color: #808080;
@@ -1573,6 +1642,13 @@ a.logo {
   position: absolute;
   border-radius: 5px;
   right: 0;
+}
+.piccard {
+  text-align: center;
+  cursor: pointer;
+}
+.piccard img {
+  width: 100%;
 }
 .preview {
   max-width: 600px;
@@ -1587,43 +1663,14 @@ a.logo {
   max-width: 100%;
   display: block;
 }
-.post-header {
-  line-height: 25px;
+.post-box {
+  margin-left: 46px;
+}
+.post-box .avatar img {
+  width: 25px;
   height: 25px;
-  color: #999;
-  font-size: 12px;
-  overflow: hidden;
-}
-.post-header a {
-  color: #999;
-}
-.post-header a:hover {
-  color: #ff7592;
-}
-.post-header > div:not(:last-child):after {
-  content: '•';
-  margin-right: 5px;
-  padding: 0 5px;
-  font-family: Arial;
-  color: #bbb;
-}
-.post-header .postHeaderUserInfo {
-  float: left;
-}
-.post-header .postHeaderUserInfo a.postHeaderUname {
-  margin-left: 10px;
-}
-.post-header .postHeaderTagInfo {
-  float: left;
-}
-.post-header .postHeaderSiteInfo {
-  float: left;
-}
-.post-header .postHeaderDateInfo {
-  float: left;
 }
 .post-content {
-  padding: 10px;
   overflow: hidden;
   font-size: 14px;
 }
@@ -1643,24 +1690,71 @@ a.logo {
 .post-content .entry a:first-child {
   font-weight: bold;
 }
-.post-footer {
-  height: 27px;
-  line-height: 27px;
+#dream-list .list-item {
+  position: relative;
 }
-.post-footer > div {
+.user-info-box {
   float: left;
-  height: 27px;
-  line-height: 27px;
+  height: 25px;
+}
+.user-info-box a {
+  float: left;
+}
+.user-info-box .datetime:before {
+  content: '•';
+  margin-right: 5px;
+  padding: 0 5px;
+  font-family: Arial;
+  color: #bbb;
+}
+.ctrl-box {
+  float: right;
+}
+.ctrl-box a.owed {
+  position: absolute;
+  left: 4px;
+  top: 30px;
+  display: block;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  border-radius: 50%;
+  padding-top: 2px;
+  margin: 0 auto !important;
+  box-sizing: border-box;
+}
+.ctrl-box a.owed:hover {
+  color: #ff4d73;
+}
+.ctrl-box span.vote-num {
+  display: block;
+  border-radius: 4px;
+  height: 16px;
+  width: 32px;
+  line-height: 16px;
+  position: absolute;
+  left: -6px;
+  top: -16px;
+  color: #a8a8a8;
+  text-align: center;
+  border: 1px solid #e7e7e7;
+}
+.ctrl-box i.s-arrow_up {
+  font-size: 2em;
+}
+.post-footer {
+  margin-top: 10px;
+  height: 25px;
+  line-height: 25px;
 }
 .post-footer > div > a,
 .post-footer > div span {
   display: inline-block;
-  margin: 0 10px;
+  margin-right: 10px;
   font-size: 12px;
   color: #a8a8a8;
 }
-.post-footer > div > a:hover,
-.post-footer > div span:hover {
+.post-footer > div > a:hover {
   text-decoration: underline;
 }
 .share-btn {
@@ -1843,13 +1937,8 @@ div.more a.btn {
 .dialog .hd a.close {
   float: right;
 }
-.dialog .hd a.close i:before {
-  width: 16px;
-  height: 16px;
-}
 .dialog .bd {
   height: 100%;
-  overflow: auto;
   box-sizing: border-box;
 }
 .dialog .arrow-border {
@@ -2170,75 +2259,6 @@ div.more a.btn {
 @media screen and (max-width: 480px) {
   h1 {
     font-size: 0.8em;
-  }
-  #dream-tab-bar .tab-nav {
-    width: 50px;
-    padding: 0 20px;
-  }
-  #dream-tab-bar .tab-nav a.nav-toggle {
-    text-align: center;
-    display: block;
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer */
-    -ktml-user-select: none;
-    /* KHTML浏览器（比如：Konqueror） */
-    -webkit-user-select: none;
-    /* Chrome,Safari,and Opera */
-    -webkit-touch-callout: none;
-    /* Disable Android and IOS callout */
-    cursor: pointer;
-    height: 36px;
-    line-height: 36px;
-  }
-  #dream-tab-bar .tab-nav a.nav-toggle i:before {
-    float: right;
-    width: 16px;
-    height: 16px;
-    margin-top: 10px;
-    display: block;
-  }
-  #dream-tab-bar .tab-nav ul.nav-list {
-    display: none;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    margin-left: -90px;
-    z-index: 4;
-    width: 120px;
-    height: auto;
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  }
-  #dream-tab-bar .tab-nav ul.nav-list li {
-    float: inherit;
-    width: 100%;
-  }
-  #dream-tab-bar .tab-nav ul.nav-list li a.tab {
-    margin: 0;
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: 400;
-    line-height: 36px;
-    color: #333;
-    white-space: nowrap;
-    box-sizing: border-box;
-  }
-  #dream-tab-bar .tab-nav ul.nav-list li a.tab.cur,
-  #dream-tab-bar .tab-nav ul.nav-list li a.tab:hover {
-    border-bottom: none;
-  }
-  #dream-tab-bar .tab-nav ul.nav-list li a.tab:hover {
-    background-color: #eaeaea;
-  }
-  #dream-tab-bar .tab-nav ul.nav-list.show {
-    display: block;
-  }
-  #dream-tab-bar .tab-nav ul.nav-list.hide {
-    display: none;
   }
   .more-ctrl-toggle {
     display: block;

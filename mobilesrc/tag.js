@@ -18,13 +18,13 @@ import ReactDOM from 'react-dom';
     const _d = document,
           _w = window;
 
-    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
-        textPop = common.textNew('image');
+        common.textNew('image');
     });
 
     // 发布文字
-    var drtTextBtn = _d.querySelector('#dreamReleaseText');
+    /*var drtTextBtn = _d.querySelector('#dreamReleaseText');
     drtTextBtn && drtTextBtn.addEventListener('click', (ev) => {
         textPop = common.textNew('text');
     });

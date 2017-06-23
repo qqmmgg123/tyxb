@@ -1,18 +1,18 @@
-<div id="dream-tab-bar" class="nav-bar">
+<div id="dream-tab-bar" class="nav-bar <%= is_mobile && 'mar-top' %>">
     <div class="tab-nav">
         <% if (data.role == '1') { %>
-        <a rel="nav-toggle" class="nav-toggle">受欢迎的<i class="s s-arrow s-lg"></i></a>
+        <a rel="nav-toggle" class="nav-toggle">受欢迎的&nbsp;<i class="s s-arrow s-lg"></i></a>
         <% } %>
         <% if (data.role == '2') { %>
-        <a rel="nav-toggle" class="nav-toggle">新发布的<i class="s s-arrow s-lg"></i></a>
+        <a rel="nav-toggle" class="nav-toggle">新发布的&nbsp;<i class="s s-arrow s-lg"></i></a>
         <% } %>
         <ul class="nav-list">
             <li><a 
                 hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" 
-                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>">受欢迎的</a></li>
+                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>"></i>受欢迎的</a></li>
             <li><a 
                 hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" 
-                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2">新发布的</a></li>
+                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2"></i>新发布的</a></li>
         </ul>
     </div>
     <div class="nav-ctrl">
@@ -74,7 +74,7 @@
 <div class="global-ctrl">
     <ul>
         <% if ((!data.site && !data.tag) || (user && user._id)) { %>
-        <!--<li>
+        <li>
             <div id="dreamReleaseImage" class="release-box">
                 <div class="tips">发图片</div>
                 <button title="发图片" class="btn btn-round btn-new small">
@@ -90,7 +90,7 @@
                 </button>
             </div>
         </li>
-        <li>
+        <!--<li>
             <div id="dreamReleaseLink" class="release-box">
                 <div class="tips">发网址</div>
                 <button title="发网址" class="btn btn-round btn-new small">

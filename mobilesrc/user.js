@@ -17,20 +17,20 @@ import ReactDOM from 'react-dom';
     const _d = document,
           _w = window;
 
-    /*var drtImageBtn = _d.querySelector('#dreamReleaseImage');
+    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
-        textPop = common.textNew('image');
+        common.textNew('image');
     });
 
     // 发布文字
     var drtTextBtn = _d.querySelector('#dreamReleaseText');
     drtTextBtn && drtTextBtn.addEventListener('click', () => {
-        textPop = common.textNew('text');
+        common.textNew('text');
     });
 
-    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+    /*var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
     drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
-        textPop = common.textNew('link');
+        common.textNew('link');
     });*/
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
@@ -108,7 +108,7 @@ import ReactDOM from 'react-dom';
         utils.addClass(this, 'spin');
         window.location.reload();
     });
-    
+
     // 分享下拉
     var shareSelect = dropdown.shareDrop({
         el: '[rel="dream-share"]',

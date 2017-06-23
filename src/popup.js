@@ -198,6 +198,11 @@ class DreamForm extends BaseCom {
         };
     }
 
+    resizeConHeight() {
+        const h = this._con.offsetHeight;
+        this._tabCon.style.height = (h - 86) + 'px';
+    }
+
     onCancelImage() {
         this.setState({
             curImage: ''
@@ -246,6 +251,32 @@ class DreamForm extends BaseCom {
         }
     }
 
+    loadImage(url) {
+        var img = new Image();
+        /*this.setState({
+            loading: true
+        });*/
+        img.src = url;
+        if(img.complete) {
+            this.setState({
+                //loading: false,
+                curImage: url
+            });
+            this.resizeConHeight();
+            return;
+        }
+        img.onload = () => {
+            this.setState({
+                //loading: false,
+                curImage: url
+            });
+            this.resizeConHeight();
+        };
+        img.onerror = () => {
+            alert("网络异常，图片加载失败");
+        }
+    }
+
     uploadImage(ev) {
         var self = this;
         var files = ev.target.files || ev.dataTransfer.files;
@@ -265,10 +296,7 @@ class DreamForm extends BaseCom {
             if (this.status == 200) {
                 var resp = JSON.parse(this.response);
                 var url = resp.dataUrl;
-                
-                self.setState({
-                    curImage: url
-                });
+                self.loadImage(url);
             };
         };
         xhr.send(fd);
@@ -281,13 +309,14 @@ class DreamForm extends BaseCom {
     changeText(text) {
         this.setState({
             text: text
-        })
+        });
+        this.resizeConHeight();
     }
 
     textChange(ev) {
         this.setState({
             text: ev.target.value
-        })
+        });
     }
 
     linkChange(ev) {
@@ -386,9 +415,9 @@ class DreamForm extends BaseCom {
         }
 
         return (
-            <div>
+            <div className="post-form" ref={(ref) => { this._con = ref }}>
                 {header}
-                <div className="tab-content">
+                <div className="tab-content" ref={(ref) => { this._tabCon = ref }}>
                     <div ref={(popbd) => { this._popbd = popbd }} className="dream-area">
                         <div ref={(createInfo) => { this._createInfo = createInfo }} className="alert" style={{ display: "none" }}>
                         </div>
