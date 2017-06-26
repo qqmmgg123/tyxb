@@ -88,28 +88,34 @@ router.post('/new', function(req, res, next) {
         dream.extract();
     }
     if ((category === "image" || category === 'news') && image && image.trim()) {
-        dream.image = image;
-        dream.thumbnail = image.replace('/pic/', '/picmini/');
-        dream.mthumbnail = image.replace('/pic/', '/mpicmini/');
-    }
-
-    dream.save(function(err) {
-        if (err) return next(err);
-
-        return res.json({
-            info: "发布成功",
-            data: {
-                did: did
-            },
-            result: 0
-        });
-
-        let end = new Date().getTime(),
-            spend = end - start;
-        if (spend > common.maxtime) {
-            console.log(req.originalUrl + ' spend' + spend + 'ms');
+        image = image.trim();
+        if (category === "image") {
+            dream.image = image.replace('/pic/', /uploads/);
+            imageMagick()
         }
-    });
+        else (category === "news") {
+            dream.image = image;
+        }
+    }
+    else{
+        dream.save(function(err) {
+            if (err) return next(err);
+
+            return res.json({
+                info: "发布成功",
+                data: {
+                    did: did
+                },
+                result: 0
+            });
+
+            let end = new Date().getTime(),
+                spend = end - start;
+            if (spend > common.maxtime) {
+                console.log(req.originalUrl + ' spend' + spend + 'ms');
+            }
+        });
+    }
 });
 
 // 想法详情页

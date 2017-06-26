@@ -14,6 +14,7 @@ var async = require("async")
     , Dream = require("./models/dream")
     , Comment = require("./models/comment")
     , Tag     = require("./models/tag")
+    , Image = require("./models/image")
     , log = require('util').log
     , router = require('express').Router()
     , gm = require('gm')
@@ -926,8 +927,8 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
     var uid = req.user._id;
 
     var file     = __dirname + '/pic/' + req.file.filename;
-    var miniFile = __dirname + '/picmini/' + req.file.filename;
-    var m_miniFile = __dirname + '/mpicmini/' + req.file.filename;
+    //var miniFile = __dirname + '/picmini/' + req.file.filename;
+    //var m_miniFile = __dirname + '/mpicmini/' + req.file.filename;
 
     var path = req.file.path;
     var sz   = req.file.size;
@@ -948,6 +949,43 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
             });
         });
     } else {
+        /*imageMagick(path).size(function(err, value) {
+            if (err || !value) {
+                return next(err || new Error('Image size undefined.'));
+            }
+
+            const { width, height } = value;
+ 
+            var image = new Image({
+                _belong_u : uid,
+                name      : req.file.filename,
+                dir       : '/uploads/' + req.file.filename,
+                width     : width,
+                height    : height,
+                size      : sz
+            });
+
+            image.save(function(err) {
+                if (err) return next(err);
+
+                imageMagick(path)
+                    .scale(null, 600)
+                    .write(file, function(err){
+                        if (err) {
+                            return next(err);
+                        }
+
+                        let x = 0, y = 0;
+
+                        res.json({
+                            info: 'img save successfully',
+                            dataUrl: '/pic/' + req.file.filename,
+                            result: 0
+                        });
+                    });
+            });
+        });*/
+
         imageMagick(path).size(function(err, value){
             // note : value may be undefined
             if (err || !value) {

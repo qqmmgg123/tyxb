@@ -24,6 +24,13 @@
             <% } else { %>
             <div class="entry">
             <div class="title">
+            <% if (dream.category === 'image') { %>
+            <% if (data.query) { %>
+            <%- highLight(dlimit(dream.content), data.query) %>
+            <% } else { %>
+            <%= dlimit(dream.content) %>
+            <% } %>
+            <% } else { %>
             <a 
                 <% if (dream.link) { %>
                 href="<%= dream.link %>"
@@ -37,6 +44,7 @@
             <%= dlimit(dream.content) %>
             <% } %>
             </a>
+            <% } %>
             </div>
             <% if (dream.summary) { %>
             <div class="summary">
