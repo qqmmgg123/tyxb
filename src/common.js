@@ -140,6 +140,19 @@
                 History.pushState({ action: 'signup'}, 'signup', "?popup=signup");
             }
         },
+        showAvatarEditor: function(src, id) {
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'avatareditor') {
+                History.pushState({ 
+                    action: 'avatareditor',
+                    params: {
+                        src: src,
+                        id: id
+                    }
+                }, 'avatareditor', "?popup=avatareditor&src=" + src + "&id=" + id);
+            }
+        },
         showImageViewer: function(src) {
             const state = History.getState(),
                   { action } = state.data;
@@ -149,7 +162,7 @@
                     params: {
                         src: src
                     }
-                }, 'imageview', "?popup=imageview");
+                }, 'imageview', "?popup=imageview&src=" + src);
             }
         },
         xhrReponseManage: function(data, callback) {

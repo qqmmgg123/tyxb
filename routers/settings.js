@@ -1,9 +1,13 @@
 var async = require("async")
+    , path = require('path')
     , common = require('../common')
     , settings = require("../const/settings")
     , Account = require('../models/account')
+    , Image = require("../models/image")
     , log = require('util').log
-    , router = require('express').Router();
+    , router = require('express').Router()
+    , gm = require('gm')
+    , imageMagick = gm.subClass({ imageMagick : true });
 
 // 用户配置
 router.get('/', function(req, res) {
@@ -103,6 +107,74 @@ router.post('/emails/reverification', function(req, res) {
 
         req.flash('info', "认证邮件已经发送至您的邮箱，请及时确认邮件并按步骤通过认证。");
         res.redirect('/settings/emails');
+    });
+});
+
+router.post('/avatar/update', function(req, res) {
+    if (!req.user) {
+        return res.json({
+            info: "请登录",
+            result: 2
+        });
+    }
+
+    const { user } = req;
+
+    let { x, y, width, height, image } = req.body;
+
+    image = image.trim();
+    Image.findById(image, 'width height usage dir name', (err, doc) => {
+        if (err) return res.json({
+            info: err.message,
+            result: 1
+        });
+
+        const file  = path.resolve(__dirname, '..' + doc.dir),
+            miniFile = path.resolve(__dirname, '../picmini/' + doc.name),
+            m_miniFile = path.resolve(__dirname, '../mpicmini/' + doc.name);
+
+        imageMagick(file)
+            .crop(width * doc.width, height * doc.height, x * doc.width, y * doc.height)
+            .write(miniFile, function(err) {
+                if (err) return res.json({
+                    info: err.message,
+                    result: 1
+                });
+
+                imageMagick(miniFile)
+                    .scale(25, 25)
+                    .write(m_miniFile, function(err) {
+                        if (err) return res.json({
+                            info: err.message,
+                            result: 1
+                        });
+
+                        doc.usage = 1;
+                        doc.save(function(err) {
+                            if (err) return res.json({
+                                info: err.message,
+                                result: 1
+                            });
+
+                            user.avatar = '/picmini/' + doc.name;
+                            user.avatar_mini = '/mpicmini/' + doc.name;
+                            user.save(function(err) {
+                                if (err) return res.json({
+                                    info: err.message,
+                                    result: 1
+                                });
+
+                                return res.json({
+                                    info: "更新成功",
+                                    data: {
+                                        avatar: user.avatar
+                                    },
+                                    result: 0
+                                });
+                            });
+                        });
+                    });
+            });
     });
 });
 

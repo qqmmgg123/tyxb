@@ -69,6 +69,8 @@ class DreamForm extends BaseCom {
 
         this.state = {
             curForm: props.type,
+            curImage: '',
+            curImageId: '',
             formEls: formsEls,
             text: '',
             link: '',
@@ -211,13 +213,13 @@ class DreamForm extends BaseCom {
                         <i className="s s-close s-lg"></i>
                     </a>
                     <img src={curImage} />
-                    <input type="hidden" name="image" value={this.state.curImage} />
+                    <input type="hidden" name="image" value={this.state.curImageId} />
                 </div>
             )
         }
     }
 
-    loadImage(url) {
+    loadImage(url, id) {
         var img = new Image();
         /*this.setState({
             loading: true
@@ -226,6 +228,7 @@ class DreamForm extends BaseCom {
         if(img.complete) {
             this.setState({
                 //loading: false,
+                curImageId: id,
                 curImage: url
             });
             this.resizeConHeight();
@@ -234,6 +237,7 @@ class DreamForm extends BaseCom {
         img.onload = () => {
             this.setState({
                 //loading: false,
+                curImageId: id,
                 curImage: url
             });
             this.resizeConHeight();
@@ -261,8 +265,9 @@ class DreamForm extends BaseCom {
         xhr.onload = function() {
             if (this.status == 200) {
                 var resp = JSON.parse(this.response);
-                var url = resp.dataUrl;
-                self.loadImage(url);
+                var url = resp.dataUrl,
+                    imgId = resp.imageId;
+                if (url && imgId) self.loadImage(url, imgId);
             };
         };
         xhr.send(fd);

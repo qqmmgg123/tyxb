@@ -145,9 +145,10 @@ app.locals.settings = settings;
 app.set('port', process.env.PORT || 8080);
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'pic')));
-app.use(express.static(path.join(__dirname, 'picmini')));
-app.use(express.static(path.join(__dirname, 'mpicmini')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/pic', express.static(path.join(__dirname, 'pic')));
+app.use('/picmini', express.static(path.join(__dirname, 'picmini')));
+app.use('/mpicmini', express.static(path.join(__dirname, 'mpicmini')));
 app.use(cookieParser('suopoearth'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

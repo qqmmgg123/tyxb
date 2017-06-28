@@ -3,34 +3,16 @@
   background-color: #fefefe;
   border-bottom: 1px solid #f2f3f4;
 }
-.user-page-head .user-head-info {
-  overflow: hidden;
-  position: relative;
-}
 .user-page-head .user-head-info .user-head-avatar {
-  float: left;
+  margin: 0 auto;
+  width: 96px;
 }
 .user-page-head .user-head-info .userHead-infoInner {
-  float: left;
-  margin-left: 20px;
-  margin-right: 150px;
-}
-.user-page-head .user-head-info .userHead-infoInner h2.nick-name {
-  padding: 0;
-  margin: 0;
-}
-.user-page-head .user-head-info .userHead-infoInner .user-ctrl {
-  text-align: right;
-  float: right;
-  width: 50%;
-}
-.user-page-head .user-head-info .user-head-ctrl {
-  float: right;
-  bottom: 0;
-  right: 0;
-  position: absolute;
+  text-align: center;
 }
 .user-page-head .user-head-info .user-head-ctrl a.btn {
+  width: 80px;
+  margin: 0 auto;
   display: block;
 }
 .bio,
@@ -77,7 +59,7 @@
   font-size: 10px;
 }
 .user-tab-bar ul li {
-  width: 25%;
+  width: 33.33%;
 }
 #dream-tab-bar .tab-nav ul li:first-child .tab {
   border-right: 1px solid #eaeaea;

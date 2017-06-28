@@ -186,38 +186,45 @@
   counter-reset: ol4;
 }
 .user-page-head {
-  padding: 20px;
   background-color: #fefefe;
   border-bottom: 1px solid #f2f3f4;
+  height: 100px;
 }
 .user-page-head .user-head-info {
   overflow: hidden;
   position: relative;
 }
-.user-page-head .user-head-info .user-head-avatar {
-  float: left;
-}
-.user-page-head .user-head-info .userHead-infoInner {
-  float: left;
-  margin-left: 20px;
-  margin-right: 150px;
-}
-.user-page-head .user-head-info .userHead-infoInner h2.nick-name {
-  padding: 0;
-  margin: 0;
-}
-.user-page-head .user-head-info .userHead-infoInner .user-ctrl {
-  text-align: right;
-  float: right;
-  width: 50%;
-}
-.user-page-head .user-head-info .user-head-ctrl {
-  float: right;
-  bottom: 0;
-  right: 0;
+.user-head-avatar {
+  margin: 0 auto;
+  width: 96px;
+  cursor: pointer;
   position: absolute;
 }
-.user-page-head .user-head-info .user-head-ctrl a.btn {
+.user-head-avatar .update-avatar-tips {
+  visibility: hidden;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  height: 96px;
+  line-height: 96px;
+}
+.user-head-avatar .update-avatar-tips p {
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+}
+.user-head-avatar:hover .update-avatar-tips {
+  visibility: visible;
+}
+.userHead-infoInner {
+  text-align: center;
+}
+.user-head-ctrl a.btn {
+  width: 80px;
+  margin: 0 auto;
   display: block;
 }
 .bio,
@@ -264,7 +271,7 @@
   font-size: 10px;
 }
 .user-tab-bar ul li {
-  width: 25%;
+  width: 33.33%;
 }
 #dream-tab-bar .tab-nav ul li:first-child .tab {
   border-right: 1px solid #eaeaea;

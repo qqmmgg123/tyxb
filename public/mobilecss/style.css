@@ -1480,13 +1480,7 @@ a.logo {
   padding: 0;
 }
 .tag-top-head .main .tag-head-info {
-  overflow: hidden;
-  position: relative;
-}
-.tag-top-head .main .tag-head-info .tagHead-infoInner {
-  float: left;
-  margin-left: 20px;
-  margin-right: 150px;
+  text-align: center;
 }
 .tag-top-head .main .tag-head-about {
   font-size: 12px;
@@ -1558,10 +1552,8 @@ a.logo {
   word-wrap: break-word;
   word-break: break-all;
 }
-.post-content .entry a:first-child {
-  font-weight: bold;
-}
 .post-content .entry .title {
+  font-weight: bold;
   padding: 0 5px;
 }
 .post-header {
@@ -1595,6 +1587,15 @@ a.logo {
   font-family: Arial;
   color: #bbb;
 }
+.user-ctrl-box {
+  float: right;
+  height: 25px;
+}
+.user-ctrl-box a,
+.user-ctrl-box span {
+  line-height: 25px;
+  float: left;
+}
 .ctrl-box a {
   width: 33.33%;
   text-align: center;
@@ -1622,6 +1623,10 @@ a.logo {
 .post-footer > div span.vote-num,
 .post-footer > div span.comment-num {
   margin-left: 10px;
+}
+.show {
+  display: block;
+  transition: 1s height cubic-bezier(0.83, 0.97, 0.05, 1.44);
 }
 .share-btn {
   float: left;

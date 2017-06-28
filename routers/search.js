@@ -10,7 +10,7 @@ var router = require('express').Router()
 
 // 搜索结果
 router.get('/', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var reponse = function(type, query, data) {
         res.render('pages/search', common.makeCommon({
@@ -276,7 +276,7 @@ router.get('/', function(req, res, next) {
 
 // 查询tag
 router.get('/tags', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     if (!req.query) {
         return res.json({

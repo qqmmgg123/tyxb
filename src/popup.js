@@ -74,7 +74,7 @@ class DreamForm extends BaseCom {
         this.btnDis  = true;
         this.formData = null;
         let btns = [
-            { label: '网址', rel: 'tab-link-post', name: 'link', active: false },
+            //{ label: '网址', rel: 'tab-link-post', name: 'link', active: false },
             { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
             { label: '图片', rel: 'tab-image-post', name: 'image', active: false },
         ]
@@ -90,6 +90,8 @@ class DreamForm extends BaseCom {
 
         this.state = {
             curForm: props.type,
+            curImage: '',
+            curImageId: '',
             formEls: formsEls,
             text: '',
             link: '',
@@ -245,13 +247,13 @@ class DreamForm extends BaseCom {
                         <i className="s s-close s-lg"></i>
                     </a>
                     <img src={curImage} />
-                    <input type="hidden" name="image" value={this.state.curImage} />
+                    <input type="hidden" name="image" value={this.state.curImageId} />
                 </div>
             )
         }
     }
 
-    loadImage(url) {
+    loadImage(url, id) {
         var img = new Image();
         /*this.setState({
             loading: true
@@ -260,6 +262,7 @@ class DreamForm extends BaseCom {
         if(img.complete) {
             this.setState({
                 //loading: false,
+                curImageId: id,
                 curImage: url
             });
             this.resizeConHeight();
@@ -268,6 +271,7 @@ class DreamForm extends BaseCom {
         img.onload = () => {
             this.setState({
                 //loading: false,
+                curImageId: id,
                 curImage: url
             });
             this.resizeConHeight();
@@ -295,8 +299,9 @@ class DreamForm extends BaseCom {
         xhr.onload = function() {
             if (this.status == 200) {
                 var resp = JSON.parse(this.response);
-                var url = resp.dataUrl;
-                self.loadImage(url);
+                var url = resp.dataUrl,
+                    imgId = resp.imageId;
+                if (url && imgId) self.loadImage(url, imgId);
             };
         };
         xhr.send(fd);
@@ -375,16 +380,18 @@ class DreamForm extends BaseCom {
     }
 
     render() {
-        const { formEls, addBtns, defTagWord, stateComplate } = this.state;
+        const { addBtns, defTagWord, stateComplate } = this.state;
         const { type } = this.props;
 
         let header = null;
+        let { formEls } = this.state;
+        let linkForm = null;
         if (type === "news") {
             header = (
                 <div ref={(ref) => { this._tabNav = ref }} id="dreamReleaseBar" className="nav-group">
                     <ul>
                         <li>
-                            <span className="tab">标题</span>
+                            <span className="tab">网页</span>
                         </li>
                         {addBtns.map((btn, i) =>
                             <li key={i}>
@@ -398,6 +405,7 @@ class DreamForm extends BaseCom {
                     </ul>
                 </div>
             )
+            linkForm = this.renderLinkForm();
         }
 
         let tagField = null,
@@ -429,6 +437,7 @@ class DreamForm extends BaseCom {
                                 <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="标题[必须]"></textarea></p>
                                 <p className="validate-error"></p>
                             </div>
+                            {linkForm}
                             {formEls.map((form, i) => {
                                 let Form = form.com;
                                 return (<Form key={i} />)
@@ -745,7 +754,7 @@ class TextNewPop extends Win {
             'link' : '发网址',
             'text' : '发文字',
             'image': '发图片',
-            'news' : '发图文链接',
+            'news' : '发网页',
         }
 
         this.updateSettings({

@@ -47,9 +47,7 @@ function renderRecommand(req, res, next) {
             link      : 1,
             site      : 1,
             summary   : 1,
-            thumbnail : {
-                $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
-            },
+            thumbnail : 1,
             mthumbnail: 1,
             cnum   : { $size: '$comments' },
             _belong_u : 1,
@@ -301,9 +299,7 @@ function renderSubscription(req, res, next) {
             content   : 1,
             summary   : 1,
             category  : 1,
-            thumbnail : {
-                $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
-            },
+            thumbnail : 1,
             mthumbnail: 1,
             link      : 1,
             site      : 1,
@@ -949,13 +945,11 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
             });
         });
     } else {
-        /*imageMagick(path).size(function(err, value) {
+        imageMagick(path).size(function(err, value) {
             if (err || !value) {
                 return next(err || new Error('Image size undefined.'));
             }
-
             const { width, height } = value;
- 
             var image = new Image({
                 _belong_u : uid,
                 name      : req.file.filename,
@@ -969,7 +963,7 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
                 if (err) return next(err);
 
                 imageMagick(path)
-                    .scale(null, 600)
+                    .scale(600)
                     .write(file, function(err){
                         if (err) {
                             return next(err);
@@ -978,197 +972,13 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
                         let x = 0, y = 0;
 
                         res.json({
-                            info: 'img save successfully',
-                            dataUrl: '/pic/' + req.file.filename,
-                            result: 0
+                            info    : 'img save successfully',
+                            dataUrl : '/pic/' + req.file.filename,
+                            imageId : image._id,
+                            result  : 0
                         });
                     });
             });
-        });*/
-
-        imageMagick(path).size(function(err, value){
-            // note : value may be undefined
-            if (err || !value) {
-                return fs.unlink(path, function() {
-                    next(err || new Error('Image size undefined.'));
-                });
-            }
-
-            if (value.width >= 600) {
-                imageMagick(path)
-                    .scale(600)
-                    .write(file, function(err){
-                        if (err) {
-                            return fs.unlink(path, function() {
-                                next(err);
-                            });
-                        }
-                        
-                        let y = 0;
-                        if (value.height > 600) {
-                            y = (value.height - 600) * 0.5;
-                        }
-
-                        imageMagick(file)
-                            .crop(600, 600, 0, y)
-                            .scale(120)
-                            .write(miniFile, function(err){
-                                if (err) {
-                                    return fs.unlink(path, function() {
-                                        next(err);
-                                    });
-                                }
-                                imageMagick(miniFile)
-                                    .scale(80)
-                                    .write(m_miniFile, function(err){
-                                        if (err) {
-                                            return fs.unlink(path, function() {
-                                                next(err);
-                                            });
-                                        }
-
-                                        fs.unlink(path, function() {
-                                            res.json({
-                                                info: 'img save successfully',
-                                                dataUrl: '/pic/' + req.file.filename,
-                                                result: 0
-                                            });
-                                        });
-                                    });
-                            });
-                    });
-            }else if (value.width >= 120) {
-                fs.rename(path, file, function(err) {
-                    if (err) {
-                        return fs.unlink(path, function(err) {
-                            next(err);
-                        });
-                    }
-
-                    let y = 0;
-                    if (value.height > value.width) {
-                        y = (value.height - value.width) * 0.5;
-                    }
-
-                    imageMagick(file)
-                        .crop(value.width, value.width, 0, y)
-                        .scale(120)
-                        .write(miniFile, function(err){
-                            if (err) {
-                                return fs.unlink(path, function() {
-                                    next(err);
-                                });
-                            }
-
-                            imageMagick(miniFile)
-                                .scale(80)
-                                .write(m_miniFile, function(err){
-                                    if (err) {
-                                        return fs.unlink(path, function() {
-                                            next(err);
-                                        });
-                                    }
-
-                                    fs.unlink(path, function() {
-                                        res.json({
-                                            info: 'img save successfully',
-                                            dataUrl: '/pic/' + req.file.filename,
-                                            result: 0
-                                        });
-                                    });
-                                });
-                        });
-                });
-            }
-            else if (value.width >= 80) {
-                fs.rename(path, file, function(err) {
-                    if (err) {
-                        return fs.unlink(path, function(err) {
-                            next(err);
-                        });
-                    }
-
-                    let y = 0,
-                        my = 0;
-                    if (value.height > 120) {
-                        y = (value.height - 120) * 0.5;
-                        my = 20;
-                    }
-
-                    imageMagick(file)
-                        .crop(120, 120, 0, y)
-                        .write(miniFile, function(err){
-                            if (err) {
-                                return fs.unlink(path, function() {
-                                    next(err);
-                                });
-                            }
-
-                            imageMagick(miniFile)
-                                .scale(80)
-                                .crop(80, 80, 0, my)
-                                .write(m_miniFile, function(err){
-                                    if (err) {
-                                        return fs.unlink(path, function() {
-                                            next(err);
-                                        });
-                                    }
-
-                                    fs.unlink(path, function() {
-                                        res.json({
-                                            info: 'img save successfully',
-                                            dataUrl: '/pic/' + req.file.filename,
-                                            result: 0
-                                        });
-                                    });
-                                });
-                        });
-                });
-            }
-            else {
-                fs.rename(path, file, function(err) {
-                    if (err) {
-                        return fs.unlink(path, function(err) {
-                            next(err);
-                        });
-                    }
-
-                    let y = 0,
-                        my = 0;
-                    if (value.height > 120) {
-                        y = (value.height - 120) * 0.5;
-                        my = (value.height - 80) * 0.5;;
-                    }
-
-                    imageMagick(file)
-                        .crop(120, 120, 0, y)
-                        .write(miniFile, function(err){
-                            if (err) {
-                                return fs.unlink(path, function() {
-                                    next(err);
-                                });
-                            }
-
-                            imageMagick(miniFile)
-                                .crop(80, 80, 0, my)
-                                .write(m_miniFile, function(err){
-                                    if (err) {
-                                        return fs.unlink(path, function() {
-                                            next(err);
-                                        });
-                                    }
-
-                                    fs.unlink(path, function() {
-                                        res.json({
-                                            info: 'img save successfully',
-                                            dataUrl: '/pic/' + req.file.filename,
-                                            result: 0
-                                        });
-                                    });
-                                });
-                        });
-                });
-            }
         });
     }
 });

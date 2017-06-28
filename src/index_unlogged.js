@@ -29,14 +29,28 @@ import ImageViewer from 'ImageViewer';
         common.textNew('text');
     });
 
-    /*var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
     drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
-        common.textNew('link');
-    });*/
+        common.textNew('news');
+    });
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        common.textNew('news');
+        const Btns = _d.querySelector('#dreamPostBtns'),
+            show   = utils.getData(drtNewsBtn, 'show');
+        if (!show) {
+            Btns && utils.addClass(Btns, 'show');
+            drtNewsBtn.querySelector('i').className = "s s-close s-2x";
+            utils.setData(drtNewsBtn, {
+                show: true
+            });
+        }else{
+            Btns && utils.removeClass(Btns, 'show');
+            drtNewsBtn.querySelector('i').className = "s s-plus s-2x";
+            utils.setData(drtNewsBtn, {
+                show: false
+            });
+        }
     });
 
     // 排序下拉
@@ -322,7 +336,7 @@ import ImageViewer from 'ImageViewer';
             }else if (rel === 'dream-picsrc') {
                 ev.preventdefault;
                 let thumb   = cur.querySelector('img'),
-                    src     = thumb.src.replace('picmini', 'pic');
+                    src     = thumb.src.replace('picmini', 'uploads');
 
                 common.showImageViewer(src);
             }

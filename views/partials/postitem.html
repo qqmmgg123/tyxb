@@ -16,7 +16,30 @@
                      <%= timeFormat(dream.date) %>
                  </span>
             </div>
+            <div class="user-ctrl-box">
+                <% if (user && (data.tag && data.tag.delperm)) { %>
+                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-reject">拒绝</a>
+                <% } %>
+                <% if (user && dream._belong_u) { %>
+                <% if (dream._belong_u._id.equals(user._id)) { %>
+                <% if (!dream.isremove) { %>
+                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-delete">删除</a>
+                <% } else { %>
+                <span>已删除</span>
+                <% } %>
+                <% } %>
+                <% } %>
+            </div>
         </div>
+        <% } %>
+        <% if (dream.category !== 'image') { %>
+        <a 
+            <% if (dream.link) { %>
+            href="<%= dream.link %>"
+            <% } else { %>
+            href="/dream/<%= dream._id %>"
+            <% } %>
+        >
         <% } %>
         <div class="post-content <% if (dream.thumbnail && dream.category !== 'image') { %>thumb-mode<% } %>">
             <% if (dream.isremove) { %>
@@ -24,26 +47,10 @@
             <% } else { %>
             <div class="entry">
             <div class="title">
-            <% if (dream.category === 'image') { %>
             <% if (data.query) { %>
             <%- highLight(dlimit(dream.content), data.query) %>
             <% } else { %>
             <%= dlimit(dream.content) %>
-            <% } %>
-            <% } else { %>
-            <a 
-                <% if (dream.link) { %>
-                href="<%= dream.link %>"
-                <% } else { %>
-                href="/dream/<%= dream._id %>"
-                <% } %>
-            >
-            <% if (data.query) { %>
-            <%- highLight(dlimit(dream.content), data.query) %>
-            <% } else { %>
-            <%= dlimit(dream.content) %>
-            <% } %>
-            </a>
             <% } %>
             </div>
             <% if (dream.summary) { %>
@@ -63,19 +70,22 @@
             </div>
             <% if (is_mobile) { %>
                 <% if (dream.mthumbnail && dream.category !== 'image') { %>
-                <div class="thumbnail" rel="dream-picsrc">
+                <div class="thumbnail">
                     <img src="<%= dream.mthumbnail %>" />
                 </div>
                 <% } %>
             <% } else { %>
                 <% if (dream.thumbnail && dream.category !== 'image') { %>
-                <div class="thumbnail" rel="dream-picsrc">
+                <div class="thumbnail">
                     <img src="<%= dream.thumbnail %>" />
                 </div>
                 <% } %>
             <% } %>
             <% } %>
         </div>
+        <% if (dream.category !== 'image') { %>
+        </a>
+        <% } %>
         <div class="post-footer">
             <% if (!is_mobile) { %>
             <div class="user-info-box">
@@ -114,18 +124,20 @@
                 <% } else { %>
                 <a data-did="<%= dream._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
                 <% } %>
+                <% if (!is_mobile) { %>
                 <% if (user && (data.tag && data.tag.delperm)) { %>
-                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-reject">学派驳回</a>
+                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-reject">拒绝</a>
                 <% } %>
-                <!--<% if (user && dream._belong_u) { %>
+                <% if (user && dream._belong_u) { %>
                 <% if (dream._belong_u._id.equals(user._id)) { %>
                 <% if (!dream.isremove) { %>
-                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-delete">个人删除</a>
+                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-delete">删除</a>
                 <% } else { %>
                 <span>已删除</span>
                 <% } %>
                 <% } %>
-                <% } %>-->
+                <% } %>
+                <% } %>
             </div>
         </div>
     </div>

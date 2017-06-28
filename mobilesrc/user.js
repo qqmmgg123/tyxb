@@ -371,7 +371,7 @@ import ReactDOM from 'react-dom';
             else if (rel === 'dream-picsrc') {
                 ev.preventdefault;
                 let thumb   = cur.querySelector('img'),
-                    src     = thumb.src.replace('mpicmini', 'pic');
+                    src     = thumb.src.replace('picmini', 'uploads');
 
                  common.showImageViewer(src);
             }

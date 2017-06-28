@@ -1,4 +1,4 @@
-<div id="dream-tab-bar" class="nav-bar <%= is_mobile && 'mar-top' %>">
+<div id="dream-tab-bar" class="nav-bar <%= (is_mobile && data.nav !== 'user') && 'mar-top' %>">
     <div class="tab-nav">
         <% if (data.role == '1') { %>
         <a rel="nav-toggle" class="nav-toggle">受欢迎的&nbsp;<i class="s s-arrow s-lg"></i></a>
@@ -72,7 +72,7 @@
 </ul>
 <div id="imageViewerCon"></div>
 <div class="global-ctrl">
-    <ul>
+    <ul id="dreamPostBtns" class="dream-post-btns">
         <% if ((!data.site && !data.tag) || (user && user._id)) { %>
         <li>
             <div id="dreamReleaseImage" class="release-box">
@@ -90,19 +90,11 @@
                 </button>
             </div>
         </li>
-        <!--<li>
-            <div id="dreamReleaseLink" class="release-box">
-                <div class="tips">发网址</div>
-                <button title="发网址" class="btn btn-round btn-new small">
-                    <i class="s s-link s-2x"></i>
-                </button>
-            </div>
-        </li>-->
         <li>
-            <div id="dreamReleaseNews" class="release-box" data-tid="<%= data.tag && data.tag._id %>">
-                <div class="tips">发布日常</div>
-                <button id="dreamReleaseNews" title="发布日常" class="btn btn-round btn-new">
-                    <i class="s s-plus s-2x"></i>
+            <div id="dreamReleaseLink" class="release-box">
+                <div class="tips">发网页</div>
+                <button title="发网页" class="btn btn-round btn-new small">
+                    <i class="s s-link s-2x"></i>
                 </button>
             </div>
         </li>
@@ -113,5 +105,11 @@
             <!--</button>-->
         <!--</li>-->
     </ul>
+    <div id="dreamReleaseNews" class="release-box" data-tid="<%= data.tag && data.tag._id %>">
+        <div class="tips">发布日常</div>
+        <button id="dreamReleaseNews" title="发布日常" class="btn btn-round btn-new">
+            <i class="s s-plus s-2x"></i>
+        </button>
+    </div>
 </div>
 

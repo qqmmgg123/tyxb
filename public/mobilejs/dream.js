@@ -1908,6 +1908,8 @@
 
 	        _this3.state = {
 	            curForm: props.type,
+	            curImage: '',
+	            curImageId: '',
 	            formEls: formsEls,
 	            text: '',
 	            link: '',
@@ -2071,13 +2073,13 @@
 	                        _react2.default.createElement('i', { className: 's s-close s-lg' })
 	                    ),
 	                    _react2.default.createElement('img', { src: curImage }),
-	                    _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImage })
+	                    _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
 	                );
 	            }
 	        }
 	    }, {
 	        key: 'loadImage',
-	        value: function loadImage(url) {
+	        value: function loadImage(url, id) {
 	            var _this5 = this;
 
 	            var img = new Image();
@@ -2088,6 +2090,7 @@
 	            if (img.complete) {
 	                this.setState({
 	                    //loading: false,
+	                    curImageId: id,
 	                    curImage: url
 	                });
 	                this.resizeConHeight();
@@ -2096,6 +2099,7 @@
 	            img.onload = function () {
 	                _this5.setState({
 	                    //loading: false,
+	                    curImageId: id,
 	                    curImage: url
 	                });
 	                _this5.resizeConHeight();
@@ -2124,8 +2128,9 @@
 	            xhr.onload = function () {
 	                if (this.status == 200) {
 	                    var resp = JSON.parse(this.response);
-	                    var url = resp.dataUrl;
-	                    self.loadImage(url);
+	                    var url = resp.dataUrl,
+	                        imgId = resp.imageId;
+	                    if (url && imgId) self.loadImage(url, imgId);
 	                };
 	            };
 	            xhr.send(fd);

@@ -156,7 +156,7 @@ router.get('/getinfo', function(req, res, next) {
 
 // 获取所有最热订阅
 router.get('/hot', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var populate = [{
         path: '_create_u',
@@ -231,7 +231,7 @@ router.get('/hot', function(req, res, next) {
 
 // 获取所有最新订阅
 router.get('/newest', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var populate = [{
         path: '_create_u',
@@ -327,9 +327,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
             summary   : 1,
             link      : 1,
             category  : 1,
-            thumbnail : {
-                $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
-            },
+            thumbnail : 1,
             mthumbnail: 1,
             site      : 1,
             cnum      : { $size: '$comments' },

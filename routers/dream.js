@@ -1,4 +1,5 @@
 var async = require("async")
+    , path = require('path')
     , common = require('../common')
     , settings = require("../const/settings")
     , mongoose = require('mongoose')
@@ -7,11 +8,14 @@ var async = require("async")
     , Text     = require("../models/text")
     , Comment = require("../models/comment")
     , Tag     = require("../models/tag")
+    , Image = require("../models/image")
     , cheerio = require('cheerio')
     , charset = require("superagent-charset")
     , request = require('superagent')
     , log = require('util').log
-    , router = require('express').Router();
+    , router = require('express').Router()
+    , gm = require('gm')
+    , imageMagick = gm.subClass({ imageMagick : true });
 
 
 // 抓取网站
@@ -75,9 +79,8 @@ router.post('/new', function(req, res, next) {
         fields._belong_t = tag;
     }
 
-    var dream = new Dream(fields);
-
-    var did      = dream._id;
+    var dream = new Dream(fields),
+        did      = dream._id;
 
     if ((category === "link" || category === 'news') &&  link && link.trim()) {
         dream.link = link;
@@ -89,13 +92,117 @@ router.post('/new', function(req, res, next) {
     }
     if ((category === "image" || category === 'news') && image && image.trim()) {
         image = image.trim();
-        if (category === "image") {
-            dream.image = image.replace('/pic/', /uploads/);
-            imageMagick()
-        }
-        else (category === "news") {
-            dream.image = image;
-        }
+        Image.findById(image, 'width height usage dir name', (err, doc) => {
+            //if (err) return next(err);
+            if (err) return res.json({
+                info: err.message,
+                result: 1
+            });
+
+            const file  = path.resolve(__dirname, '..' + doc.dir),
+                miniFile = path.resolve(__dirname, '../picmini/' + doc.name),
+                m_miniFile =  path.resolve(__dirname, '../mpicmini/' + doc.name);
+            if (category === "image") {
+                dream.image = doc.dir;
+                let x = 0, y = 0, args = null;
+                if (doc.width > doc.height) {
+                    args = [null, 600];
+                    x = (doc.width * 600 / doc.height - 600) * 0.5;
+                    y = 120;
+                }
+                else{
+                    args = [600, null];
+                    y = (doc.height * 600 / doc.width - 600) * 0.5;
+                }
+
+                const im = imageMagick(file);
+                im.scale.apply(im, args)
+                    .crop(600, 360, x, y)
+                    .write(miniFile, function(err){
+                        //if (err) {
+                            //return next(err);
+                        //}
+                        if (err) return res.json({
+                            info: err.message,
+                            result: 1
+                        });
+                        doc.usage = 1;
+                        doc.save(function(err) {
+                            //if(err) {
+                                //return next(err);
+                            //}
+                                        if (err) return res.json({
+                                            info: err.message,
+                                            result: 1
+                                        });
+
+                            dream.thumbnail = '/picmini/' + doc.name;
+                            dream.mthumbnail = '/mpicmini/' + doc.name;
+                            dream.save(function(err) {
+                                //if (err) return next(err);
+                                if (err) return res.json({
+                                    info: err.message,
+                                    result: 1
+                                });
+
+                                return res.json({
+                                    info: "发布成功",
+                                    data: {
+                                        did: did
+                                    },
+                                    result: 0
+                                });
+                            });
+                        });
+                    });
+            }
+            else if (category === "news") {
+                dream.image = '/pic/' + doc.name;
+                let x = 0, y = 0, args = null;
+                if (doc.width > doc.height) {
+                    args = [null, 120];
+                    x = (doc.width * 120 / doc.height - 120) * 0.5;
+                }
+                else{
+                    args = [120, null];
+                    y = (doc.height * 120 / doc.width - 120) * 0.5;
+                }
+
+                const im = imageMagick(file);
+                im.scale.apply(im, args)
+                    .crop(120, 120, x, y)
+                    .write(miniFile, function(err){
+                        if (err) {
+                            return next(err);
+                        }
+
+                        imageMagick(miniFile)
+                            .scale(80)
+                            .write(m_miniFile, function(err){
+                                doc.usage = 1;
+                                doc.save(function(err) {
+                                    if(err) {
+                                        return next(err);
+                                    }
+
+                                    dream.thumbnail = '/picmini/' + doc.name;
+                                    dream.mthumbnail = '/mpicmini/' + doc.name;
+                                    dream.save(function(err) {
+                                        if (err) return next(err);
+
+                                        return res.json({
+                                            info: "发布成功",
+                                            data: {
+                                                did: did
+                                            },
+                                            result: 0
+                                        });
+                                    });
+                                });
+                            });
+                    });
+            }
+        });
     }
     else{
         dream.save(function(err) {

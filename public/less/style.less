@@ -1640,7 +1640,7 @@ a.logo {
     }
     .entry {
         .wrap();
-        a:first-child {
+        .title {
             font-weight: bold;
         }
     }
@@ -1719,6 +1719,19 @@ a.logo {
                 text-decoration: underline;
             }
         }
+    }
+}
+
+.dream-post-btns {
+    transform: scaleY(0) translateY(1in);
+    transition-property: transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+    &.show {
+        transform: scaleY(1) translateY(0in);
+        transition-property: transform;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in;
     }
 }
 

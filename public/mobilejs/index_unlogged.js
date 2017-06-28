@@ -332,7 +332,7 @@
 	                        } else if (rel === 'dream-picsrc') {
 	                            ev.preventdefault;
 	                            var thumb = cur.querySelector('img'),
-	                                src = thumb.src.replace('mpicmini', 'pic');
+	                                src = thumb.src.replace('picmini', 'uploads');
 
 	                            common.showImageViewer(src);
 	                        }
@@ -1479,6 +1479,8 @@
 
 	        _this3.state = {
 	            curForm: props.type,
+	            curImage: '',
+	            curImageId: '',
 	            formEls: formsEls,
 	            text: '',
 	            link: '',
@@ -1642,13 +1644,13 @@
 	                        _react2.default.createElement('i', { className: 's s-close s-lg' })
 	                    ),
 	                    _react2.default.createElement('img', { src: curImage }),
-	                    _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImage })
+	                    _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
 	                );
 	            }
 	        }
 	    }, {
 	        key: 'loadImage',
-	        value: function loadImage(url) {
+	        value: function loadImage(url, id) {
 	            var _this5 = this;
 
 	            var img = new Image();
@@ -1659,6 +1661,7 @@
 	            if (img.complete) {
 	                this.setState({
 	                    //loading: false,
+	                    curImageId: id,
 	                    curImage: url
 	                });
 	                this.resizeConHeight();
@@ -1667,6 +1670,7 @@
 	            img.onload = function () {
 	                _this5.setState({
 	                    //loading: false,
+	                    curImageId: id,
 	                    curImage: url
 	                });
 	                _this5.resizeConHeight();
@@ -1695,8 +1699,9 @@
 	            xhr.onload = function () {
 	                if (this.status == 200) {
 	                    var resp = JSON.parse(this.response);
-	                    var url = resp.dataUrl;
-	                    self.loadImage(url);
+	                    var url = resp.dataUrl,
+	                        imgId = resp.imageId;
+	                    if (url && imgId) self.loadImage(url, imgId);
 	                };
 	            };
 	            xhr.send(fd);
@@ -6086,7 +6091,43 @@
 	 } ;
 	__p += '\r\n                 <span class="datetime">\r\n                     ' +
 	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
-	'\r\n                 </span>\r\n            </div>\r\n        </div>\r\n        ';
+	'\r\n                 </span>\r\n            </div>\r\n            <div class="user-ctrl-box">\r\n                ';
+	 if (user && (data.tag && data.tag.delperm)) { ;
+	__p += '\r\n                <a href="javascript:;" data-did="' +
+	((__t = ( dream._id )) == null ? '' : __t) +
+	'" rel="dream-reject">拒绝</a>\r\n                ';
+	 } ;
+	__p += '\r\n                ';
+	 if (user && dream._belong_u) { ;
+	__p += '\r\n                ';
+	 if (dream._belong_u._id.equals(user._id)) { ;
+	__p += '\r\n                ';
+	 if (!dream.isremove) { ;
+	__p += '\r\n                <a href="javascript:;" data-did="' +
+	((__t = ( dream._id )) == null ? '' : __t) +
+	'" rel="dream-delete">删除</a>\r\n                ';
+	 } else { ;
+	__p += '\r\n                <span>已删除</span>\r\n                ';
+	 } ;
+	__p += '\r\n                ';
+	 } ;
+	__p += '\r\n                ';
+	 } ;
+	__p += '\r\n            </div>\r\n        </div>\r\n        ';
+	 } ;
+	__p += '\r\n        ';
+	 if (dream.category !== 'image') { ;
+	__p += '\r\n        <a \r\n            ';
+	 if (dream.link) { ;
+	__p += '\r\n            href="' +
+	((__t = ( dream.link )) == null ? '' : __t) +
+	'"\r\n            ';
+	 } else { ;
+	__p += '\r\n            href="/dream/' +
+	((__t = ( dream._id )) == null ? '' : __t) +
+	'"\r\n            ';
+	 } ;
+	__p += '\r\n        >\r\n        ';
 	 } ;
 	__p += '\r\n        <div class="post-content ';
 	 if (dream.thumbnail && dream.category !== 'image') { ;
@@ -6096,17 +6137,7 @@
 	 if (dream.isremove) { ;
 	__p += '\r\n                [已被作者删除]\r\n            ';
 	 } else { ;
-	__p += '\r\n            <div class="entry">\r\n            <div class="title">\r\n            <a \r\n                ';
-	 if (dream.link) { ;
-	__p += '\r\n                href="' +
-	((__t = ( dream.link )) == null ? '' : __t) +
-	'"\r\n                ';
-	 } else { ;
-	__p += '\r\n                href="/dream/' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'"\r\n                ';
-	 } ;
-	__p += '\r\n            >\r\n            ';
+	__p += '\r\n            <div class="entry">\r\n            <div class="title">\r\n            ';
 	 if (data.query) { ;
 	__p += '\r\n            ' +
 	__e( highLight(dlimit(dream.content), data.query) ) +
@@ -6116,7 +6147,7 @@
 	((__t = ( dlimit(dream.content) )) == null ? '' : __t) +
 	'\r\n            ';
 	 } ;
-	__p += '\r\n            </a>\r\n            </div>\r\n            ';
+	__p += '\r\n            </div>\r\n            ';
 	 if (dream.summary) { ;
 	__p += '\r\n            <div class="summary">\r\n                ';
 	 if (is_mobile) { ;
@@ -6140,7 +6171,7 @@
 	 if (is_mobile) { ;
 	__p += '\r\n                ';
 	 if (dream.mthumbnail && dream.category !== 'image') { ;
-	__p += '\r\n                <div class="thumbnail" rel="dream-picsrc">\r\n                    <img src="' +
+	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
 	((__t = ( dream.mthumbnail )) == null ? '' : __t) +
 	'" />\r\n                </div>\r\n                ';
 	 } ;
@@ -6148,7 +6179,7 @@
 	 } else { ;
 	__p += '\r\n                ';
 	 if (dream.thumbnail && dream.category !== 'image') { ;
-	__p += '\r\n                <div class="thumbnail" rel="dream-picsrc">\r\n                    <img src="' +
+	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
 	'" />\r\n                </div>\r\n                ';
 	 } ;
@@ -6156,7 +6187,11 @@
 	 } ;
 	__p += '\r\n            ';
 	 } ;
-	__p += '\r\n        </div>\r\n        <div class="post-footer">\r\n            ';
+	__p += '\r\n        </div>\r\n        ';
+	 if (dream.category !== 'image') { ;
+	__p += '\r\n        </a>\r\n        ';
+	 } ;
+	__p += '\r\n        <div class="post-footer">\r\n            ';
 	 if (!is_mobile) { ;
 	__p += '\r\n            <div class="user-info-box">\r\n                 ';
 	 if (dream._belong_u) { ;
@@ -6219,12 +6254,14 @@
 	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
 	 } ;
 	__p += '\r\n                ';
+	 if (!is_mobile) { ;
+	__p += '\r\n                ';
 	 if (user && (data.tag && data.tag.delperm)) { ;
 	__p += '\r\n                <a href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-reject">学派驳回</a>\r\n                ';
+	'" rel="dream-reject">拒绝</a>\r\n                ';
 	 } ;
-	__p += '\r\n                <!--';
+	__p += '\r\n                ';
 	 if (user && dream._belong_u) { ;
 	__p += '\r\n                ';
 	 if (dream._belong_u._id.equals(user._id)) { ;
@@ -6232,7 +6269,7 @@
 	 if (!dream.isremove) { ;
 	__p += '\r\n                <a href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-delete">个人删除</a>\r\n                ';
+	'" rel="dream-delete">删除</a>\r\n                ';
 	 } else { ;
 	__p += '\r\n                <span>已删除</span>\r\n                ';
 	 } ;
@@ -6240,7 +6277,9 @@
 	 } ;
 	__p += '\r\n                ';
 	 } ;
-	__p += '-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n\r\n';
+	__p += '\r\n                ';
+	 } ;
+	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n\r\n';
 
 	}
 	return __p

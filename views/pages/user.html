@@ -18,34 +18,48 @@
     <div class="container user-page-head mar-top">
         <div class="main">
             <div class="user-head-info">
-                <div class="user-head-avatar avatar">
-                    <img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />
-                </div>
-                <div class="userHead-infoInner">
-                    <h2 class="nick-name"><%= data.account.username %></h2>
-                    <div class="user-bio">
-                        <%= data.account.bio %>
-                    </div>
-                </div>
-                <div class="user-head-ctrl">
-                    <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
-                    <a href="/settings" class="edit-profile btn small">个人设定 ></a>
-                    <% } %>
-                </div>
             </div>
         </div>
     </div>
+    </div>
     <div class="container clearfix">
+        <div class="main pr">
+        <div id="updateAvatar" class="user-head-avatar avatar">
+                    <img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />
+                    <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
+                    <% if (!is_mobile) { %>
+                    <div class="update-avatar-tips"><p>更新头像</p></div>
+                    <% } %>
+                    <input accept="image/*" style="display: none;" id="avatarUpload" type="file" name="upload_file" />
+                    <% } %>
+                </div>
+                <div class="userHead-infoInner">
+                    <h2 class="nick-name"><%= data.account.username %></h2>
+                    <div id="descContent" class="user-bio">
+                        <% if (data.account.bio) { %>
+                            <%= data.account.bio %>
+                        <% } else { %>
+                            作者帅爆了，没签名...
+                        <% } %>
+                    </div>
+                    <% if (user && data.account._id.equals(user._id)) { %>
+                    <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;"><i class="s s-edit s-lg"></i></a>
+                    <% } %>
+                    <!--<% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
+                    <a href="/settings" class="edit-profile btn small">个人设定 ></a>
+                    <% } %>-->
+                </div>
+                </div>
         <div class="main">
             <div class="col-8">
-            <div class="tab-nav user-tab-bar">
-                <ul>
-                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
-                    <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
-                    <!--<li><a href="/user/<%= data.account._id %>/subscribe" class="<%if (data.tab == "subscribe") {%>cur<% } %> tab">关注</a></li>-->
-                    <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
-                </ul>
-            </div>
+                <div class="tab-nav user-tab-bar">
+                    <ul>
+                        <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
+                        <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
+                        <!--<li><a href="/user/<%= data.account._id %>/subscribe" class="<%if (data.tab == "subscribe") {%>cur<% } %> tab">关注</a></li>-->
+                        <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
+                    </ul>
+                </div>
             <% if (data.tab == "dream") { %>
             <% include ../partials/postlist.html %>
             <% } else if (data.tab == "comment") { %>
@@ -94,7 +108,7 @@
             <% } %>
             </div>
             <div class="col-4">
-                <div class="bio">
+                <!--<div class="bio">
                     <h2>签名</h2>
                     <div id="descContent" class="bio-des">
                     <% if (data.account.bio) { %>
@@ -106,7 +120,7 @@
                     <% if (user && data.account._id.equals(user._id)) { %>
                     <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;">修改 +</a>
                     <% } %>
-                </div>
+                </div>-->
                 <div class="karma-list">
                     <h2>业力</h2>
                     <ul class="list-group">
@@ -117,6 +131,7 @@
             </div>
         </div>
     </div>
+    <div id="avatarEditorCon"></div>
     <% include ../partials/footer.html %>
     <% if (is_mobile) { %>
     <script src="/mobilejs/user.js"></script>

@@ -1,5 +1,6 @@
 import Dialog from 'Dialog';
 import ImageViewer from 'ImageViewer';
+import AvatarEditor from 'AvatarEditor';
 
 (function(factory) {
     module.exports = factory(
@@ -11,7 +12,8 @@ import ImageViewer from 'ImageViewer';
     const _d = document,
           _w = window,
         popups = ['imageview', 'signin', 'signup', 'share'],
-        viewerCon = _d.querySelector('#imageViewerCon');
+        viewerCon = _d.querySelector('#imageViewerCon'),
+        avatarCon = _d.querySelector('#avatarEditorCon');
 
     if (viewerCon) {
         _w.imageViewer = ReactDOM.render(
@@ -29,13 +31,34 @@ import ImageViewer from 'ImageViewer';
         _w.imageViewer.create();
     }
 
+    if (avatarCon) {
+        _w.avatarEditor = ReactDOM.render(
+            <Dialog 
+            routerName="avatareditor"
+            needWin={true}
+            sence={{
+                name: "AvatarEditor",
+                component: AvatarEditor
+            }} />,
+            avatarCon
+        );
+        _w.avatarEditor.create();
+    }
+
     function popupRouter(action, params) {
         switch(action) {
+            case "avatareditor":
+                _w.avatarEditor && _w.avatarEditor.setComProps({
+                    imageSrc: params && params.src,
+                    imageId: params && params.id
+                });
+                _w.avatarEditor && _w.avatarEditor.show();
+                break;
             case "imageview":
                 _w.imageViewer && _w.imageViewer.setComProps({
                     imageSrc: params && params.src
                 });
-                _w.imageViewer && imageViewer.show();
+                _w.imageViewer && _w.imageViewer.show();
                 break;
             case "signin":
                 _w.signinPop = popup.registrationPop({ 
@@ -70,6 +93,7 @@ import ImageViewer from 'ImageViewer';
             popupRouter(action, params);
         }
         else{
+            _w.avatarEditor && _w.avatarEditor.close();
             _w.imageViewer && _w.imageViewer.close();
             _w.textPop && _w.textPop.close(),_w.textPop = null;
             _w.signinPop && _w.signinPop.close(),_w.signinPop = null;

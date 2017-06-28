@@ -1482,13 +1482,7 @@ a.logo {
             padding: 0;
         }
         .tag-head-info {
-            overflow: hidden;
-            position: relative;
-            .tagHead-infoInner {
-                float: left;
-                margin-left: 20px;
-                margin-right: 150px;
-            }
+            text-align: center;
         }
         .tag-head-about {
             font-size: 12px;
@@ -1569,12 +1563,10 @@ a.logo {
     }
     .entry {
         .wrap();
-        a:first-child {
+        .title {
             font-weight: bold;
+            padding: 0 5px;
         }
-	.title {
-	    padding: 0 5px;
-	}
     }
 }
 .post-header {
@@ -1594,7 +1586,7 @@ a.logo {
     float: left;
     height: 25px;
     a, span {
-    	line-height: 25px;
+        line-height: 25px;
         float: left;
     }
     .username {
@@ -1609,16 +1601,23 @@ a.logo {
     }
 }
 
+.user-ctrl-box {
+    float: right;
+    height: 25px;
+    a, span {
+        line-height: 25px;
+        float: left;
+    }
+}
+
 .ctrl-box {
     a {
-    	width: 33.33%;
-	text-align: center;
-	i.s-lg {
+        width: 33.33%;
+        text-align: center;
+        i.s-lg {
             line-height: inherit;
-	}
+        }
     }
-
-    
 }
 
 .post-footer {
@@ -1632,15 +1631,20 @@ a.logo {
         }
         > a {
             display: block;
-	    float: left;
+            float: left;
             &:hover {
                 text-decoration: underline;
             }
         }
-	span.vote-num, span.comment-num {
-	    margin-left: 10px;
-	} 
+        span.vote-num, span.comment-num {
+            margin-left: 10px;
+        } 
     }
+}
+
+.show {
+    display: block;
+    transition: 1s height cubic-bezier(.83,.97,.05,1.44);
 }
 
 .share-btn {

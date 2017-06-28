@@ -11,7 +11,7 @@ var async = require("async")
 
 // 用户贴文
 router.get('/:id([a-z0-9]+)', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var curId = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);
@@ -78,9 +78,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     summary   : 1,
                     link      : 1,
                     category  : 1,
-                    thumbnail : {
-                        $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
-                    },
+                    thumbnail : 1,
                     mthumbnail: 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
@@ -237,7 +235,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
 
 // 我的收藏
 router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var curId = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);
@@ -304,9 +302,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                     summary   : 1,
                     link      : 1,
                     category  : 1,
-                    thumbnail : {
-                        $cond: { if: { $eq: [ "$category", "image" ] }, then: '$image', else: '$thumbnail' }
-                    },
+                    thumbnail : 1,
                     mthumbnail: 1,
                     nodes     : 1,
                     cnum      : { $size: '$comments' },
@@ -464,7 +460,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
 
 // 我的留言
 router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var curId = req.params.id;
 
@@ -685,7 +681,7 @@ router.get('/:id([a-z0-9]+)/comment', function(req, res, next) {
 
 // 获取所有我的订阅
 router.get('/:id([a-z0-9]+)/subscribe', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var curId = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);
