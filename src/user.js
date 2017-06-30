@@ -100,8 +100,8 @@ import ReactDOM from 'react-dom';
                 tid   = utils.getData(descBtn, 'tid');
             if (state === 'normal') {
                 var desc = descContent.textContent.trim();
-                descContent.innerHTML = `<textarea>${desc}</textarea>`;
-                descBtn.innerHTML = "<i class='s s-save s-lg'></i>";
+                descContent.innerHTML = `<textarea maxlength="80">${desc}</textarea>`;
+                descBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
                 utils.setData(descBtn, { editState: 'editing' });
             }
             else{
@@ -120,7 +120,7 @@ import ReactDOM from 'react-dom';
                             function(data) {
                                 common.xhrReponseManage(data, (data) => {
                                     descContent.innerHTML = desc;
-                                    descBtn.innerHTML = "<i class='s s-edit s-lg'></i>";
+                                    descBtn.innerHTML = "<i class='s s-edit s-lg'></i> 编辑";
                                     utils.setData(descBtn, { editState: 'normal' });
                                 });
                             },

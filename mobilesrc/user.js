@@ -17,6 +17,39 @@ import ReactDOM from 'react-dom';
     const _d = document,
           _w = window;
 
+    function uploadImage(ev) {
+        var files = ev.target.files || ev.dataTransfer.files;
+        var file = files[0];
+        var fd = new FormData();
+        fd.append("pic", file);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/pic/upload', true);
+        xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
+
+        xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) {
+                var percentComplete = (e.loaded / e.total) * 100;
+            }
+        };
+        xhr.onload = function() {
+            if (this.status == 200) {
+                var resp = JSON.parse(this.response);
+                var url = resp.dataUrl,
+                    imgId = resp.imageId;
+                if (url && imgId) common.showAvatarEditor(url, imgId);
+            };
+        };
+        xhr.send(fd);
+    }
+
+    var avatarUpload = _d.querySelector('#avatarUpload');
+    avatarUpload && avatarUpload.addEventListener('change', uploadImage);
+
+    var updateAvatarBtn = _d.querySelector('#updateAvatar');
+    updateAvatarBtn && updateAvatarBtn.addEventListener('click', () => {
+        avatarUpload && avatarUpload.click();
+    });
+
     var drtImageBtn = _d.querySelector('#dreamReleaseImage');
     drtImageBtn && drtImageBtn.addEventListener('click', () => {
         common.textNew('image');
@@ -28,14 +61,28 @@ import ReactDOM from 'react-dom';
         common.textNew('text');
     });
 
-    /*var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
     drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
-        common.textNew('link');
-    });*/
+        common.textNew('news');
+    });
 
     var drtNewsBtn = _d.querySelector('#dreamReleaseNews');
     drtNewsBtn && drtNewsBtn.addEventListener('click', () => {
-        common.textNew('news');
+        const Btns = _d.querySelector('#dreamPostBtns'),
+            show   = utils.getData(drtNewsBtn, 'show');
+        if (!show) {
+            Btns && utils.addClass(Btns, 'show');
+            drtNewsBtn.querySelector('i').className = "s s-close s-2x";
+            utils.setData(drtNewsBtn, {
+                show: true
+            });
+        }else{
+            Btns && utils.removeClass(Btns, 'show');
+            drtNewsBtn.querySelector('i').className = "s s-plus s-2x";
+            utils.setData(drtNewsBtn, {
+                show: false
+            });
+        }
     });
 
     var ltnBtn = document.querySelector('#listTextNew');
@@ -53,8 +100,8 @@ import ReactDOM from 'react-dom';
                 tid   = utils.getData(descBtn, 'tid');
             if (state === 'normal') {
                 var desc = descContent.textContent.trim();
-                descContent.innerHTML = `<textarea>${desc}</textarea>`;
-                descBtn.textContent = "保存 →";
+                descContent.innerHTML = `<textarea maxlength="80">${desc}</textarea>`;
+                descBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
                 utils.setData(descBtn, { editState: 'editing' });
             }
             else{
@@ -73,7 +120,7 @@ import ReactDOM from 'react-dom';
                             function(data) {
                                 common.xhrReponseManage(data, (data) => {
                                     descContent.innerHTML = desc;
-                                    descBtn.textContent = "修改 +";
+                                    descBtn.innerHTML = "<i class='s s-edit s-lg'></i> 编辑";
                                     utils.setData(descBtn, { editState: 'normal' });
                                 });
                             },

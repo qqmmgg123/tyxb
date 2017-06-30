@@ -189,18 +189,18 @@
   background-color: #fefefe;
   border-bottom: 1px solid #f2f3f4;
   height: 100px;
+  padding: 20px 0;
 }
 .user-page-head .user-head-info {
   overflow: hidden;
-  position: relative;
 }
-.user-head-avatar {
-  margin: 0 auto;
+.user-page-head .user-head-info .user-head-avatar {
   width: 96px;
   cursor: pointer;
-  position: absolute;
+  position: relative;
+  float: left;
 }
-.user-head-avatar .update-avatar-tips {
+.user-page-head .user-head-info .user-head-avatar .update-avatar-tips {
   visibility: hidden;
   width: 100%;
   text-align: center;
@@ -211,18 +211,31 @@
   height: 96px;
   line-height: 96px;
 }
-.user-head-avatar .update-avatar-tips p {
+.user-page-head .user-head-info .user-head-avatar .update-avatar-tips p {
   font-weight: bold;
   font-size: 14px;
   color: #fff;
 }
-.user-head-avatar:hover .update-avatar-tips {
+.user-page-head .user-head-info .user-head-avatar:hover .update-avatar-tips {
   visibility: visible;
 }
-.userHead-infoInner {
-  text-align: center;
+.user-page-head .user-head-info .userHead-infoInner {
+  float: left;
+  width: 500px;
+  margin-left: 10px;
 }
-.user-head-ctrl a.btn {
+.user-page-head .user-head-info .userHead-infoInner .user-bio {
+  max-height: 3.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #999;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-bio textarea {
+  height: 3.5em;
+}
+.user-page-head .user-head-info .user-head-ctrl a.btn {
   width: 80px;
   margin: 0 auto;
   display: block;

@@ -10,6 +10,17 @@
 .user-page-head .user-head-info .userHead-infoInner {
   text-align: center;
 }
+.user-page-head .user-head-info .userHead-infoInner .user-bio {
+  max-height: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #999;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-bio textarea {
+  height: 84px;
+}
 .user-page-head .user-head-info .user-head-ctrl a.btn {
   width: 80px;
   margin: 0 auto;

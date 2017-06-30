@@ -1670,12 +1670,13 @@ a.logo {
   margin-left: 46px;
 }
 .post-box .avatar img {
-  width: 25px;
-  height: 25px;
+  width: 38px;
+  height: 38px;
 }
 .post-content {
   overflow: hidden;
   font-size: 14px;
+  margin-top: 10px;
 }
 .post-content.thumb-mode {
   position: relative;
@@ -1683,25 +1684,46 @@ a.logo {
 }
 .post-content.thumb-mode .entry {
   float: left;
-  margin-right: 120px;
+  margin-right: 130px;
+}
+.post-content.news .title,
+.post-content.text .title {
+  font-weight: bold;
+}
+.post-content.text .summary {
+  font-size: 14px;
+  color: #333;
 }
 .post-content .entry {
   word-break: normal;
   word-wrap: break-word;
   word-break: break-all;
 }
-.post-content .entry .title {
-  font-weight: bold;
-}
 #dream-list .list-item {
   position: relative;
 }
+.post-header {
+  color: #999;
+  font-size: 12px;
+  overflow: hidden;
+}
+.post-header a {
+  color: #999;
+}
+.post-header a:hover {
+  color: #ff7592;
+}
 .user-info-box {
   float: left;
-  height: 25px;
+  height: 38px;
 }
-.user-info-box a {
+.user-info-box a,
+.user-info-box span {
+  line-height: 38px;
   float: left;
+}
+.user-info-box .username {
+  margin-left: 10px;
 }
 .user-info-box .datetime:before {
   content: '•';
@@ -1709,6 +1731,16 @@ a.logo {
   padding: 0 5px;
   font-family: Arial;
   color: #bbb;
+}
+.user-ctrl-box {
+  float: right;
+  height: 25px;
+}
+.user-ctrl-box a,
+.user-ctrl-box span {
+  line-height: 38px;
+  float: left;
+  padding: 0 10px;
 }
 .ctrl-box {
   float: right;
@@ -1725,6 +1757,7 @@ a.logo {
   padding-top: 2px;
   margin: 0 auto !important;
   box-sizing: border-box;
+  padding: 0;
 }
 .ctrl-box a.owed:hover {
   color: #ff4d73;
@@ -1732,6 +1765,7 @@ a.logo {
 .ctrl-box span.vote-num {
   display: block;
   border-radius: 4px;
+  padding: 0;
   height: 16px;
   width: 32px;
   line-height: 16px;
@@ -1753,9 +1787,13 @@ a.logo {
 .post-footer > div > a,
 .post-footer > div span {
   display: inline-block;
-  margin-right: 10px;
   font-size: 12px;
   color: #a8a8a8;
+  padding: 0 10px;
+}
+.post-footer > div > a:not(:last-child),
+.post-footer > div span:not(:last-child) {
+  margin-right: 10px;
 }
 .post-footer > div > a:hover {
   text-decoration: underline;

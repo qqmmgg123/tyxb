@@ -20,7 +20,7 @@
         <div class="main">
             <ul>
                 <li class="list-item">
-                    <a href="/">首页</a>
+                    <a href="/"><&nbsp;返回</a>
                 </li>
                 <!--<% if (data.current._belong_t) { %>
                 <li class="list-item">
@@ -43,9 +43,9 @@
             <div class="content-area">
                 <% if (data.current.link) { %>
                 <a href="<%= data.current.link %>"> <h1 id="sharetitle" class="dream-title"><%= data.current.content %></h1></a>
-                <% if (data.current.site) { %>
+                <!--<% if (data.current.site) { %>
                 <a href="/site/<%= data.current.site %>">(<%= data.current.site %>)</a>
-                <% } %>
+                <% } %>-->
                 <% } else { %>
                 <h1 id="sharetitle" class="dream-title"><%= data.current.content %></h1>
                 <% } %>
@@ -60,7 +60,7 @@
                 <% if (!data.current.isremove) { %>
                 <% if (data.current.image) { %>
                 <div class="image-viewer">
-                    <img src="<%= data.current.image %>" >
+                    <img width="600" src="<%= data.current.image %>" >
                 </div>
                 <% } %>
                 <% if (data.current.text) { %>
@@ -184,7 +184,7 @@
             </div>
             </div>
             <div class="col-4 sider">
-                <% if (data.current._belong_t) { %>
+                <!--<% if (data.current._belong_t) { %>
                 <div class="tag-info">
                     <a href="/tag/<%= data.current._belong_t._id %>"><h2><%= data.current._belong_t.key %>&nbsp;→</h2></a>
                 </div>
@@ -197,7 +197,8 @@
                     <% } %>
                     </div>
                 </div>
-                <% } else if (data.current._belong_u) { %>
+                <% } %>-->
+                <% if (data.current._belong_u) { %>
                 <div class="tag-info">
                     <a href="/user/<%= data.current._belong_u._id %>"><h2><%= data.current._belong_u.username %>&nbsp;→</h2></a>
                 </div>

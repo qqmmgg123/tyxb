@@ -168,8 +168,8 @@
 	                tid = utils.getData(descBtn, 'tid');
 	            if (state === 'normal') {
 	                var desc = descContent.textContent.trim();
-	                descContent.innerHTML = '<textarea>' + desc + '</textarea>';
-	                descBtn.innerHTML = "<i class='s s-save s-lg'></i>";
+	                descContent.innerHTML = '<textarea maxlength="80">' + desc + '</textarea>';
+	                descBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
 	                utils.setData(descBtn, { editState: 'editing' });
 	            } else {
 	                if (state !== 'saving') {
@@ -184,7 +184,7 @@
 	                        }, function (data) {
 	                            common.xhrReponseManage(data, function (data) {
 	                                descContent.innerHTML = desc;
-	                                descBtn.innerHTML = "<i class='s s-edit s-lg'></i>";
+	                                descBtn.innerHTML = "<i class='s s-edit s-lg'></i> 编辑";
 	                                utils.setData(descBtn, { editState: 'normal' });
 	                            });
 	                        }, function () {
@@ -15688,11 +15688,23 @@
 	        _this4.tagCheckPassed = false;
 	        _this4.btnDis = true;
 	        _this4.formData = null;
-	        var btns = [
+	        var newBtns = [
 	        //{ label: '网址', rel: 'tab-link-post', name: 'link', active: false },
 	        { label: '文字', rel: 'tab-text-post', name: 'text', active: false }, { label: '图片', rel: 'tab-image-post', name: 'image', active: false }];
 
-	        var formsEls = [];
+	        var textBtns = [{ label: '标题', rel: 'tab-title-post', name: 'title', active: false }];
+
+	        var formsEls = [],
+	            btns = [];
+
+	        if (props.type === 'news') {
+	            btns = newBtns;
+	        }
+
+	        if (props.type === 'text') {
+	            btns = textBtns;
+	        }
+
 	        if (props.type !== 'news') {
 	            var upcase = _this4.firstLetter(props.type);
 	            formsEls = [{
@@ -15723,8 +15735,8 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            if (this._tabNav) {
-	                var selectors = ['[rel="tab-text-post"]', '[rel="tab-link-post"]', '[rel="tab-image-post"]'],
-	                    handles = [this.toggleTextForm, this.toggleLinkForm, this.toggleImageForm];
+	                var selectors = ['[rel="tab-title-post"]', '[rel="tab-text-post"]', '[rel="tab-link-post"]', '[rel="tab-image-post"]'],
+	                    handles = [this.toggleTitleForm, this.toggleTextForm, this.toggleLinkForm, this.toggleImageForm];
 
 	                this.delegate(this._tabNav, selectors, handles);
 	            }
@@ -15779,6 +15791,11 @@
 	                addBtns: addBtns,
 	                formEls: formEls
 	            });
+	        }
+	    }, {
+	        key: 'toggleTitleForm',
+	        value: function toggleTitleForm() {
+	            this.toggleForm('title');
 	        }
 	    }, {
 	        key: 'toggleTextForm',
@@ -15869,7 +15886,13 @@
 	                        _react2.default.createElement('input', { ref: function ref(imageUpload) {
 	                                _this5._imageUpload = imageUpload;
 	                            }, accept: 'image/*', onChange: this.uploadImage.bind(this), style: { display: "none" }, id: 'image-upload', type: 'file', name: 'upload_file' })
-	                    )
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
+	                    ),
+	                    _react2.default.createElement('p', { className: 'validate-error' })
 	                );
 	            } else {
 	                return _react2.default.createElement(
@@ -15881,7 +15904,12 @@
 	                        _react2.default.createElement('i', { className: 's s-close s-lg' })
 	                    ),
 	                    _react2.default.createElement('img', { src: curImage }),
-	                    _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
+	                    ),
+	                    _react2.default.createElement('p', { className: 'validate-error' })
 	                );
 	            }
 	        }
@@ -15979,6 +16007,30 @@
 	            });
 	        }
 	    }, {
+	        key: 'renderTitleForm',
+	        value: function renderTitleForm() {
+	            var type = this.props.type;
+
+	            var name = '标题';
+	            if (type === 'image') {
+	                name = '说点什么';
+	            }
+	            if (type === 'news') {
+	                name += '[必须]';
+	            }
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'p',
+	                    { className: 'field' },
+	                    _react2.default.createElement('textarea', { maxLength: '140', 'data-cname': name, id: 'dream-title', name: 'content', placeholder: name })
+	                ),
+	                _react2.default.createElement('p', { className: 'validate-error' })
+	            );
+	        }
+	    }, {
 	        key: 'renderTextForm',
 	        value: function renderTextForm() {
 	            return _react2.default.createElement(
@@ -16043,13 +16095,16 @@
 	                defTagWord = _state3.defTagWord,
 	                stateComplate = _state3.stateComplate;
 	            var type = this.props.type;
+	            var header = null,
+	                formEls = this.state.formEls,
+	                linkForm = null,
+	                titleForm = null;
 
+	            if (type === "news" || type === "text") {
+	                var name = "";
+	                type === "news" && (name = "网页");
+	                type === "text" && (name = "文字正文");
 
-	            var header = null;
-	            var formEls = this.state.formEls;
-
-	            var linkForm = null;
-	            if (type === "news") {
 	                header = _react2.default.createElement(
 	                    'div',
 	                    { ref: function ref(_ref2) {
@@ -16064,7 +16119,7 @@
 	                            _react2.default.createElement(
 	                                'span',
 	                                { className: 'tab' },
-	                                '\u7F51\u9875'
+	                                name
 	                            )
 	                        ),
 	                        addBtns.map(function (btn, i) {
@@ -16083,8 +16138,10 @@
 	                        })
 	                    )
 	                );
-	                linkForm = this.renderLinkForm();
+	                type === "news" && (linkForm = this.renderLinkForm());
 	            }
+
+	            type !== "text" && (titleForm = this.renderTitleForm());
 
 	            var tagField = null,
 	                tagTips = '内容将分享到您的日常',
@@ -16129,16 +16186,7 @@
 	                                    _this7._tagInfo = tagInfo;
 	                                }, className: 'alert form-group', style: { display: "none" } }),
 	                            tagField,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'field' },
-	                                    _react2.default.createElement('textarea', { maxLength: '140', 'data-cname': '\u6807\u9898', id: 'dream-title', name: 'content', placeholder: '\u6807\u9898[\u5FC5\u987B]' })
-	                                ),
-	                                _react2.default.createElement('p', { className: 'validate-error' })
-	                            ),
+	                            titleForm,
 	                            linkForm,
 	                            formEls.map(function (form, i) {
 	                                var Form = form.com;
@@ -16175,23 +16223,34 @@
 	    }, {
 	        key: 'validate',
 	        value: function validate() {
+	            var type = this.props.type;
+
 	            var validate = true;
 
-	            self.fields = [{ name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
-	                    return !val || utils.isUrl(val);
-	                } }];
+	            self.fields = [];
+
+	            if (type === "news") {
+	                self.fields = [{ name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
+	                        return !val || utils.isUrl(val);
+	                    } }];
+	            } else if (type === "image") {
+	                self.fields = [{ name: 'image', require: true, empty_msg: '图片木有添加', label: '图片' }];
+	            } else if (type === "text") {
+	                self.fields = [{ name: 'text', require: true, label: '文字' }];
+	            }
 
 	            this._form && this._form.querySelectorAll('input[type=text], \
 	            input[type=url], \
+	            input[type=hidden], \
 	            textarea').forEach(function (inp, key) {
 	                var val = inp.value,
 	                    field = utils.closest(inp, '.field'),
 	                    tips = field && field.nextElementSibling;
 
-	                if (!tips) {
-	                    validate = false;
-	                    return;
-	                }
+	                //if (!tips) {
+	                //validate = false;
+	                //return;
+	                //}
 
 	                // 判断是否有效
 	                self.fields && self.fields.forEach(function (field) {
@@ -16203,7 +16262,7 @@
 	                        // 判断是否为空
 	                        if (field.require) {
 	                            if (val.length === 0) {
-	                                tips.innerHTML = field.empty_msg || label + "未填写";
+	                                tips.innerHTML = field.empty_msg || label + "木有输入";
 	                                tips.style.display = 'block';
 	                                validate = false;
 	                                return;
@@ -45706,9 +45765,7 @@
 	var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 	function print() { __p += __j.call(arguments, '') }
 	with (obj) {
-	__p += '<li class="list-item">\r\n    <div class="post-box">\r\n        ';
-	 if (is_mobile) { ;
-	__p += '\r\n        <div class="post-header">\r\n            <div class="user-info-box">\r\n                 ';
+	__p += '<li class="list-item">\r\n    <div class="post-box">\r\n        <div class="post-header">\r\n            <div class="user-info-box">\r\n                 ';
 	 if (dream._belong_u) { ;
 	__p += '\r\n                 <a class="avatar" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
@@ -45747,9 +45804,7 @@
 	__p += '\r\n                ';
 	 } ;
 	__p += '\r\n            </div>\r\n        </div>\r\n        ';
-	 } ;
-	__p += '\r\n        ';
-	 if (dream.category !== 'image') { ;
+	 if (dream.category === 'news') { ;
 	__p += '\r\n        <a \r\n            ';
 	 if (dream.link) { ;
 	__p += '\r\n            href="' +
@@ -45762,15 +45817,31 @@
 	 } ;
 	__p += '\r\n        >\r\n        ';
 	 } ;
-	__p += '\r\n        <div class="post-content ';
-	 if (dream.thumbnail && dream.category !== 'image') { ;
-	__p += 'thumb-mode';
+	__p += '\r\n        <div \r\n            ';
+	 if (dream.category === 'news') { ;
+	__p += '\r\n            ';
+	 if (dream.thumbnail) { ;
+	__p += '\r\n            class="post-content thumb-mode news"\r\n            ';
+	 } else { ;
+	__p += '\r\n            class="post-content news"\r\n            ';
 	 } ;
-	__p += '">\r\n            ';
+	__p += '\r\n            ';
+	 } else if (dream.category === 'image') { ;
+	__p += '\r\n            class="post-content image"\r\n            ';
+	 } else if (dream.category === 'text') { ;
+	__p += '\r\n            class="post-content text"\r\n            ';
+	 } ;
+	__p += '\r\n        >\r\n            ';
 	 if (dream.isremove) { ;
 	__p += '\r\n                [已被作者删除]\r\n            ';
 	 } else { ;
-	__p += '\r\n            <div class="entry">\r\n            <div class="title">\r\n            ';
+	__p += '\r\n            <div class="entry">\r\n            ';
+	 if (dream.content) { ;
+	__p += '\r\n            <div class="title">\r\n            ';
+	 if (dream.category === 'news') { ;
+	__p += '\r\n            <i class="s s-link s-lg"></i>&nbsp;\r\n            ';
+	 } ;
+	__p += '\r\n            ';
 	 if (data.query) { ;
 	__p += '\r\n            ' +
 	__e( highLight(dlimit(dream.content), data.query) ) +
@@ -45781,6 +45852,8 @@
 	'\r\n            ';
 	 } ;
 	__p += '\r\n            </div>\r\n            ';
+	 } ;
+	__p += '\r\n            ';
 	 if (dream.summary) { ;
 	__p += '\r\n            <div class="summary">\r\n                ';
 	 if (is_mobile) { ;
@@ -45795,10 +45868,20 @@
 	__p += '\r\n            </div>\r\n            ';
 	 } ;
 	__p += '\r\n            ';
-	 if (dream.category === 'image') { ;
+	 if (dream.thumbnail && dream.category === 'image') { ;
+	__p += '\r\n            ';
+	 if (!is_mobile) { ;
 	__p += '\r\n            <div rel="dream-picsrc" class="piccard">\r\n                <img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
 	'" />\r\n            </div>\r\n            ';
+	 } else { ;
+	__p += '\r\n            <div class="piccard">\r\n                <a href="' +
+	((__t = ( dream.thumbnail.replace('picmini', 'uploads') )) == null ? '' : __t) +
+	'"><img src="' +
+	((__t = ( dream.thumbnail )) == null ? '' : __t) +
+	'" /></a>\r\n            </div>\r\n            ';
+	 } ;
+	__p += '\r\n            ';
 	 } ;
 	__p += '\r\n            </div>\r\n            ';
 	 if (is_mobile) { ;
@@ -45821,30 +45904,10 @@
 	__p += '\r\n            ';
 	 } ;
 	__p += '\r\n        </div>\r\n        ';
-	 if (dream.category !== 'image') { ;
+	 if (dream.category === 'news') { ;
 	__p += '\r\n        </a>\r\n        ';
 	 } ;
-	__p += '\r\n        <div class="post-footer">\r\n            ';
-	 if (!is_mobile) { ;
-	__p += '\r\n            <div class="user-info-box">\r\n                 ';
-	 if (dream._belong_u) { ;
-	__p += '\r\n                 <a class="avatar" href="/user/' +
-	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
-	'">\r\n                     <img src="' +
-	((__t = ( dream._belong_u.avatar || '/images/avatar.png' )) == null ? '' : __t) +
-	'" />\r\n                 </a>\r\n                 <a class="username" href="/user/' +
-	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
-	'">' +
-	((__t = ( dream._belong_u.username )) == null ? '' : __t) +
-	'</a>\r\n                 ';
-	 } else { ;
-	__p += '\r\n                 <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>\r\n                 <a class="username" href="/user/unknow">未知</a>\r\n                 ';
-	 } ;
-	__p += '\r\n                 <span class="datetime">\r\n                     ' +
-	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
-	'\r\n                 </span>\r\n            </div>\r\n            ';
-	 } ;
-	__p += '\r\n            <div class="ctrl-box">\r\n                ';
+	__p += '\r\n        <div class="post-footer">\r\n            <div class="ctrl-box">\r\n                ';
 	 if (user) { ;
 	__p += '\r\n                ';
 	 if (dream.good && dream.good.length > 0) { ;
@@ -45885,32 +45948,6 @@
 	__p += '\r\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 if (!is_mobile) { ;
-	__p += '\r\n                ';
-	 if (user && (data.tag && data.tag.delperm)) { ;
-	__p += '\r\n                <a href="javascript:;" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-reject">拒绝</a>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 if (user && dream._belong_u) { ;
-	__p += '\r\n                ';
-	 if (dream._belong_u._id.equals(user._id)) { ;
-	__p += '\r\n                ';
-	 if (!dream.isremove) { ;
-	__p += '\r\n                <a href="javascript:;" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-delete">删除</a>\r\n                ';
-	 } else { ;
-	__p += '\r\n                <span>已删除</span>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } ;
-	__p += '\r\n                ';
 	 } ;
 	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n\r\n';
 

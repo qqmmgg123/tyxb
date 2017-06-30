@@ -6,7 +6,7 @@ var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
 
 var Dream = new Schema({
-    content      : { type: String, required: true, minlength: 1, trim: true },
+    content      : { type: String, minlength: 1, trim: true },
     _belong_u    : { type: Schema.Types.ObjectId, ref: 'Account', require: true },
     _belong_t    : { type: Schema.Types.ObjectId, ref: 'Tag' }, 
     comments     : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
@@ -14,7 +14,7 @@ var Dream = new Schema({
     bad          : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
     weight       : { type: Number, default: 0 },
     _followers_u : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
-    category     : { type: String, trim: true, default: 'news' },
+    category     : { type: String, required: true, trim: true, default: 'news' },
     summary      : { type: String, require: true, maxlength: 150, trim: true },
     text         : { type: String, trim: true },
     link         : { type: String, trim: true },

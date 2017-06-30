@@ -15207,11 +15207,23 @@
 	        _this4.tagCheckPassed = false;
 	        _this4.btnDis = true;
 	        _this4.formData = null;
-	        var btns = [
+	        var newBtns = [
 	        //{ label: '网址', rel: 'tab-link-post', name: 'link', active: false },
 	        { label: '文字', rel: 'tab-text-post', name: 'text', active: false }, { label: '图片', rel: 'tab-image-post', name: 'image', active: false }];
 
-	        var formsEls = [];
+	        var textBtns = [{ label: '标题', rel: 'tab-title-post', name: 'title', active: false }];
+
+	        var formsEls = [],
+	            btns = [];
+
+	        if (props.type === 'news') {
+	            btns = newBtns;
+	        }
+
+	        if (props.type === 'text') {
+	            btns = textBtns;
+	        }
+
 	        if (props.type !== 'news') {
 	            var upcase = _this4.firstLetter(props.type);
 	            formsEls = [{
@@ -15242,8 +15254,8 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            if (this._tabNav) {
-	                var selectors = ['[rel="tab-text-post"]', '[rel="tab-link-post"]', '[rel="tab-image-post"]'],
-	                    handles = [this.toggleTextForm, this.toggleLinkForm, this.toggleImageForm];
+	                var selectors = ['[rel="tab-title-post"]', '[rel="tab-text-post"]', '[rel="tab-link-post"]', '[rel="tab-image-post"]'],
+	                    handles = [this.toggleTitleForm, this.toggleTextForm, this.toggleLinkForm, this.toggleImageForm];
 
 	                this.delegate(this._tabNav, selectors, handles);
 	            }
@@ -15298,6 +15310,11 @@
 	                addBtns: addBtns,
 	                formEls: formEls
 	            });
+	        }
+	    }, {
+	        key: 'toggleTitleForm',
+	        value: function toggleTitleForm() {
+	            this.toggleForm('title');
 	        }
 	    }, {
 	        key: 'toggleTextForm',
@@ -15388,7 +15405,13 @@
 	                        _react2.default.createElement('input', { ref: function ref(imageUpload) {
 	                                _this5._imageUpload = imageUpload;
 	                            }, accept: 'image/*', onChange: this.uploadImage.bind(this), style: { display: "none" }, id: 'image-upload', type: 'file', name: 'upload_file' })
-	                    )
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
+	                    ),
+	                    _react2.default.createElement('p', { className: 'validate-error' })
 	                );
 	            } else {
 	                return _react2.default.createElement(
@@ -15400,7 +15423,12 @@
 	                        _react2.default.createElement('i', { className: 's s-close s-lg' })
 	                    ),
 	                    _react2.default.createElement('img', { src: curImage }),
-	                    _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        _react2.default.createElement('input', { type: 'hidden', name: 'image', value: this.state.curImageId })
+	                    ),
+	                    _react2.default.createElement('p', { className: 'validate-error' })
 	                );
 	            }
 	        }
@@ -15498,6 +15526,30 @@
 	            });
 	        }
 	    }, {
+	        key: 'renderTitleForm',
+	        value: function renderTitleForm() {
+	            var type = this.props.type;
+
+	            var name = '标题';
+	            if (type === 'image') {
+	                name = '说点什么';
+	            }
+	            if (type === 'news') {
+	                name += '[必须]';
+	            }
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'p',
+	                    { className: 'field' },
+	                    _react2.default.createElement('textarea', { maxLength: '140', 'data-cname': name, id: 'dream-title', name: 'content', placeholder: name })
+	                ),
+	                _react2.default.createElement('p', { className: 'validate-error' })
+	            );
+	        }
+	    }, {
 	        key: 'renderTextForm',
 	        value: function renderTextForm() {
 	            return _react2.default.createElement(
@@ -15562,13 +15614,16 @@
 	                defTagWord = _state3.defTagWord,
 	                stateComplate = _state3.stateComplate;
 	            var type = this.props.type;
+	            var header = null,
+	                formEls = this.state.formEls,
+	                linkForm = null,
+	                titleForm = null;
 
+	            if (type === "news" || type === "text") {
+	                var name = "";
+	                type === "news" && (name = "网页");
+	                type === "text" && (name = "文字正文");
 
-	            var header = null;
-	            var formEls = this.state.formEls;
-
-	            var linkForm = null;
-	            if (type === "news") {
 	                header = _react2.default.createElement(
 	                    'div',
 	                    { ref: function ref(_ref2) {
@@ -15583,7 +15638,7 @@
 	                            _react2.default.createElement(
 	                                'span',
 	                                { className: 'tab' },
-	                                '\u7F51\u9875'
+	                                name
 	                            )
 	                        ),
 	                        addBtns.map(function (btn, i) {
@@ -15602,8 +15657,10 @@
 	                        })
 	                    )
 	                );
-	                linkForm = this.renderLinkForm();
+	                type === "news" && (linkForm = this.renderLinkForm());
 	            }
+
+	            type !== "text" && (titleForm = this.renderTitleForm());
 
 	            var tagField = null,
 	                tagTips = '内容将分享到您的日常',
@@ -15648,16 +15705,7 @@
 	                                    _this7._tagInfo = tagInfo;
 	                                }, className: 'alert form-group', style: { display: "none" } }),
 	                            tagField,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'field' },
-	                                    _react2.default.createElement('textarea', { maxLength: '140', 'data-cname': '\u6807\u9898', id: 'dream-title', name: 'content', placeholder: '\u6807\u9898[\u5FC5\u987B]' })
-	                                ),
-	                                _react2.default.createElement('p', { className: 'validate-error' })
-	                            ),
+	                            titleForm,
 	                            linkForm,
 	                            formEls.map(function (form, i) {
 	                                var Form = form.com;
@@ -15694,23 +15742,34 @@
 	    }, {
 	        key: 'validate',
 	        value: function validate() {
+	            var type = this.props.type;
+
 	            var validate = true;
 
-	            self.fields = [{ name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
-	                    return !val || utils.isUrl(val);
-	                } }];
+	            self.fields = [];
+
+	            if (type === "news") {
+	                self.fields = [{ name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
+	                        return !val || utils.isUrl(val);
+	                    } }];
+	            } else if (type === "image") {
+	                self.fields = [{ name: 'image', require: true, empty_msg: '图片木有添加', label: '图片' }];
+	            } else if (type === "text") {
+	                self.fields = [{ name: 'text', require: true, label: '文字' }];
+	            }
 
 	            this._form && this._form.querySelectorAll('input[type=text], \
 	            input[type=url], \
+	            input[type=hidden], \
 	            textarea').forEach(function (inp, key) {
 	                var val = inp.value,
 	                    field = utils.closest(inp, '.field'),
 	                    tips = field && field.nextElementSibling;
 
-	                if (!tips) {
-	                    validate = false;
-	                    return;
-	                }
+	                //if (!tips) {
+	                //validate = false;
+	                //return;
+	                //}
 
 	                // 判断是否有效
 	                self.fields && self.fields.forEach(function (field) {
@@ -15722,7 +15781,7 @@
 	                        // 判断是否为空
 	                        if (field.require) {
 	                            if (val.length === 0) {
-	                                tips.innerHTML = field.empty_msg || label + "未填写";
+	                                tips.innerHTML = field.empty_msg || label + "木有输入";
 	                                tips.style.display = 'block';
 	                                validate = false;
 	                                return;

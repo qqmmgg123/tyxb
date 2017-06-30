@@ -1621,8 +1621,8 @@ a.logo {
     margin-left: 46px;
     .avatar {
         img {
-            width: 25px;
-            height: 25px;
+            width: 38px;
+            height: 38px;
         }
     }
 }
@@ -1630,19 +1630,29 @@ a.logo {
 .post-content {
     overflow: hidden;
     font-size: 14px;
+    margin-top: 10px;
     &.thumb-mode {
         .pr();
         .entry {
             float: left;
-            margin-right: 120px;
+            margin-right: 130px;
         }
         min-height: 120px;
     }
-    .entry {
-        .wrap();
+    &.news, &.text {
         .title {
             font-weight: bold;
         }
+
+    }
+    &.text {
+        .summary {
+            font-size: 14px;
+            color: #333;
+        }
+    }
+    .entry {
+        .wrap();
     }
 }
 
@@ -1652,11 +1662,27 @@ a.logo {
     }
 }
 
+.post-header {
+    color: @gray3;
+    font-size: 12px;
+    overflow: hidden;
+    a {
+        color: @gray3;
+        &:hover {
+            color:#ff7592;
+        }
+    }
+}
+
 .user-info-box {
     float: left;
-    height: 25px;
-    a {
+    height: 38px;
+    a, span {
+        line-height: 38px;
         float: left;
+    }
+    .username {
+        margin-left: 10px;
     }
     .datetime:before {
         content: '•';
@@ -1664,6 +1690,16 @@ a.logo {
         padding: 0 5px;
         font-family: Arial;
         color: #bbb;
+    }
+}
+
+.user-ctrl-box {
+    float: right;
+    height: 25px;
+    a, span {
+        line-height: 38px;
+        float: left;
+        padding: 0 10px;
     }
 }
 
@@ -1681,6 +1717,7 @@ a.logo {
         padding-top: 2px;
         margin: 0 auto !important;
         box-sizing: border-box;
+        padding: 0;
         &:hover {
             color: #ff4d73;
         }
@@ -1688,6 +1725,7 @@ a.logo {
     span.vote-num {
         display: block;
         border-radius: 4px;
+        padding: 0;
         height: 16px;
         width: 32px;
         line-height: 16px;
@@ -1710,9 +1748,12 @@ a.logo {
     > div {
         > a, span {
             display: inline-block;
-            margin-right: 10px;
             font-size: 12px;
             color: #a8a8a8;
+            padding: 0 10px;
+        }
+        > a:not(:last-child), span:not(:last-child) {
+            margin-right: 10px;
         }
         > a {
             &:hover {

@@ -4,17 +4,14 @@
     background-color: #fefefe;
     border-bottom: 1px solid #f2f3f4;
     height: 100px;
+    padding: 20px 0;
     .user-head-info {
         overflow: hidden;
-        position: relative;
-    }
-}
-
         .user-head-avatar {
-            margin: 0 auto;
             width: 96px;
             cursor: pointer;
-            position: absolute;
+            position: relative;
+            float: left;
             .update-avatar-tips {
                 visibility: hidden;
                 width: 100%;
@@ -38,7 +35,20 @@
             }
         }
         .userHead-infoInner {
-            text-align: center;
+            float: left;
+            width: 500px;
+            margin-left: 10px;
+            .user-bio {
+                max-height: 3.5em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word; 
+                word-break: break-all;
+                color: #999;
+                textarea {
+                   height: 3.5em;
+                }
+            }
         }
         .user-head-ctrl {
             a.btn {
@@ -47,6 +57,8 @@
                 display: block;
             }
         }
+    }
+}
 
 .bio, .karma-list {
     margin-left: 20px;

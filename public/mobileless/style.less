@@ -1427,9 +1427,6 @@ a.logo {
     right: 10px;
     bottom: 10px;
     margin-right: 0;
-    ul {
-        overflow: hidden;
-    }
     li {
         margin-bottom: 10px;
     }
@@ -1514,7 +1511,7 @@ a.logo {
     max-height: 80px;
     position: absolute;
     border-radius: 5px;
-    right: 0;
+    right: 5px;
 }
 
 .piccard {
@@ -1557,14 +1554,25 @@ a.logo {
         .pr();
         .entry {
             float: left;
-            margin-right: 80px;
+            margin-right: 85px;
         }
         min-height: 80px;
+    }
+    &.news, &.text {
+        .title {
+            font-weight: bold;
+        }
+
+    }
+    &.text {
+        .summary {
+            font-size: 14px;
+            color: #333;
+        }
     }
     .entry {
         .wrap();
         .title {
-            font-weight: bold;
             padding: 0 5px;
         }
     }
@@ -1642,9 +1650,11 @@ a.logo {
     }
 }
 
-.show {
-    display: block;
-    transition: 1s height cubic-bezier(.83,.97,.05,1.44);
+.dream-post-btns {
+    display: none;
+    &.show {
+        display: block;
+    }
 }
 
 .share-btn {

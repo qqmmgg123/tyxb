@@ -61,16 +61,14 @@ router.post('/new', function(req, res, next) {
 
     let { tag, content, link, text, image, category } = req.body;
         
-    if (!content || !content.trim() ||
-        !category || !category.trim()) {
-        return next(new Error("没有填写标题或参数错误!"));
+    if (!category || !category.trim()) {
+        return next(new Error("参数错误!"));
     }
 
     // 插入耗时测试
     let start = new Date().getTime();
 
     let fields = {
-        content    : content.trim(),
         _belong_u  : uid,
         category   : category.trim()
     }
@@ -82,14 +80,36 @@ router.post('/new', function(req, res, next) {
     var dream = new Dream(fields),
         did      = dream._id;
 
-    if ((category === "link" || category === 'news') &&  link && link.trim()) {
-        dream.link = link;
-        dream.site = common.extractHostname(link);
+    if (category === 'text' && (!text || !text.trim())) {
+        return next(new Error("文字没有输入!"));
     }
-    if ((category === "text" || category === 'news') && text && text.trim()) {
-        dream.text = text;
-        dream.extract();
+
+    if (category === 'news' && (!content || !content.trim())) {
+        return next(new Error("标题木有输入!"));
     }
+
+    if (category === 'image' && (!image || !iamge.trim())) {
+        return next(new Error("没有添加图片!"));
+    }
+
+    if (content && content.trim()) {
+        dream.content = content.trim();
+    }
+
+    if (category === 'news') {
+        if (link && link.trim()) {
+            dream.link = link;
+            dream.site = common.extractHostname(link);
+        }
+    }
+
+    if ((category === "text" || category === 'news')) {
+        if (text && text.trim()) {
+            dream.text = text;
+            dream.extract();
+        }
+    }
+
     if ((category === "image" || category === 'news') && image && image.trim()) {
         image = image.trim();
         Image.findById(image, 'width height usage dir name', (err, doc) => {

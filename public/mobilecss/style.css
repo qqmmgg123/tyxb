@@ -1425,9 +1425,6 @@ a.logo {
   bottom: 10px;
   margin-right: 0;
 }
-.global-ctrl ul {
-  overflow: hidden;
-}
 .global-ctrl li {
   margin-bottom: 10px;
 }
@@ -1508,7 +1505,7 @@ a.logo {
   max-height: 80px;
   position: absolute;
   border-radius: 5px;
-  right: 0;
+  right: 5px;
 }
 .piccard {
   text-align: center;
@@ -1545,7 +1542,15 @@ a.logo {
 }
 .post-content.thumb-mode .entry {
   float: left;
-  margin-right: 80px;
+  margin-right: 85px;
+}
+.post-content.news .title,
+.post-content.text .title {
+  font-weight: bold;
+}
+.post-content.text .summary {
+  font-size: 14px;
+  color: #333;
 }
 .post-content .entry {
   word-break: normal;
@@ -1553,7 +1558,6 @@ a.logo {
   word-break: break-all;
 }
 .post-content .entry .title {
-  font-weight: bold;
   padding: 0 5px;
 }
 .post-header {
@@ -1624,9 +1628,11 @@ a.logo {
 .post-footer > div span.comment-num {
   margin-left: 10px;
 }
-.show {
+.dream-post-btns {
+  display: none;
+}
+.dream-post-btns.show {
   display: block;
-  transition: 1s height cubic-bezier(0.83, 0.97, 0.05, 1.44);
 }
 .share-btn {
   float: left;

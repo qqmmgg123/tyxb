@@ -52,13 +52,27 @@ class DreamForm extends BaseCom {
         this.tagCheckPassed = false;
         this.btnDis  = true;
         this.formData = null;
-        let btns = [
-            { label: '网址', rel: 'tab-link-post', name: 'link', active: false },
+        let newBtns = [
+            //{ label: '网址', rel: 'tab-link-post', name: 'link', active: false },
             { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
             { label: '图片', rel: 'tab-image-post', name: 'image', active: false },
         ]
 
-        let formsEls = [];
+        let textBtns = [
+            { label: '标题', rel: 'tab-title-post', name: 'title', active: false }
+        ]
+
+        let formsEls = [],
+            btns = [];
+
+        if (props.type === 'news') {
+            btns = newBtns;
+        }
+
+        if (props.type === 'text') {
+            btns = textBtns;
+        }
+
         if (props.type !== 'news') {
             let upcase = this.firstLetter(props.type);
             formsEls = [{
@@ -90,11 +104,13 @@ class DreamForm extends BaseCom {
     componentDidMount() {
         if (this._tabNav) {
             let selectors = [
+                '[rel="tab-title-post"]',
                 '[rel="tab-text-post"]',
                 '[rel="tab-link-post"]',
                 '[rel="tab-image-post"]',
             ],
                 handles   = [
+                    this.toggleTitleForm,
                     this.toggleTextForm,
                     this.toggleLinkForm,
                     this.toggleImageForm,
@@ -151,6 +167,10 @@ class DreamForm extends BaseCom {
         });
     }
 
+    toggleTitleForm() {
+        this.toggleForm('title');
+    }
+
     toggleTextForm() {
         this.toggleForm('text');
     }
@@ -203,6 +223,8 @@ class DreamForm extends BaseCom {
                         <button type="button" className="btn">添加图片 +</button>
                         <input ref={(imageUpload) => { this._imageUpload = imageUpload }} accept="image/*" onChange={this.uploadImage.bind(this)} style={{ display : "none" }} id="image-upload" type="file" name="upload_file" />
                     </div>
+                    <p className="field"><input type="hidden" name="image" value={this.state.curImageId} /></p>
+                    <p className="validate-error"></p>
                 </div>
             );
         }
@@ -213,7 +235,8 @@ class DreamForm extends BaseCom {
                         <i className="s s-close s-lg"></i>
                     </a>
                     <img src={curImage} />
-                    <input type="hidden" name="image" value={this.state.curImageId} />
+                    <p className="field"><input type="hidden" name="image" value={this.state.curImageId} /></p>
+                    <p className="validate-error"></p>
                 </div>
             )
         }
@@ -304,6 +327,24 @@ class DreamForm extends BaseCom {
         })
     }
 
+    renderTitleForm() {
+        const { type } = this.props;
+        let name = '标题';
+        if (type === 'image') {
+            name = '说点什么';
+        }
+        if (type === 'news') {
+            name += '[必须]';
+        }
+
+        return (
+            <div className="form-group">
+                <p className="field"><textarea maxLength="140" data-cname={name} id="dream-title" name="content" placeholder={name}></textarea></p>
+                <p className="validate-error"></p>
+            </div>
+        )
+    }
+
     renderTextForm() {
         return (
             <div className="form-group">
@@ -338,16 +379,23 @@ class DreamForm extends BaseCom {
     }
 
     render() {
-        const { formEls, addBtns, defTagWord, stateComplate } = this.state;
+        const { addBtns, defTagWord, stateComplate } = this.state;
         const { type } = this.props;
 
-        let header = null;
-        if (type === "news") {
+        let header = null,
+            { formEls } = this.state,
+            linkForm = null,
+            titleForm = null;
+        if (type === "news" || type === "text") {
+            let name = "";
+            type === "news" && (name = "网页");
+            type === "text" && (name = "文字正文");
+
             header = (
                 <div ref={(ref) => { this._tabNav = ref }} id="dreamReleaseBar" className="nav-group">
                     <ul>
                         <li>
-                            <span className="tab">标题</span>
+                            <span className="tab">{name}</span>
                         </li>
                         {addBtns.map((btn, i) =>
                             <li key={i}>
@@ -361,7 +409,10 @@ class DreamForm extends BaseCom {
                     </ul>
                 </div>
             )
+            type === "news" && (linkForm = this.renderLinkForm());
         }
+
+        type !== "text" && (titleForm = this.renderTitleForm());
 
         let tagField = null,
             tagTips = '内容将分享到您的日常',
@@ -388,10 +439,8 @@ class DreamForm extends BaseCom {
                             <div ref={(tagInfo) => { this._tagInfo = tagInfo }} className="alert form-group" style={{ display: "none" }}>
                             </div>
                             {tagField}
-                            <div className="form-group">
-                                <p className="field"><textarea maxLength="140" data-cname="标题" id="dream-title" name="content" placeholder="标题[必须]"></textarea></p>
-                                <p className="validate-error"></p>
-                            </div>
+                            {titleForm}
+                            {linkForm}
                             {formEls.map((form, i) => {
                                 let Form = form.com;
                                 return (<Form key={i} />)
@@ -423,19 +472,35 @@ class DreamForm extends BaseCom {
     }
 
     validate() {
+        const { type } = this.props;
         let validate = true;
 
-        self.fields = [
-            { name: 'content',  require: true, label: '标题' },
-            { name: 'link', label: '网址', err: "链接格式错误", fun: (val) => {
-                return (!val || utils.isUrl(val));
-            } }
-        ]
+        self.fields = [];
+
+        if (type === "news") {
+            self.fields = [
+                { name: 'content', require: true, label: '标题' },
+                { name: 'link', label: '网址', err: "链接格式错误", fun: (val) => {
+                    return (!val || utils.isUrl(val));
+                } }
+            ]
+        }
+        else if (type === "image") {
+            self.fields = [
+                { name: 'image', require: true, empty_msg: '图片木有添加', label: '图片' },
+            ]
+        }
+        else if (type === "text") {
+            self.fields = [
+                { name: 'text', require: true, label: '文字' },
+            ]
+        }
 
         this._form && this._form
             .querySelectorAll(
             'input[type=text], \
             input[type=url], \
+            input[type=hidden], \
             textarea'
         ).forEach((inp, key) => {
             let val    = inp.value,
@@ -457,7 +522,7 @@ class DreamForm extends BaseCom {
                     // 判断是否为空
                     if (field.require) {
                         if (val.length === 0) {
-                            tips.innerHTML = field.empty_msg || (label + "未填写");
+                            tips.innerHTML = field.empty_msg || (label + "木有输入");
                             tips.style.display = 'block';
                             validate = false;
                             return;
@@ -708,7 +773,7 @@ class TextNewPop extends Win {
             'link' : '发网址',
             'text' : '发文字',
             'image': '发图片',
-            'news' : '发图文链接',
+            'news' : '发网页',
         }
 
         this.updateSettings({

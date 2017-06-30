@@ -18,13 +18,7 @@
     <div class="container user-page-head mar-top">
         <div class="main">
             <div class="user-head-info">
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="container clearfix">
-        <div class="main pr">
-        <div id="updateAvatar" class="user-head-avatar avatar">
+                <div id="updateAvatar" class="user-head-avatar avatar">
                     <img height="96" width="96" src="<%= data.account.avatar || '/images/avatar.png' %>" />
                     <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
                     <% if (!is_mobile) { %>
@@ -37,19 +31,23 @@
                     <h2 class="nick-name"><%= data.account.username %></h2>
                     <div id="descContent" class="user-bio">
                         <% if (data.account.bio) { %>
-                            <%= data.account.bio %>
+                        <%= data.account.bio.length > 80? data.account.bio.slice(0, 80) + '...':data.account.bio %>
                         <% } else { %>
                             作者帅爆了，没签名...
                         <% } %>
                     </div>
                     <% if (user && data.account._id.equals(user._id)) { %>
-                    <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;"><i class="s s-edit s-lg"></i></a>
+                    <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;"><i class="s s-edit s-lg"></i>&nbsp;修改</a>
                     <% } %>
                     <!--<% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
                     <a href="/settings" class="edit-profile btn small">个人设定 ></a>
                     <% } %>-->
                 </div>
-                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container clearfix">
         <div class="main">
             <div class="col-8">
                 <div class="tab-nav user-tab-bar">

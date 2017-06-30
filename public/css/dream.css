@@ -201,13 +201,7 @@
 .top-nav-crumbs .main ul li {
   display: inline;
   white-space: nowrap;
-}
-.top-nav-crumbs .main ul li:not(:last-child):after {
-  content: '>';
-  margin-right: 5px;
-  padding: 0 5px;
-  font-family: Arial;
-  color: #bbb;
+  border: none;
 }
 .top-nav-crumbs .main ul li a {
   color: #999;
