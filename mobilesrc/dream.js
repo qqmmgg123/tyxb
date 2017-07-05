@@ -220,11 +220,11 @@
                                 var html = '';
                                 if (data.hasprev) {
                                     var prev =  [
-                                        '<div ',
+                                        '<li class="list-item"><div ',
                                         'data-rid="' + data.comments[0]._reply_c + '" data-reply="1" data-cnext="1" data-sort="' + data.role + '" ',
                                         'rel="load-comments-prev" class="more">',
                                         '<a class="btn">查看上层留言</a>',
-                                        '</div>'
+                                        '</div></li>'
                                     ].join('');
                                     html += prev;
                                 }
@@ -233,11 +233,11 @@
 
                                 if (data.hasmore) {
                                     var more = [
-                                        '<div ',
+                                        '<li class="list-item"><div ',
                                         'data-rid="' + rid + '" data-reply="1" data-cnext="' + data.cnext + '" data-sort="' + data.role + '" ',
                                         'rel="load-comments-next" class="more">',
                                         '<a class="btn">查看更多 ></a>',
-                                        '</div>'
+                                        '</div></li>'
                                     ].join('');
                                     html += more;
                                 }
@@ -266,22 +266,22 @@
 
                                         if (comment.hasmore) {
                                             var more = [
-                                                '<div ',
+                                                '<li class="list-item"><div ',
                                                 'data-rid="' + comment._id + '" data-reply="1" data-cnext="2" data-sort="' + data.role + '" ',
                                                 'rel="load-comments-next" class="more">',
                                                 '<a class="btn">查看更多 ></a>',
-                                                '</div>'
+                                                '</div></li>'
                                             ].join('');
                                             comment.replys += more;
                                         }
                                     } else if (level === 3) {
                                         if (comment.hasmore) {
                                             var more = [
-                                                '<div ',
+                                                '<li class="list-item"><div ',
                                                 'data-rid="' + comment._id + '" data-reply="1" data-cnext="1" data-sort="' + data.role + '" ',
                                                 'rel="load-comments-next" class="more">',
                                                 '<a class="btn">查看下层留言</a>',
-                                                '</div>'
+                                                '</div></li>'
                                             ].join('');
                                             comment.replys = more;
                                         }
@@ -343,12 +343,9 @@
             commentUp: function(ev, cur) {
                 var item = utils.closest(cur, '.comment-ctrl'),
                     cid  = utils.getData(item, 'rid'),
-                    voteBox = utils.closest(cur, '.vote-ctrl-box'), voteNum, voteBad,
-                    hasGood = utils.getData(cur, 'hasgood');
-
-                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-                voteBox && (voteBad  = voteBox.querySelector('[rel="comment-bad"]'));
-                if (!hasGood) {
+                    hasHeart = utils.getData(cur, 'hasgood'),
+                    heartNum = cur.querySelector('[rel="vote-num"]');
+                if (!hasHeart) {
                     req.post(
                         "/comment/goodit",
                         {
@@ -361,9 +358,7 @@
                                         var num = parseInt(data.data.num);
                                         utils.addClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': true });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
-                                        voteBad && utils.removeClass(voteBad.querySelector('i'), "s-ac");
-                                        voteBad && utils.setData(voteBad, { 'hasbad': false });
+                                        heartNum.innerHTML = (isNaN(num)? 0:num);
                                     }
                                     break;
                                 case 1:
@@ -392,7 +387,7 @@
                                         var num = parseInt(data.data.num);
                                         utils.removeClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': false });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = (isNaN(num)? 0:num);
                                     }
                                     break;
                                 case 1:
@@ -650,12 +645,9 @@
                 did = utils.getData(cur, 'did');
 
             if (rel === 'dream-good') {
-                var voteBox = utils.closest(cur, '.vote-ctrl-box'), voteNum, voteBad,
-                    hasGood = utils.getData(cur, 'hasgood');
-            
-                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-                voteBox && (voteBad  = voteBox.querySelector('[rel="dream-bad"]'));
-                if (!hasGood) {
+                let hasHeart = utils.getData(cur, 'hasgood'),
+                    heartNum = cur.querySelector('[rel="vote-num"]');
+                if (!hasHeart) {
                     req.post(
                         "/dream/goodit",
                         {
@@ -668,9 +660,7 @@
                                         var num = parseInt(data.data.num);
                                         utils.addClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': true });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
-                                        voteBad && utils.removeClass(voteBad.querySelector('i'), "s-ac");
-                                        voteBad && utils.setData(voteBad, { 'hasbad': false });
+                                        heartNum.innerHTML = (isNaN(num)? 0:num);
                                     }
                                     break;
                                 case 1:
@@ -699,77 +689,7 @@
                                         var num = parseInt(data.data.num);
                                         utils.removeClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': false });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
-                                    }
-                                    break;
-                                case 1:
-                                    alert(data.info);
-                                    break;
-                                case 2:
-                                    common.showSigninPop();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        },
-                        function() {
-                        }
-                    );
-                }
-            }
-            // 反对
-            else if (rel === 'dream-bad') {
-                var voteBox = utils.closest(cur, '.vote-ctrl-box'), voteNum, voteGood,
-                    hasBad = utils.getData(cur, 'hasbad');
-
-                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-                voteBox && (voteGood  = voteBox.querySelector('[rel="dream-good"]'));
-
-                if (!hasBad) {
-                    req.post(
-                        "/dream/badit",
-                        {
-                            did: did
-                        },
-                        function(data) {
-                            switch(data.result) {
-                                case 0:
-                                    if (data.data) {
-                                        var num = parseInt(data.data.num);
-                                        utils.addClass(cur.querySelector('i'), "s-ac");
-                                        utils.setData(cur, { 'hasbad': true });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);;
-                                        voteGood && utils.removeClass(voteGood.querySelector('i'), "s-ac");
-                                        voteGood && utils.setData(voteGood, { 'hasgood': false });
-                                    }
-                                    break;
-                                case 1:
-                                    alert(data.info);
-                                    break;
-                                case 2:
-                                    common.showSigninPop();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        },
-                        function() {
-                        }
-                    );
-                }else{
-                    req.post(
-                        "/dream/cbad",
-                        {
-                            did: did
-                        },
-                        function(data) {
-                            switch(data.result) {
-                                case 0:
-                                    if (data.data) {
-                                        var num = parseInt(data.data.num);
-                                        utils.removeClass(cur.querySelector('i'), "s-ac");
-                                        utils.setData(cur, { 'hasbad': false });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = (isNaN(num)? 0:num);
                                     }
                                     break;
                                 case 1:

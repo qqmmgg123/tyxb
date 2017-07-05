@@ -301,48 +301,37 @@
     transform: scale(1, 1);
   }
 }
-.user-list,
-.tag-list {
+.user-list {
   margin-left: 20px;
   padding-bottom: 15px;
 }
-.user-list h2,
-.tag-list h2 {
+.user-list h2 {
   font-weight: normal;
   font-size: 14px;
   height: 36px;
   line-height: 36px;
   border-bottom: 1px solid #f0f0f0;
 }
-.user-list .list-group,
-.tag-list .list-group {
+.user-list .list-group {
   overflow: hidden;
   padding: 10px 0;
 }
-.user-list .list-item,
-.tag-list .list-item {
+.user-list .list-item {
   overflow: hidden;
   border-bottom: none;
   margin-right: 10px;
 }
-.user-list .list-item .user-pic,
-.tag-list .list-item .user-pic {
+.user-list .list-item .user-pic {
   float: left;
 }
-.user-list .list-item .user-name,
-.tag-list .list-item .user-name {
+.user-list .list-item .user-name {
   float: left;
   margin-left: 5px;
 }
-.user-list .list-item .user-karma,
-.tag-list .list-item .user-karma {
+.user-list .list-item .user-karma {
   float: right;
 }
-.user-list .list-item .user-karma span,
-.tag-list .list-item .user-karma span {
+.user-list .list-item .user-karma span {
   color: #a8a8a8;
   margin-left: 10px;
-}
-.tag-list {
-  border-bottom: 1px solid #f0f0f0;
 }

@@ -47,7 +47,9 @@
                     <h3 class="slogan"><%= settings.SLOGAN %></h3>
                 </div>
                 <div class="intro">
-                    生命是渺小、脆弱、且短暂的，“太阳日常”是一个记录和分享生活点滴的小工具，目的是让用户放慢生活节奏，用心的感受自己、体会别人，真诚的对待生命和时间，过好在这个真实世界中的每一天。
+                    无论在哪里，都要告诉我们，<br>
+                    你！此刻，过得怎么样？<br>
+                    不要一个人，默默的消失......
                 </div>
             </div>
         </div>
@@ -99,7 +101,7 @@
                     </ol>
                 </div>-->
                 <div class="user-list">
-                    <h2>活跃日常</h2>
+                    <h2>近期现身的人</h2>
                     <ul class="list-group">
                         <% if (data.users && data.users.length > 0) { %>
                         <% data.users.forEach(function(user) { %>
@@ -111,8 +113,7 @@
                                 <%= user.username %>
                             </a>
                             <div class="user-karma">
-                                <span>日常：<%= user.dnum %></span>
-                                <span>留言：<%= user.cnum %></span>
+                                <span>现身时间：<%= user.last_online %></span>
                             </div>
                         </li>
                         <% }); %>

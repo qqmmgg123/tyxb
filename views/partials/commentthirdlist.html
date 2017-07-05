@@ -37,23 +37,14 @@
             <div class="vote-ctrl-box">
                 <% if (user) { %>
                 <% if (third.good && third.good.length > 0) { %>
-                <a href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-lg s-ac"></i></a>
+                <a class="owed" href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-2x s-ac"></i>
                 <% } else { %>
-                <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+                <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>
                 <% } %>
                 <% } else { %>
-                <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>
+                <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>
                 <% } %>
-                <span class="vote-num" rel="vote-num"><%= third.vote %></span>
-                <% if (user) { %>
-                <% if (third.bad && third.bad.length > 0) { %>
-                <a href="javascript:;" data-hasbad="true" rel="comment-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>
-                <% } else { %>
-                <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
-                <% } %>
-                <% } else { %>
-                <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>
-                <% } %>
+                <span class="vote-num" rel="vote-num"><%= third.vote %></span></a>
             </div>
             <div class="more-ctrl-box">
                 <% if (!third.isremove) { %>

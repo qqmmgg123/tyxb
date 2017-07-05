@@ -128,7 +128,7 @@ input[type="url"], textarea {
 input[type="text"], 
 input[type="password"], 
 input[type="email"], textarea {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    /*box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
     box-sizing: border-box;
 }
 
@@ -273,13 +273,14 @@ a {
     }
 }
 
-.tagList {
+.tag-list {
+    margin-top: 20px;
     max-height: 240px;
     ul {
         li {
             display: inline-block;
-            margin: 5px;
             a.tag {
+                margin-right: 5px;
                 display: block;
             }
         }
@@ -289,21 +290,18 @@ a {
 .tag {
     cursor: pointer;
     outline: none;
-    padding: 2px 10px;
+    padding: 5px 15px;
     background: #fff;
     color: @gray;
-    background-color: #fff;
-    border: 1px #ccc solid;
-    border-radius: 30px;
+    border-radius: 4px;
     text-align: center;
     font:12px/1.5 Microsoft YaHei;
     white-space: nowrap;
     vertical-align: middle;
     .disable-selection();
-    &:hover {
-        color: @gray;
-        background-color: #e6e6e6;
-        border-color: #adadad;
+    &:hover, &.cur {
+        color: #ff4d73;
+        background-color: #ffeff3;
     }
     &.disabled {
         pointer-events: none;
@@ -311,32 +309,19 @@ a {
     }
 }
 
-.tag-active {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    &:hover {
-        color: #fff;
-        background-color: #286090;
-        border-color: #204d74;
-    }
-}
-
 .btn {
     cursor: pointer;
     outline: none;
-    padding: 8px 15px;
-    background: #fff;
+    padding: 5px 15px;
     color: @gray;
-    background-color: #fff;
-    border: 1px #ccc solid;
+    background-color: #f5f5f5;
+    border: none;
     border-radius: 4px;
     text-align: center;
     font:12px/1.5 Microsoft YaHei;
     white-space: nowrap;
     vertical-align: middle;
     .disable-selection();
-    box-shadow: 0 1px 1px rgba(0,0,0,.075);
     &:hover {
         color: @gray;
         background-color: #e6e6e6;
@@ -530,67 +515,6 @@ a {
     height: 36px;
     border-bottom: 1px solid @gray5;
 }
-
-    #dream-tab-bar {
-        .tab-nav {
-            width: 100px;
-            float: left;
-            font-size: 14px;
-            a.nav-toggle {
-                display: block;
-                .disable-selection();
-                cursor: pointer;
-                height: 36px;
-                line-height: 36px;
-                i {
-                    width: 16px;
-                    height: 16px;
-                    margin-top: 10px;
-                    display: block;
-                    &.s-arrow {
-                        float: right;
-                    }
-                }
-            }
-            ul.nav-list {
-                display: none;
-                position: absolute;
-                z-index: 4;
-                width: 120px;
-                height: auto;
-                border: 1px solid @gray5;
-                border-radius: 5px;
-                box-shadow: 0 2px 3px  rgba(0, 0, 0, 0.1);
-                li {
-                    float: inherit;
-                    width: 100%;
-                    a.tab {
-                        &.cur, &:hover {
-                            border-bottom: none;
-                        }
-                        margin: 0;
-                        display: block;
-                        padding: 3px 20px;
-                        clear: both;
-                        font-weight: 400;
-                        line-height: 36px;
-                        color: @gray;
-                        white-space: nowrap;
-                        box-sizing: border-box;
-                        &:hover {
-                            background-color: @gray5;
-                        }
-                    }
-                }
-                &.show {
-                    display: block;
-                }
-                &.hide {
-                    display: none;
-                }
-            }
-        }
-    }
 
 .nav-ctrl {
     height: 36px;
@@ -1524,6 +1448,8 @@ a.logo {
 }
 
 #dream-list {
+    margin-top: 20px;
+    border-top: 1px solid #eaeaea;
     min-height: 800px;
 }
 
@@ -1598,7 +1524,9 @@ a.logo {
 .piccard {
     text-align: center;
     cursor: pointer;
+    margin-top: 5px;
     img {
+        border-radius: 5px;
         width: 100%;
     }
 }
@@ -1630,7 +1558,6 @@ a.logo {
 .post-content {
     overflow: hidden;
     font-size: 14px;
-    margin-top: 10px;
     &.thumb-mode {
         .pr();
         .entry {
@@ -1684,7 +1611,7 @@ a.logo {
     .username {
         margin-left: 10px;
     }
-    .datetime:before {
+    .mood:before, .health:before {
         content: '•';
         margin-right: 5px;
         padding: 0 5px;
@@ -1703,42 +1630,13 @@ a.logo {
     }
 }
 
+.post-state {
+    color: #999;
+    margin-top: 10px;
+}
+
 .ctrl-box {
     float: right;
-    a.owed {
-        position: absolute;
-        left: 4px;
-        top: 30px;
-        display: block;
-        width: 22px;
-        height: 22px;
-        text-align: center;
-        border-radius: 50%;
-        padding-top: 2px;
-        margin: 0 auto !important;
-        box-sizing: border-box;
-        padding: 0;
-        &:hover {
-            color: #ff4d73;
-        }
-    }
-    span.vote-num {
-        display: block;
-        border-radius: 4px;
-        padding: 0;
-        height: 16px;
-        width: 32px;
-        line-height: 16px;
-        position: absolute;
-        left: -6px;
-        top: -16px;
-        color: #a8a8a8;
-        text-align: center;
-        border: 1px solid #e7e7e7;
-    }
-    i.s-arrow_up {
-        font-size: 2em;
-    }
 }
 
 .post-footer {
@@ -1759,6 +1657,42 @@ a.logo {
             &:hover {
                 text-decoration: underline;
             }
+        }
+    }
+    .ctrl-box {
+        a.owed {
+            position: absolute;
+            left: 4px;
+            top: 30px;
+            display: block;
+            width: 22px;
+            height: 22px;
+            text-align: center;
+            border-radius: 50%;
+            padding-top: 2px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            padding: 0;
+            &:hover {
+                color: #ff4d73;
+            }
+        }
+        span.vote-num {
+            display: block;
+            border-radius: 4px;
+            padding: 0;
+            height: 16px;
+            width: 32px;
+            line-height: 16px;
+            position: absolute;
+            left: -6px;
+            top: -16px;
+            color: #a8a8a8;
+            text-align: center;
+            border: 1px solid #e7e7e7;
+        }
+        i.s-arrow_up {
+            font-size: 2em;
         }
     }
 }
@@ -1812,6 +1746,8 @@ div.more {
 }
 
 .comment-list {
+    margin-top: 10px;
+    border-top: 1px solid #eaeaea;
     p.user-info {
         overflow: hidden;
     }
@@ -1850,6 +1786,8 @@ div.more {
         overflow: hidden;
         > div {
             float: right;
+            height: 24px;
+            line-height: 24px;
             a, span {
                 display: inline-block;
                 margin: 0 10px;
@@ -1857,6 +1795,11 @@ div.more {
                 color: #a8a8a8;
                 &:hover {
                     text-decoration: underline;
+                }
+            }
+            .owed {
+                i {
+                    float: left;
                 }
             }
         }
@@ -2303,46 +2246,5 @@ div.more {
 @media screen and (max-width: 480px) {
     h1 {
         font-size: 0.8em;
-    }
-    .more-ctrl-toggle {
-        display: block;
-    }
-    .more-ctrl-box {
-        display: none;
-        position: fixed;
-        background-color: #fff;
-        top: 20%;
-        left: 50%;
-        margin-left: -90px;
-        z-index: 4;
-        height: auto!important;
-        min-width: 160px;
-        .pop();
-        > a, > span, .share-box > a {
-            float: inherit;
-            width: 100%;
-            display: block!important;
-            padding: 3px 20px;
-            margin: 0!important;
-            clear: both;
-            font-weight: 400;
-            font-size: 14px!important;
-            line-height: 1.42857143;
-            color: #333!important;
-            white-space: nowrap;
-            box-sizing: border-box;
-            text-align: center;
-            &:hover {
-                background-color: @gray5;
-                text-decoration: none;
-            }
-        }
-        &.show {
-            display: block;
-        }
-
-        &.hide {
-            display: none;
-        }
     }
 }

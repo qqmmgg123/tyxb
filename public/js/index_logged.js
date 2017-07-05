@@ -45511,8 +45511,10 @@
 	 } else { ;
 	__p += '\r\n                 <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>\r\n                 <a class="username" href="/user/unknow">未知</a>\r\n                 ';
 	 } ;
-	__p += '\r\n                 <span class="datetime">\r\n                     ' +
-	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
+	__p += '\r\n                 <span class="mood">\r\n                     心情：' +
+	((__t = ( dream.mood )) == null ? '' : __t) +
+	'\r\n                 </span>\r\n                 <span class="health">\r\n                     身体状况：' +
+	((__t = ( dream.health )) == null ? '' : __t) +
 	'\r\n                 </span>\r\n            </div>\r\n            <div class="user-ctrl-box">\r\n                ';
 	 if (user && (data.tag && data.tag.delperm)) { ;
 	__p += '\r\n                <a href="javascript:;" data-did="' +
@@ -45535,7 +45537,17 @@
 	 } ;
 	__p += '\r\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n        ';
+	__p += '\r\n            </div>\r\n        </div>\r\n        <div class="post-state">\r\n            <span class="datetime">\r\n                ' +
+	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
+	' 此刻分享了\r\n                ';
+	 if (dream.category === 'news') { ;
+	__p += '\r\n                网页\r\n                ';
+	 } else if (dream.category === 'image') { ;
+	__p += '\r\n                图片\r\n                ';
+	 } else if (dream.category === 'text') { ;
+	__p += '\r\n                文字\r\n                ';
+	 } ;
+	__p += '\r\n            </span>\r\n        </div>\r\n        ';
 	 if (dream.category === 'news') { ;
 	__p += '\r\n        <a \r\n            ';
 	 if (dream.link) { ;
@@ -45587,17 +45599,9 @@
 	 } ;
 	__p += '\r\n            ';
 	 if (dream.summary) { ;
-	__p += '\r\n            <div class="summary">\r\n                ';
-	 if (is_mobile) { ;
-	__p += '\r\n                ' +
-	__e( (dream.summary.slice(0, 80) + '...') ) +
-	'\r\n                ';
-	 } else { ;
-	__p += '\r\n                ' +
+	__p += '\r\n            <div class="summary">\r\n                ' +
 	__e( dream.summary ) +
-	'\r\n                ';
-	 } ;
-	__p += '\r\n            </div>\r\n            ';
+	'\r\n            </div>\r\n            ';
 	 } ;
 	__p += '\r\n            ';
 	 if (dream.thumbnail && dream.category === 'image') { ;

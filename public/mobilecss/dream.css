@@ -22,7 +22,7 @@
   margin: 0 10px;
 }
 h1.dream-title {
-  margin-top: 1.5em;
+  margin-top: 10px;
   font-size: 16px;
   font-weight: bold;
   word-wrap: break-word;
@@ -39,20 +39,15 @@ h1.dream-title {
 }
 .read-viewer {
   font-size: 14px;
-  margin-top: 1.5em;
+  margin-top: 10px;
 }
 .read-viewer .viewer-summary .viewer-summary-content {
-  padding: 10px;
   line-height: 22px;
   color: #666;
-}
-.read-viewer .viewer-summary .viewer-summary-more {
-  padding: 0 10px 10px;
 }
 .read-viewer .viewer-content {
   overflow: hidden;
   color: #333;
-  line-height: 2.5em;
   word-wrap: break-word;
   word-break: normal;
 }
@@ -98,13 +93,12 @@ h1.dream-title {
   white-space: pre-wrap;
 }
 .dream-ctrl {
-  margin-top: 1em;
-  padding: 0.625em;
+  margin-top: 10px;
+  padding: 5px;
 }
 .dream-ctrl > div {
   height: 27px;
   line-height: 27px;
-  float: right;
 }
 .dream-ctrl > div a,
 .dream-ctrl > div span {
@@ -114,14 +108,17 @@ h1.dream-title {
   margin: 0 10px;
   color: #a8a8a8;
 }
-.share-box {
-  float: right;
+.dream-ctrl .owed i {
+  float: left;
+}
+.dream-ctrl .vote-num,
+.dream-ctrl .comment-num {
+  margin-left: 10px;
 }
 .comment-ctrl-box em {
   font-style: normal;
 }
 .comment-info {
-  padding: 10px;
   margin-top: 10px;
 }
 .comment-info .alert {

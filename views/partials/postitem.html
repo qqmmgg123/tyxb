@@ -11,8 +11,11 @@
                  <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>
                  <a class="username" href="/user/unknow">未知</a>
                  <% } %>
-                 <span class="datetime">
-                     <%= timeFormat(dream.date) %>
+                 <span class="mood">
+                     心情：<%= dream.mood %>
+                 </span>
+                 <span class="health">
+                     身体状况：<%= dream.health %>
                  </span>
             </div>
             <div class="user-ctrl-box">
@@ -29,6 +32,18 @@
                 <% } %>
                 <% } %>
             </div>
+        </div>
+        <div class="post-state">
+            <span class="datetime">
+                <%= timeFormat(dream.date) %> 此刻分享了
+                <% if (dream.category === 'news') { %>
+                网页
+                <% } else if (dream.category === 'image') { %>
+                图片
+                <% } else if (dream.category === 'text') { %>
+                文字
+                <% } %>
+            </span>
         </div>
         <% if (dream.category === 'news') { %>
         <a 
@@ -70,11 +85,7 @@
             <% } %>
             <% if (dream.summary) { %>
             <div class="summary">
-                <% if (is_mobile) { %>
-                <%- (dream.summary.slice(0, 80) + '...') %>
-                <% } else { %>
                 <%- dream.summary %>
-                <% } %>
             </div>
             <% } %>
             <% if (dream.thumbnail && dream.category === 'image') { %>

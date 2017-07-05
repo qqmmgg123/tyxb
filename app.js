@@ -203,6 +203,30 @@ app.use(function(req, res, next) {
     next();
 });
 
+// Record last online.
+app.use(function(req, res, next) {
+    if (!req.user) {
+        return next();
+    }
+
+    if (!req.xhr) {
+        const user = req.user;
+
+        user.update({
+            last_online: new Date()
+        }, function(err, course) {
+            if (err) {
+                return next(err);
+            }
+
+            next();
+        });
+    }
+    else{
+        next();
+    }
+});
+
 app.use('/', require('./routes'));
 app.use('/search', require('./routers/search'));
 app.use('/tag', require('./routers/tag'));

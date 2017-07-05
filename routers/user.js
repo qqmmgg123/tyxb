@@ -25,6 +25,8 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
             avatar   : 1,
             username : 1,
             bio      : 1,
+            mood     : 1,
+            health   : 1,
             date     : 1,
             dnum     : { $size: '$dreams' },
             cnum     : { $size: '$comments' }
@@ -80,6 +82,8 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     category  : 1,
                     thumbnail : 1,
                     mthumbnail: 1,
+                    mood      : 1,
+                    health    : 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
                     _belong_t : 1,
@@ -304,7 +308,8 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                     category  : 1,
                     thumbnail : 1,
                     mthumbnail: 1,
-                    nodes     : 1,
+                    mood      : 1,
+                    health    : 1,
                     cnum      : { $size: '$comments' },
                     _belong_u : 1,
                     _belong_t : 1,
@@ -908,7 +913,7 @@ router.get('/user/:id([a-z0-9]+)/follower', function(req, res, next) {
     });
 });
 
-// 更改用户资料
+// 更改用户资信息
 router.post('/update', function(req, res, next) {
     if (!req.user) {
         return res.json({
@@ -923,20 +928,35 @@ router.post('/update', function(req, res, next) {
         var err = new Error(settings.PARAMS_PASSED_ERR_TIPS);
         return next(err);
     }
-    let { bio = '' } = req.body;
+    const { bio, mood, health } = req.body,
+        hasBio = (bio && bio.trim()),
+        hasMood = (mood && mood.trim()),
+        hasHealth = (health && health.trim);
 
-    req.user.update({
-        bio      : bio.trim()
-    }, function(err, course) {
-        if (err) {
-            return next(err);
-        }
+    if (hasBio || hasHealth || hasMood) {
+        let info = {};
+        
+        hasBio && (info.bio = hasBio);
+        hasMood && (info.mood = hasMood);
+        hasHealth && (info.health = hasHealth);
 
-        res.json({
-            info: "更新成功",
-            result: 0
+        req.user.update(info, function(err, course) {
+            if (err) {
+                return next(err);
+            }
+
+            res.json({
+                info: "更新成功",
+                result: 0
+            });
         });
-    });
+    }
+    else{
+        res.json({
+            info: "缺少参数",
+            result: 1
+        });
+    }
 });
 
 router.post('/user/cfollow', function(req, res, next) {

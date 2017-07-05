@@ -49,6 +49,8 @@ function renderRecommand(req, res, next) {
             summary   : 1,
             thumbnail : 1,
             mthumbnail: 1,
+            mood      : 1,
+            health    : 1,
             cnum   : { $size: '$comments' },
             _belong_u : 1,
             _belong_t : 1,
@@ -176,37 +178,15 @@ function renderRecommand(req, res, next) {
             });
         },
         function(cb) {
-            Tag.aggregate([{
-                $project: {
-                    _id       : 1,
-                    key       : 1,
-                    weight    : 1,
-                    unum      : { $size: "$followers" },
-                    dnum      : { $size: "$dreams" }
-                 }
-             }, {
-                 $sort: { weight: -1, unum: -1, dnum: -1 }
-             }, {
-                 $limit: 11
-             }], function(err, tags) {
-                if (err) {
-                    return cb(err, []);
-                }
-                
-                cb(null, tags);
-             });
-        }, function(cb) {
              Account.aggregate([{
                  $project: {
                      _id         : 1,
                      avatar_mini : 1,
                      username    : 1,
-                     bio         : 1,
-                     dnum        : { $size: "$dreams" },
-                     cnum        : { $size: "$comments" }
+                     bio         : 1
                  }
              }, {
-                 $sort: { dnum: -1, cnum: -1, date: -1 }
+                 $sort: { last_online: -1 }
              }, {
                  $limit: 11
              }], function(err, users) {
@@ -217,13 +197,12 @@ function renderRecommand(req, res, next) {
                 cb(null, users);
              });
         }], function(err, results) {
-            if (err && results.length < 3) {
+            if (err && results.length < 2) {
                 return next(err);
             }
 
             var dreams    = results[0],
-                tags      = results[1],
-                users     = results[2];
+                users     = results[1];
 
             var hasmore = false,
                 hasprev = false;
@@ -244,7 +223,6 @@ function renderRecommand(req, res, next) {
                 res.json({
                     info: 'success!',
                     data: {
-                        tags    : tags,
                         users   : users,
                         dreams  : dreams,
                         hasprev : hasprev,
@@ -262,7 +240,6 @@ function renderRecommand(req, res, next) {
                     notice: common.getFlash(req, 'notice'),
                     user : req.user,
                     data: {
-                        tags    : tags,
                         users   : users,
                         dreams  : dreams,
                         hasprev : hasprev,

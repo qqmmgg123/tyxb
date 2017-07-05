@@ -192,12 +192,13 @@ import ReactDOM from 'react-dom';
                 did = utils.getData(cur, 'did');
 
             if (rel === 'dream-good') {
-                var voteBox = utils.closest(cur, '.vote-ctrl-box'), voteNum, voteBad,
-                    hasGood = utils.getData(cur, 'hasgood');
+                let heartNum, Heart,
+                    ctrlBox = utils.closest(cur, '.ctrl-box'),
+                    hasHeart = utils.getData(cur, 'hasgood');
             
-                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-                voteBox && (voteBad  = voteBox.querySelector('[rel="dream-bad"]'));
-                if (!hasGood) {
+                Heart  = ctrlBox.querySelector('[rel="dream-good"]');
+                heartNum = Heart.querySelector('[rel="vote-num"]');
+                if (!hasHeart) {
                     req.post(
                         "/dream/goodit",
                         {
@@ -210,9 +211,7 @@ import ReactDOM from 'react-dom';
                                         var num = parseInt(data.data.num);
                                         utils.addClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': true });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
-                                        voteBad && utils.removeClass(voteBad.querySelector('i'), "s-ac");
-                                        voteBad && utils.setData(voteBad, { 'hasbad': false });
+                                        heartNum.innerHTML = (isNaN(num)? 0:num);
                                     }
                                     break;
                                 case 1:
@@ -241,77 +240,7 @@ import ReactDOM from 'react-dom';
                                         var num = parseInt(data.data.num);
                                         utils.removeClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': false });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
-                                    }
-                                    break;
-                                case 1:
-                                    alert(data.info);
-                                    break;
-                                case 2:
-                                    common.showSigninPop();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        },
-                        function() {
-                        }
-                    );
-                }
-            }
-            // 反对
-            else if (rel === 'dream-bad') {
-                var voteBox = utils.closest(cur, '.vote-ctrl-box'), voteNum, voteGood,
-                    hasBad = utils.getData(cur, 'hasbad');
-
-                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-                voteBox && (voteGood  = voteBox.querySelector('[rel="dream-good"]'));
-
-                if (!hasBad) {
-                    req.post(
-                        "/dream/badit",
-                        {
-                            did: did
-                        },
-                        function(data) {
-                            switch(data.result) {
-                                case 0:
-                                    if (data.data) {
-                                        var num = parseInt(data.data.num);
-                                        utils.addClass(cur.querySelector('i'), "s-ac");
-                                        utils.setData(cur, { 'hasbad': true });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);;
-                                        voteGood && utils.removeClass(voteGood.querySelector('i'), "s-ac");
-                                        voteGood && utils.setData(voteGood, { 'hasgood': false });
-                                    }
-                                    break;
-                                case 1:
-                                    alert(data.info);
-                                    break;
-                                case 2:
-                                    common.showSigninPop();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        },
-                        function() {
-                        }
-                    );
-                }else{
-                    req.post(
-                        "/dream/cbad",
-                        {
-                            did: did
-                        },
-                        function(data) {
-                            switch(data.result) {
-                                case 0:
-                                    if (data.data) {
-                                        var num = parseInt(data.data.num);
-                                        utils.removeClass(cur.querySelector('i'), "s-ac");
-                                        utils.setData(cur, { 'hasbad': false });
-                                        voteNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = (isNaN(num)? 0:num);
                                     }
                                     break;
                                 case 1:

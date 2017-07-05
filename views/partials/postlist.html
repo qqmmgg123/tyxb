@@ -1,25 +1,19 @@
-<div id="dream-tab-bar" class="nav-bar <%= (is_mobile && data.nav !== 'user') && 'mar-top' %>">
-    <div class="tab-nav">
-        <% if (data.role == '1') { %>
-        <a rel="nav-toggle" class="nav-toggle">受欢迎的&nbsp;<i class="s s-arrow s-lg"></i></a>
-        <% } %>
-        <% if (data.role == '2') { %>
-        <a rel="nav-toggle" class="nav-toggle">新发布的&nbsp;<i class="s s-arrow s-lg"></i></a>
-        <% } %>
-        <ul class="nav-list">
+<div <% if (is_mobile && data.nav !== 'user') { %>class="mar-top"<% } %>>
+    <div class="tag-list">
+        <ul>
             <li><a 
-                hidefocus="true" class="tab <% if (data.role == '1') { %>cur"<% } %>" 
+                hidefocus="true" class="tag <% if (data.role == '1') { %>cur"<% } %>" 
                 href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>"></i>受欢迎的</a></li>
             <li><a 
-                hidefocus="true" class="tab <% if (data.role == '2') { %>cur"<% } %>" 
+                hidefocus="true" class="tag <% if (data.role == '2') { %>cur"<% } %>" 
                 href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2"></i>新发布的</a></li>
         </ul>
     </div>
-    <div class="nav-ctrl">
+    <!--<div class="nav-ctrl">
         <a id="dream-refresh" class="refresh" href="javascript:;">
             <i class="s s-refresh s-lg"></i>
         </a>
-    </div>
+    </div>-->
 </div>
 <ul id="dream-list" class="list-group">
     <% if (data.dreams && data.dreams.length > 0) { %>

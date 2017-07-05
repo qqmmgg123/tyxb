@@ -43,21 +43,16 @@ h1.dream-title {
 
 .read-viewer {
     font-size: 14px;
-    margin-top: 1.5em;
+    margin-top: 10px;
     .viewer-summary {
         .viewer-summary-content {
-            padding: 10px;
             line-height: 22px;
             color: #666;
-        }
-        .viewer-summary-more {
-            padding: 0 10px 10px;
         }
     }
     .viewer-content {
         overflow: hidden;
         color: #333;
-        line-height: 2.5em;
         .wrap();
         img {
             width: 100%;
@@ -107,12 +102,11 @@ h1.dream-title {
 }
 
 .dream-ctrl {
-    margin-top: 1em;
-    padding: 0.625em;
+    margin-top: 10px;
+    padding: 5px;
     > div {
         height: 27px;
         line-height: 27px;
-        float: right;
         a, span {
             height: 27px;
             line-height: 27px;
@@ -121,10 +115,14 @@ h1.dream-title {
             color: #a8a8a8;
         }
     }
-}
-
-.share-box {
-    float: right;
+    .owed {
+        i {
+            float: left;
+        }
+    }
+    .vote-num, .comment-num {
+        margin-left: 10px;
+    }
 }
 
 .comment-ctrl-box em {
@@ -132,7 +130,6 @@ h1.dream-title {
 }
 
 .comment-info {
-    padding: 10px;
     margin-top: 10px;
     .alert {
         margin-bottom: 0;

@@ -251,14 +251,14 @@
 	                did = utils.getData(cur, 'did');
 
 	            if (rel === 'dream-good') {
-	                var voteBox = utils.closest(cur, '.vote-ctrl-box'),
-	                    voteNum,
-	                    voteBad,
-	                    hasGood = utils.getData(cur, 'hasgood');
+	                var heartNum = void 0,
+	                    Heart = void 0,
+	                    ctrlBox = utils.closest(cur, '.ctrl-box'),
+	                    hasHeart = utils.getData(cur, 'hasgood');
 
-	                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-	                voteBox && (voteBad = voteBox.querySelector('[rel="dream-bad"]'));
-	                if (!hasGood) {
+	                Heart = ctrlBox.querySelector('[rel="dream-good"]');
+	                heartNum = Heart.querySelector('[rel="vote-num"]');
+	                if (!hasHeart) {
 	                    req.post("/dream/goodit", {
 	                        did: did
 	                    }, function (data) {
@@ -268,9 +268,7 @@
 	                                    var num = parseInt(data.data.num);
 	                                    utils.addClass(cur.querySelector('i'), "s-ac");
 	                                    utils.setData(cur, { 'hasgood': true });
-	                                    voteNum.innerHTML = isNaN(num) ? 0 : num;
-	                                    voteBad && utils.removeClass(voteBad.querySelector('i'), "s-ac");
-	                                    voteBad && utils.setData(voteBad, { 'hasbad': false });
+	                                    heartNum.innerHTML = isNaN(num) ? 0 : num;
 	                                }
 	                                break;
 	                            case 1:
@@ -293,7 +291,7 @@
 	                                    var num = parseInt(data.data.num);
 	                                    utils.removeClass(cur.querySelector('i'), "s-ac");
 	                                    utils.setData(cur, { 'hasgood': false });
-	                                    voteNum.innerHTML = isNaN(num) ? 0 : num;
+	                                    heartNum.innerHTML = isNaN(num) ? 0 : num;
 	                                }
 	                                break;
 	                            case 1:
@@ -308,30 +306,18 @@
 	                    }, function () {});
 	                }
 	            }
-	            // 反对
-	            else if (rel === 'dream-bad') {
-	                    var voteBox = utils.closest(cur, '.vote-ctrl-box'),
-	                        voteNum,
-	                        voteGood,
-	                        hasBad = utils.getData(cur, 'hasbad');
+	            // 收藏/取消收藏
+	            else if (rel === 'dream-favourite') {
+	                    var hasFav = utils.getData(cur, 'hasfav');
 
-	                    voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-	                    voteBox && (voteGood = voteBox.querySelector('[rel="dream-good"]'));
-
-	                    if (!hasBad) {
-	                        req.post("/dream/badit", {
+	                    if (!hasFav) {
+	                        req.post("/dream/following", {
 	                            did: did
 	                        }, function (data) {
 	                            switch (data.result) {
 	                                case 0:
-	                                    if (data.data) {
-	                                        var num = parseInt(data.data.num);
-	                                        utils.addClass(cur.querySelector('i'), "s-ac");
-	                                        utils.setData(cur, { 'hasbad': true });
-	                                        voteNum.innerHTML = isNaN(num) ? 0 : num;;
-	                                        voteGood && utils.removeClass(voteGood.querySelector('i'), "s-ac");
-	                                        voteGood && utils.setData(voteGood, { 'hasgood': false });
-	                                    }
+	                                    cur.innerHTML = "已收藏";
+	                                    utils.setData(cur, { 'hasfav': true });
 	                                    break;
 	                                case 1:
 	                                    alert(data.info);
@@ -344,17 +330,13 @@
 	                            }
 	                        }, function () {});
 	                    } else {
-	                        req.post("/dream/cbad", {
+	                        req.post("/dream/cfollowing", {
 	                            did: did
 	                        }, function (data) {
 	                            switch (data.result) {
 	                                case 0:
-	                                    if (data.data) {
-	                                        var num = parseInt(data.data.num);
-	                                        utils.removeClass(cur.querySelector('i'), "s-ac");
-	                                        utils.setData(cur, { 'hasbad': false });
-	                                        voteNum.innerHTML = isNaN(num) ? 0 : num;
-	                                    }
+	                                    cur.innerHTML = "收藏";
+	                                    utils.setData(cur, { 'hasfav': false });
 	                                    break;
 	                                case 1:
 	                                    alert(data.info);
@@ -368,79 +350,35 @@
 	                        }, function () {});
 	                    }
 	                }
-	                // 收藏/取消收藏
-	                else if (rel === 'dream-favourite') {
-	                        var hasFav = utils.getData(cur, 'hasfav');
+	                // 删除想法
+	                else if (rel === 'dream-delete') {
+	                        var curDreamItem = utils.closest(cur, '.list-item');
+	                        req.post("/dream/delete", {
+	                            did: did
+	                        }, function (data) {
+	                            switch (data.result) {
+	                                case 0:
+	                                    effect.fadeOut(curDreamItem, function (el) {
+	                                        el.parentNode.removeChild(el);
+	                                    });
+	                                    break;
+	                                case 1:
+	                                    alert(data.info);
+	                                    break;
+	                                case 2:
+	                                    common.showSigninPop();
+	                                    break;
+	                                default:
+	                                    break;
+	                            };
+	                        }, function () {});
+	                    } else if (rel === 'dream-picsrc') {
+	                        ev.preventdefault;
+	                        var thumb = cur.querySelector('img'),
+	                            src = thumb.src.replace('picmini', 'uploads');
 
-	                        if (!hasFav) {
-	                            req.post("/dream/following", {
-	                                did: did
-	                            }, function (data) {
-	                                switch (data.result) {
-	                                    case 0:
-	                                        cur.innerHTML = "已收藏";
-	                                        utils.setData(cur, { 'hasfav': true });
-	                                        break;
-	                                    case 1:
-	                                        alert(data.info);
-	                                        break;
-	                                    case 2:
-	                                        common.showSigninPop();
-	                                        break;
-	                                    default:
-	                                        break;
-	                                }
-	                            }, function () {});
-	                        } else {
-	                            req.post("/dream/cfollowing", {
-	                                did: did
-	                            }, function (data) {
-	                                switch (data.result) {
-	                                    case 0:
-	                                        cur.innerHTML = "收藏";
-	                                        utils.setData(cur, { 'hasfav': false });
-	                                        break;
-	                                    case 1:
-	                                        alert(data.info);
-	                                        break;
-	                                    case 2:
-	                                        common.showSigninPop();
-	                                        break;
-	                                    default:
-	                                        break;
-	                                }
-	                            }, function () {});
-	                        }
+	                        common.showImageViewer(src);
 	                    }
-	                    // 删除想法
-	                    else if (rel === 'dream-delete') {
-	                            var curDreamItem = utils.closest(cur, '.list-item');
-	                            req.post("/dream/delete", {
-	                                did: did
-	                            }, function (data) {
-	                                switch (data.result) {
-	                                    case 0:
-	                                        effect.fadeOut(curDreamItem, function (el) {
-	                                            el.parentNode.removeChild(el);
-	                                        });
-	                                        break;
-	                                    case 1:
-	                                        alert(data.info);
-	                                        break;
-	                                    case 2:
-	                                        common.showSigninPop();
-	                                        break;
-	                                    default:
-	                                        break;
-	                                };
-	                            }, function () {});
-	                        } else if (rel === 'dream-picsrc') {
-	                            ev.preventdefault;
-	                            var thumb = cur.querySelector('img'),
-	                                src = thumb.src.replace('picmini', 'uploads');
-
-	                            common.showImageViewer(src);
-	                        }
 	        }
 	    });
 
@@ -45779,8 +45717,10 @@
 	 } else { ;
 	__p += '\r\n                 <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>\r\n                 <a class="username" href="/user/unknow">未知</a>\r\n                 ';
 	 } ;
-	__p += '\r\n                 <span class="datetime">\r\n                     ' +
-	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
+	__p += '\r\n                 <span class="mood">\r\n                     心情：' +
+	((__t = ( dream.mood )) == null ? '' : __t) +
+	'\r\n                 </span>\r\n                 <span class="health">\r\n                     身体状况：' +
+	((__t = ( dream.health )) == null ? '' : __t) +
 	'\r\n                 </span>\r\n            </div>\r\n            <div class="user-ctrl-box">\r\n                ';
 	 if (user && (data.tag && data.tag.delperm)) { ;
 	__p += '\r\n                <a href="javascript:;" data-did="' +
@@ -45803,7 +45743,17 @@
 	 } ;
 	__p += '\r\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n        ';
+	__p += '\r\n            </div>\r\n        </div>\r\n        <div class="post-state">\r\n            <span class="datetime">\r\n                ' +
+	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
+	' 此刻分享了\r\n                ';
+	 if (dream.category === 'news') { ;
+	__p += '\r\n                网页\r\n                ';
+	 } else if (dream.category === 'image') { ;
+	__p += '\r\n                图片\r\n                ';
+	 } else if (dream.category === 'text') { ;
+	__p += '\r\n                文字\r\n                ';
+	 } ;
+	__p += '\r\n            </span>\r\n        </div>\r\n        ';
 	 if (dream.category === 'news') { ;
 	__p += '\r\n        <a \r\n            ';
 	 if (dream.link) { ;
@@ -45855,17 +45805,9 @@
 	 } ;
 	__p += '\r\n            ';
 	 if (dream.summary) { ;
-	__p += '\r\n            <div class="summary">\r\n                ';
-	 if (is_mobile) { ;
-	__p += '\r\n                ' +
-	__e( (dream.summary.slice(0, 80) + '...') ) +
-	'\r\n                ';
-	 } else { ;
-	__p += '\r\n                ' +
+	__p += '\r\n            <div class="summary">\r\n                ' +
 	__e( dream.summary ) +
-	'\r\n                ';
-	 } ;
-	__p += '\r\n            </div>\r\n            ';
+	'\r\n            </div>\r\n            ';
 	 } ;
 	__p += '\r\n            ';
 	 if (dream.thumbnail && dream.category === 'image') { ;

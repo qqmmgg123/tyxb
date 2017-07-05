@@ -20,7 +20,7 @@
         <div class="main">
             <ul>
                 <li class="list-item">
-                    <a href="/"><&nbsp;返回</a>
+                    <a href="/">←&nbsp;返回</a>
                 </li>
                 <!--<% if (data.current._belong_t) { %>
                 <li class="list-item">
@@ -41,6 +41,7 @@
         <div class="main">
             <div class="col-8">
             <div class="content-area">
+                <% if (data.current.content) { %>
                 <% if (data.current.link) { %>
                 <a href="<%= data.current.link %>"> <h1 id="sharetitle" class="dream-title"><%= data.current.content %></h1></a>
                 <!--<% if (data.current.site) { %>
@@ -48,6 +49,7 @@
                 <% } %>-->
                 <% } else { %>
                 <h1 id="sharetitle" class="dream-title"><%= data.current.content %></h1>
+                <% } %>
                 <% } %>
                 <div class="dream-detail-info">
                     <% if (data.current._belong_u) { %>
@@ -58,20 +60,15 @@
                     <% } %>
                 </div>
                 <% if (!data.current.isremove) { %>
-                <% if (data.current.image) { %>
-                <div class="image-viewer">
-                    <img width="600" src="<%= data.current.image %>" >
-                </div>
-                <% } %>
                 <% if (data.current.text) { %>
                 <div class="read-viewer">
-                    <% if (data.focus === 'comment') { %>
+                    <% if (data.current.text.length > 147) { %>
                     <div class="viewer-summary">
                         <div class="viewer-summary-content">
                             <%- data.current.summary %>
                         </div>
                         <div class="viewer-summary-more">
-                            <a href="javascript:;" rel="dream-expand">查看全部贴文&nbsp;→</a>
+                            <a href="javascript:;" rel="dream-expand">查看全部&nbsp;→</a>
                         </div>
                     </div>
                     <div class="viewer-content" style="display: none;">
@@ -84,12 +81,28 @@
                     <% } %>
                 </div>
                 <% } %>
+                <% if (data.current.image) { %>
+                <div class="image-viewer">
+                    <img width="600" src="<%= data.current.image %>" >
+                </div>
+                <% } %>
                 <% } else { %>
                 <div class="panel read-viewer no-exist-content">[该帖文已被作者删除]</div>
                 <% } %>
             </div>
             <div id="dreamCtrlBox" class="dream-ctrl clearfix">
-                <div class="more-ctrl-box">
+                <div class="ctrl-box">
+                    <% if (user) { %>
+                    <% if (data.current.good && data.current.good.length > 0) { %>
+                    <a class="owed" href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="true" rel="dream-good"><i class="s s-arrow_up s-2x s-ac"></i>
+                    <% } else { %>
+                    <a class="owed" href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-2x"></i>
+                    <% } %>
+                    <% } else { %>
+                    <a class="owed" href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-2x"></i>
+                    <% } %>
+                    <em class="vote-num" rel="vote-num"><%= data.current.vote %></em></a>
+                    <span>留言<em class="comment-num" id="commentNum"><%= data.current.cnum %></em></span>
                     <% if (user) { %>
                     <% if (data.current._followers_u && data.current._followers_u.length > 0) { %>
                     <a data-did="<%= data.current._id %>" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>
@@ -99,7 +112,7 @@
                     <% } else { %>
                     <a data-did="<%= data.current._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
                     <% } %>
-                    <!--<% if (user && data.current._belong_u) { %>
+                    <% if (user && data.current._belong_u) { %>
                     <% if (data.current._belong_u._id.equals(user._id)) { %>
                     <% if (!data.current.isremove) { %>
                     <a href="javascript:;" data-did="<%= data.current._id %>" rel="dream-delete">删除</a>
@@ -107,29 +120,7 @@
                     <span>已删除</span>
                     <% } %>
                     <% } %>
-                    <% } %>-->
-                </div>
-                <div class="share-box">
-                    <a rel="dream-share" class="share-btn" href="javascript:;" data-did="<%= data.current._id %>">分享</a>
-                    <ul class="share-list">
-                        <li><a id="wb_share" href="javascript:;"><i class="s s-wb s-2x"></i></a></li>
-                        <li><a id="qzone_share" href="javascript:;"><i class="s s-qzone s-2x"></i></a></li>
-                    </ul>
-                </div>
-                <div class="comment-ctrl-box">
-                    <span>留言&nbsp;<em id="commentNum"><%= data.current.cnum %></em></span>
-                </div>
-                <div class="vote-ctrl-box">
-                    <% if (user) { %>
-                    <% if (data.current.good && data.current.good.length > 0) { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="true" rel="dream-good"><i class="s s-arrow_up s-lg s-ac"></i></a>
-                    <% } else { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i></a>
                     <% } %>
-                    <% } else { %>
-                    <a href="javascript:;" data-did="<%= data.current._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i></a>
-                    <% } %>
-                    <span class="vote-num" rel="vote-num"><%= data.current.vote %></span>
                 </div>
             </div>
             <div data-rid="<%= data.current._id %>" id="dreamComment" class="dream-comment">
@@ -142,31 +133,19 @@
                     </div>
                 </div>
                 <% } %>
-                <div id="dream-tab-bar" class="nav-bar">
+                <div>
                     <% if (data.focus === 'dream') { %>
-                    <div class="tab-nav">
-                        <% if (data.role == '1') { %>
-                        <a rel="nav-toggle" class="nav-toggle">好评<i class="s s-arrow s-lg"></i></a>
-                        <% } %>
-                        <% if (data.role == '2') { %>
-                        <a rel="nav-toggle" class="nav-toggle">最新<i class="s s-arrow s-lg"></i></a>
-                        <% } %>
-                        <ul class="nav-list">
-                            <li><a data-rid="<%= data.current._id %>" data-reply="0" data-cnext="1" data-sort="1" data-focus="<% data.focus %>" rel="comments-hot" class="tab <% if (data.role == '1') { %>cur"<% } %>" href="javascript:;">好评</a></li>
-                            <li><a data-rid="<%= data.current._id %>" data-reply="0" data-cnext="1" data-sort="2" data-focus="<% data.focus %>" rel="comments-new" class="tab <% if (data.role == '2') { %>cur"<% } %>" href="javascript:;">最新</a></li>
+                    <div class="tag-list">
+                        <ul>
+                            <li><a data-rid="<%= data.current._id %>" data-reply="0" data-cnext="1" data-sort="1" data-focus="<% data.focus %>" rel="comments-hot" class="tag <% if (data.role == '1') { %>cur"<% } %>" href="javascript:;">受欢迎的</a></li>
+                            <li><a data-rid="<%= data.current._id %>" data-reply="0" data-cnext="1" data-sort="2" data-focus="<% data.focus %>" rel="comments-new" class="tag <% if (data.role == '2') { %>cur"<% } %>" href="javascript:;">新发布的</a></li>
                         </ul>
                     </div>
                     <%} else if (data.focus === 'comment') {%>
-                    <div class="tab-nav">
-                        <% if (data.role == '1') { %>
-                        <a rel="nav-toggle" class="nav-toggle">好评<i class="s s-arrow s-lg"></i></a>
-                        <% } %>
-                        <% if (data.role == '2') { %>
-                        <a rel="nav-toggle" class="nav-toggle">最新<i class="s s-arrow s-lg"></i></a>
-                        <% } %>
-                        <ul class="nav-list">
-                            <li><a data-did="<%= data.current._id %>" data-rid="<%= data.cid %>" data-reply="1" data-cnext="1" data-sort="1" data-focus="<%= data.focus %>" rel="comments-hot" class="tab <% if (data.role == '1') { %>cur"<% } %>" href="javascript:;">热门</a></li>
-                            <li><a data-did="<%= data.current._id %>" data-rid="<%= data.cid %>" data-reply="1" data-cnext="1" data-sort="2" data-focus="<%= data.focus %>" rel="comments-new" class="tab <% if (data.role == '2') { %>cur"<% } %>" href="javascript:;">最新</a></li>
+                    <div class="tag-list">
+                        <ul>
+                            <li><a data-did="<%= data.current._id %>" data-rid="<%= data.cid %>" data-reply="1" data-cnext="1" data-sort="1" data-focus="<%= data.focus %>" rel="comments-hot" class="tag <% if (data.role == '1') { %>cur"<% } %>" href="javascript:;">受欢迎的</a></li>
+                            <li><a data-did="<%= data.current._id %>" data-rid="<%= data.cid %>" data-reply="1" data-cnext="1" data-sort="2" data-focus="<%= data.focus %>" rel="comments-new" class="tag <% if (data.role == '2') { %>cur"<% } %>" href="javascript:;">新发布的</a></li>
                         </ul>
                     </div>
                     <% } %>
@@ -174,7 +153,7 @@
                 <% if (data.focus === 'comment') { %>
                 <div class="comment-info">
                     <p class="alert alert-info">
-                    您当前查看的是单一留言的讨论串&nbsp;→&nbsp;<a data-rid="<%= data.current._id %>" data-reply="0" data-cnext="1" data-sort="<%= data.role %>" rel="query-all-comments" href="javascript:;" class="btn">查看全部留言</a>
+                    您当前查看的是单一留言的讨论串，<a data-rid="<%= data.current._id %>" data-reply="0" data-cnext="1" data-sort="<%= data.role %>" rel="query-all-comments" href="javascript:;">查看全部留言&nbsp;→&nbsp;</a>
                     </p>
                 </div>
                 <% } %>

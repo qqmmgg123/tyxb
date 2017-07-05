@@ -215,14 +215,14 @@
 	                    if (data.comments && data.comments.length > 0) {
 	                        var html = '';
 	                        if (data.hasprev) {
-	                            var prev = ['<div ', 'data-rid="' + data.comments[0]._reply_c + '" data-reply="1" data-cnext="1" data-sort="' + data.role + '" ', 'rel="load-comments-prev" class="more">', '<a class="btn">查看上层留言</a>', '</div>'].join('');
+	                            var prev = ['<li class="list-item"><div ', 'data-rid="' + data.comments[0]._reply_c + '" data-reply="1" data-cnext="1" data-sort="' + data.role + '" ', 'rel="load-comments-prev" class="more">', '<a class="btn">查看上层留言</a>', '</div></li>'].join('');
 	                            html += prev;
 	                        }
 
 	                        html += listComment(data.comments);
 
 	                        if (data.hasmore) {
-	                            var more = ['<div ', 'data-rid="' + rid + '" data-reply="1" data-cnext="' + data.cnext + '" data-sort="' + data.role + '" ', 'rel="load-comments-next" class="more">', '<a class="btn">查看更多 ></a>', '</div>'].join('');
+	                            var more = ['<li class="list-item"><div ', 'data-rid="' + rid + '" data-reply="1" data-cnext="' + data.cnext + '" data-sort="' + data.role + '" ', 'rel="load-comments-next" class="more">', '<a class="btn">查看更多 ></a>', '</div></li>'].join('');
 	                            html += more;
 	                        }
 	                        ctrlBox.parentNode.removeChild(ctrlBox);
@@ -245,12 +245,12 @@
 	                                comment.replys = listComment(comment.replys);
 
 	                                if (comment.hasmore) {
-	                                    var more = ['<div ', 'data-rid="' + comment._id + '" data-reply="1" data-cnext="2" data-sort="' + data.role + '" ', 'rel="load-comments-next" class="more">', '<a class="btn">查看更多 ></a>', '</div>'].join('');
+	                                    var more = ['<li class="list-item"><div ', 'data-rid="' + comment._id + '" data-reply="1" data-cnext="2" data-sort="' + data.role + '" ', 'rel="load-comments-next" class="more">', '<a class="btn">查看更多 ></a>', '</div></li>'].join('');
 	                                    comment.replys += more;
 	                                }
 	                            } else if (level === 3) {
 	                                if (comment.hasmore) {
-	                                    var more = ['<div ', 'data-rid="' + comment._id + '" data-reply="1" data-cnext="1" data-sort="' + data.role + '" ', 'rel="load-comments-next" class="more">', '<a class="btn">查看下层留言</a>', '</div>'].join('');
+	                                    var more = ['<li class="list-item"><div ', 'data-rid="' + comment._id + '" data-reply="1" data-cnext="1" data-sort="' + data.role + '" ', 'rel="load-comments-next" class="more">', '<a class="btn">查看下层留言</a>', '</div></li>'].join('');
 	                                    comment.replys = more;
 	                                }
 	                            }
@@ -308,14 +308,9 @@
 	        commentUp: function commentUp(ev, cur) {
 	            var item = utils.closest(cur, '.comment-ctrl'),
 	                cid = utils.getData(item, 'rid'),
-	                voteBox = utils.closest(cur, '.vote-ctrl-box'),
-	                voteNum,
-	                voteBad,
-	                hasGood = utils.getData(cur, 'hasgood');
-
-	            voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-	            voteBox && (voteBad = voteBox.querySelector('[rel="comment-bad"]'));
-	            if (!hasGood) {
+	                hasHeart = utils.getData(cur, 'hasgood'),
+	                heartNum = cur.querySelector('[rel="vote-num"]');
+	            if (!hasHeart) {
 	                req.post("/comment/goodit", {
 	                    cid: cid
 	                }, function (data) {
@@ -325,9 +320,7 @@
 	                                var num = parseInt(data.data.num);
 	                                utils.addClass(cur.querySelector('i'), "s-ac");
 	                                utils.setData(cur, { 'hasgood': true });
-	                                voteNum.innerHTML = isNaN(num) ? 0 : num;
-	                                voteBad && utils.removeClass(voteBad.querySelector('i'), "s-ac");
-	                                voteBad && utils.setData(voteBad, { 'hasbad': false });
+	                                heartNum.innerHTML = isNaN(num) ? 0 : num;
 	                            }
 	                            break;
 	                        case 1:
@@ -350,7 +343,7 @@
 	                                var num = parseInt(data.data.num);
 	                                utils.removeClass(cur.querySelector('i'), "s-ac");
 	                                utils.setData(cur, { 'hasgood': false });
-	                                voteNum.innerHTML = isNaN(num) ? 0 : num;
+	                                heartNum.innerHTML = isNaN(num) ? 0 : num;
 	                            }
 	                            break;
 	                        case 1:
@@ -583,14 +576,9 @@
 	                did = utils.getData(cur, 'did');
 
 	            if (rel === 'dream-good') {
-	                var voteBox = utils.closest(cur, '.vote-ctrl-box'),
-	                    voteNum,
-	                    voteBad,
-	                    hasGood = utils.getData(cur, 'hasgood');
-
-	                voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-	                voteBox && (voteBad = voteBox.querySelector('[rel="dream-bad"]'));
-	                if (!hasGood) {
+	                var hasHeart = utils.getData(cur, 'hasgood'),
+	                    heartNum = cur.querySelector('[rel="vote-num"]');
+	                if (!hasHeart) {
 	                    req.post("/dream/goodit", {
 	                        did: did
 	                    }, function (data) {
@@ -600,9 +588,7 @@
 	                                    var num = parseInt(data.data.num);
 	                                    utils.addClass(cur.querySelector('i'), "s-ac");
 	                                    utils.setData(cur, { 'hasgood': true });
-	                                    voteNum.innerHTML = isNaN(num) ? 0 : num;
-	                                    voteBad && utils.removeClass(voteBad.querySelector('i'), "s-ac");
-	                                    voteBad && utils.setData(voteBad, { 'hasbad': false });
+	                                    heartNum.innerHTML = isNaN(num) ? 0 : num;
 	                                }
 	                                break;
 	                            case 1:
@@ -625,7 +611,7 @@
 	                                    var num = parseInt(data.data.num);
 	                                    utils.removeClass(cur.querySelector('i'), "s-ac");
 	                                    utils.setData(cur, { 'hasgood': false });
-	                                    voteNum.innerHTML = isNaN(num) ? 0 : num;
+	                                    heartNum.innerHTML = isNaN(num) ? 0 : num;
 	                                }
 	                                break;
 	                            case 1:
@@ -640,30 +626,18 @@
 	                    }, function () {});
 	                }
 	            }
-	            // 反对
-	            else if (rel === 'dream-bad') {
-	                    var voteBox = utils.closest(cur, '.vote-ctrl-box'),
-	                        voteNum,
-	                        voteGood,
-	                        hasBad = utils.getData(cur, 'hasbad');
+	            // 收藏/取消收藏
+	            else if (rel === 'dream-favourite') {
+	                    var hasFav = utils.getData(cur, 'hasfav');
 
-	                    voteBox && (voteNum = voteBox.querySelector('[rel="vote-num"]'));
-	                    voteBox && (voteGood = voteBox.querySelector('[rel="dream-good"]'));
-
-	                    if (!hasBad) {
-	                        req.post("/dream/badit", {
+	                    if (!hasFav) {
+	                        req.post("/dream/following", {
 	                            did: did
 	                        }, function (data) {
 	                            switch (data.result) {
 	                                case 0:
-	                                    if (data.data) {
-	                                        var num = parseInt(data.data.num);
-	                                        utils.addClass(cur.querySelector('i'), "s-ac");
-	                                        utils.setData(cur, { 'hasbad': true });
-	                                        voteNum.innerHTML = isNaN(num) ? 0 : num;;
-	                                        voteGood && utils.removeClass(voteGood.querySelector('i'), "s-ac");
-	                                        voteGood && utils.setData(voteGood, { 'hasgood': false });
-	                                    }
+	                                    cur.innerHTML = "已收藏";
+	                                    utils.setData(cur, { 'hasfav': true });
 	                                    break;
 	                                case 1:
 	                                    alert(data.info);
@@ -676,17 +650,13 @@
 	                            }
 	                        }, function () {});
 	                    } else {
-	                        req.post("/dream/cbad", {
+	                        req.post("/dream/cfollowing", {
 	                            did: did
 	                        }, function (data) {
 	                            switch (data.result) {
 	                                case 0:
-	                                    if (data.data) {
-	                                        var num = parseInt(data.data.num);
-	                                        utils.removeClass(cur.querySelector('i'), "s-ac");
-	                                        utils.setData(cur, { 'hasbad': false });
-	                                        voteNum.innerHTML = isNaN(num) ? 0 : num;
-	                                    }
+	                                    cur.innerHTML = "收藏";
+	                                    utils.setData(cur, { 'hasfav': false });
 	                                    break;
 	                                case 1:
 	                                    alert(data.info);
@@ -700,71 +670,27 @@
 	                        }, function () {});
 	                    }
 	                }
-	                // 收藏/取消收藏
-	                else if (rel === 'dream-favourite') {
-	                        var hasFav = utils.getData(cur, 'hasfav');
-
-	                        if (!hasFav) {
-	                            req.post("/dream/following", {
-	                                did: did
-	                            }, function (data) {
-	                                switch (data.result) {
-	                                    case 0:
-	                                        cur.innerHTML = "已收藏";
-	                                        utils.setData(cur, { 'hasfav': true });
-	                                        break;
-	                                    case 1:
-	                                        alert(data.info);
-	                                        break;
-	                                    case 2:
-	                                        common.showSigninPop();
-	                                        break;
-	                                    default:
-	                                        break;
-	                                }
-	                            }, function () {});
-	                        } else {
-	                            req.post("/dream/cfollowing", {
-	                                did: did
-	                            }, function (data) {
-	                                switch (data.result) {
-	                                    case 0:
-	                                        cur.innerHTML = "收藏";
-	                                        utils.setData(cur, { 'hasfav': false });
-	                                        break;
-	                                    case 1:
-	                                        alert(data.info);
-	                                        break;
-	                                    case 2:
-	                                        common.showSigninPop();
-	                                        break;
-	                                    default:
-	                                        break;
-	                                }
-	                            }, function () {});
-	                        }
+	                // 删除想法
+	                else if (rel === 'dream-delete') {
+	                        var curDreamItem = utils.closest(cur, '.list-item');
+	                        req.post("/dream/delete", {
+	                            did: did
+	                        }, function (data) {
+	                            switch (data.result) {
+	                                case 0:
+	                                    window.location.reload(true);
+	                                    break;
+	                                case 1:
+	                                    alert(data.info);
+	                                    break;
+	                                case 2:
+	                                    common.showSigninPop();
+	                                    break;
+	                                default:
+	                                    break;
+	                            };
+	                        }, function () {});
 	                    }
-	                    // 删除想法
-	                    else if (rel === 'dream-delete') {
-	                            var curDreamItem = utils.closest(cur, '.list-item');
-	                            req.post("/dream/delete", {
-	                                did: did
-	                            }, function (data) {
-	                                switch (data.result) {
-	                                    case 0:
-	                                        window.location.reload(true);
-	                                        break;
-	                                    case 1:
-	                                        alert(data.info);
-	                                        break;
-	                                    case 2:
-	                                        common.showSigninPop();
-	                                        break;
-	                                    default:
-	                                        break;
-	                                };
-	                            }, function () {});
-	                        }
 	        }
 	    });
 
@@ -7686,29 +7612,17 @@
 	 if (user) { ;
 	__p += '\r\n        ';
 	 if (comment.good && comment.good.length > 0) { ;
-	__p += '\r\n        <a href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-lg s-ac"></i></a>\r\n        ';
+	__p += '\r\n        <a class="owed" href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-2x s-ac"></i>\r\n        ';
 	 } else { ;
-	__p += '\r\n        <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>\r\n        ';
+	__p += '\r\n        <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>\r\n        ';
 	 } ;
 	__p += '\r\n        ';
 	 } else { ;
-	__p += '\r\n        <a href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-lg"></i></a>\r\n        ';
+	__p += '\r\n        <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>\r\n        ';
 	 } ;
 	__p += '\r\n        <span class="vote-num" rel="vote-num">' +
 	((__t = ( comment.vote )) == null ? '' : __t) +
-	'</span>\r\n        ';
-	 if (user) { ;
-	__p += '\r\n        ';
-	 if (comment.bad && comment.bad.length > 0) { ;
-	__p += '\r\n        <a href="javascript:;" data-hasbad="true" rel="comment-bad"><i class="s s-arrow_down s-lg s-ac"></i></a>\r\n        ';
-	 } else { ;
-	__p += '\r\n        <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>\r\n        ';
-	 } ;
-	__p += '\r\n        ';
-	 } else { ;
-	__p += '\r\n        <a href="javascript:;" data-hasbad="false" rel="comment-bad"><i class="s s-arrow_down s-lg"></i></a>\r\n        ';
-	 } ;
-	__p += '\r\n    </div>\r\n    <div class="more-ctrl-box">\r\n        ';
+	'</span></a>\r\n    </div>\r\n    <div class="more-ctrl-box">\r\n        ';
 	 if (!comment.isremove) { ;
 	__p += '\r\n        <a class="remove" data-cid="' +
 	((__t = ( comment._id )) == null ? '' : __t) +
