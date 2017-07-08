@@ -19,12 +19,14 @@ var Dream = new Schema({
     category     : { type: String, required: true, trim: true, default: 'news' },
     summary      : { type: String, require: true, maxlength: 150, trim: true },
     text         : { type: String, trim: true },
+    showall      : { type: Boolean, default: false },
     link         : { type: String, trim: true },
     site         : { type: String, trim: true, default: 'i.share.it' },
     cover        : { type: String, trim: true },
     thumbnail    : { type: String, trim: true },
     mthumbnail   : { type: String, trim: true },
     image        : { type: String, trim: true },
+    pic          : { type: String, trim: true },
     isremove     : { type: Boolean, default: false },
     date         : { type: Date, default: Date.now },
     last_comment : { type: Date, default: Date.now },
@@ -39,7 +41,13 @@ Dream.plugin(poll);
 
 Dream.methods.extract = function() {
     let str  = striptags(this.text);
-    this.summary = str.length > 147? str.slice(0, 147) + '...':str;
+    if (str.length > 147) {
+        this.summary = str.slice(0, 147) + '...';
+        this.showall = true;
+    }
+    else{
+        this.summary = str;
+    }
 };
 
 Dream.methods.userRemove = function(next) {

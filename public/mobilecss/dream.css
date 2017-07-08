@@ -37,6 +37,9 @@ h1.dream-title {
 .image-viewer {
   padding: 10px 0;
 }
+.image-viewer img {
+  width: 100%;
+}
 .read-viewer {
   font-size: 14px;
   margin-top: 10px;

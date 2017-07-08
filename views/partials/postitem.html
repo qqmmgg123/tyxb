@@ -1,3 +1,4 @@
+<% if (dream.category) { %>
 <li class="list-item">
     <div class="post-box">
         <div class="post-header">
@@ -35,7 +36,7 @@
         </div>
         <div class="post-state">
             <span class="datetime">
-                <%= timeFormat(dream.date) %> 此刻分享了
+                <%= timeFormat(dream.date) %>&nbsp;此刻分享了&nbsp;
                 <% if (dream.category === 'news') { %>
                 网页
                 <% } else if (dream.category === 'image') { %>
@@ -86,6 +87,9 @@
             <% if (dream.summary) { %>
             <div class="summary">
                 <%- dream.summary %>
+                <% if (dream.category === 'text' && dream.showall) { %>
+                <a href="/dream/<%= dream._id %>">查看全文&nbsp;→</a>
+                <% } %>
             </div>
             <% } %>
             <% if (dream.thumbnail && dream.category === 'image') { %>
@@ -144,4 +148,7 @@
         </div>
     </div>
 </li>
+<%} else {%>
+<li class="list-item">[该内容显示异常]</li>
+<% } %>
 

@@ -47,6 +47,7 @@ function renderRecommand(req, res, next) {
             link      : 1,
             site      : 1,
             summary   : 1,
+            showall   : 1,
             thumbnail : 1,
             mthumbnail: 1,
             mood      : 1,
@@ -183,7 +184,7 @@ function renderRecommand(req, res, next) {
                      _id         : 1,
                      avatar_mini : 1,
                      username    : 1,
-                     bio         : 1
+                     last_online : 1
                  }
              }, {
                  $sort: { last_online: -1 }

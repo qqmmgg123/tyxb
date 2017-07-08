@@ -126,12 +126,15 @@ class DreamForm extends BaseCom {
                 '[rel="tab-text-post"]',
                 '[rel="tab-link-post"]',
                 '[rel="tab-image-post"]',
+                '[rel="mood-edit"]',
+                '[rel="health-edit"]',
             ],
                 handles   = [
                     this.toggleTitleForm,
                     this.toggleTextForm,
                     this.toggleLinkForm,
                     this.toggleImageForm,
+                    this.editUserInfo
                 ];
 
             this.delegate(this._tabNav, selectors, handles);
@@ -472,6 +475,20 @@ class DreamForm extends BaseCom {
 
         return (
             <div className="post-form" ref={(ref) => { this._con = ref }}>
+                <div className="user-head-info">
+                    <div className="user-head-avatar avatar">
+                        <img height="38" width="38" src="/images/avatar.png" />
+                        <h2 className="nick-name">小居士</h2>
+                    </div>
+                    <div className="user-mood">
+                        <span>心情：<em>平静</em></span>
+                        <a href="javascript:;" id="moodEdit"><i className="s s-edit s-lg"></i>修改</a>
+                    </div>
+                    <div className="user-health">
+                        <span>身体状况：<em>良好</em></span>
+                        <a href="javascript:;" id="healthEdit"><i className="s s-edit s-lg"></i>修改</a>
+                    </div>
+                </div>
                 {header}
                 <div className="tab-content" ref={(ref) => { this._tabCon = ref }}>
                     <div ref={(popbd) => { this._popbd = popbd }} className="dream-area">
@@ -497,6 +514,58 @@ class DreamForm extends BaseCom {
                 </div>
             </div>
         )
+    }
+
+    // 修改用户信息
+    addUserInfoEdit(type) {
+        let editBtn     = document.querySelector(`#${type}Edit`),
+            editArea    = utils.closest(editBtn, 'div'),
+            editContent = editArea.querySelector('em');
+
+        if (editBtn) {
+            utils.setData(editBtn, { editState: 'normal' });
+            editBtn.addEventListener('click', () => {
+                if (editContent) {
+                    let state = utils.getData(editBtn, 'editState'),
+                        tid   = utils.getData(editBtn, 'tid');
+                    if (state === 'normal') {
+                        let desc = editContent.textContent.trim();
+                        editContent.innerHTML = `<input type="text" maxlength="30" value="${desc}" />`;
+                        editBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
+                        utils.setData(editBtn, { editState: 'editing' });
+                    }
+                    else{
+                        if (state !== 'saving') {
+                            editBtn.textContent = "保存中...";
+                            utils.setData(editBtn, { editState: 'saving' });
+                            let editor = editContent.querySelector('input');
+
+                            if (editor) {
+                                let desc = editor.value.trim(),
+                                    reqData = {};
+
+                                reqData[type] = desc;
+
+                                req.post(
+                                    "/user/update",
+                                    reqData,
+                                    function(data) {
+                                        common.xhrReponseManage(data, (data) => {
+                                            editContent.innerHTML = desc;
+                                            editBtn.innerHTML = "<i class='s s-edit s-lg'></i> 修改";
+                                            utils.setData(editBtn, { editState: 'normal' });
+                                        });
+                                    },
+                                    function() {
+                                        alert('服务器错误');
+                                    }
+                                );
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 
     getFormData() {
@@ -812,10 +881,10 @@ class TextNewPop extends Win {
         this.form = null;
 
         this._map = {
-            'link' : '发网址',
-            'text' : '发文字',
-            'image': '发图片',
-            'news' : '发网页',
+            'link' : '网址',
+            'text' : '文字',
+            'image': '图片',
+            'news' : '网页',
         }
 
         this.updateSettings({

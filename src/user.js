@@ -90,49 +90,63 @@ import ReactDOM from 'react-dom';
         common.textNew('news');
     });
 
-    // 编辑签名
-    var descBtn = document.querySelector('#modifyDesc'),
-        descContent = document.querySelector('#descContent');
-    descBtn && utils.setData(descBtn, { editState: 'normal' });
-    descBtn && descBtn.addEventListener('click', () => {
-        if (descContent) {
-            var state = utils.getData(descBtn, 'editState'),
-                tid   = utils.getData(descBtn, 'tid');
-            if (state === 'normal') {
-                var desc = descContent.textContent.trim();
-                descContent.innerHTML = `<textarea maxlength="80">${desc}</textarea>`;
-                descBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
-                utils.setData(descBtn, { editState: 'editing' });
-            }
-            else{
-                if (state !== 'saving') {
-                    descBtn.textContent = "保存中...";
-                    utils.setData(descBtn, { editState: 'saving' });
-                    var editor = descContent.querySelector('textarea');
+    // 修改心情
+    addUserInfoEdit('mood');
 
-                    if (editor) {
-                        var desc = editor.value.trim();
-                        req.post(
-                            "/user/update",
-                            {
-                                bio: desc
-                            },
-                            function(data) {
-                                common.xhrReponseManage(data, (data) => {
-                                    descContent.innerHTML = desc;
-                                    descBtn.innerHTML = "<i class='s s-edit s-lg'></i> 编辑";
-                                    utils.setData(descBtn, { editState: 'normal' });
-                                });
-                            },
-                            function() {
-                                alert('服务器错误');
+    // 修改身体状况
+    addUserInfoEdit('health');
+
+    // 修改用户信息
+    function addUserInfoEdit(type) {
+        let editBtn     = document.querySelector(`#${type}Edit`),
+            editArea    = utils.closest(editBtn, 'div'),
+            editContent = editArea.querySelector('em');
+
+        if (editBtn) {
+            utils.setData(editBtn, { editState: 'normal' });
+            editBtn.addEventListener('click', () => {
+                if (editContent) {
+                    let state = utils.getData(editBtn, 'editState'),
+                        tid   = utils.getData(editBtn, 'tid');
+                    if (state === 'normal') {
+                        let desc = editContent.textContent.trim();
+                        editContent.innerHTML = `<input type="text" maxlength="30" value="${desc}" />`;
+                        editBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
+                        utils.setData(editBtn, { editState: 'editing' });
+                    }
+                    else{
+                        if (state !== 'saving') {
+                            editBtn.textContent = "保存中...";
+                            utils.setData(editBtn, { editState: 'saving' });
+                            let editor = editContent.querySelector('input');
+
+                            if (editor) {
+                                let desc = editor.value.trim(),
+                                    reqData = {};
+
+                                reqData[type] = desc;
+
+                                req.post(
+                                    "/user/update",
+                                    reqData,
+                                    function(data) {
+                                        common.xhrReponseManage(data, (data) => {
+                                            editContent.innerHTML = desc;
+                                            editBtn.innerHTML = "<i class='s s-edit s-lg'></i> 修改";
+                                            utils.setData(editBtn, { editState: 'normal' });
+                                        });
+                                    },
+                                    function() {
+                                        alert('服务器错误');
+                                    }
+                                );
                             }
-                        );
+                        }
                     }
                 }
-            }
+            });
         }
-    });
+    }
 
     // 排序下拉
     var sortSelect = dropdown.create({

@@ -770,10 +770,10 @@ class TextNewPop extends Win {
         this.form = null;
 
         this._map = {
-            'link' : '发网址',
-            'text' : '发文字',
-            'image': '发图片',
-            'news' : '发网页',
+            'link' : '网址',
+            'text' : '文字',
+            'image': '图片',
+            'news' : '网页',
         }
 
         this.updateSettings({

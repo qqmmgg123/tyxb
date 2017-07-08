@@ -82,6 +82,8 @@ router.post('/new', function(req, res, next) {
     var dream = new Dream(fields),
         did      = dream._id;
 
+    dream.good.push(user);
+
     if (category === 'text' && (!text || !text.trim())) {
         return next(new Error("文字没有输入!"));
     }
@@ -124,8 +126,9 @@ router.post('/new', function(req, res, next) {
             const file  = path.resolve(__dirname, '..' + doc.dir),
                 miniFile = path.resolve(__dirname, '../picmini/' + doc.name),
                 m_miniFile =  path.resolve(__dirname, '../mpicmini/' + doc.name);
-            if (category === "image") {
                 dream.image = doc.dir;
+                dream.pic = '/pic/' + doc.name;
+            if (category === "image") {
                 let x = 0, y = 0, args = null;
                 if (doc.width > doc.height) {
                     args = [null, 600];
@@ -179,7 +182,6 @@ router.post('/new', function(req, res, next) {
                     });
             }
             else if (category === "news") {
-                dream.image = '/pic/' + doc.name;
                 let x = 0, y = 0, args = null;
                 if (doc.width > doc.height) {
                     args = [null, 120];
@@ -249,7 +251,7 @@ router.post('/new', function(req, res, next) {
 
 // 想法详情页
 router.get('/:id([a-z0-9]+)', function(req, res, next) {
-    req.session.redirectTo = req.url;
+    req.session.redirectTo = req.originalUrl;
 
     var curId  = req.params.id,
         _curId = mongoose.Types.ObjectId(curId);
@@ -264,7 +266,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
         summary   : 1,
         link      : 1,
         site      : 1,
-        image     : 1,
+        pic       : 1,
         mood      : 1,
         health    : 1,
         vote      : { $subtract: [{ $size: '$good'}, { $size: '$bad' }]},

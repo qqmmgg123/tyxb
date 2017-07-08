@@ -9,23 +9,29 @@
         }
         .userHead-infoInner {
             text-align: center;
-            .user-bio {
-                max-height: 84px;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            .user-mood {
+                margin-top: 10px;
+            }
+            .user-mood, .user-health {
+                color: #999;
+                font-size: 14px;
+                line-height: 27px;
                 word-wrap: break-word; 
                 word-break: break-all;
-                color: #999;
-                textarea {
-                   height: 84px;
+                em {
+                    color: #333;
                 }
-            }
-        }
-        .user-head-ctrl {
-            a.btn {
-                width: 80px;
-                margin: 0 auto;
-                display: block;
+                input {
+                    width: 300px;
+                }
+                a {
+                    color: #999;
+                    margin-left: 10px;
+                    font-size: 12px;
+                    i {
+                        margin-right: 5px;
+                    }
+                }
             }
         }
     }
@@ -85,28 +91,3 @@
     }
 }
 
-#dream-tab-bar {
-    .tab-nav {
-        ul {
-            li {
-                &:first-child .tab{
-                    border-right: 1px solid #eaeaea;
-                }
-                .tab {
-                    margin: 5px 0;
-                    height: 24px;
-                    line-height: 24px;
-                    &.cur {
-                        border-bottom: none;
-                        color: #333;
-                    }
-                    &:hover {
-                        border-bottom: none;
-                        color: #333;
-                        font-weight: normal;
-                    }
-                }
-            }
-        }
-    }
-}

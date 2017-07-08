@@ -78,6 +78,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
                     _id       : 1,
                     content   : 1,
                     summary   : 1,
+                    showall   : 1,
                     link      : 1,
                     category  : 1,
                     thumbnail : 1,
@@ -304,6 +305,7 @@ router.get('/:id([a-z0-9]+)/favourite', function(req, res, next) {
                     _id       : 1,
                     content   : 1,
                     summary   : 1,
+                    showall   : 1,
                     link      : 1,
                     category  : 1,
                     thumbnail : 1,
@@ -931,7 +933,7 @@ router.post('/update', function(req, res, next) {
     const { bio, mood, health } = req.body,
         hasBio = (bio && bio.trim()),
         hasMood = (mood && mood.trim()),
-        hasHealth = (health && health.trim);
+        hasHealth = (health && health.trim());
 
     if (hasBio || hasHealth || hasMood) {
         let info = {};

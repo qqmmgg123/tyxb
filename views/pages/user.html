@@ -29,21 +29,18 @@
                 </div>
                 <div class="userHead-infoInner">
                     <h2 class="nick-name"><%= data.account.username %></h2>
-                    <!--<div id="descContent" class="user-bio">
-                        <% if (data.account.bio) { %>
-                        <%= data.account.bio.length > 80? data.account.bio.slice(0, 80) + '...':data.account.bio %>
-                        <% } else { %>
-                            作者帅爆了，没签名...
+                    <div class="user-mood">
+                        <span>心　　情：<em><%= data.account.mood %></em></span>
+                        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
+                        <a href="javascript:;" id="moodEdit"><i class="s s-edit s-lg"></i>修改</a>
                         <% } %>
                     </div>
-                    <% if (user && data.account._id.equals(user._id)) { %>
-                    <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;"><i class="s s-edit s-lg"></i>&nbsp;修改</a>
-                    <% } %>-->
-                    <!--<% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
-                    <a href="/settings" class="edit-profile btn small">个人设定 ></a>
-                    <% } %>-->
-                    <div>心情：<%= data.account.mood %></div>
-                    <div>身体状况：<%= data.account.health %></div>
+                    <div class="user-health">
+                        <span>身体状况：<em><%= data.account.health %></em></span>
+                        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>
+                        <a href="javascript:;" id="healthEdit"><i class="s s-edit s-lg"></i>修改</a>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,7 +53,6 @@
                     <ul>
                         <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
                         <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
-                        <!--<li><a href="/user/<%= data.account._id %>/subscribe" class="<%if (data.tab == "subscribe") {%>cur<% } %> tab">关注</a></li>-->
                         <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
                     </ul>
                 </div>
@@ -87,40 +83,9 @@
                     </div>
                 </li>
                 <% } %>
-            <ul>
-            <% } else if (data.tab == "subscribe") { %>
-            <ul id="tag-list" class="list-group">
-                <% if (data.tags && data.tags.length > 0) { %>
-                <% data.tags.forEach(function(tag) { %>
-                <% include ../partials/tagitem.html %>
-                <% }); %>
-                <% } else { %>
-                <li class="list-item">
-                    <div class="nodata">
-                        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>您<% } else { %>他<% } %>当前没有订阅版面
-                        <% if (user) { %>
-                        &nbsp;<a href="/tag/hot" class="btn">去订阅&nbsp;></a>
-                        <% } %>
-                    </div>
-                </li>
-                <% } %>
-            </ul>
             <% } %>
             </div>
             <div class="col-4">
-                <!--<div class="bio">
-                    <h2>签名</h2>
-                    <div id="descContent" class="bio-des">
-                    <% if (data.account.bio) { %>
-                        <%= data.account.bio %>
-                    <% } else { %>
-                        作者帅爆了，没签名...
-                    <% } %>
-                    </div>
-                    <% if (user && data.account._id.equals(user._id)) { %>
-                    <a id="modifyDesc" data-tid="<%= data.account._id %>" href="javascript:;">修改 +</a>
-                    <% } %>
-                </div>-->
                 <div class="karma-list">
                     <h2>业力</h2>
                     <ul class="list-group">

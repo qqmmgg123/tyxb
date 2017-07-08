@@ -509,10 +509,11 @@ a:hover {
   line-height: 36px;
   text-align: center;
   height: 36px;
+  display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  display: block;
+  /*display: block*/
   -moz-user-select: none;
   /* Firefox */
   -ms-user-select: none;
@@ -550,6 +551,10 @@ a:hover {
 .tab-content {
   margin-top: 10px;
 }
+#dreamReleaseBar {
+  margin-top: 10px;
+  border-top: 1px solid #eaeaea;
+}
 #dreamReleaseBar.nav-group ul li {
   width: 25%;
 }
@@ -559,6 +564,58 @@ a:hover {
 #textReleasePop .tab-content {
   border-top: 1px solid #eaeaea;
   overflow: auto;
+}
+#textReleasePop .user-head-info {
+  overflow: hidden;
+  margin-top: 10px;
+}
+#textReleasePop .user-head-info > div {
+  width: 33.33%;
+  height: 38px;
+  line-height: 38px;
+}
+#textReleasePop .user-head-avatar {
+  float: left;
+}
+#textReleasePop .user-head-avatar img {
+  float: left;
+}
+#textReleasePop .user-head-avatar .nick-name {
+  float: left;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: normal;
+}
+#textReleasePop .user-mood,
+#textReleasePop .user-health {
+  float: left;
+  color: #999;
+  font-size: 14px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+#textReleasePop .user-mood em,
+#textReleasePop .user-health em {
+  color: #333;
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /*display: block*/
+}
+#textReleasePop .user-mood input,
+#textReleasePop .user-health input {
+  width: 180px;
+}
+#textReleasePop .user-mood a,
+#textReleasePop .user-health a {
+  color: #999;
+  margin-left: 10px;
+  font-size: 12px;
+}
+#textReleasePop .user-mood a i,
+#textReleasePop .user-health a i {
+  margin-right: 5px;
 }
 .nav-group {
   padding: 0 0 5px;
@@ -658,6 +715,7 @@ a:hover {
   box-sizing: border-box;
 }
 .dropdown .dropdown-menu > li > a {
+  display: block;
   padding: 3px 20px;
   clear: both;
   font-weight: 400;
@@ -666,7 +724,7 @@ a:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  display: block;
+  /*display: block*/
   box-sizing: border-box;
 }
 .dropdown .dropdown-menu > li > a:hover {
@@ -695,6 +753,7 @@ a:hover {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 .select-list ul > li > a {
+  display: block;
   padding: 3px 20px;
   clear: both;
   font-weight: 400;
@@ -703,7 +762,7 @@ a:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  display: block;
+  /*display: block*/
 }
 .select-list ul > li > a:hover,
 .select-list ul > li > a.over {

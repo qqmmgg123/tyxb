@@ -10,13 +10,14 @@ var async = require("async")
   , argv = require('yargs').argv
   , cheerio = require('cheerio')
   , charset = require("superagent-charset")
+  , striptags = require('./striptags')
   , request = require('superagent');
 
 charset(request);
 
 var command = argv.command;
 
- console.log(command);
+console.log(command);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/sapohr');
@@ -72,6 +73,31 @@ function setUsername() {
     });
 }
 
+// 更新字段
+function setField() {
+    console.log('Set filed progress.')
+    Dream.find({}, '_id image', function(err, docs) {
+        if (err) return console.log(err.message);
+        
+        console.log(docs);
+
+        docs.forEach((doc) => {
+            if (doc.image) {
+                console.log(doc.image, doc._id);
+                Dream.update({ _id: doc._id }, {
+                    $set: {
+                        pic: doc.image.replace('uploads', 'pic')
+                    }
+                }, { upsert: true }, function(err) {
+                    if (err) return console.log(err.message);
+                    console.log('Set last_online Success!')
+                });
+            }
+        })
+
+    });
+}
+
 switch(command) {
     case 'createperm':
         if (!argv.type || !argv.name || !argv.desc) {
@@ -85,7 +111,10 @@ switch(command) {
     case 'setUsername':
         setUsername();
         break;
-    case ''
+    case 'setField':
+        console.log('start set filed.')
+        setField();
+        break;
     default:
         break;
 }

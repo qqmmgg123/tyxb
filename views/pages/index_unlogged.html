@@ -113,7 +113,7 @@
                                 <%= user.username %>
                             </a>
                             <div class="user-karma">
-                                <span>现身时间：<%= user.last_online %></span>
+                                <span>出现时间：<%= timeFormat(user.last_online) %></span>
                             </div>
                         </li>
                         <% }); %>

@@ -1516,7 +1516,6 @@ a.logo {
 .post-content {
   overflow: hidden;
   font-size: 14px;
-  margin-top: 10px;
 }
 .post-content.thumb-mode {
   position: relative;
@@ -1585,6 +1584,7 @@ a.logo {
 }
 .post-state {
   color: #999;
+  padding: 0 5px;
   margin-top: 10px;
 }
 .ctrl-box a {

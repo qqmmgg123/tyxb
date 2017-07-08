@@ -10,21 +10,34 @@
 .user-page-head .user-head-info .userHead-infoInner {
   text-align: center;
 }
-.user-page-head .user-head-info .userHead-infoInner .user-bio {
-  max-height: 84px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.user-page-head .user-head-info .userHead-infoInner .user-mood {
+  margin-top: 10px;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-mood,
+.user-page-head .user-head-info .userHead-infoInner .user-health {
+  color: #999;
+  font-size: 14px;
+  line-height: 27px;
   word-wrap: break-word;
   word-break: break-all;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-mood em,
+.user-page-head .user-head-info .userHead-infoInner .user-health em {
+  color: #333;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-mood input,
+.user-page-head .user-head-info .userHead-infoInner .user-health input {
+  width: 300px;
+}
+.user-page-head .user-head-info .userHead-infoInner .user-mood a,
+.user-page-head .user-head-info .userHead-infoInner .user-health a {
   color: #999;
+  margin-left: 10px;
+  font-size: 12px;
 }
-.user-page-head .user-head-info .userHead-infoInner .user-bio textarea {
-  height: 84px;
-}
-.user-page-head .user-head-info .user-head-ctrl a.btn {
-  width: 80px;
-  margin: 0 auto;
-  display: block;
+.user-page-head .user-head-info .userHead-infoInner .user-mood a i,
+.user-page-head .user-head-info .userHead-infoInner .user-health a i {
+  margin-right: 5px;
 }
 .bio,
 .karma-list {
@@ -71,21 +84,4 @@
 }
 .user-tab-bar ul li {
   width: 33.33%;
-}
-#dream-tab-bar .tab-nav ul li:first-child .tab {
-  border-right: 1px solid #eaeaea;
-}
-#dream-tab-bar .tab-nav ul li .tab {
-  margin: 5px 0;
-  height: 24px;
-  line-height: 24px;
-}
-#dream-tab-bar .tab-nav ul li .tab.cur {
-  border-bottom: none;
-  color: #333;
-}
-#dream-tab-bar .tab-nav ul li .tab:hover {
-  border-bottom: none;
-  color: #333;
-  font-weight: normal;
 }

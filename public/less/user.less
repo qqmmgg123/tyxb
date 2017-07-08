@@ -36,25 +36,31 @@
         }
         .userHead-infoInner {
             float: left;
-            width: 500px;
-            margin-left: 10px;
-            .user-bio {
-                max-height: 3.5em;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            max-width: 800px;
+            margin-left: 20px;
+            .user-mood {
+                margin-top: 10px;
+            }
+            .user-mood, .user-health {
+                color: #999;
+                font-size: 14px;
+                line-height: 27px;
                 word-wrap: break-word; 
                 word-break: break-all;
-                color: #999;
-                textarea {
-                   height: 3.5em;
+                em {
+                    color: #333;
                 }
-            }
-        }
-        .user-head-ctrl {
-            a.btn {
-                width: 80px;
-                margin: 0 auto;
-                display: block;
+                input {
+                    width: 300px;
+                }
+                a {
+                    color: #999;
+                    margin-left: 10px;
+                    font-size: 12px;
+                    i {
+                        margin-right: 5px;
+                    }
+                }
             }
         }
     }
@@ -100,7 +106,6 @@
     }
 }
 
-
 .user-tab-bar {
     h2 {
         font-size: 16px;
@@ -115,28 +120,3 @@
     }
 }
 
-#dream-tab-bar {
-    .tab-nav {
-        ul {
-            li {
-                &:first-child .tab{
-                    border-right: 1px solid #eaeaea;
-                }
-                .tab {
-                    margin: 5px 0;
-                    height: 24px;
-                    line-height: 24px;
-                    &.cur {
-                        border-bottom: none;
-                        color: #333;
-                    }
-                    &:hover {
-                        border-bottom: none;
-                        color: #333;
-                        font-weight: normal;
-                    }
-                }
-            }
-        }
-    }
-}
