@@ -134,7 +134,8 @@ class DreamForm extends BaseCom {
                     this.toggleTextForm,
                     this.toggleLinkForm,
                     this.toggleImageForm,
-                    this.editUserInfo
+                    this.editMood,
+                    this.editHealth
                 ];
 
             this.delegate(this._tabNav, selectors, handles);
@@ -156,6 +157,14 @@ class DreamForm extends BaseCom {
         return str.replace(/^([a-z]{1})([a-z]+)$/, function() {
             return RegExp.$1.toLocaleUpperCase() + RegExp.$2;
         });
+    }
+
+    editMood(ev) {
+        this.editUserInfo(ev, 'mood');
+    }
+
+    editHealth() {
+        this.editUserInfo(ev, 'health');
     }
 
     toggleForm(type) {
@@ -482,11 +491,11 @@ class DreamForm extends BaseCom {
                     </div>
                     <div className="user-mood">
                         <span>心情：<em>平静</em></span>
-                        <a href="javascript:;" id="moodEdit"><i className="s s-edit s-lg"></i>修改</a>
+                        <a href="javascript:;" data-editState="normal" rel="mood-edit"><i className="s s-edit s-lg"></i>修改</a>
                     </div>
                     <div className="user-health">
                         <span>身体状况：<em>良好</em></span>
-                        <a href="javascript:;" id="healthEdit"><i className="s s-edit s-lg"></i>修改</a>
+                        <a href="javascript:;" data-editState="normal" rel="health-edit"><i className="s s-edit s-lg"></i>修改</a>
                     </div>
                 </div>
                 {header}
@@ -517,54 +526,49 @@ class DreamForm extends BaseCom {
     }
 
     // 修改用户信息
-    addUserInfoEdit(type) {
-        let editBtn     = document.querySelector(`#${type}Edit`),
+    editUserInfo(ev, type) {
+        let editBtn     = ev.target,
             editArea    = utils.closest(editBtn, 'div'),
             editContent = editArea.querySelector('em');
 
-        if (editBtn) {
-            utils.setData(editBtn, { editState: 'normal' });
-            editBtn.addEventListener('click', () => {
-                if (editContent) {
-                    let state = utils.getData(editBtn, 'editState'),
-                        tid   = utils.getData(editBtn, 'tid');
-                    if (state === 'normal') {
-                        let desc = editContent.textContent.trim();
-                        editContent.innerHTML = `<input type="text" maxlength="30" value="${desc}" />`;
-                        editBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
-                        utils.setData(editBtn, { editState: 'editing' });
-                    }
-                    else{
-                        if (state !== 'saving') {
-                            editBtn.textContent = "保存中...";
-                            utils.setData(editBtn, { editState: 'saving' });
-                            let editor = editContent.querySelector('input');
+        if (editContent) {
+            let state = utils.getData(editBtn, 'editState');
 
-                            if (editor) {
-                                let desc = editor.value.trim(),
-                                    reqData = {};
+            if (state === 'normal') {
+                let desc = editContent.textContent.trim();
+                editContent.innerHTML = `<input type="text" maxlength="30" value="${desc}" />`;
+                editBtn.innerHTML = "<i class='s s-save s-lg'></i> 保存";
+                utils.setData(editBtn, { editState: 'editing' });
+            }
+            else{
+                if (state !== 'saving') {
+                    editBtn.textContent = "保存中...";
+                    utils.setData(editBtn, { editState: 'saving' });
+                    let editor = editContent.querySelector('input');
 
-                                reqData[type] = desc;
+                    if (editor) {
+                        let desc = editor.value.trim(),
+                            reqData = {};
 
-                                req.post(
-                                    "/user/update",
-                                    reqData,
-                                    function(data) {
-                                        common.xhrReponseManage(data, (data) => {
-                                            editContent.innerHTML = desc;
-                                            editBtn.innerHTML = "<i class='s s-edit s-lg'></i> 修改";
-                                            utils.setData(editBtn, { editState: 'normal' });
-                                        });
-                                    },
-                                    function() {
-                                        alert('服务器错误');
-                                    }
-                                );
+                        reqData[type] = desc;
+
+                        req.post(
+                            "/user/update",
+                            reqData,
+                            function(data) {
+                                common.xhrReponseManage(data, (data) => {
+                                    editContent.innerHTML = desc;
+                                    editBtn.innerHTML = "<i class='s s-edit s-lg'></i> 修改";
+                                    utils.setData(editBtn, { editState: 'normal' });
+                                });
+                            },
+                            function() {
+                                alert('服务器错误');
                             }
-                        }
+                        );
                     }
                 }
-            });
+            }
         }
     }
 
