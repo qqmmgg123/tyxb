@@ -12,7 +12,8 @@ class MyEditor extends React.Component {
         this.state = {
             loading: true,
             imageId: '',
-            imageSrc: ''
+            imageSrc: '',
+            scale: 3
         }
     }
 
@@ -68,33 +69,43 @@ class MyEditor extends React.Component {
         );
     }
 
+    rangeChange(ev) {
+        const { value } = ev.target;
+
+        this.setState({
+            scale: value
+        });
+    }
+
     close() {
         const { dialog } = this.props;
         dialog.close();
     }
 
     render () {
-        const { imageSrc } = this.state;
-        console.log(imageSrc);
+        const { imageSrc, scale } = this.state;
 
         return (
-            <div>
-            <div className="hd">
-                <button className="btn" onClick={this.onClickSave.bind(this)}>保存</button>
-                <a href="javascript:;" onClick={this.close.bind(this)} className="close"><i className="s s-close s-2x"></i></a>
-            </div>
-            <div className="bd">
-            <AvatarCroper
-            ref={this.setEditorRef}
-            image={imageSrc}
-            width={96}
-            height={96}
-            border={50}
-            color={[255, 255, 255, 0.6]} // RGBA
-            scale={1.2}
-            rotate={0}
-            />
-            </div>
+            <div className="dialog-inner">
+              <div className="hd">
+                  <a href="javascript:;" className="back" onClick={this.close.bind(this)}><i className="s s-back s-2x"></i><span>返回</span></a>
+                  <button className="btn" onClick={this.onClickSave.bind(this)}>保存</button>
+              </div>
+              <div className="bd">
+              <AvatarCroper
+              ref={this.setEditorRef}
+              image={imageSrc}
+              width={96}
+              height={96}
+              border={50}
+              color={[255, 255, 255, 0.6]} // RGBA
+              scale={scale}
+              rotate={0}
+              />
+                <div className="slider-wrapper">
+                    <input onChange={this.rangeChange.bind(this)} value={scale} min="0.1" max="5" step="0.1" type="range" />
+                </div>
+              </div>
             </div>
         )
     }

@@ -46,7 +46,7 @@ import ImageViewer from 'ImageViewer';
             });
         }else{
             Btns && utils.removeClass(Btns, 'show');
-            drtNewsBtn.querySelector('i').className = "s s-plus s-2x";
+            drtNewsBtn.querySelector('i').className = "s s-edit s-2x";
             utils.setData(drtNewsBtn, {
                 show: false
             });

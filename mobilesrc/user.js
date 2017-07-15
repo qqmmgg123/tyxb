@@ -34,9 +34,18 @@ import ReactDOM from 'react-dom';
         xhr.onload = function() {
             if (this.status == 200) {
                 var resp = JSON.parse(this.response);
-                var url = resp.dataUrl,
-                    imgId = resp.imageId;
-                if (url && imgId) common.showAvatarEditor(url, imgId);
+            
+                if (resp.result === 0) {
+                    var url = resp.dataUrl,
+                        imgId = resp.imageId;
+                    if (url && imgId) common.showAvatarEditor(url, imgId);
+                }
+                else if (resp.result === 1) {
+                    alert(resp.info)
+                }
+                else if (resp.result === 2) {
+                    common.showSigninPop();
+                }
             };
         };
         xhr.send(fd);
@@ -78,7 +87,7 @@ import ReactDOM from 'react-dom';
             });
         }else{
             Btns && utils.removeClass(Btns, 'show');
-            drtNewsBtn.querySelector('i').className = "s s-plus s-2x";
+            drtNewsBtn.querySelector('i').className = "s s-edit s-2x";
             utils.setData(drtNewsBtn, {
                 show: false
             });

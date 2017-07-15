@@ -178,6 +178,17 @@
   float: left;
   width: 100% !important;
 }
+.slider-wrapper {
+  margin: 20px auto;
+  width: 200px;
+  height: 20px;
+  padding: 0;
+}
+.slider-wrapper input {
+  width: 200px;
+  height: 20px;
+  margin: 0;
+}
 body {
   font: 12px/1.8 Microsoft YaHei, Helvetica, Arial, sans-serif;
 }
@@ -356,7 +367,7 @@ a:hover {
   border-radius: 5px;
 }
 .tag-list {
-  margin-top: 20px;
+  margin-top: 10px;
   max-height: 240px;
 }
 .tag-list ul li {
@@ -533,9 +544,6 @@ a:hover {
   height: 36px;
   border-bottom: 2px solid #ff91a8;
 }
-.tab-content {
-  margin-top: 10px;
-}
 .tab-nav ul {
   height: 36px;
   border-bottom: 1px solid #eaeaea;
@@ -551,77 +559,102 @@ a:hover {
 .tab-content {
   margin-top: 10px;
 }
-#dreamReleaseBar {
-  margin-top: 10px;
-  border-top: 1px solid #eaeaea;
-}
-#dreamReleaseBar.nav-group ul li {
-  width: 25%;
-}
-#textReleasePop .post-form {
+#postEditorCon .post-editor-form {
   height: 100%;
 }
-#textReleasePop .tab-content {
-  border-top: 1px solid #eaeaea;
-  overflow: auto;
+#postEditorCon .post-editor-header {
+  overflow: hidden;
 }
-#textReleasePop .user-head-info {
+#postEditorCon .post-editor-header .post-editor-ctrl {
+  text-align: right;
+}
+#postEditorCon .post-editor-header .post-editor-ctrl a.close {
+  line-height: 28px;
+  display: block;
+  float: left;
+}
+#postEditorCon .post-editor-header .post-editor-ctrl a.close i {
+  float: left;
+}
+#postEditorCon .post-editor-header .post-editor-ctrl a.close span {
+  font-size: 14px;
+  margin-left: 10px;
+}
+#postEditorCon .post-editor-header .post-editor-ctrl button,
+#postEditorCon .post-editor-header .post-editor-ctrl a {
+  margin-left: 10px;
+}
+#postEditorCon .post-editor-user {
   overflow: hidden;
   margin-top: 10px;
+  line-height: 25px;
+  padding: 10px 0 0 10px;
 }
-#textReleasePop .user-head-info > div {
-  width: 33.33%;
-  height: 38px;
-  line-height: 38px;
+#postEditorCon .post-editor-user > div {
+  display: inline-block;
 }
-#textReleasePop .user-head-avatar {
+#postEditorCon .post-editor-user .userinfo {
   float: left;
-}
-#textReleasePop .user-head-avatar img {
-  float: left;
-}
-#textReleasePop .user-head-avatar .nick-name {
-  float: left;
-  margin-left: 10px;
   font-size: 14px;
-  font-weight: normal;
+  color: #666;
 }
-#textReleasePop .user-mood,
-#textReleasePop .user-health {
+#postEditorCon .post-editor-user .userinfo > div {
+  display: inline-block;
+}
+#postEditorCon .post-editor-user .avatar {
   float: left;
-  color: #999;
-  font-size: 14px;
+}
+#postEditorCon .post-editor-user .user-mood,
+#postEditorCon .post-editor-user .user-health {
   word-wrap: break-word;
   word-break: break-all;
 }
-#textReleasePop .user-mood em,
-#textReleasePop .user-health em {
-  color: #333;
+#postEditorCon .post-editor-user .user-mood em,
+#postEditorCon .post-editor-user .user-health em {
   max-width: 180px;
+  font-style: normal;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   /*display: block*/
 }
-#textReleasePop .user-mood input,
-#textReleasePop .user-health input {
-  width: 180px;
+#postEditorCon .post-editor-user .user-mood input,
+#postEditorCon .post-editor-user .user-health input {
+  width: 150px;
 }
-#textReleasePop .user-mood a,
-#textReleasePop .user-health a {
+#postEditorCon .post-editor-user .user-mood a,
+#postEditorCon .post-editor-user .user-health a {
   color: #999;
   margin-left: 10px;
-  font-size: 12px;
 }
-#textReleasePop .user-mood a i,
-#textReleasePop .user-health a i {
+#postEditorCon .post-editor-user .user-mood a i,
+#postEditorCon .post-editor-user .user-health a i {
   margin-right: 5px;
 }
+#postEditorCon .post-editor-user .post-editor-datetime:before,
+#postEditorCon .post-editor-user .user-mood:before,
+#postEditorCon .post-editor-user .user-health:before,
+#postEditorCon .post-editor-user .things:before {
+  content: '，';
+}
+#postEditorCon .tab-content {
+  overflow: auto;
+  border-top: 1px solid #eaeaea;
+}
+#postEditorCon .tab-content .form-group {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+#postEditorCon .tab-content textarea,
+#postEditorCon .tab-content input {
+  font-size: 14px;
+}
 .nav-group {
-  padding: 0 0 5px;
+  overflow: hidden;
+  border-bottom: 1px solid #eaeaea;
+  padding: 5px;
 }
 .nav-group ul {
-  height: 36px;
   clear: both;
 }
 .nav-group ul li {
@@ -636,6 +669,7 @@ a:hover {
   border: none;
   box-shadow: none;
   margin: 0 5px;
+  background: #ffffff;
   display: block;
 }
 .nav-group ul li .btn i {
@@ -890,7 +924,7 @@ a.logo {
   transition: .2s;
 }
 .header .head-con {
-  width: 969px;
+  width: 900px;
   margin: 0 auto;
 }
 .header .head-con .search-area {
@@ -1094,7 +1128,7 @@ a.logo {
   background-color: #fff;
 }
 .banner .banner-bg {
-  width: 969px;
+  width: 900px;
   text-align: left;
   margin: 0 auto;
   height: 300px;
@@ -1282,7 +1316,7 @@ a.logo {
 .container #recommand-area,
 .container .main,
 .container .top-tag-list {
-  width: 969px;
+  width: 900px;
   text-align: left;
   margin: 0 auto;
 }
@@ -1482,7 +1516,7 @@ a.logo {
 }
 /* 创建学派 */
 #tagNewPop.dialog {
-  width: 500px!important;
+  width: 500px;
   max-height: 420px;
 }
 #tagNewPop textarea {
@@ -1490,15 +1524,25 @@ a.logo {
 }
 /* 注册登录 */
 #registration.dialog {
-  width: 500px!important;
+  width: 500px;
   max-height: 420px;
 }
 #registration .tab-nav ul li {
   width: 50%;
 }
 /* 分享发布 */
-#textReleasePop.dialog {
-  width: 720px!important;
+#postEditorCon .dialog {
+  width: 720px;
+}
+/* 头像编辑 */
+#avatarEditorCon .dialog {
+  width: 720px;
+}
+#avatarEditorCon .dialog .bd {
+  text-align: center;
+}
+#avatarEditorCon .dialog .bd canvas {
+  margin-top: 20px;
 }
 .company-area {
   overflow: hidden;
@@ -1563,7 +1607,7 @@ a.logo {
   overflow: auto;
 }
 #dream-list {
-  margin-top: 20px;
+  margin-top: 10px;
   border-top: 1px solid #eaeaea;
   min-height: 800px;
 }
@@ -1624,12 +1668,13 @@ a.logo {
   max-height: 120px;
   position: absolute;
   border-radius: 5px;
-  right: 0;
+  left: 0;
 }
 .piccard {
   text-align: center;
   cursor: pointer;
   margin-top: 5px;
+  cursor: zoom-in;
 }
 .piccard img {
   border-radius: 5px;
@@ -1648,14 +1693,50 @@ a.logo {
   max-width: 100%;
   display: block;
 }
-.post-box {
-  margin-left: 46px;
-}
 .post-box .avatar img {
   width: 38px;
   height: 38px;
 }
+#dream-list .list-item {
+  position: relative;
+}
+.user-info-box {
+  overflow: hidden;
+  margin-top: 10px;
+  height: 38px;
+}
+.user-info-box .avatar {
+  float: left;
+}
+.user-info-box .userinfo {
+  float: left;
+  margin-left: 10px;
+}
+.user-info-box .userinfo a,
+.user-info-box .userinfo span {
+  font-size: 12px;
+  color: #666;
+}
+.user-info-box .userinfo .health:before,
+.user-info-box .userinfo .things:before,
+.user-info-box .userinfo .datetime:before {
+  content: '，';
+  font-family: Arial;
+  color: #bbb;
+}
+.user-info-box .userctrl {
+  overflow: hidden;
+  height: 25px;
+  float: right;
+}
+.user-info-box .userctrl a,
+.user-info-box .userctrl span {
+  line-height: 25px;
+  color: #a8a8a8;
+  padding: 0 10px;
+}
 .post-content {
+  margin-top: 10px;
   overflow: hidden;
   font-size: 14px;
 }
@@ -1665,7 +1746,7 @@ a.logo {
 }
 .post-content.thumb-mode .entry {
   float: left;
-  margin-right: 130px;
+  margin-left: 130px;
 }
 .post-content.news .title,
 .post-content.text .title {
@@ -1675,61 +1756,15 @@ a.logo {
   font-size: 14px;
   color: #333;
 }
+.post-content.text .summary a.show-all {
+  font-size: 12px;
+  color: #ff4d73;
+  text-decoration: underline;
+}
 .post-content .entry {
   word-break: normal;
   word-wrap: break-word;
   word-break: break-all;
-}
-#dream-list .list-item {
-  position: relative;
-}
-.post-header {
-  color: #999;
-  font-size: 12px;
-  overflow: hidden;
-}
-.post-header a {
-  color: #999;
-}
-.post-header a:hover {
-  color: #ff7592;
-}
-.user-info-box {
-  float: left;
-  height: 38px;
-}
-.user-info-box a,
-.user-info-box span {
-  line-height: 38px;
-  float: left;
-}
-.user-info-box .username {
-  margin-left: 10px;
-}
-.user-info-box .mood:before,
-.user-info-box .health:before {
-  content: '•';
-  margin-right: 5px;
-  padding: 0 5px;
-  font-family: Arial;
-  color: #bbb;
-}
-.user-ctrl-box {
-  float: right;
-  height: 25px;
-}
-.user-ctrl-box a,
-.user-ctrl-box span {
-  line-height: 38px;
-  float: left;
-  padding: 0 10px;
-}
-.post-state {
-  color: #999;
-  margin-top: 10px;
-}
-.ctrl-box {
-  float: right;
 }
 .post-footer {
   margin-top: 10px;
@@ -1750,39 +1785,16 @@ a.logo {
 .post-footer > div > a:hover {
   text-decoration: underline;
 }
+.post-footer .ctrl-box {
+  float: right;
+}
 .post-footer .ctrl-box a.owed {
   position: absolute;
-  left: 4px;
-  top: 30px;
-  display: block;
-  width: 22px;
-  height: 22px;
-  text-align: center;
-  border-radius: 50%;
-  padding-top: 2px;
-  margin: 0 auto !important;
-  box-sizing: border-box;
-  padding: 0;
-}
-.post-footer .ctrl-box a.owed:hover {
-  color: #ff4d73;
-}
-.post-footer .ctrl-box span.vote-num {
-  display: block;
-  border-radius: 4px;
-  padding: 0;
-  height: 16px;
-  width: 32px;
-  line-height: 16px;
-  position: absolute;
-  left: -6px;
-  top: -16px;
-  color: #a8a8a8;
-  text-align: center;
-  border: 1px solid #e7e7e7;
+  left: 0;
 }
 .post-footer .ctrl-box i.s-arrow_up {
   font-size: 2em;
+  float: left;
 }
 .dream-post-btns {
   transform: scaleY(0) translateY(1in);
@@ -1960,6 +1972,15 @@ div.more a.btn {
   border-radius: 0 4px 4px 0;
   border-right-width: 1px;
 }
+#imageViewerCon .center {
+  overflow: auto;
+}
+#imageViewerCon .image-viewer-box {
+  text-align: center;
+}
+#imageViewerCon .image-viewer-box img {
+  cursor: zoom-out;
+}
 .dialog {
   margin: 0 auto 0;
   top: 20%;
@@ -1984,6 +2005,22 @@ div.more a.btn {
 }
 .dialog .hd a.close {
   float: right;
+}
+.dialog .hd a.back {
+  line-height: 28px;
+  display: block;
+  float: left;
+}
+.dialog .hd a.back i {
+  float: left;
+}
+.dialog .hd a.back span {
+  font-size: 14px;
+  margin-left: 10px;
+}
+.dialog .hd button.btn {
+  float: right;
+  display: block;
 }
 .dialog .bd {
   height: 100%;
@@ -2285,13 +2322,13 @@ div.more a.btn {
     max-height: inherit;
   }
   /* 分享发布 */
-  #textReleasePop.dialog {
+  #postEditorCon .dialog {
     width: auto!important;
     height: auto!important;
     max-height: inherit;
   }
-  /* 注册登录 */
-  #tagNewPop.dialog {
+  /* 头像编辑 */
+  #avatarEditorCon.dialog {
     width: auto!important;
     height: auto!important;
     max-height: inherit;

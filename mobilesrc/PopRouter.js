@@ -1,4 +1,5 @@
 import Dialog from 'Dialog';
+import PostEditor from 'PostEditor';
 import ImageViewer from 'ImageViewer';
 import AvatarEditor from 'AvatarEditor';
 
@@ -11,9 +12,24 @@ import AvatarEditor from 'AvatarEditor';
 } (function(utils, common, popup) {
     const _d = document,
           _w = window,
-        popups = ['imageview', 'signin', 'signup', 'share'],
+        popups = ['avatareditor', 'imageview', 'signin', 'signup', 'posteditor'],
+        postCon = _d.querySelector('#postEditorCon'),
         viewerCon = _d.querySelector('#imageViewerCon'),
         avatarCon = _d.querySelector('#avatarEditorCon');
+
+    if (postCon) {
+        _w.postEditor = ReactDOM.render(
+            <Dialog 
+            routerName="posteditor"
+            needWin={true}
+            sence={{
+                name: "PostEditor",
+                component: PostEditor
+            }} />,
+            postCon
+        );
+        _w.postEditor.create();
+    }
 
     if (viewerCon) {
         _w.imageViewer = ReactDOM.render(
@@ -72,14 +88,14 @@ import AvatarEditor from 'AvatarEditor';
                 });
                 _w.signupPop.show();
                 break;
-            case "share":
+            case "posteditor":
                 if (params) {
-                    _w.textPop = popup.textNewPop({
-                        id   : 'textReleasePop',
+                    _w.postEditor && _w.postEditor.setComProps({
+                        pid   : 'textReleasePop',
                         type : params && params.type,
                         tag  : params && params.tag
                     });
-                    _w.textPop.show();
+                    _w.postEditor.show();
                 }
                 break;
         }
@@ -95,7 +111,7 @@ import AvatarEditor from 'AvatarEditor';
         else{
             _w.avatarEditor && _w.avatarEditor.close();
             _w.imageViewer && _w.imageViewer.close();
-            _w.textPop && _w.textPop.close(),_w.textPop = null;
+            _w.postEditor && _w.postEditor.close();
             _w.signinPop && _w.signinPop.close(),_w.signinPop = null;
             _w.signupPop && _w.signupPop.close(),_w.signupPop = null;
         }

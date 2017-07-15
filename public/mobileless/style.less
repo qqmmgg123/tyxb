@@ -59,6 +59,19 @@
     box-shadow: 0 2px 3px  rgba(0, 0, 0, 0.1);
 }
 
+.slider-wrapper {
+    margin: 20px auto;
+    width: 200px;
+    height: 20px;
+    padding: 0;
+}
+
+.slider-wrapper input {
+    width: 200px;
+    height: 20px;
+    margin: 0;
+}
+
 body {
     font:12px/1.8 Microsoft YaHei, Helvetica, Arial, sans-serif;
 }
@@ -417,10 +430,6 @@ a {
     }
 }
 
-.tab-content {
-    margin-top: 10px;
-}
-
 .tab-nav {
     ul {
         height: 36px;
@@ -440,38 +449,93 @@ a {
     margin-top: 10px;
 }
 
-#dreamReleaseBar {
-    &.nav-group {
-        ul li {
-            width: 25%;
+#postEditorCon {
+    .post-editor-form {
+        height: 100%;
+    }
+    .post-editor-header {
+        overflow: hidden;
+        .post-editor-ctrl {
+            text-align: right;
+            a.close {
+                i {
+                    float: left;
+                }
+                span {
+                    font-size: 14px;
+                    margin-left: 10px;
+                }
+                line-height: 28px;
+                display: block;
+                float: left;
+            }
+            button, a {
+                margin-left: 10px;
+            }
+        }
+    }
+    .post-editor-user {
+        overflow: hidden;
+        margin-top: 10px;
+        line-height: 25px;
+        padding: 10px 0 0 10px;
+        > div {
+            display: inline-block;
+        }
+        .userinfo {
+            float: left;
+            font-size: 14px;
+            color: #666;
+            > div {
+                display: inline-block;
+            }
+        }
+        .avatar {
+            float: left;
+        }
+        .user-mood, .user-health {
+            word-wrap: break-word; 
+            word-break: break-all;
+            em {
+                max-width: 180px;
+                font-style: normal;
+                .ellipsis();
+            }
+            input {
+                width: 150px;
+            }
+            a {
+                color: #999;
+                margin-left: 10px;
+                i {
+                    margin-right: 5px;
+                }
+            }
+        }
+        .post-editor-datetime, .user-mood, .user-health, .things {
+            &:before {
+                content: '，';
+            }
+        }
+    }
+    .tab-content {
+        overflow: auto;
+        border-top: 1px solid #eaeaea;
+        .form-group {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        textarea, input {
+            font-size: 14px;
         }
     }
 }
 
-#imageViewer {
-    img {
-        width: 100%;
-    }
-    .modal.fade-in {
-        opacity: 1;
-        background: #333;
-    }
-}
-
-#textReleasePop {
-    .post-form {
-        height: 100%;
-    }
-    .tab-content {
-        border-top: 1px solid #eaeaea;
-        overflow: auto;
-    }
-}
-
 .nav-group {
-    padding: 0 0 5px;
+    overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
+    padding: 5px;
     ul {
-        height: 36px;
         clear: both;
         li {
             float: left;
@@ -486,6 +550,7 @@ a {
                 border: none;
                 box-shadow: none;
                 margin: 0 5px;
+                background: #ffffff;
                 display: block;
                 i {
                     margin-right: 10px;
@@ -734,7 +799,7 @@ a.logo {
         .search-area {
             display: block;
         }
-        width: 969px;
+        width: 900px;
         margin: 0 auto;
     }
     .h-left {
@@ -939,7 +1004,7 @@ a.logo {
     height: 300px;
     background-color: #fff;
     .banner-bg {
-        width: 969px;
+        width: 900px;
         text-align: left;
         margin: 0 auto;
         height: 300px;
@@ -1137,7 +1202,7 @@ a.logo {
 .container {
     .store-area, .team-area, .notice, .search-area, .settings-area, .msg-area
     , .following-area, .followers-area, #recommand-area, .main, .top-tag-list {
-        width: 969px;
+        width: 900px;
         text-align: left;
         margin: 0 auto;
     }
@@ -1337,7 +1402,7 @@ a.logo {
 
 /* 创建学派 */
 #tagNewPop.dialog {
-    width: 500px!important;
+    width: 500px;
     max-height: 420px;
 }
 
@@ -1349,7 +1414,7 @@ a.logo {
 
 /* 注册登录 */
 #registration.dialog {
-    width: 500px!important;
+    width: 500px;
     max-height: 420px;
 }
 
@@ -1364,8 +1429,19 @@ a.logo {
 }
 
 /* 分享发布 */
-#textReleasePop.dialog {
-    width: 720px!important;
+#postEditorCon .dialog {
+    width: 720px;
+}
+
+/* 头像编辑 */
+#avatarEditorCon .dialog {
+    width: 720px;
+    .bd {
+        text-align: center;
+        canvas {
+            margin-top: 20px;
+        }
+    }
 }
 
 .company-area {
@@ -1454,6 +1530,9 @@ a.logo {
         }
         .tag-head-info {
             text-align: center;
+            .intro {
+                margin-top: 10px;
+            }
         }
         .tag-head-about {
             font-size: 12px;
@@ -1472,7 +1551,7 @@ a.logo {
 }
 
 .summary {
-    padding: 5px 5px;
+    padding: 0 5px;
     font-size: 12px;
     font-weight: 100;
     color: #808080;
@@ -1485,13 +1564,12 @@ a.logo {
     max-height: 80px;
     position: absolute;
     border-radius: 5px;
-    right: 5px;
+    left: 5px;
 }
 
 .piccard {
     text-align: center;
     cursor: pointer;
-    margin-top: 5px;
     img {
         width: 100%;
     }
@@ -1520,14 +1598,73 @@ a.logo {
     }
 }
 
+#dream-list {
+    .list-item {
+        .pr();
+    }
+}
+
+.user-info-box {
+    overflow: hidden;
+    margin-top: 10px;
+    height: 25px;
+    line-height: 25px;
+    .avatar {
+        position: absolute;
+        left: 5px;
+    }
+    .userinfo {
+        float: left;
+        margin-left: 35px;
+        a, span {
+            font-size: 12px;
+            color: #666;
+        }
+        .health:before, 
+        .things:before,
+        .datetime:before {
+            content: '，';
+            font-family: Arial;
+            color: #bbb;
+        }
+    }
+    .userctrl {
+        overflow: hidden;
+        height: 25px;
+        float: right;
+        a, span {
+            line-height: 25px;
+            color: #a8a8a8;
+            padding: 0 10px;
+        }
+    }
+}
+
+.userinfo-mobile {
+    padding: 0 5px;
+    margin-top: 5px;
+    line-height: 25px;
+    a, span {
+        font-size: 12px;
+        color: #666;
+    }
+    .health:before, 
+    .things:before {
+        content: '，';
+        font-family: Arial;
+        color: #bbb;
+    }
+}
+
 .post-content {
+    margin-top: 5px;
     overflow: hidden;
     font-size: 14px;
     &.thumb-mode {
         .pr();
         .entry {
             float: left;
-            margin-right: 85px;
+            margin-left: 85px;
         }
         min-height: 80px;
     }
@@ -1541,69 +1678,21 @@ a.logo {
         .summary {
             font-size: 14px;
             color: #333;
+            a.show-all {
+                font-size: 12px;
+                color: #ff4d73;
+                text-decoration: underline;
+            }
         }
+    }
+    .title {
+        padding: 0 5px;
     }
     .entry {
+        div:not(:first-child) {
+            margin-top: 5px;
+        }
         .wrap();
-        .title {
-            padding: 0 5px;
-        }
-    }
-}
-.post-header {
-    padding: 0 5px;
-    color: @gray3;
-    font-size: 12px;
-    overflow: hidden;
-    a {
-        color: @gray3;
-        &:hover {
-            color:#ff7592;
-        }
-    }
-}
-
-.user-info-box {
-    float: left;
-    height: 25px;
-    a, span {
-        line-height: 25px;
-        float: left;
-    }
-    .username {
-        margin-left: 5px;
-    }
-    .mood:before, .health:before {
-        content: '•';
-        margin-right: 5px;
-        padding: 0 5px;
-        font-family: Arial;
-        color: #bbb;
-    }
-}
-
-.user-ctrl-box {
-    float: right;
-    height: 25px;
-    a, span {
-        line-height: 25px;
-        float: left;
-    }
-}
-
-.post-state {
-    color: #999;
-    padding: 0 5px;
-    margin-top: 10px;
-}
-
-.ctrl-box {
-    a {
-        width: 33.33%;
-        text-align: center;
-        i.s-lg {
-            line-height: inherit;
-        }
     }
 }
 
@@ -1615,12 +1704,23 @@ a.logo {
         > a, span {
             font-size: 12px;
             color: #a8a8a8;
+            width: 33.33%;
+            text-align: center;
         }
         > a {
             display: block;
             float: left;
             &:hover {
                 text-decoration: underline;
+            }
+        }
+        a.owed {
+            i {
+                float: left;
+            }
+            .owed-inner {
+                width: 45px;
+                margin: 0 auto;
             }
         }
         span.vote-num, span.comment-num {
@@ -1828,6 +1928,22 @@ div.more {
         }
         a.close {
             float: right;
+        }
+        a.back {
+            i {
+                float: left;
+            }
+            span {
+                font-size: 14px;
+                margin-left: 10px;
+            }
+            line-height: 28px;
+            display: block;
+            float: left;
+        }
+        button.btn {
+            float: right;
+            display: block;
         }
     }
     .bd {
@@ -2148,13 +2264,13 @@ div.more {
     }
 
     /* 分享发布 */
-    #textReleasePop.dialog {
+    #postEditorCon .dialog {
         width: auto!important;
         height: auto!important;
         max-height: inherit;
     }
-    /* 注册登录 */
-    #tagNewPop.dialog {
+    /* 头像编辑 */
+    #avatarEditorCon.dialog {
         width: auto!important;
         height: auto!important;
         max-height: inherit;

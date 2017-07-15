@@ -320,7 +320,7 @@
                 );
 
                 function changeTabFocus() {
-                    var nav = self.el.querySelector('.tab-nav');
+                    var nav = self.el.querySelector('.tag-list');
                     nav.querySelectorAll('a').forEach(function(tab) {
                         var did = utils.getData(tab, 'did');
                         utils.setData(tab, { focus: 'dream' });

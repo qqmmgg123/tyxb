@@ -114,14 +114,14 @@
             return pop;*/
             const state = History.getState(),
                   { action } = state.data;
-            if (!action && action !== 'share') {
+            if (!action && action !== 'posteditor') {
                 History.pushState({ 
-                    action: 'share',
+                    action: 'posteditor',
                     params: {
                         type : type,
                         tag  : tag
                     }
-                }, 'share', `?popup=share&type=${type}` + (tag? `&tag=${tag}`:''));
+                }, 'posteditor', `?popup=posteditor&type=${type}` + (tag? `&tag=${tag}`:''));
             }
         },
         showSigninPop: function() {

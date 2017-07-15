@@ -1,32 +1,53 @@
 <% if (dream.category) { %>
 <li class="list-item">
     <div class="post-box">
-        <div class="post-header">
-            <div class="user-info-box">
-                 <% if (dream._belong_u) { %>
-                 <a class="avatar" href="/user/<%= dream._belong_u._id %>">
-                     <img src="<%= dream._belong_u.avatar || '/images/avatar.png' %>" />
-                 </a>
-                 <a class="username" href="/user/<%= dream._belong_u._id %>"><%= dream._belong_u.username %></a>
-                 <% } else { %>
-                 <a class="avatar" href="/user/unknow"><img width="25" height="25" src="/images/avatar_mini.png" /></a>
-                 <a class="username" href="/user/unknow">未知</a>
-                 <% } %>
-                 <span class="mood">
-                     心情：<%= dream.mood %>
-                 </span>
-                 <span class="health">
-                     身体状况：<%= dream.health %>
-                 </span>
+        <div class="user-info-box">
+            <% if (dream._belong_u) { %>
+            <a class="avatar" href="/user/<%= dream._belong_u._id %>">
+                <img src="<%= dream._belong_u.avatar || '/images/avatar.png' %>" />
+            </a>
+            <% } else { %>
+            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>
+            <% } %>
+            <div class="userinfo">
+                <p>
+                    <% if (dream._belong_u) { %>
+                    <a class="username" href="/user/<%= dream._belong_u._id %>"><%= dream._belong_u.username %></a>
+                    <% } else { %>
+                    <a class="username" href="/user/unknow">未知</a>
+                    <% } %>
+                    <span class="datetime">
+                        <%= timeFormat(dream.date) %>
+                    </span>
+                </p>
+                <% if (!is_mobile) { %>
+                <p>
+                    <span class="mood">
+                        心情：<%= dream.mood %>
+                    </span>
+                    <span class="health">
+                        身体状况：<%= dream.health %>
+                    </span>
+                    <span class="things">
+                        <% if (dream.category === 'news') { %>
+                        记录了一篇“网页”...
+                        <% } else if (dream.category === 'image') { %>
+                        记录了一张“图片”...
+                        <% } else if (dream.category === 'text') { %>
+                        记录了一篇“文字”...
+                        <% } %>
+                    </span>
+                </p>
+                <% } %>
             </div>
-            <div class="user-ctrl-box">
+            <div class="userctrl">
                 <% if (user && (data.tag && data.tag.delperm)) { %>
-                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-reject">拒绝</a>
+                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-reject"><i class="s s-remove s-lg"></i>拒绝</a>
                 <% } %>
                 <% if (user && dream._belong_u) { %>
                 <% if (dream._belong_u._id.equals(user._id)) { %>
                 <% if (!dream.isremove) { %>
-                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-delete">删除</a>
+                <a href="javascript:;" data-did="<%= dream._id %>" rel="dream-delete"><i class="s s-remove s-lg"></i>删除</a>
                 <% } else { %>
                 <span>已删除</span>
                 <% } %>
@@ -34,18 +55,25 @@
                 <% } %>
             </div>
         </div>
-        <div class="post-state">
-            <span class="datetime">
-                <%= timeFormat(dream.date) %>&nbsp;此刻分享了&nbsp;
+        <% if (is_mobile) { %>
+        <div class="userinfo-mobile">
+            <span class="mood">
+                心情：<%= dream.mood %>
+            </span>
+            <span class="health">
+                身体状况：<%= dream.health %>
+            </span>
+            <span class="things">
                 <% if (dream.category === 'news') { %>
-                网页
+                记录了一篇“网页”...
                 <% } else if (dream.category === 'image') { %>
-                图片
+                记录了一张“图片”...
                 <% } else if (dream.category === 'text') { %>
-                文字
+                记录了一篇“文字”...
                 <% } %>
             </span>
         </div>
+        <% } %>
         <% if (dream.category === 'news') { %>
         <a 
             <% if (dream.link) { %>
@@ -71,6 +99,19 @@
             <% if (dream.isremove) { %>
                 [已被作者删除]
             <% } else { %>
+            <% if (is_mobile) { %>
+                <% if (dream.mthumbnail && dream.category !== 'image') { %>
+                <div class="thumbnail">
+                    <img src="<%= dream.mthumbnail %>" />
+                </div>
+                <% } %>
+            <% } else { %>
+                <% if (dream.thumbnail && dream.category !== 'image') { %>
+                <div class="thumbnail">
+                    <img src="<%= dream.thumbnail %>" />
+                </div>
+                <% } %>
+            <% } %>
             <div class="entry">
             <% if (dream.content) { %>
             <div class="title">
@@ -88,7 +129,7 @@
             <div class="summary">
                 <%- dream.summary %>
                 <% if (dream.category === 'text' && dream.showall) { %>
-                <a href="/dream/<%= dream._id %>">查看全文&nbsp;→</a>
+                <a class="show-all" href="/dream/<%= dream._id %>">全文&nbsp;↓</a>
                 <% } %>
             </div>
             <% } %>
@@ -104,19 +145,6 @@
             <% } %>
             <% } %>
             </div>
-            <% if (is_mobile) { %>
-                <% if (dream.mthumbnail && dream.category !== 'image') { %>
-                <div class="thumbnail">
-                    <img src="<%= dream.mthumbnail %>" />
-                </div>
-                <% } %>
-            <% } else { %>
-                <% if (dream.thumbnail && dream.category !== 'image') { %>
-                <div class="thumbnail">
-                    <img src="<%= dream.thumbnail %>" />
-                </div>
-                <% } %>
-            <% } %>
             <% } %>
         </div>
         <% if (dream.category === 'news') { %>
@@ -126,14 +154,14 @@
             <div class="ctrl-box">
                 <% if (user) { %>
                 <% if (dream.good && dream.good.length > 0) { %>
-                <a class="owed" href="javascript:;" title="感恩" data-did="<%= dream._id %>" data-hasgood="true" rel="dream-good"><i class="s s-arrow_up s-lg s-ac"></i>
+                <a class="owed" href="javascript:;" title="心动" data-did="<%= dream._id %>" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>
                 <% } else { %>
-                <a class="owed" href="javascript:;" title="感恩" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i>
+                <a class="owed" href="javascript:;" title="心动" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>
                 <% } %>
                 <% } else { %>
-                <a class="owed" href="javascript:;" title="感恩" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><i class="s s-arrow_up s-lg"></i>
+                <a class="owed" href="javascript:;" title="心动" data-did="<%= dream._id %>" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>
                 <% } %>
-                <span class="vote-num" rel="vote-num"><%= dream.vote %></span></a>
+                <span class="vote-num" rel="vote-num"><%= dream.vote %></span></div></a>
                 <a href="/dream/<%= dream._id %>#dreamCtrlBox">留言&nbsp;<span class="comment-num"><%= dream.cnum %></span></a>
                 <% if (user) { %>
                 <% if (dream._followers_u && dream._followers_u.length > 0) { %>

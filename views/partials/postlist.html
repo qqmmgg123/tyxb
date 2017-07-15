@@ -1,4 +1,4 @@
-<div <% if (is_mobile && data.nav !== 'user') { %>class="mar-top"<% } %>>
+<div>
     <div class="tag-list">
         <ul>
             <li><a 
@@ -9,11 +9,6 @@
                 href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2"></i>新发布的</a></li>
         </ul>
     </div>
-    <!--<div class="nav-ctrl">
-        <a id="dream-refresh" class="refresh" href="javascript:;">
-            <i class="s s-refresh s-lg"></i>
-        </a>
-    </div>-->
 </div>
 <ul id="dream-list" class="list-group">
     <% if (data.dreams && data.dreams.length > 0) { %>
@@ -102,7 +97,7 @@
     <div id="dreamReleaseNews" class="release-box" data-tid="<%= data.tag && data.tag._id %>">
         <div class="tips">记录</div>
         <button id="dreamReleaseNews" title="记录" class="btn btn-round btn-new">
-            <i class="s s-plus s-2x"></i>
+            <i class="s s-edit s-2x"></i>
         </button>
     </div>
 </div>

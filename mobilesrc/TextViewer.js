@@ -2,28 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import req from 'req';
 
-export default class ImageViewer extends React.Component {
+export default class TextViewer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             loading: true,
-            imageSrc: ''
+            content: ''
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.imageSrc && nextProps.imageSrc !== this.state.imageSrc) {
-            this.loadImage(nextProps.imageSrc);
+        if (nextProps.dreamUrl && nextProps.dreamUrl !== this.state.dreamUrl) {
+            this.loadContent(nextProps.dreamUrl);
         }
     }
 
-    loadImage(src) {
-        var img = new Image();
+    loadContent(url) {
         this.setState({
             loading: true
         });
-        img.src = src;
         if(img.complete) {
             this.setState({
                 loading: false,
@@ -38,7 +36,6 @@ export default class ImageViewer extends React.Component {
             });
         };
         img.onerror = () => {
-            this.close();
             alert("网络异常，图片加载失败");
         }
     }
@@ -49,15 +46,11 @@ export default class ImageViewer extends React.Component {
     }
 
     render() {
-        const { loading, imageSrc } = this.state;
+        const { loading, content } = this.state;
 
         if (!loading) {
             return (
-                <div onClick={this.close.bind(this)} className="center">
-                    <div className="image-viewer-box">
-                        <img src={imageSrc} />
-                    </div>
-                </div>
+                <div className="">{content}</div>
             )
         }
         else{

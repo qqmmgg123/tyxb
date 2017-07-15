@@ -78,6 +78,18 @@
   .make-columns(@n, (@i + 1));
 }
 
+.slider-wrapper {
+    margin: 20px auto;
+    width: 200px;
+    height: 20px;
+    padding: 0;
+}
+
+.slider-wrapper input {
+    width: 200px;
+    height: 20px;
+    margin: 0;
+}
 
 body {
     font:12px/1.8 Microsoft YaHei, Helvetica, Arial, sans-serif;
@@ -274,7 +286,7 @@ a {
 }
 
 .tag-list {
-    margin-top: 20px;
+    margin-top: 10px;
     max-height: 240px;
     ul {
         li {
@@ -438,10 +450,6 @@ a {
     }
 }
 
-.tab-content {
-    margin-top: 10px;
-}
-
 .tab-nav {
     ul {
         height: 36px;
@@ -461,74 +469,93 @@ a {
     margin-top: 10px;
 }
 
-#dreamReleaseBar {
-    margin-top: 10px;
-    border-top: 1px solid #eaeaea;
-    &.nav-group {
-        ul li {
-            width: 25%;
-        }
-    }
-}
-
-#textReleasePop {
-    .post-form {
+#postEditorCon {
+    .post-editor-form {
         height: 100%;
     }
-    .tab-content {
-        border-top: 1px solid #eaeaea;
-        overflow: auto;
+    .post-editor-header {
+        overflow: hidden;
+        .post-editor-ctrl {
+            text-align: right;
+            a.close {
+                i {
+                    float: left;
+                }
+                span {
+                    font-size: 14px;
+                    margin-left: 10px;
+                }
+                line-height: 28px;
+                display: block;
+                float: left;
+            }
+            button, a {
+                margin-left: 10px;
+            }
+        }
     }
-    .user-head-info {
+    .post-editor-user {
         overflow: hidden;
         margin-top: 10px;
+        line-height: 25px;
+        padding: 10px 0 0 10px;
         > div {
-            width: 33.33%;
-            height: 38px;
-            line-height: 38px;
+            display: inline-block;
         }
-    }
-    .user-head-avatar {
-        float: left;
-        img {
+        .userinfo {
             float: left;
-        }
-        .nick-name {
-            float: left;
-            margin-left: 10px;
             font-size: 14px;
-            font-weight: normal;
+            color: #666;
+            > div {
+                display: inline-block;
+            }
+        }
+        .avatar {
+            float: left;
+        }
+        .user-mood, .user-health {
+            word-wrap: break-word; 
+            word-break: break-all;
+            em {
+                max-width: 180px;
+                font-style: normal;
+                .ellipsis();
+            }
+            input {
+                width: 150px;
+            }
+            a {
+                color: #999;
+                margin-left: 10px;
+                i {
+                    margin-right: 5px;
+                }
+            }
+        }
+        .post-editor-datetime, .user-mood, .user-health, .things {
+            &:before {
+                content: '，';
+            }
         }
     }
-    .user-mood, .user-health {
-        float: left;
-        color: #999;
-        font-size: 14px;
-        word-wrap: break-word; 
-        word-break: break-all;
-        em {
-            color: #333;
-            max-width: 180px;
-            .ellipsis();
+    .tab-content {
+        overflow: auto;
+        border-top: 1px solid #eaeaea;
+        .form-group {
+            margin-top: 10px;
+            margin-bottom: 0;
         }
-        input {
-            width: 180px;
-        }
-        a {
-            color: #999;
-            margin-left: 10px;
-            font-size: 12px;
-            i {
-                margin-right: 5px;
-            }
+        textarea, input {
+            font-size: 14px;
         }
     }
 }
 
 .nav-group {
-    padding: 0 0 5px;
+    overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
+    padding: 5px;
     ul {
-        height: 36px;
         clear: both;
         li {
             float: left;
@@ -543,6 +570,7 @@ a {
                 border: none;
                 box-shadow: none;
                 margin: 0 5px;
+                background: #ffffff;
                 display: block;
                 i {
                     margin-right: 10px;
@@ -797,7 +825,7 @@ a.logo {
         .search-area {
             display: block;
         }
-        width: 969px;
+        width: 900px;
         margin: 0 auto;
     }
     .h-left {
@@ -1002,7 +1030,7 @@ a.logo {
     height: 300px;
     background-color: #fff;
     .banner-bg {
-        width: 969px;
+        width: 900px;
         text-align: left;
         margin: 0 auto;
         height: 300px;
@@ -1204,7 +1232,7 @@ a.logo {
 .container {
     .store-area, .team-area, .notice, .search-area, .settings-area, .msg-area
     , .following-area, .followers-area, #recommand-area, .main, .top-tag-list {
-        width: 969px;
+        width: 900px;
         text-align: left;
         margin: 0 auto;
     }
@@ -1403,7 +1431,7 @@ a.logo {
 
 /* 创建学派 */
 #tagNewPop.dialog {
-    width: 500px!important;
+    width: 500px;
     max-height: 420px;
 }
 
@@ -1415,7 +1443,7 @@ a.logo {
 
 /* 注册登录 */
 #registration.dialog {
-    width: 500px!important;
+    width: 500px;
     max-height: 420px;
 }
 
@@ -1430,8 +1458,19 @@ a.logo {
 }
 
 /* 分享发布 */
-#textReleasePop.dialog {
-    width: 720px!important;
+#postEditorCon .dialog {
+    width: 720px;
+}
+
+/* 头像编辑 */
+#avatarEditorCon .dialog {
+    width: 720px;
+    .bd {
+        text-align: center;
+        canvas {
+            margin-top: 20px;
+        }
+    }
 }
 
 .company-area {
@@ -1494,7 +1533,7 @@ a.logo {
 }
 
 #dream-list {
-    margin-top: 20px;
+    margin-top: 10px;
     border-top: 1px solid #eaeaea;
     min-height: 800px;
 }
@@ -1564,13 +1603,14 @@ a.logo {
     max-height: 120px;
     position: absolute;
     border-radius: 5px;
-    right: 0;
+    left: 0;
 }
 
 .piccard {
     text-align: center;
     cursor: pointer;
     margin-top: 5px;
+    cursor: zoom-in;
     img {
         border-radius: 5px;
         width: 100%;
@@ -1592,7 +1632,6 @@ a.logo {
 }
 
 .post-box {
-    margin-left: 46px;
     .avatar {
         img {
             width: 38px;
@@ -1601,14 +1640,55 @@ a.logo {
     }
 }
 
+#dream-list {
+    .list-item {
+        .pr();
+    }
+}
+
+.user-info-box {
+    overflow: hidden;
+    margin-top: 10px;
+    height: 38px;
+    .avatar {
+        float: left;
+    }
+    .userinfo {
+        float: left;
+        margin-left: 10px;
+        a, span {
+            font-size: 12px;
+            color: #666;
+        }
+        .health:before, 
+        .things:before,
+        .datetime:before {
+            content: '，';
+            font-family: Arial;
+            color: #bbb;
+        }
+    }
+    .userctrl {
+        overflow: hidden;
+        height: 25px;
+        float: right;
+        a, span {
+            line-height: 25px;
+            color: #a8a8a8;
+            padding: 0 10px;
+        }
+    }
+}
+
 .post-content {
+    margin-top: 10px;
     overflow: hidden;
     font-size: 14px;
     &.thumb-mode {
         .pr();
         .entry {
             float: left;
-            margin-right: 130px;
+            margin-left: 130px;
         }
         min-height: 120px;
     }
@@ -1622,67 +1702,16 @@ a.logo {
         .summary {
             font-size: 14px;
             color: #333;
+            a.show-all {
+                font-size: 12px;
+                color: #ff4d73;
+                text-decoration: underline;
+            }
         }
     }
     .entry {
         .wrap();
     }
-}
-
-#dream-list {
-    .list-item {
-        .pr();
-    }
-}
-
-.post-header {
-    color: @gray3;
-    font-size: 12px;
-    overflow: hidden;
-    a {
-        color: @gray3;
-        &:hover {
-            color:#ff7592;
-        }
-    }
-}
-
-.user-info-box {
-    float: left;
-    height: 38px;
-    a, span {
-        line-height: 38px;
-        float: left;
-    }
-    .username {
-        margin-left: 10px;
-    }
-    .mood:before, .health:before {
-        content: '•';
-        margin-right: 5px;
-        padding: 0 5px;
-        font-family: Arial;
-        color: #bbb;
-    }
-}
-
-.user-ctrl-box {
-    float: right;
-    height: 25px;
-    a, span {
-        line-height: 38px;
-        float: left;
-        padding: 0 10px;
-    }
-}
-
-.post-state {
-    color: #999;
-    margin-top: 10px;
-}
-
-.ctrl-box {
-    float: right;
 }
 
 .post-footer {
@@ -1706,39 +1735,14 @@ a.logo {
         }
     }
     .ctrl-box {
+        float: right;
         a.owed {
             position: absolute;
-            left: 4px;
-            top: 30px;
-            display: block;
-            width: 22px;
-            height: 22px;
-            text-align: center;
-            border-radius: 50%;
-            padding-top: 2px;
-            margin: 0 auto !important;
-            box-sizing: border-box;
-            padding: 0;
-            &:hover {
-                color: #ff4d73;
-            }
-        }
-        span.vote-num {
-            display: block;
-            border-radius: 4px;
-            padding: 0;
-            height: 16px;
-            width: 32px;
-            line-height: 16px;
-            position: absolute;
-            left: -6px;
-            top: -16px;
-            color: #a8a8a8;
-            text-align: center;
-            border: 1px solid #e7e7e7;
+            left: 0;
         }
         i.s-arrow_up {
             font-size: 2em;
+            float: left;
         }
     }
 }
@@ -1930,6 +1934,18 @@ div.more {
     }
 }
 
+#imageViewerCon {
+    .center {
+        overflow: auto;
+    }
+    .image-viewer-box {
+        text-align: center;
+        img {
+            cursor: zoom-out;
+        }
+    }
+}
+
 .dialog {
     .middle();
     position: fixed;
@@ -1948,6 +1964,22 @@ div.more {
         }
         a.close {
             float: right;
+        }
+        a.back {
+            i {
+                float: left;
+            }
+            span {
+                font-size: 14px;
+                margin-left: 10px;
+            }
+            line-height: 28px;
+            display: block;
+            float: left;
+        }
+        button.btn {
+            float: right;
+            display: block;
         }
     }
     .bd {
@@ -2269,13 +2301,13 @@ div.more {
     }
 
     /* 分享发布 */
-    #textReleasePop.dialog {
+    #postEditorCon .dialog {
         width: auto!important;
         height: auto!important;
         max-height: inherit;
     }
-    /* 注册登录 */
-    #tagNewPop.dialog {
+    /* 头像编辑 */
+    #avatarEditorCon.dialog {
         width: auto!important;
         height: auto!important;
         max-height: inherit;

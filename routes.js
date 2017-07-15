@@ -908,17 +908,17 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
     var sz   = req.file.size;
     var type = req.file.mimetype;
 
-    if (sz > 2*1024*1024) {
+    if (sz > 5*1024*1024) {
         fs.unlink(path, function() {
             res.json({
-                info: 'image size too large',
+                info: '您上传的照片太大了，都超过5M了',
                 result: 1
             });
         });
     } else if (type.split('/')[0] != 'image') {
         fs.unlink(path, function() {
             res.json({
-                info: 'image type wrong',
+                info: '您上传的图片类型错了',
                 result: 1
             });
         });
@@ -937,26 +937,58 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
                 size      : sz
             });
 
-            image.save(function(err) {
-                if (err) return next(err);
-
+            if (width > 1980) {
                 imageMagick(path)
-                    .scale(600)
-                    .write(file, function(err){
+                    .scale(1980)
+                    .write(path, function(err){
                         if (err) {
                             return next(err);
                         }
 
-                        let x = 0, y = 0;
+                        image.save(function(err) {
+                            if (err) return next(err);
 
-                        res.json({
-                            info    : 'img save successfully',
-                            dataUrl : '/pic/' + req.file.filename,
-                            imageId : image._id,
-                            result  : 0
+                            imageMagick(path)
+                                .scale(600)
+                                .write(file, function(err){
+                                    if (err) {
+                                        return next(err);
+                                    }
+
+                                    let x = 0, y = 0;
+
+                                    res.json({
+                                        info    : 'img save successfully',
+                                        dataUrl : '/pic/' + req.file.filename,
+                                        imageId : image._id,
+                                        result  : 0
+                                    });
+                                });
                         });
                     });
-            });
+            }
+            else{
+                image.save(function(err) {
+                    if (err) return next(err);
+
+                    imageMagick(path)
+                        .scale(600)
+                        .write(file, function(err){
+                            if (err) {
+                                return next(err);
+                            }
+
+                            let x = 0, y = 0;
+
+                            res.json({
+                                info    : 'img save successfully',
+                                dataUrl : '/pic/' + req.file.filename,
+                                imageId : image._id,
+                                result  : 0
+                            });
+                        });
+                });
+            }
         });
     }
 });

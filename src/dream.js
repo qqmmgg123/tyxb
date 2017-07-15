@@ -144,7 +144,6 @@
                 );
             },
             loadComments: function(ev, cur) {
-                try{
                 var self  = this,
                     page  = utils.getData(cur, 'cnext'),
                     reply = utils.getData(cur, 'reply'),
@@ -212,7 +211,6 @@
                     function(data) {
                         var tpl = "";
                         common.xhrReponseManage(data, function(data) {
-                            try {
                             var user  = !!data.user,
                                 level = 0;
 
@@ -304,9 +302,6 @@
                                     return '<li class="list-item">' + commentTpl(item) + '</li>'
                                 }).join('');
                             }
-                            }catch(err) {
-                                alert(err.message);
-                            }
                         });
 
                         if (ctrlType === 'query-all-comments') {
@@ -325,16 +320,13 @@
                 );
 
                 function changeTabFocus() {
-                    var nav = self.el.querySelector('.tab-nav');
+                    var nav = self.el.querySelector('.tag-list');
                     nav.querySelectorAll('a').forEach(function(tab) {
                         var did = utils.getData(tab, 'did');
                         utils.setData(tab, { focus: 'dream' });
                         utils.setData(tab, { rid: did });
                         utils.setData(tab, { reply: 0 });
                     });
-                }
-                }catch(err) {
-                    alert(err.message);
                 }
 
             },

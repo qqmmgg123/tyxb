@@ -18,27 +18,6 @@
 </head>
 <body>
     <% include ../partials/header.html %>
-    <% if (is_mobile) { %>
-    <!--<div class="container top-tag-list mar-top">
-        <div class="main">
-            <ul>
-                <% if (data.tags && data.tags.length > 0) { %>
-                <% data.tags.forEach(function(tag) { %>
-                <li class="list-item">
-                    <a href="/tag/<%= tag._id %>"><%= tag.key %></a>
-                </li>
-                <% }); %>
-                <% } %>
-            </ul>
-            <a class="top-tag-more" href="/tag/hot">•••</a>
-        </div>
-    </div>-->
-    <div class="container">
-        <div class="main">
-            <% include ../partials/postlist.html %>
-        </div>
-    </div>
-    <% } else { %>
     <div class="container tag-top-head mar-top">
         <div class="main">
             <div class="tag-head-info">
@@ -54,52 +33,19 @@
             </div>
         </div>
     </div>
+    <% if (is_mobile) { %>
+    <div class="container">
+        <div class="main">
+            <% include ../partials/postlist.html %>
+        </div>
+    </div>
+    <% } else { %>
     <div class="container clearfix">
         <div class="main">
             <div class="col-8">
                 <% include ../partials/postlist.html %>
             </div>
             <div class="col-4 sider">
-                <!--<div class="tag-list">
-                    <h2>热门圈子</h2>
-                    <ul class="list-group">
-                        <% if (data.tags && data.tags.length > 0) { %>
-                        <% data.tags.forEach(function(tag) { %>
-                        <li class="list-item">
-                            <a class="user-pic avatar" href="/tag/<%= tag._id %>">
-                                <img src="/images/news_mini.png" />
-                            </a>
-                            <a class="user-name" href="/tag/<%= tag._id %>">
-                                <%= tag.key %>
-                                <% if (tag.weight > 0) { %>
-                                    [置顶]
-                                <% } %>
-                            </a>
-                        </li>
-                        <% }); %>
-                        <% } else { %>
-                        <li class="list-item">
-                            当前木有小报
-                        </li>
-                        <% } %>
-                    </ul>
-                    <a class="top-tag-more" href="/tag/hot">更多...</a>
-                </div>-->
-                <!--<div class="tag-list">
-                    <h2>内容发布规则</h2>
-                    <p>"太阳日常"未保证内容的质量，不允许发布带有强目的性的以下内容。</p>
-                    <ol class="list-group">
-                        <li class="list-item">
-                            1.&nbsp;不能发布娱乐八卦内容。
-                        </li>
-                        <li class="list-item">
-                            2.&nbsp;不能发布商业经济内容。
-                        </li>
-                        <li class="list-item">
-                            3.&nbsp;不能发布政治军事内容。
-                        </li>
-                    </ol>
-                </div>-->
                 <div class="user-list">
                     <h2>近期现身的人</h2>
                     <ul class="list-group">
@@ -132,6 +78,7 @@
     <div class="footer">
         <% include ../partials/company.html %>
     </div>
+    <div id="postEditorCon"></div>
     <script>
         if (!String.prototype.startsWith) {
             String.prototype.startsWith = function(searchString, position) {
@@ -145,6 +92,5 @@
     <% } else { %>
     <script src="/js/index_unlogged.js"></script>
     <% } %>
-    
 </body>
 </html>

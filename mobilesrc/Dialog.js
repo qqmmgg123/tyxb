@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import keyboard from 'keyboard';
 import BaseCom from 'basecom';
 
-export default class StepPop extends BaseCom {
+export default class Dialog extends BaseCom {
     constructor(props) {
         super(props);
         let { sence } = props;
@@ -30,6 +30,7 @@ export default class StepPop extends BaseCom {
         this.setState({
             visible: 'block'
         });
+
         let body = document.body;
         body.className += 'un-scroll';
 
@@ -37,6 +38,9 @@ export default class StepPop extends BaseCom {
 
         const { needKey } = this.props;
         needKey && keyboard.addHandle('escape_keydown', this.colsefn);
+
+        const { props } = this.state;
+        this._sence && this._sence.show && this._sence.show(props);
     }
 
     close() {
@@ -47,16 +51,21 @@ export default class StepPop extends BaseCom {
             History.back();
         }
         else{
-            this.setState({
-                visible: 'none'
-            });
-
-            let body = document.body;
-            body.className = body.className.replace('un-scroll', '');
-
-            const { needKey } = this.props;
-            needKey && keyboard.removeHandle('escape_keydown', this.colsefn);
+            this.hide();
         }
+    }
+
+    hide() {
+        this.setState({
+            visible: 'none'
+        });
+
+        
+        let body = document.body;
+        body.className = body.className.replace('un-scroll', '');
+
+        const { needKey } = this.props;
+        needKey && keyboard.removeHandle('escape_keydown', this.colsefn);
     }
 
     destroy() {
@@ -86,7 +95,7 @@ export default class StepPop extends BaseCom {
                 return (
                     <div className="dialog-box" style={{ display: visible }}>
                         <div id={pid} ref="dialog" className="dialog">
-                            <Component {...props} dialog={this} />
+                            <Component ref={(ref) => { this._sence = ref }} {...props} dialog={this} />
                         </div>
                         <div onMouseDown={this.mouseClose.bind(this)} className="modal fade-in"></div>
                     </div>

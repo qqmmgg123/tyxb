@@ -38,6 +38,7 @@ export default class ImageViewer extends React.Component {
             });
         };
         img.onerror = () => {
+            this.close();
             alert("网络异常，图片加载失败");
         }
     }
@@ -52,7 +53,11 @@ export default class ImageViewer extends React.Component {
 
         if (!loading) {
             return (
-                <img className="center" src={imageSrc} />
+                <div onClick={this.close.bind(this)} className="center">
+                    <div className="image-viewer-box">
+                        <img src={imageSrc} />
+                    </div>
+                </div>
             )
         }
         else{
