@@ -135,6 +135,7 @@ router.post('/avatar/update', function(req, res) {
 
         imageMagick(file)
             .crop(width * doc.width, height * doc.height, x * doc.width, y * doc.height)
+            .scale(96, 96)
             .write(miniFile, function(err) {
                 if (err) return res.json({
                     info: err.message,

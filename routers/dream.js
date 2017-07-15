@@ -92,7 +92,7 @@ router.post('/new', function(req, res, next) {
         return next(new Error("标题木有输入!"));
     }
 
-    if (category === 'image' && (!image || !iamge.trim())) {
+    if (category === 'image' && (!image || !image.trim())) {
         return next(new Error("没有添加图片!"));
     }
 

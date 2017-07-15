@@ -908,10 +908,10 @@ router.post('/pic/upload', upload.single('pic'), function(req, res, next) {
     var sz   = req.file.size;
     var type = req.file.mimetype;
 
-    if (sz > 5*1024*1024) {
+    if (sz > 3*1024*1024) {
         fs.unlink(path, function() {
             res.json({
-                info: '您上传的照片太大了，都超过5M了',
+                info: '您上传的照片太大了，都超过3M了',
                 result: 1
             });
         });
