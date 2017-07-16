@@ -46,8 +46,9 @@ class MyEditor extends React.Component {
                 ...rect,
                 image: imageId
             },
-            function(data) {
+            (data) => {
                 common.xhrReponseManage(data, (data) => {
+                    try {
                     if (data.result === 0 && data.data) {
                         const { avatar } = data.data;
                         
@@ -61,9 +62,12 @@ class MyEditor extends React.Component {
                         }
                         this.close();
                     }
+                    }catch(err) {
+                        alert(err.message);
+                    }
                 });
             },
-            function() {
+            () => {
                 alert('服务器错误');
             }
         );

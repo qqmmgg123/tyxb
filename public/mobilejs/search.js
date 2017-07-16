@@ -5517,28 +5517,32 @@
 	    }, {
 	        key: 'onClickSave',
 	        value: function onClickSave() {
+	            var _this2 = this;
+
 	            var rect = this.editor.getCroppingRect(),
 	                imageId = this.state.imageId;
 
 	            _req2.default.post("/settings/avatar/update", (0, _extends3.default)({}, rect, {
 	                image: imageId
 	            }), function (data) {
-	                var _this2 = this;
-
 	                common.xhrReponseManage(data, function (data) {
-	                    if (data.result === 0 && data.data) {
-	                        var avatar = data.data.avatar;
+	                    try {
+	                        if (data.result === 0 && data.data) {
+	                            var avatar = data.data.avatar;
 
 
-	                        if (!avatar) return;
+	                            if (!avatar) return;
 
-	                        var updateAvatarBtn = document.querySelector('#updateAvatar');
-	                        var img = null;
-	                        if (updateAvatarBtn) {
-	                            img = updateAvatarBtn.querySelector('img');
-	                            img && img.setAttribute('src', avatar);
+	                            var updateAvatarBtn = document.querySelector('#updateAvatar');
+	                            var img = null;
+	                            if (updateAvatarBtn) {
+	                                img = updateAvatarBtn.querySelector('img');
+	                                img && img.setAttribute('src', avatar);
+	                            }
+	                            _this2.close();
 	                        }
-	                        _this2.close();
+	                    } catch (err) {
+	                        alert(err.message);
 	                    }
 	                });
 	            }, function () {
