@@ -1,6 +1,6 @@
 var settings = {
     COPY_RIGHT: "© 2017 娑婆诃",
-    APP_NAME: "红太阳记事簿",
+    APP_NAME: "红太阳记事本",
     CASE_NUMBER: "粤ICP备16089330号-1",
     DOMAIN: 'www.ty-xb.com',
     SLOGAN: "记录点滴，感受彼此",
@@ -44,7 +44,7 @@ var settings = {
     },
 
     REGISTRATION: {
-        WORDING: "欢迎使用红太阳记事簿~"
+        WORDING: "感谢您使用红太阳记事本"
     },
 
     PERMS: {

@@ -12,9 +12,8 @@ import ImageViewer from 'ImageViewer';
         require('dropdown'),
         require('popup'),
         require('PopRouter'),
-        require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, req, effect, common, dropdown, popup, router, dreamTpl) {
+}(function(utils, req, effect, common, dropdown, popup, router) {
     const _d = document,
           _w = window;
 
@@ -100,7 +99,16 @@ import ImageViewer from 'ImageViewer';
         var cur  = ev.target;
 
         while(cur.getAttribute &&
-            ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc'].indexOf(cur.getAttribute('rel'))
+            [
+             'dream-good',
+             'dream-bad',
+             'dream-favourite',
+             'dream-delete',
+             'dream-picsrc',
+             'key-category',
+             'key-mood',
+             'key-health'
+            ].indexOf(cur.getAttribute('rel'))
                 === -1 && cur.parentNode &&
                 cur.parentNode !== ev.currentTarget) {
                     cur = cur.parentNode;

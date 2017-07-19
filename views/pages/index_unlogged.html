@@ -33,48 +33,11 @@
             </div>
         </div>
     </div>
-    <% if (is_mobile) { %>
     <div class="container">
         <div class="main">
             <% include ../partials/postlist.html %>
         </div>
     </div>
-    <% } else { %>
-    <div class="container clearfix">
-        <div class="main">
-            <div class="col-8">
-                <% include ../partials/postlist.html %>
-            </div>
-            <div class="col-4 sider">
-                <div class="user-list">
-                    <h2>近期现身的人</h2>
-                    <ul class="list-group">
-                        <% if (data.users && data.users.length > 0) { %>
-                        <% data.users.forEach(function(user) { %>
-                        <li class="list-item">
-                            <a class="user-pic avatar" href="/user/<%= user._id %>">
-                                <img src="<%= user.avatar_mini %>" />
-                            </a>
-                            <a class="user-name" href="/user/<%= user._id %>">
-                                <%= user.username %>
-                            </a>
-                            <div class="user-karma">
-                                <span>出现时间：<%= timeFormat(user.last_online) %></span>
-                            </div>
-                        </li>
-                        <% }); %>
-                        <% } else { %>
-                        <li class="list-item">
-                            当前木有日常
-                        </li>
-                        <% } %>
-                    </ul>
-                    <!--<a class="top-tag-more" href="/user/top">更多...</a>-->
-                </div>
-            </div>
-        </div>
-    </div>
-    <% } %>
     <div class="footer">
         <% include ../partials/company.html %>
     </div>

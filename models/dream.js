@@ -12,6 +12,7 @@ var Dream = new Schema({
     comments     : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     mood         : { type: String, trim: true, maxlength: 30, default: '平静' },
     health       : { type: String, trim: true, maxlength: 30, default: '良好' },
+    place        : { type: String, trim: true, maxlength: 30, default: '未知' },
     good         : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
     bad          : [{ type: Schema.Types.ObjectId, ref: 'Account' }],
     weight       : { type: Number, default: 0 },

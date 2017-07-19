@@ -10,6 +10,7 @@ var Account = new Schema({
     bio            : { type: String, trim: true, minlength: 1, maxlength: 80, default: '无' },
     mood           : { type: String, trim: true, minlength: 1, maxlength: 30, default: '平静' },
     health         : { type: String, trim: true, minlength: 1, maxlength: 30, default: '良好' },
+    place          : { type: String, trim: true, minlength: 1, maxlength: 30, default: '未知' },
     main_tag       : { type: Schema.Types.ObjectId, ref: 'Tag' },
     follow_tags    : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     follows        : [{ type: Schema.Types.ObjectId, ref: 'Account' }],

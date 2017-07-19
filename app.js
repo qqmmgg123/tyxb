@@ -1,6 +1,8 @@
 var path = require('path')
+  , util = require('util')
   , flash = require('connect-flash')
   , settings = require("./const/settings")
+  , common = require("./common")
   , express = require('express')
   , ejs = require('ejs')
   , device = require('express-device')
@@ -14,7 +16,7 @@ var path = require('path')
   , Schema = mongoose.Schema
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
-  , log = require('util').log
+  , log = util.log
   , Account = require('./models/account.js')
   , Message = require("./models/message");
 
@@ -35,56 +37,6 @@ if (needWebpack) {
     var webpackHotMiddleware = require("webpack-hot-middleware");
     var webpackConfig = require('./webpack.config');
 }
-
-var common = {
-    dateBeautify: function(date) {
-        var now       = new Date(),
-            year      = date.getFullYear(),
-            hour      = 60 * 60 * 1000,
-            day       = 24 * hour,
-            currDate  = this.dateFormat(new Date, 'yyyy-MM-dd'),
-            today     = new Date(currDate + ' 00:00:00').getTime(),
-            yesterday = today - day,
-            currTime  = date.getTime(),
-            cHStr     = this.dateFormat(date, 'hh:mm');
-
-        if (currTime >= today) {
-            var time    = (currTime - today) / hour;
-            var cHour   = date.getHours();
-            var amCHour = cHour - 12;
-            var cMStr   = this.dateFormat(date, 'mm');
-            var str     = time <= 12? '上午 ' + cHStr:'下午 ' + (amCHour < 10? amCHour: '0' + amCHour) + ':' + cMStr;
-            return str;
-        }else if (currTime < today && currTime >= yesterday) {
-            return "昨天 " + cHStr;
-        }else {
-            var curYear = now.getFullYear(),
-                format  = 'MM-dd hh:mm';
-            if (year < curYear) { format  = 'yyyy-MM-dd hh:mm' };
-            return this.dateFormat(date, format);
-        }
-    },
-    dateFormat: function(date, format){
-        var o = {
-            "M+" : date.getMonth()+1, //month
-            "d+" : date.getDate(),    //day
-            "h+" : date.getHours(),   //hour
-            "m+" : date.getMinutes(), //minute
-            "s+" : date.getSeconds(), //second
-            "q+" : Math.floor((date.getMonth()+3)/3),  //quarter
-            "S" : date.getMilliseconds() //millisecond
-        }
-
-        if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
-                (date.getFullYear()+"").substr(4 - RegExp.$1.length));
-        for(var k in o) if(new RegExp("("+ k +")").test(format))
-            format = format.replace(RegExp.$1,
-                    RegExp.$1.length==1 ? o[k] :
-                    ("00"+ o[k]).substr((""+ o[k]).length));
-
-        return format;
-    }
-};
 
 // browser refresh
 var reload = require('reload')
@@ -203,30 +155,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-// Record last online.
-app.use(function(req, res, next) {
-    if (!req.user) {
-        return next();
-    }
-
-    if (!req.xhr) {
-        const user = req.user;
-
-        user.update({
-            last_online: new Date()
-        }, function(err, course) {
-            if (err) {
-                return next(err);
-            }
-
-            next();
-        });
-    }
-    else{
-        next();
-    }
-});
-
 app.use('/', require('./routes'));
 app.use('/search', require('./routers/search'));
 app.use('/tag', require('./routers/tag'));
@@ -250,30 +178,6 @@ function makeCommon(data, res) {
     data.data.messages = res.msgs;
     return data;
 }
-
-// development error handler
-// will print stacktrace
-/*if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        if (req.xhr) {
-        return res.json({
-            info: err.message,
-            result: 1
-        });
-    } else {
-        res.render('pages/error', makeCommon({
-            notice: '',
-            title: settings.APP_NAME,
-            user : req.user,
-            message: err.message,
-            error: err,
-            data: {
-            }
-        }, res));
-    }
-    });
-}*/
 
 // production error handler
 // no stacktraces leaked to user

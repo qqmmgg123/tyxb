@@ -65,8 +65,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(11), __webpack_require__(18).default, __webpack_require__(58).default, __webpack_require__(40), __webpack_require__(63), __webpack_require__(46), __webpack_require__(119), __webpack_require__(131));
-	})(function (utils, req, effect, common, dropdown, popup, router, dreamTpl) {
+	    module.exports = factory(__webpack_require__(11), __webpack_require__(18).default, __webpack_require__(58).default, __webpack_require__(40), __webpack_require__(63), __webpack_require__(46), __webpack_require__(119));
+	})(function (utils, req, effect, common, dropdown, popup, router) {
 	    var _d = document,
 	        _w = window;
 
@@ -151,7 +151,7 @@
 	    dreamList && dreamList.addEventListener('click', function (ev) {
 	        var cur = ev.target;
 
-	        while (cur.getAttribute && ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc'].indexOf(cur.getAttribute('rel')) === -1 && cur.parentNode && cur.parentNode !== ev.currentTarget) {
+	        while (cur.getAttribute && ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc', 'key-category', 'key-mood', 'key-health'].indexOf(cur.getAttribute('rel')) === -1 && cur.parentNode && cur.parentNode !== ev.currentTarget) {
 	            cur = cur.parentNode;
 	        }
 
@@ -1567,7 +1567,7 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
 	    COPY_RIGHT: "© 2017 娑婆诃",
-	    APP_NAME: "红太阳记事簿",
+	    APP_NAME: "红太阳记事本",
 	    CASE_NUMBER: "粤ICP备16089330号-1",
 	    DOMAIN: 'www.ty-xb.com',
 	    SLOGAN: "记录点滴，感受彼此",
@@ -1611,7 +1611,7 @@
 	    },
 
 	    REGISTRATION: {
-	        WORDING: "欢迎使用红太阳记事簿~"
+	        WORDING: "感谢您使用红太阳记事本"
 	    },
 
 	    PERMS: {
@@ -7155,247 +7155,6 @@
 
 	module.exports = ReactPropTypesSecret;
 
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports) {
-
-	module.exports = function (obj) {
-	obj || (obj = {});
-	var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-	function print() { __p += __j.call(arguments, '') }
-	with (obj) {
-
-	 if (dream.category) { ;
-	__p += '\r\n<li class="list-item">\r\n    <div class="post-box">\r\n        <div class="user-info-box">\r\n            ';
-	 if (dream._belong_u) { ;
-	__p += '\r\n            <a class="avatar" href="/user/' +
-	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
-	'">\r\n                <img src="' +
-	((__t = ( dream._belong_u.avatar || '/images/avatar.png' )) == null ? '' : __t) +
-	'" />\r\n            </a>\r\n            ';
-	 } else { ;
-	__p += '\r\n            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>\r\n            ';
-	 } ;
-	__p += '\r\n            <div class="userinfo">\r\n                <p>\r\n                    ';
-	 if (dream._belong_u) { ;
-	__p += '\r\n                    <a class="username" href="/user/' +
-	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
-	'">' +
-	((__t = ( dream._belong_u.username )) == null ? '' : __t) +
-	'</a>\r\n                    ';
-	 } else { ;
-	__p += '\r\n                    <a class="username" href="/user/unknow">未知</a>\r\n                    ';
-	 } ;
-	__p += '\r\n                    <span class="datetime">\r\n                        ' +
-	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
-	'\r\n                    </span>\r\n                </p>\r\n                ';
-	 if (!is_mobile) { ;
-	__p += '\r\n                <p>\r\n                    <span class="mood">\r\n                        心情：' +
-	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\r\n                    </span>\r\n                    <span class="health">\r\n                        身体状况：' +
-	((__t = ( dream.health )) == null ? '' : __t) +
-	'\r\n                    </span>\r\n                    <span class="things">\r\n                        ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n                        记录了一篇“网页”...\r\n                        ';
-	 } else if (dream.category === 'image') { ;
-	__p += '\r\n                        记录了一张“图片”...\r\n                        ';
-	 } else if (dream.category === 'text') { ;
-	__p += '\r\n                        记录了一篇“文字”...\r\n                        ';
-	 } ;
-	__p += '\r\n                    </span>\r\n                </p>\r\n                ';
-	 } ;
-	__p += '\r\n            </div>\r\n            <div class="userctrl">\r\n                ';
-	 if (user && (data.tag && data.tag.delperm)) { ;
-	__p += '\r\n                <a href="javascript:;" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-reject"><i class="s s-remove s-lg"></i>拒绝</a>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 if (user && dream._belong_u) { ;
-	__p += '\r\n                ';
-	 if (dream._belong_u._id.equals(user._id)) { ;
-	__p += '\r\n                ';
-	 if (!dream.isremove) { ;
-	__p += '\r\n                <a href="javascript:;" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-delete"><i class="s s-remove s-lg"></i>删除</a>\r\n                ';
-	 } else { ;
-	__p += '\r\n                <span>已删除</span>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n        ';
-	 if (is_mobile) { ;
-	__p += '\r\n        <div class="userinfo-mobile">\r\n            <span class="mood">\r\n                心情：' +
-	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\r\n            </span>\r\n            <span class="health">\r\n                身体状况：' +
-	((__t = ( dream.health )) == null ? '' : __t) +
-	'\r\n            </span>\r\n            <span class="things">\r\n                ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n                记录了一篇“网页”...\r\n                ';
-	 } else if (dream.category === 'image') { ;
-	__p += '\r\n                记录了一张“图片”...\r\n                ';
-	 } else if (dream.category === 'text') { ;
-	__p += '\r\n                记录了一篇“文字”...\r\n                ';
-	 } ;
-	__p += '\r\n            </span>\r\n        </div>\r\n        ';
-	 } ;
-	__p += '\r\n        ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n        <a \r\n            ';
-	 if (dream.link) { ;
-	__p += '\r\n            href="' +
-	((__t = ( dream.link )) == null ? '' : __t) +
-	'"\r\n            ';
-	 } else { ;
-	__p += '\r\n            href="/dream/' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'"\r\n            ';
-	 } ;
-	__p += '\r\n        >\r\n        ';
-	 } ;
-	__p += '\r\n        <div \r\n            ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n            ';
-	 if (dream.thumbnail) { ;
-	__p += '\r\n            class="post-content thumb-mode news"\r\n            ';
-	 } else { ;
-	__p += '\r\n            class="post-content news"\r\n            ';
-	 } ;
-	__p += '\r\n            ';
-	 } else if (dream.category === 'image') { ;
-	__p += '\r\n            class="post-content image"\r\n            ';
-	 } else if (dream.category === 'text') { ;
-	__p += '\r\n            class="post-content text"\r\n            ';
-	 } ;
-	__p += '\r\n        >\r\n            ';
-	 if (dream.isremove) { ;
-	__p += '\r\n                [已被作者删除]\r\n            ';
-	 } else { ;
-	__p += '\r\n            ';
-	 if (is_mobile) { ;
-	__p += '\r\n                ';
-	 if (dream.mthumbnail && dream.category !== 'image') { ;
-	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
-	((__t = ( dream.mthumbnail )) == null ? '' : __t) +
-	'" />\r\n                </div>\r\n                ';
-	 } ;
-	__p += '\r\n            ';
-	 } else { ;
-	__p += '\r\n                ';
-	 if (dream.thumbnail && dream.category !== 'image') { ;
-	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
-	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\r\n                </div>\r\n                ';
-	 } ;
-	__p += '\r\n            ';
-	 } ;
-	__p += '\r\n            <div class="entry">\r\n            ';
-	 if (dream.content) { ;
-	__p += '\r\n            <div class="title">\r\n            ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n            <i class="s s-link s-lg"></i>&nbsp;\r\n            ';
-	 } ;
-	__p += '\r\n            ';
-	 if (data.query) { ;
-	__p += '\r\n            ' +
-	__e( highLight(dlimit(dream.content), data.query) ) +
-	'\r\n            ';
-	 } else { ;
-	__p += '\r\n            ' +
-	((__t = ( dlimit(dream.content) )) == null ? '' : __t) +
-	'\r\n            ';
-	 } ;
-	__p += '\r\n            </div>\r\n            ';
-	 } ;
-	__p += '\r\n            ';
-	 if (dream.summary) { ;
-	__p += '\r\n            <div class="summary">\r\n                ' +
-	__e( dream.summary ) +
-	'\r\n                ';
-	 if (dream.category === 'text' && dream.showall) { ;
-	__p += '\r\n                <a class="show-all" href="/dream/' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'">全文&nbsp;↓</a>\r\n                ';
-	 } ;
-	__p += '\r\n            </div>\r\n            ';
-	 } ;
-	__p += '\r\n            ';
-	 if (dream.thumbnail && dream.category === 'image') { ;
-	__p += '\r\n            ';
-	 if (!is_mobile) { ;
-	__p += '\r\n            <div rel="dream-picsrc" class="piccard">\r\n                <img src="' +
-	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\r\n            </div>\r\n            ';
-	 } else { ;
-	__p += '\r\n            <div class="piccard">\r\n                <a href="' +
-	((__t = ( dream.thumbnail.replace('picmini', 'uploads') )) == null ? '' : __t) +
-	'"><img src="' +
-	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" /></a>\r\n            </div>\r\n            ';
-	 } ;
-	__p += '\r\n            ';
-	 } ;
-	__p += '\r\n            </div>\r\n            ';
-	 } ;
-	__p += '\r\n        </div>\r\n        ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n        </a>\r\n        ';
-	 } ;
-	__p += '\r\n        <div class="post-footer">\r\n            <div class="ctrl-box">\r\n                ';
-	 if (user) { ;
-	__p += '\r\n                ';
-	 if (dream.good && dream.good.length > 0) { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="心动" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>\r\n                ';
-	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="心动" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="心动" data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
-	 } ;
-	__p += '\r\n                <span class="vote-num" rel="vote-num">' +
-	((__t = ( dream.vote )) == null ? '' : __t) +
-	'</span></div></a>\r\n                <a href="/dream/' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'#dreamCtrlBox">留言&nbsp;<span class="comment-num">' +
-	((__t = ( dream.cnum )) == null ? '' : __t) +
-	'</span></a>\r\n                ';
-	 if (user) { ;
-	__p += '\r\n                ';
-	 if (dream._followers_u && dream._followers_u.length > 0) { ;
-	__p += '\r\n                <a data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>\r\n                ';
-	 } else { ;
-	__p += '\r\n                <a data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } else { ;
-	__p += '\r\n                <a data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
-	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n';
-	} else {;
-	__p += '\r\n<li class="list-item">[该内容显示异常]</li>\r\n';
-	 } ;
-	__p += '\r\n\r\n';
-
-	}
-	return __p
-	}
 
 /***/ })
 /******/ ]);

@@ -1590,6 +1590,7 @@ a.logo {
 }
 .piccard img {
   width: 100%;
+  max-width: 360px;
 }
 .preview {
   max-width: 600px;

@@ -1,10 +1,12 @@
 (function (factory) {
     module.exports = factory(
+        require('http'),
+        require('util'),
         require('async'),
         require('./const/settings'),
         require('./models/comment')
     );
-} (function (async, settings, Comment) {
+} (function (http, util, async, settings, Comment) {
     var common = {
 
         maxtime : 1500,
@@ -169,6 +171,94 @@
                     ]
                 }
             ]
+        },
+
+        /**
+         * 根据 ip 获取获取地址信息
+         */
+        getIpInfo: function(ip, cb) {
+            ip = this.ipformat(ip);
+
+            const sina_server = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=';
+            const url = sina_server + ip;
+            http.get(url, function(res) {
+                var code = res.statusCode;
+                if (code == 200) {
+                    res.on('data', function(data) {
+                        try {
+                            cb(null, JSON.parse(data));
+                        } catch (err) {
+                            cb(err);
+                        }
+                    });
+                } else {
+                    cb({ code: code });
+                }
+            }).on('error', function(e) { cb(e); });
+        },
+
+        /**
+         * 格式化ip地址
+         */
+        ipformat: function(ip) {
+            const match = ip.match(/\d+\.\d+\.\d+\.\d+/),
+                defaultIp = '0.0.0.0';
+
+            return match? match[0]:defaultIp;
+        },
+
+        /**
+         * 优化时间显示
+         */
+        dateBeautify: function(date) {
+            var now       = new Date(),
+                year      = date.getFullYear(),
+                hour      = 60 * 60 * 1000,
+                day       = 24 * hour,
+                currDate  = this.dateFormat(new Date, 'yyyy-MM-dd'),
+                today     = new Date(currDate + ' 00:00:00').getTime(),
+                yesterday = today - day,
+                currTime  = date.getTime(),
+                cHStr     = this.dateFormat(date, 'hh:mm');
+
+            if (currTime >= today) {
+                var time    = (currTime - today) / hour;
+                var cHour   = date.getHours();
+                var amCHour = cHour - 12;
+                var cMStr   = this.dateFormat(date, 'mm');
+                var str     = time <= 12? '上午 ' + cHStr:'下午 ' + (amCHour < 10? amCHour: '0' + amCHour) + ':' + cMStr;
+                return str;
+            }else if (currTime < today && currTime >= yesterday) {
+                return "昨天 " + cHStr;
+            }else {
+                var curYear = now.getFullYear(),
+                    format  = 'MM-dd hh:mm';
+                if (year < curYear) { format  = 'yyyy-MM-dd hh:mm' };
+                return this.dateFormat(date, format);
+            }
+        },
+        /**
+         * 格式化时间
+         */
+        dateFormat: function(date, format){
+            var o = {
+                "M+" : date.getMonth()+1, //month
+                "d+" : date.getDate(),    //day
+                "h+" : date.getHours(),   //hour
+                "m+" : date.getMinutes(), //minute
+                "s+" : date.getSeconds(), //second
+                "q+" : Math.floor((date.getMonth()+3)/3),  //quarter
+                "S" : date.getMilliseconds() //millisecond
+            }
+
+            if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+                (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+            for(var k in o) if(new RegExp("("+ k +")").test(format))
+                format = format.replace(RegExp.$1,
+                    RegExp.$1.length==1 ? o[k] :
+                    ("00"+ o[k]).substr((""+ o[k]).length));
+
+            return format;
         }
     }
 

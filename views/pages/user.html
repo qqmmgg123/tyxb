@@ -48,14 +48,13 @@
     </div>
     <div class="container clearfix">
         <div class="main">
-            <div class="col-8">
-                <div class="tab-nav user-tab-bar">
-                    <ul>
-                        <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
-                        <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
-                        <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
-                    </ul>
-                </div>
+            <div class="tab-nav user-tab-bar">
+                <ul>
+                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
+                    <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
+                    <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
+                </ul>
+            </div>
             <% if (data.tab == "dream") { %>
             <% include ../partials/postlist.html %>
             <% } else if (data.tab == "comment") { %>
@@ -84,16 +83,6 @@
                 </li>
                 <% } %>
             <% } %>
-            </div>
-            <div class="col-4">
-                <div class="karma-list">
-                    <h2>业力</h2>
-                    <ul class="list-group">
-                        <li class="list-item">发文：<%= data.dnum %></li>
-                        <li class="list-item">留言：<%= data.cnum %></li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
     <div id="avatarEditorCon"></div>

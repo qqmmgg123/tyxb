@@ -71,8 +71,9 @@ router.post('/new', function(req, res, next) {
     let fields = {
         _belong_u  : uid,
         category   : category.trim(),
-        mood: user.mood,
-        health: user.health
+        place      : user.place,
+        mood       : user.mood,
+        health     : user.health
     }
 
     if (tag && tag.trim()) {
@@ -269,6 +270,7 @@ router.get('/:id([a-z0-9]+)', function(req, res, next) {
         pic       : 1,
         mood      : 1,
         health    : 1,
+        place     : 1,
         vote      : { $subtract: [{ $size: '$good'}, { $size: '$bad' }]},
         cnum      : { $size: '$comments' },
         isremove  : 1,

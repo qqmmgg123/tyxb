@@ -825,8 +825,6 @@ a.logo {
         .search-area {
             display: block;
         }
-        width: 900px;
-        margin: 0 auto;
     }
     .h-left {
         float: left;
@@ -1234,7 +1232,7 @@ a.logo {
     , .following-area, .followers-area, #recommand-area, .main, .top-tag-list {
         width: 900px;
         text-align: left;
-        margin: 0 auto;
+        margin-left: 180px;
     }
     .settings-area {
         overflow: hidden;
@@ -1599,21 +1597,24 @@ a.logo {
 .thumbnail {
     overflow: hidden;
     cursor: pointer;
-    max-width: 120px;
-    max-height: 120px;
     position: absolute;
-    border-radius: 5px;
     left: 0;
+    img {
+        border-radius: 5px;
+        max-width: 120px;
+        max-height: 120px;
+    }
 }
 
 .piccard {
-    text-align: center;
+    overflow: hidden;
     cursor: pointer;
-    margin-top: 5px;
+    position: absolute;
     cursor: zoom-in;
     img {
         border-radius: 5px;
-        width: 100%;
+        max-width: 320px;
+        max-height: 192px;
     }
 }
 
@@ -1632,6 +1633,10 @@ a.logo {
 }
 
 .post-box {
+    margin-left: 58px;
+    &.user-mode {
+        margin-left: 0;
+    }
     .avatar {
         img {
             width: 38px;
@@ -1649,20 +1654,21 @@ a.logo {
 .user-info-box {
     overflow: hidden;
     margin-top: 10px;
-    height: 38px;
     .avatar {
-        float: left;
+        position: absolute;
+        left: 0;
     }
     .userinfo {
         float: left;
-        margin-left: 10px;
         a, span {
-            font-size: 12px;
+            font-size: 14px;
             color: #666;
         }
+        .mood:before,
         .health:before, 
         .things:before,
-        .datetime:before {
+        .datetime:before,
+        .place:before {
             content: '，';
             font-family: Arial;
             color: #bbb;
@@ -1681,16 +1687,22 @@ a.logo {
 }
 
 .post-content {
-    margin-top: 10px;
+    margin-top: 5px;
     overflow: hidden;
     font-size: 14px;
-    &.thumb-mode {
+    &.thumb-mode, &.image {
         .pr();
         .entry {
             float: left;
             margin-left: 130px;
         }
         min-height: 120px;
+    }
+    &.image {
+        .entry {
+            margin-left: 330px;
+        }
+        min-height: 192px;
     }
     &.news, &.text {
         .title {
@@ -1739,6 +1751,10 @@ a.logo {
         a.owed {
             position: absolute;
             left: 0;
+            span.vote-num {
+                margin-left: 20px;
+                font-size: 14px;
+            }
         }
         i.s-arrow_up {
             font-size: 2em;

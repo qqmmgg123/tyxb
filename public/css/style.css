@@ -923,10 +923,6 @@ a.logo {
   right: 0;
   transition: .2s;
 }
-.header .head-con {
-  width: 900px;
-  margin: 0 auto;
-}
 .header .head-con .search-area {
   display: block;
 }
@@ -1318,7 +1314,7 @@ a.logo {
 .container .top-tag-list {
   width: 900px;
   text-align: left;
-  margin: 0 auto;
+  margin-left: 180px;
 }
 .container .settings-area {
   overflow: hidden;
@@ -1664,21 +1660,24 @@ a.logo {
 .thumbnail {
   overflow: hidden;
   cursor: pointer;
-  max-width: 120px;
-  max-height: 120px;
   position: absolute;
-  border-radius: 5px;
   left: 0;
 }
+.thumbnail img {
+  border-radius: 5px;
+  max-width: 120px;
+  max-height: 120px;
+}
 .piccard {
-  text-align: center;
+  overflow: hidden;
   cursor: pointer;
-  margin-top: 5px;
+  position: absolute;
   cursor: zoom-in;
 }
 .piccard img {
   border-radius: 5px;
-  width: 100%;
+  max-width: 320px;
+  max-height: 192px;
 }
 .preview {
   max-width: 600px;
@@ -1693,6 +1692,12 @@ a.logo {
   max-width: 100%;
   display: block;
 }
+.post-box {
+  margin-left: 58px;
+}
+.post-box.user-mode {
+  margin-left: 0;
+}
 .post-box .avatar img {
   width: 38px;
   height: 38px;
@@ -1703,23 +1708,24 @@ a.logo {
 .user-info-box {
   overflow: hidden;
   margin-top: 10px;
-  height: 38px;
 }
 .user-info-box .avatar {
-  float: left;
+  position: absolute;
+  left: 0;
 }
 .user-info-box .userinfo {
   float: left;
-  margin-left: 10px;
 }
 .user-info-box .userinfo a,
 .user-info-box .userinfo span {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
 }
+.user-info-box .userinfo .mood:before,
 .user-info-box .userinfo .health:before,
 .user-info-box .userinfo .things:before,
-.user-info-box .userinfo .datetime:before {
+.user-info-box .userinfo .datetime:before,
+.user-info-box .userinfo .place:before {
   content: '，';
   font-family: Arial;
   color: #bbb;
@@ -1736,17 +1742,25 @@ a.logo {
   padding: 0 10px;
 }
 .post-content {
-  margin-top: 10px;
+  margin-top: 5px;
   overflow: hidden;
   font-size: 14px;
 }
-.post-content.thumb-mode {
+.post-content.thumb-mode,
+.post-content.image {
   position: relative;
   min-height: 120px;
 }
-.post-content.thumb-mode .entry {
+.post-content.thumb-mode .entry,
+.post-content.image .entry {
   float: left;
   margin-left: 130px;
+}
+.post-content.image {
+  min-height: 192px;
+}
+.post-content.image .entry {
+  margin-left: 330px;
 }
 .post-content.news .title,
 .post-content.text .title {
@@ -1791,6 +1805,10 @@ a.logo {
 .post-footer .ctrl-box a.owed {
   position: absolute;
   left: 0;
+}
+.post-footer .ctrl-box a.owed span.vote-num {
+  margin-left: 20px;
+  font-size: 14px;
 }
 .post-footer .ctrl-box i.s-arrow_up {
   font-size: 2em;

@@ -1729,7 +1729,7 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
 	    COPY_RIGHT: "© 2017 娑婆诃",
-	    APP_NAME: "红太阳记事簿",
+	    APP_NAME: "红太阳记事本",
 	    CASE_NUMBER: "粤ICP备16089330号-1",
 	    DOMAIN: 'www.ty-xb.com',
 	    SLOGAN: "记录点滴，感受彼此",
@@ -1773,7 +1773,7 @@
 	    },
 
 	    REGISTRATION: {
-	        WORDING: "欢迎使用红太阳记事簿~"
+	        WORDING: "感谢您使用红太阳记事本"
 	    },
 
 	    PERMS: {
@@ -7329,7 +7329,15 @@
 	with (obj) {
 
 	 if (dream.category) { ;
-	__p += '\r\n<li class="list-item">\r\n    <div class="post-box">\r\n        <div class="user-info-box">\r\n            ';
+	__p += '\r\n<li class="list-item">\r\n    ';
+	 if (data.nav !== 'user') { ;
+	__p += '\r\n    <div class="post-box">\r\n    ';
+	 } else { ;
+	__p += '\r\n    <div class="post-box user-mode">\r\n    ';
+	 } ;
+	__p += '\r\n        <div class="user-info-box">\r\n            ';
+	 if (data.nav !== 'user') { ;
+	__p += '\r\n            ';
 	 if (dream._belong_u) { ;
 	__p += '\r\n            <a class="avatar" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
@@ -7339,33 +7347,49 @@
 	 } else { ;
 	__p += '\r\n            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>\r\n            ';
 	 } ;
-	__p += '\r\n            <div class="userinfo">\r\n                <p>\r\n                    ';
+	__p += '\r\n            ';
+	 } ;
+	__p += '\r\n            <div class="userinfo">\r\n                ';
+	 if (data.nav !== 'user') { ;
+	__p += '\r\n                ';
 	 if (dream._belong_u) { ;
-	__p += '\r\n                    <a class="username" href="/user/' +
+	__p += '\r\n                <a class="username" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
 	'">' +
 	((__t = ( dream._belong_u.username )) == null ? '' : __t) +
-	'</a>\r\n                    ';
+	'</a>\r\n                ';
 	 } else { ;
-	__p += '\r\n                    <a class="username" href="/user/unknow">未知</a>\r\n                    ';
+	__p += '\r\n                <a class="username" href="/user/unknow">未知</a>\r\n                ';
 	 } ;
-	__p += '\r\n                    <span class="datetime">\r\n                        ' +
+	__p += '\r\n                ';
+	 } ;
+	__p += '\r\n                <span class="datetime">\r\n                    ' +
 	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
-	'\r\n                    </span>\r\n                </p>\r\n                ';
-	 if (!is_mobile) { ;
-	__p += '\r\n                <p>\r\n                    <span class="mood">\r\n                        心情：' +
-	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\r\n                    </span>\r\n                    <span class="health">\r\n                        身体状况：' +
-	((__t = ( dream.health )) == null ? '' : __t) +
-	'\r\n                    </span>\r\n                    <span class="things">\r\n                        ';
-	 if (dream.category === 'news') { ;
-	__p += '\r\n                        记录了一篇“网页”...\r\n                        ';
-	 } else if (dream.category === 'image') { ;
-	__p += '\r\n                        记录了一张“图片”...\r\n                        ';
-	 } else if (dream.category === 'text') { ;
-	__p += '\r\n                        记录了一篇“文字”...\r\n                        ';
+	'\r\n                </span>\r\n                ';
+	 if (dream.place) { ;
+	__p += '\r\n                <span class="place">\r\n                    地点：' +
+	((__t = ( dream.place )) == null ? '' : __t) +
+	'\r\n                </span>\r\n                ';
 	 } ;
-	__p += '\r\n                    </span>\r\n                </p>\r\n                ';
+	__p += '\r\n                ';
+	 if (!is_mobile) { ;
+	__p += '\r\n                <span class="mood">\r\n                    心情：<a rel="key-mood" data-mood="' +
+	((__t = ( dream.mood )) == null ? '' : __t) +
+	'" href="javascript:;">' +
+	((__t = ( dream.mood )) == null ? '' : __t) +
+	'\r\n                </span>\r\n                <span class="health">\r\n                    身体状况：<a rel="key-health" data-health="' +
+	((__t = ( dream.health )) == null ? '' : __t) +
+	'" href="javascript:;">' +
+	((__t = ( dream.health )) == null ? '' : __t) +
+	'\r\n                </span>\r\n                <span class="things">\r\n                    ';
+	 if (dream.category === 'news') { ;
+	__p += '\r\n                    记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...\r\n                    ';
+	 } else if (dream.category === 'image') { ;
+	__p += '\r\n                    记录了一张<a rel="key-catgory" data-category="图片" href="javascript:;">“图片”</a>...\r\n                    ';
+	 } else if (dream.category === 'text') { ;
+	__p += '\r\n                    记录了一篇<a rel="key-catgory" data-category="文字" href="javascript:;">“文字”</a>...\r\n                    ';
+	 } ;
+	__p += '\r\n                </span>\r\n                ';
 	 } ;
 	__p += '\r\n            </div>\r\n            <div class="userctrl">\r\n                ';
 	 if (user && (data.tag && data.tag.delperm)) { ;
@@ -7455,6 +7479,22 @@
 	 } ;
 	__p += '\r\n            ';
 	 } ;
+	__p += '\r\n            ';
+	 if (dream.thumbnail && dream.category === 'image') { ;
+	__p += '\r\n            ';
+	 if (!is_mobile) { ;
+	__p += '\r\n            <div rel="dream-picsrc" class="piccard">\r\n                <img src="' +
+	((__t = ( dream.thumbnail )) == null ? '' : __t) +
+	'" />\r\n            </div>\r\n            ';
+	 } else { ;
+	__p += '\r\n            <div class="piccard">\r\n                <a href="' +
+	((__t = ( dream.thumbnail.replace('picmini', 'uploads') )) == null ? '' : __t) +
+	'"><img src="' +
+	((__t = ( dream.thumbnail )) == null ? '' : __t) +
+	'" /></a>\r\n            </div>\r\n            ';
+	 } ;
+	__p += '\r\n            ';
+	 } ;
 	__p += '\r\n            <div class="entry">\r\n            ';
 	 if (dream.content) { ;
 	__p += '\r\n            <div class="title">\r\n            ';
@@ -7485,22 +7525,6 @@
 	 } ;
 	__p += '\r\n            </div>\r\n            ';
 	 } ;
-	__p += '\r\n            ';
-	 if (dream.thumbnail && dream.category === 'image') { ;
-	__p += '\r\n            ';
-	 if (!is_mobile) { ;
-	__p += '\r\n            <div rel="dream-picsrc" class="piccard">\r\n                <img src="' +
-	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\r\n            </div>\r\n            ';
-	 } else { ;
-	__p += '\r\n            <div class="piccard">\r\n                <a href="' +
-	((__t = ( dream.thumbnail.replace('picmini', 'uploads') )) == null ? '' : __t) +
-	'"><img src="' +
-	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" /></a>\r\n            </div>\r\n            ';
-	 } ;
-	__p += '\r\n            ';
-	 } ;
 	__p += '\r\n            </div>\r\n            ';
 	 } ;
 	__p += '\r\n        </div>\r\n        ';
@@ -7511,23 +7535,31 @@
 	 if (user) { ;
 	__p += '\r\n                ';
 	 if (dream.good && dream.good.length > 0) { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="心动" data-did="' +
+	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>\r\n                ';
 	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="心动" data-did="' +
+	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
 	 } ;
 	__p += '\r\n                ';
 	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="心动" data-did="' +
+	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
 	 } ;
+	__p += '\r\n                ';
+	 if (!is_mobile) { ;
+	__p += '\r\n                <span class="vote-num" rel="vote-num">有' +
+	((__t = ( dream.vote )) == null ? '' : __t) +
+	'人喜欢...</span></div></a>\r\n                ';
+	 } else { ;
 	__p += '\r\n                <span class="vote-num" rel="vote-num">' +
 	((__t = ( dream.vote )) == null ? '' : __t) +
-	'</span></div></a>\r\n                <a href="/dream/' +
+	'</span></div></a>\r\n                ';
+	 } ;
+	__p += '\r\n                <a href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'#dreamCtrlBox">留言&nbsp;<span class="comment-num">' +
 	((__t = ( dream.cnum )) == null ? '' : __t) +
