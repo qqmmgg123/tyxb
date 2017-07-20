@@ -584,7 +584,6 @@ a:hover {
 }
 .nav-group {
   overflow: hidden;
-  border-bottom: 1px solid #eaeaea;
   padding: 5px;
 }
 .nav-group ul {
@@ -849,10 +848,6 @@ a.logo {
   right: 0;
   transition: .2s;
 }
-.header .head-con {
-  width: 900px;
-  margin: 0 auto;
-}
 .header .head-con .search-area {
   display: block;
 }
@@ -1047,18 +1042,6 @@ a.logo {
   width: 18px;
   height: 2px;
   border-radius: 1px;
-}
-.banner {
-  margin-top: 46px;
-  height: 300px;
-  background-color: #fff;
-}
-.banner .banner-bg {
-  width: 900px;
-  text-align: left;
-  margin: 0 auto;
-  height: 300px;
-  background: url(/images/banner_bg.png) no-repeat;
 }
 .user-main {
   width: 300px;
@@ -1453,14 +1436,7 @@ a.logo {
 #registration .tab-nav ul li {
   width: 50%;
 }
-/* 分享发布 */
-#postEditorCon .dialog {
-  width: 720px;
-}
 /* 头像编辑 */
-#avatarEditorCon .dialog {
-  width: 720px;
-}
 #avatarEditorCon .dialog .bd {
   text-align: center;
 }
@@ -1544,30 +1520,46 @@ a.logo {
 .tag-top-head {
   background-color: #fefefe;
   border-bottom: 1px solid #f2f3f4;
-  padding: 20px;
+  padding: 10px;
 }
 .tag-top-head .main h2 {
   margin: 0;
   padding: 0;
 }
-.tag-top-head .main .tag-head-info {
+.tag-top-head .main .tagHead-infoInner {
   text-align: center;
 }
-.tag-top-head .main .tag-head-info .intro {
+.tag-top-head .main .tagHead-infoInner .intro {
   margin-top: 10px;
 }
-.tag-top-head .main .tag-head-about {
-  font-size: 12px;
+.tag-top-head .main .notes .category-list {
+  margin: 0 10px;
+}
+.tag-top-head .main .notes .category-list li {
+  margin-right: 10px;
+  display: inline-block;
+  height: 32px;
+  line-height: 32px;
+}
+.tag-top-head .main .notes .category-list li a {
   color: #666;
 }
-.tag-top-head .main .tag-head-ctrl {
-  float: right;
-  right: 10;
-  bottom: 0;
-  position: absolute;
+.tag-top-head .main .notes .category-list li i {
+  float: left;
+  margin-top: 3px;
 }
-.tag-top-head .main .tag-head-ctrl a.btn {
-  display: block;
+.tag-top-head .main .notes .category-list li span {
+  font-size: 14px;
+  margin-left: 10px;
+}
+.tag-top-head .main .notes .category-list li.cur a {
+  color: #ff4d73;
+}
+.tag-top-head .main .notes textarea {
+  padding: 5px 0 0 10px;
+  font-size: 14px;
+  min-height: 80px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .summary {
   padding: 0 5px;

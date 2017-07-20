@@ -12,25 +12,24 @@ import ImageViewer from 'ImageViewer';
         require('dropdown'),
         require('popup'),
         require('PopRouter'),
-        require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, req, effect, common, dropdown, popup, router, dreamTpl) {
+}(function(utils, req, effect, common, dropdown, popup, router) {
     const _d = document,
           _w = window;
 
-    var drtImageBtn = _d.querySelector('#dreamReleaseImage');
-    drtImageBtn && drtImageBtn.addEventListener('click', () => {
+    var postImageBtn = _d.querySelector('#postImage');
+    postImageBtn && postImageBtn.addEventListener('click', () => {
         common.textNew('image');
     });
 
     // 发布文字
-    var drtTextBtn = _d.querySelector('#dreamReleaseText');
-    drtTextBtn && drtTextBtn.addEventListener('click', () => {
+    var postTextEdit = _d.querySelector('#PostText');
+    postTextEdit && postTextEdit.addEventListener('focus', () => {
         common.textNew('text');
     });
 
-    var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
-    drtLinkBtn && drtLinkBtn.addEventListener('click', () => {
+    var postLinkBtn = _d.querySelector('#postLink');
+    postLinkBtn && postLinkBtn.addEventListener('click', () => {
         common.textNew('news');
     });
 
@@ -100,7 +99,16 @@ import ImageViewer from 'ImageViewer';
         var cur  = ev.target;
 
         while(cur.getAttribute &&
-            ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc'].indexOf(cur.getAttribute('rel'))
+            [
+             'dream-good',
+             'dream-bad',
+             'dream-favourite',
+             'dream-delete',
+             'dream-picsrc',
+             'key-category',
+             'key-mood',
+             'key-health'
+            ].indexOf(cur.getAttribute('rel'))
                 === -1 && cur.parentNode &&
                 cur.parentNode !== ev.currentTarget) {
                     cur = cur.parentNode;
