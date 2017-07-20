@@ -1,9 +1,9 @@
 var settings = {
     COPY_RIGHT: "© 2017 娑婆诃",
-    APP_NAME: "红太阳记事本",
+    APP_NAME: "太阳记事",
     CASE_NUMBER: "粤ICP备16089330号-1",
     DOMAIN: 'www.ty-xb.com',
-    SLOGAN: "记录点滴，感受彼此",
+    SLOGAN: "生命是最完美的纪录片",
     UNKNOW_ERR: '异常错误',
     PARAMS_PASSED_ERR_TIPS: "参数传递错误!",
     USER_EXISTS_TIPS: "对不起，该用户已经存在，请重新尝试",

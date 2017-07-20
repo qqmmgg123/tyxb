@@ -1617,39 +1617,20 @@ a.logo {
 .tag-top-head {
   background-color: #fefefe;
   border-bottom: 1px solid #f2f3f4;
-  padding: 20px;
+  padding: 20px 0;
 }
 .tag-top-head .main h2 {
   margin: 0;
   padding: 0;
 }
-.tag-top-head .main .tag-head-info {
+.tag-top-head .main .tagHead-infoInner {
   overflow: hidden;
-  position: relative;
 }
-.tag-top-head .main .tag-head-info .tagHead-infoInner {
+.tag-top-head .main .tagHead-infoInner .logo {
   float: left;
-  margin-left: 20px;
-  margin-right: 150px;
 }
-.tag-top-head .main .tag-head-info .intro {
-  font-size: 14px;
-  color: #999;
-  width: 500px;
-  float: right;
-}
-.tag-top-head .main .tag-head-about {
-  font-size: 12px;
-  color: #666;
-}
-.tag-top-head .main .tag-head-ctrl {
-  float: right;
-  right: 10;
-  bottom: 0;
-  position: absolute;
-}
-.tag-top-head .main .tag-head-ctrl a.btn {
-  display: block;
+.tag-top-head .main .tagHead-infoInner .slogan {
+  float: left;
 }
 .summary {
   padding: 5px 0;
