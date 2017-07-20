@@ -1517,7 +1517,7 @@ a.logo {
 /* 分享发布 */
 #postEditorCon .dialog {
   width: 690px;
-  top: 72px;
+  top: 58px;
   left: 180px;
   right: inherit;
   bottom: inherit;
@@ -1658,6 +1658,8 @@ a.logo {
   color: #ff4d73;
 }
 .tag-top-head .main .notes textarea {
+  padding: 5px 0 0 10px;
+  font-size: 14px;
   width: 690px;
   min-height: 50px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
