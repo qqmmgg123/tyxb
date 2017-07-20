@@ -1023,19 +1023,6 @@ a.logo {
     }
 }
 
-.banner {
-    margin-top: @top;
-    height: 300px;
-    background-color: #fff;
-    .banner-bg {
-        width: 900px;
-        text-align: left;
-        margin: 0 auto;
-        height: 300px;
-        background: url(/images/banner_bg.png) no-repeat;
-    }
-}
-
 .user-main {
     width: 300px;
     margin: auto;
@@ -1230,7 +1217,7 @@ a.logo {
 .container {
     .store-area, .team-area, .notice, .search-area, .settings-area, .msg-area
     , .following-area, .followers-area, #recommand-area, .main, .top-tag-list {
-        width: 900px;
+        width: 1035;
         text-align: left;
         margin-left: 180px;
     }
@@ -1457,7 +1444,12 @@ a.logo {
 
 /* 分享发布 */
 #postEditorCon .dialog {
-    width: 720px;
+    width: 690px;
+    top: 72px;
+    left: 180px;
+    right: inherit;
+    bottom: inherit;
+    position: absolute;
 }
 
 /* 头像编辑 */
@@ -1552,17 +1544,173 @@ a.logo {
     border-bottom: 1px solid #f2f3f4;
     padding: 20px 0;
     .main {
+        margin-left: 35px;
+        width: auto;
         h2 {
             margin: 0;
             padding: 0;
+            width: 120px;
         }
         .tagHead-infoInner {
-            overflow: hidden;
+            float: left;
             .logo {
                 float: left;
             }
             .slogan {
                 float: left;
+            }
+        }
+        .notes {
+            margin-left: 20px;
+            float: left;
+            .category-list { 
+                margin: 0 10px;
+                li {
+                    margin-right: 10px;
+                    display: inline-block;
+                    height: 32px;
+                    line-height: 32px;
+                    a {
+                        color: #666;
+                    }
+                    i {
+                        float: left;
+                        margin-top: 3px;
+                    }
+                    span {
+                        font-size: 14px;
+                        margin-left: 10px;
+                    }
+                    &.cur {
+                        a {
+                            color: #ff4d73;
+                        }
+                    }
+                }
+            }
+            textarea {
+                width: 690px;
+                min-height: 50px;
+                box-shadow: 0 1px 1px rgba(0,0,0,.075);
+                margin: 5px;
+            }
+        }
+        .user {
+            float: right;
+            .user-info-list {
+                > li {
+                    display: inline-block;
+                    height: 32px;
+                    line-height: 32px;
+                    margin-right: 20px;
+                    font-size: 14px;
+                }
+            }
+            #message-nav {
+                position: relative;
+            }
+            .message-new {
+                position: absolute;
+                top: 3px;
+                right: -3px;
+                display: block;
+                color: #fff;
+                font-size: 0.625em;
+                width: 8px;
+                height: 8px;
+                background-color: #ff4d73;
+                .round();
+            }
+            .message-list {
+                padding: 0;
+                width: 200px;
+                li {
+                    width: 200px;
+                    font-size: 12px;
+                    text-align: left;
+                    padding: 10px;
+                    a.btn {
+                        display: inline-block;
+                    }
+                    &.view-all {
+                        border-top: 1px solid #ddd;
+                        text-align: center;
+                    }
+                }
+            }
+            .navbar-toggle {
+                display: none;
+            }
+            .navbar-nav {
+                > li {
+                    float: left;
+                    &.config-dropdown {
+                        .pr();
+                    }
+                    .config-list {
+                        display: none;
+                        position: absolute;
+                        background-color: #fff;
+                        top: 100%;
+                        right: 0;
+                        z-index: 1;
+                        min-width: 160px;
+                        text-align: left;
+                        padding: 5px 0;
+                        margin: 2px 0 0;
+                        .pop();
+                        a {
+                            display: block;
+                            padding: 3px 20px;
+                            clear: both;
+                            font-weight: 400;
+                            line-height: 1.42857143;
+                            color: @gray;
+                            white-space: nowrap;
+                            &:hover {
+                                background-color: @gray5;
+                            }
+                        }
+                        &.show {
+                            display: block;
+                        }
+                        &.hide {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            .nav {
+                > li {
+                    > a {
+                        height: 32px;
+                        margin-left: 10px;
+                        box-sizing: border-box;
+                        height: 32px;
+                    }
+                    > a, > a:hover {
+                        color: @gray;
+                    }
+                    > a:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            .navbar-toggle {
+                .pr();
+                padding: 9px 10px;
+                background-color: transparent;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                line-height: 2px;
+                .icon-bar {
+                    background-color: #563d7c;
+                    display: block;
+                    width: 18px;
+                    height: 2px;
+                    border-radius: 1px;
+                }
             }
         }
     }
@@ -1614,7 +1762,6 @@ a.logo {
 }
 
 .post-box {
-    margin-left: 58px;
     &.user-mode {
         margin-left: 0;
     }
@@ -1637,7 +1784,7 @@ a.logo {
     margin-top: 10px;
     .avatar {
         position: absolute;
-        left: 0;
+        left: -58px;
     }
     .userinfo {
         float: left;
@@ -1731,7 +1878,7 @@ a.logo {
         float: right;
         a.owed {
             position: absolute;
-            left: 0;
+            left: -58px;
             span.vote-num {
                 margin-left: 20px;
                 font-size: 14px;
@@ -2034,13 +2181,13 @@ div.more {
     bottom: 0;
     left: 0;
     right: 0;
-    background: #fff;
+    background: #000;
     position: fixed;
 }
 
 .modal {
     &.fade-in {
-        opacity: 0.80;
+        opacity: 0.75;
     }
 
     &.fade-out {
@@ -2053,273 +2200,3 @@ div.more {
     z-index: 1;
 }
 
-/* for 980px or less */
-@media screen and (max-width: 980px) { 
-    .mar-top {
-        margin-top: 36px;
-    }
-    .header {
-        padding: 0 5;
-        .head-con {
-            width: 95%;
-            .search-area {
-                display: none;
-                &.visible {
-                    display: block;
-                }
-                position: absolute;
-                left: 0;
-                right: 0;
-                overflow: hidden;
-                z-index: 2;
-                input[type="text"].search-in {
-                    width: 100%;
-                    padding-left: 45px;
-                    border: none;
-                    border-radius: 0;
-                    box-shadow: none;
-                }
-                a.btn-back, a.btn-close {
-                    display: block;
-                }
-            }
-            .btn-search {
-                border: none;
-                box-shadow: none;
-            }
-            .btn-search {
-                &[type="submit"] {
-                    display: none;
-                }
-                &[type="button"] {
-                    display: block;
-                }
-            }
-        }
-    }
-    .banner {
-        margin-top: 36px;
-        .banner-bg {
-            width: 95%;
-            background-size: cover;
-        }
-    }
-    .container {
-        .store-area, .team-area, .notice, .search-area, .settings-area, .msg-area
-        , .following-area, .followers-area, #recommand-area, .main, .top-tag-list {
-            width: 95%;
-        }
-    }
-    .footer {
-        .company-area {
-            width: 95%;
-        }
-    }
-    .only-pc {
-        display: none;
-    }
-    .only-mobile {
-        display: block;
-    }
-    .dropdown {
-        position: static;
-        .dropdown-menu {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            margin-left: -90px;
-            z-index: 4;
-        }
-    }
-    .dropdown-modal {
-        &.fade-in {
-            opacity: 0.25;
-            display: block;
-        }
-
-        &.fade-out {
-            opacity:0;
-            display: none;
-        }
-    }
-}
-
-/* for 700px or less */
-@media screen and (max-width: 700px) {
-    .header {
-        .head-con {
-            width: auto;
-        }
-        .navbar-toggle {
-            display: block;
-            i {
-                color: #888;
-            }
-        }
-        .navbar-collapse {
-            display: none;
-            position: absolute;
-            top: 36px;
-            left: 0;
-            right: 0;
-            > .nav {
-                > li {
-                    width: 100%;
-                }
-            }
-            &.visible {
-                display: block;
-            }
-        }
-        .suopo {
-            a.logo {
-                margin-top: 5px;
-                background-image: url(/images/logo_mini.png);
-                width: 28px;
-                height: 25px;
-            }
-            a.app-list-arrow {
-                display: block;
-            }
-        }
-        .app-list {
-            top: 36px;
-            left: 0;
-            right: 0;
-            padding: 0 0 10px;
-            position: absolute; 
-            background-color: white;
-            border-style: solid;
-            border-color:  @gray5;
-            border-width: 0 0 1px;
-            display: none;
-            li {
-                width: 100%;
-                padding: 0;
-                a {
-                    width: 100%;
-                    display: block;
-                    padding: 3px 20px;
-                    font-weight: 400;
-                    line-height: 36px;
-                    color: @gray;
-                    white-space: nowrap;
-                    box-sizing: border-box;
-                    &:hover {
-                        background-color: @gray5;
-                    }
-                }
-            }
-        }
-        .navbar-nav > li {
-            padding: 0;
-            a {
-                display: block;
-                padding: 9px 10px;
-                font-weight: 400;
-                line-height: 36px!important;
-                color: @gray;
-                white-space: nowrap;
-                box-sizing: border-box;
-                &:hover {
-                    background-color: @gray5;
-                }
-            }
-            .user-nav {
-                display: none;
-            }
-            .config-list {
-                display: block!important;
-                width: auto;
-                border: none;
-                position: inherit;
-                padding: 0;
-                margin: 0;
-                border-width: 0 0 1px;
-                border-radius: 0;
-                box-shadow: none;
-                a {
-                    font-size: 14px;
-                    text-align: left;
-                }
-            }
-        }
-        .app-list, .navbar-collapse {
-            &.show {
-                display: block;
-            }
-            &.hide {
-                display: none;
-            }
-        }
-    }
-    .banner {
-        .banner-bg {
-            width: auto;
-        }
-    }
-    .container {
-        .store-area, .team-area, .notice, .search-area, .settings-area, .msg-area
-        , .following-area, .followers-area, #recommand-area, .main
-        , .top-tag-list, {
-            width: auto;
-        }
-    }
-    .footer {
-        .company-area {
-            width: auto;
-        }
-    }
-    .company-ver, .company-nav {
-        float: initial !important;
-    }
-    .full {
-        width: auto;
-    }
-    .dialog, .full {
-        left: 0;
-        top: 0;
-        bottom: 0;
-        top: 0;
-        margin-top: 0;
-        width: auto !important;
-        height: auto  !important;
-        max-height: inherit;
-    }
-    .dialog {
-        border: none;
-        border-radius: 0;
-    }
-    /* 注册登录 */
-    #registration.dialog {
-        width: auto!important;
-        height: auto!important;
-        max-height: inherit;
-    }
-
-    /* 分享发布 */
-    #postEditorCon .dialog {
-        width: auto!important;
-        height: auto!important;
-        max-height: inherit;
-    }
-    /* 头像编辑 */
-    #avatarEditorCon.dialog {
-        width: auto!important;
-        height: auto!important;
-        max-height: inherit;
-    }
-    /* 学派创建 */
-    #tagNewPop.dialog {
-        width: auto!important;
-        height: auto!important;
-        max-height: inherit;
-    }
-}
-
-/* for 480px or less */
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 0.8em;
-    }
-}

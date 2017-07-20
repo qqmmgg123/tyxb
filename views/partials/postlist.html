@@ -60,45 +60,4 @@
     <% } %>
 </ul>
 <div id="imageViewerCon"></div>
-<div class="global-ctrl">
-    <ul id="dreamPostBtns" class="dream-post-btns">
-        <% if ((!data.site && !data.tag) || (user && user._id)) { %>
-        <li>
-            <div id="dreamReleaseImage" class="release-box">
-                <div class="tips">图片</div>
-                <button title="图片" class="btn btn-round btn-new small">
-                    <i class="s s-image s-2x"></i>
-                </button>
-            </div>
-        </li>
-        <li>
-            <div id="dreamReleaseText" class="release-box">
-                <div class="tips">文字</div>
-                <button title="文字" class="btn btn-round btn-new small">
-                    <i class="s s-text s-2x"></i>
-                </button>
-            </div>
-        </li>
-        <li>
-            <div id="dreamReleaseLink" class="release-box">
-                <div class="tips">网页</div>
-                <button title="网页" class="btn btn-round btn-new small">
-                    <i class="s s-link s-2x"></i>
-                </button>
-            </div>
-        </li>
-        <% } %>
-        <!--<li>-->
-            <!--<button title="回到顶部" class="btn btn-round btn-success">-->
-                <!--<i class="s s-arrow_up s-lg"></i>-->
-            <!--</button>-->
-        <!--</li>-->
-    </ul>
-    <div id="dreamReleaseNews" class="release-box" data-tid="<%= data.tag && data.tag._id %>">
-        <div class="tips">记录</div>
-        <button id="dreamReleaseNews" title="记录" class="btn btn-round btn-new">
-            <i class="s s-edit s-2x"></i>
-        </button>
-    </div>
-</div>
 

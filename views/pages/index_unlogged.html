@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
-    <meta name="description" content="一个轻媒体小应用，用户可以用来分享日常。">
+    <meta name="description" content="一个轻媒体小应用，用户可以用来记录一些事情。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= settings.APP_NAME %> - <%= settings.SLOGAN %></title>
     <link rel="shortcut icon" href="/favicon.ico" /> 
@@ -17,22 +17,88 @@
     <% include ../partials/head_js.html %>
 </head>
 <body>
-    <% include ../partials/header.html %>
-    <div class="container tag-top-head mar-top">
+    <div class="container tag-top-head clearfix">
         <div class="main">
                 <div class="tagHead-infoInner">
                     <a class="logo" href="//<%= settings.DOMAIN %>"></a>
                     <h2 class="title"><%= settings.APP_NAME %></h2>
-                    <h3 class="slogan"><%= settings.SLOGAN %></h3>
                 </div>
+                <div class="notes">
+                    <ul class="category-list">
+                        <li class="cur"><a href="javascript:;"><i class="s s-edit s-2x"></i><span>文字</span></a></li>
+                        <li><a id="postImage" href="javascript:;"><i class="s s-image s-2x"></i><span>图片</span></a></li>
+                        <li><a id="postLink" href="javascript:;"><i class="s s-link s-2x"></i><span>网址</span></a></li>
+                    </ul>
+                    <textarea id="PostText"></textarea>
+                </div>
+                <div class="user">
+                    <ul class="user-info-list">
+                        <% if (user) { %>
+                        <li>
+                            <a href="/user/<%= user.id %>"><%= user.username %></a>
+                        </li>
+                        <li>
+                            <div id="message-nav" class="dropdown">
+                                <% if (is_mobile) { %>
+                                <a class="message-view dropdown-toggle" rel="msg-view" href="/message">
+                                    <% } else { %>
+                                    <a class="message-view dropdown-toggle" rel="msg-view" href="javascript:;">
+                                        <% } %>
+                                        消息
+                                    </a>
+                                    <% if (data.messages && data.messages > 0) { %>
+                                    <span class="message-new"></span>
+                                    <% } %>
+                                    <ul class="message-list dropdown-menu" style="display: none;">
+                                    </ul>
+                            </div>
+                            <li class="user-in">
+                                <button id="navbar-toggle" data-expanded="false" class="collapsed navbar-toggle" type="button">
+                                    <i class="s s-list s-lg"></i>
+                                </button>
+                                <nav id="navbar-collapse" class="navbar-collapse">
+                                    <ul class="navbar-nav nav clearfix">
+                                        <li id="config-dropdown" class="config-dropdown">
+                                            <div class="user-nav">
+                                                <a href="javascript:;" rel="conf-toggle" class="list-arrow">
+                                                    <i class="s s-list s-lg"></i>
+                                                </a>
+                                            </div>
+                                            <ul class="config-list">
+                                                <li><a href="/settings">设置</a></li>
+                                                <li><a href="/signout">退出</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </li>
+                        </li>
+                        <% } else { %>
+                        <li>
+                            <a href="javascript:;" id="signup-btn">+&nbsp;注册</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="signin-btn">登录&nbsp;→</a>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+        </div>
+    </div>
+    </div>
+    <% if (is_mobile) { %>
+    <div class="main">
+        <% include ../partials/postlist.html %>
+    </div>
+    <% } else { %>
+    <div class="container clearfix">
+        <div class="main">
+            <div class="col-8">
+                <% include ../partials/postlist.html %>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="main">
-            <% include ../partials/postlist.html %>
-        </div>
-    </div>
+    <% } %>
     <div class="footer">
         <% include ../partials/company.html %>
     </div>
@@ -52,4 +118,3 @@
     <% } %>
 </body>
 </html>
-            <div class="tag-head-info">
