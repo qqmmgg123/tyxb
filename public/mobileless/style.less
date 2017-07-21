@@ -268,7 +268,7 @@ a {
 .tag-list {
     max-height: 240px;
     ul {
-        padding-top: 10px;
+        padding: 10px 5px 0;
         li {
             display: inline-block;
             a.tag {
@@ -1506,16 +1506,28 @@ a.logo {
         h2 {
             margin: 0;
             padding: 0;
+            width: 120px;
+            font-size: 14px;
+            height: 32px;
+            line-height: 32px;
         }
         .tagHead-infoInner {
-            text-align: center;
-            .intro {
-                margin-top: 10px;
+            float: left;
+            .logo {
+                float: left;
+            }
+            .slogan {
+                float: left;
             }
         }
         .notes {
-            .category-list { 
-                margin: 0 10px;
+            margin-top: 10px;
+            .category-list {
+                padding: 2px 10px;
+                border-radius: 4px 4px 0 0;
+                border: 1px solid #e8e8e8;
+                border-bottom: none;
+                box-shadow: 0 1px 1px rgba(0,0,0,.075);
                 li {
                     margin-right: 10px;
                     display: inline-block;
@@ -1540,11 +1552,99 @@ a.logo {
                 }
             }
             textarea {
+                border-radius: 0 0 4px 4px;
                 padding: 5px 0 0 10px;
                 font-size: 14px;
                 min-height: 80px;
                 box-shadow: 0 1px 1px rgba(0,0,0,.075);
-
+            }
+        }
+        .user {
+            float: right;
+            .user-info-list {
+                > li {
+                    float: left;
+                    height: 32px;
+                    line-height: 32px;
+                    margin-left: 10px;
+                }
+            }
+            .user-info {
+                .avatar {
+                    margin-top: 3px;
+                    float: left;
+                }
+                .name {
+                    margin-left: 10px;
+                }
+            }
+            #message-nav {
+                .pr();
+            }
+            .message-new {
+                position: absolute;
+                top: 3px;
+                right: -3px;
+                display: block;
+                color: #fff;
+                width: 8px;
+                height: 8px;
+                background-color: #ff4d73;
+                .round();
+            }
+            .message-list {
+                padding: 0;
+                width: 200px;
+                li {
+                    width: 200px;
+                    font-size: 12px;
+                    text-align: left;
+                    padding: 10px;
+                    a.btn {
+                        display: inline-block;
+                    }
+                    &.view-all {
+                        border-top: 1px solid #ddd;
+                        text-align: center;
+                    }
+                }
+            }
+            #config-dropdown {
+                .pr();
+                i:before {
+                    line-height: 32px;
+                }
+            }
+            .config-list {
+                display: none;
+                position: absolute;
+                background-color: #fff;
+                top: 100%;
+                right: 0;
+                z-index: 1;
+                min-width: 160px;
+                text-align: left;
+                padding: 5px 0;
+                margin: 2px 0 0;
+                .pop();
+                a {
+                    display: block;
+                    padding: 3px 20px;
+                    clear: both;
+                    font-weight: 400;
+                    line-height: 1.42857143;
+                    color: @gray;
+                    white-space: nowrap;
+                    &:hover {
+                        background-color: @gray5;
+                    }
+                }
+                &.show {
+                    display: block;
+                }
+                &.hide {
+                    display: none;
+                }
             }
         }
     }

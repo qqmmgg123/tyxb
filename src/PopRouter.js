@@ -22,6 +22,9 @@ import AvatarEditor from 'AvatarEditor';
             <Dialog 
             routerName="posteditor"
             needWin={true}
+            canScroll={true}
+            needKey={true}
+            needMouse={true}
             sence={{
                 name: "PostEditor",
                 component: PostEditor

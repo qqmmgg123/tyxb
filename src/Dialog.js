@@ -31,8 +31,11 @@ export default class Dialog extends BaseCom {
             visible: 'block'
         });
 
-        let body = document.body;
-        body.className += 'un-scroll';
+        const { canScroll } = this.props;
+        if (!canScroll) {
+            const body = document.body;
+            body.className += 'un-scroll';
+        }
 
         this.colsefn = this.close.bind(this);
 

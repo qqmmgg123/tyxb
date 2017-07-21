@@ -1,5 +1,6 @@
 import BaseCom from 'basecom';
 import req from 'req';
+import TextEditor from 'TextEditor';
 
 const utils  = require('utils');
 const common = require('common');
@@ -18,7 +19,15 @@ class FinishBtn extends React.Component {
 
     render() {
         return (
-            <button ref={(ref) => {this._self = ref}} id="finish_cdream_btn" onClick={this.handleClick} type="button" className="btn">记录 → </button>
+            <button 
+            ref={(ref) => {this._self = ref}} 
+            id="finish_cdream_btn" 
+            onClick={this.handleClick} 
+            type="button" 
+            className="btn btn-primary"
+            >
+            记录 → 
+            </button>
         );
     }
 
@@ -35,50 +44,34 @@ class DreamForm extends BaseCom {
     constructor(props) {
         super(props);
 
+        const dateTime = new Date(),
+            { type } = props;
         this.tagCheckPassed = false;
         this.btnDis  = true;
         this.formData = null;
-        let newBtns = [
-            //{ label: '网址', rel: 'tab-link-post', name: 'link', active: false },
-            { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
-            { label: '图片', rel: 'tab-image-post', name: 'image', active: false },
-        ]
-
-        let textBtns = [
-            { label: '标题', rel: 'tab-title-post', name: 'title', active: false }
-        ]
-
-        let formsEls = [],
-            btns = [];
-
-        if (props.type === 'news') {
-            btns = newBtns;
-        }
-
-        if (props.type === 'text') {
-            btns = textBtns;
-        }
-
-        if (props.type !== 'news') {
-            let upcase = this.firstLetter(props.type);
-            formsEls = [{
-                name: props.type,
-                com: this['render' + upcase + 'Form'].bind(this)
-            }];
-        }
-
-        const dateTime = new Date();
         this.state = {
-            curForm: props.type,
+            curForm: type,
             curImage: '',
             curImageId: '',
-            formEls: formsEls,
+            formEls: [],
             dateTime: dateTime,
             findMe: '',
             text: '',
             link: '',
             linkType: '',
-            addBtns: btns
+            addBtns: []
+        }
+
+        this._setTextFormData = (ev) => {
+            this.formRenderDataUpdate('text')
+        }
+
+        this._setImageFormData = (ev) => {
+            this.formRenderDataUpdate('image')
+        }
+
+        this._setLinkFormData = (ev) => {
+            this.formRenderDataUpdate('news')
         }
     }
     
@@ -91,14 +84,22 @@ class DreamForm extends BaseCom {
     }
 
     componentDidMount() {
+        this.formRenderDataUpdate(type);
+
         if (this._tabNav) {
             let selectors = [
+                '[rel="postText"]',
+                '[rel="postImage"]',
+                '[rel="postLink"]',
                 '[rel="tab-title-post"]',
                 '[rel="tab-text-post"]',
                 '[rel="tab-link-post"]',
                 '[rel="tab-image-post"]'
             ],
                 handles   = [
+                    this._setTextFormData,
+                    this._setImageFormData,
+                    this._setLinkFormData,
                     this.toggleTitleForm,
                     this.toggleTextForm,
                     this.toggleLinkForm,
@@ -136,10 +137,50 @@ class DreamForm extends BaseCom {
         this.timer = setInterval(this.tick.bind(this), 1000);
 
         //this.geoFindMe();
+        
+        // 编辑器获得焦点
+        this._textEditor && this._textEditor.focus();
     }
 
     componentWillUnmount() {
         clearInterval(this.timer);
+    }
+
+    // 设置表单的显示参数
+    formRenderDataUpdate(curForm) {
+        let newBtns = [
+            { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
+            { label: '图片', rel: 'tab-image-post', name: 'image', active: false },
+        ]
+
+        let textBtns = [
+            { label: '标题', rel: 'tab-title-post', name: 'title', active: false }
+        ]
+
+        let formsEls = [],
+            btns = [];
+
+        if (curForm === 'news') {
+            btns = newBtns;
+        }
+
+        if (curForm === 'text') {
+            btns = textBtns;
+        }
+
+        if (curForm !== 'news') {
+            let upcase = this.firstLetter(curForm);
+            formsEls = [{
+                name: curForm,
+                com: this['render' + upcase + 'Form'].bind(this)
+            }];
+        }
+
+        this.setState({
+            curForm: curForm,
+            formsEls: formsEls,
+            addBtns: btns
+        })
     }
 
     tick() {
@@ -209,11 +250,6 @@ class DreamForm extends BaseCom {
         this.toggleForm('image');
     }
 
-    resizeConHeight() {
-        const h = this._con.offsetHeight;
-        this._tabCon.style.height = (h - 86) + 'px';
-    }
-
     onCancelImage() {
         this.setState({
             curImage: ''
@@ -273,7 +309,15 @@ class DreamForm extends BaseCom {
                     onDrop={this.fileSelectHandler.bind(this)} 
                     onClick={this.onAddImage.bind(this)}>
                         <button type="button" className="btn">添加图片 +</button>
-                        <input ref={(imageUpload) => { this._imageUpload = imageUpload }} accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" onChange={this.uploadImage.bind(this)} style={{ display : "none" }} id="image-upload" type="file" name="upload_file" />
+                        <input 
+                            ref={(imageUpload) => { this._imageUpload = imageUpload }} 
+                            accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" 
+                            onChange={this.uploadImage.bind(this)} 
+                            style={{ display : "none" }} 
+                            id="image-upload" 
+                            type="file" 
+                            name="upload_file" 
+                        />
                     </div>
                     <p className="field"><input type="hidden" name="image" value={this.state.curImageId} /></p>
                     <p className="validate-error"></p>
@@ -368,16 +412,16 @@ class DreamForm extends BaseCom {
         this._imageUpload.click();
     }
 
-    changeText(text) {
+    changeText(evt) {
         this.setState({
-            text: text
+            text: evt.target.value
         });
-        this.resizeConHeight();
+        //this.resizeConHeight();
     }
 
-    textChange(ev) {
+    textChange(evt) {
         this.setState({
-            text: ev.target.value
+            text: evt.target.value
         });
     }
 
@@ -396,21 +440,27 @@ class DreamForm extends BaseCom {
     }
 
     renderTitleForm() {
-        const { type } = this.props;
-        let name = '';
-        if (type === 'text') {
-            name = '简单描述一下文字内容...';
-        }
-        else if (type === 'image') {
-            name = '简单描述一下图片内容...';
-        }
-        else if (type === 'news') {
-            name = '简单描述一下网页的内容...';
-        }
+        const { curForm } = this.state,
+            TITLES_MAP = {
+                'text'  : '简单描述一下文字内容...',
+                'image' : '简单描述一下图片内容...',
+                'news'  : '简单描述一下网页的内容...'
+            },
+            TITLE = TITLES_MAP[curForm],
+            NAME = TITLE? TITLE:'';
 
         return (
             <div className="form-group">
-                <p className="field"><textarea maxLength="140" data-cname={name} id="dream-title" name="content" placeholder={name}></textarea></p>
+                <p className="field">
+                    <textarea 
+                    maxLength="140" 
+                    data-cname={NAME} 
+                    id="dream-title" 
+                    name="content" 
+                    placeholder={NAME}
+                    >
+                    </textarea>
+                </p>
                 <p className="validate-error"></p>
             </div>
         )
@@ -419,7 +469,27 @@ class DreamForm extends BaseCom {
     renderTextForm() {
         return (
             <div className="form-group">
-                <p className="field"><textarea id="textContent" onChange={this.textChange.bind(this)} onChange={this.textChange.bind(this)} placeholder="正文" value={this.state.text} name="text"></textarea></p>
+                <TextEditor 
+                ref={(ref) => this._textEditor = ref}
+                placeholder="正文"
+                className="text-editor"
+                onChange={
+                    this.changeText.bind(this)
+                } 
+                />
+                <div 
+                className="field"
+                style={{ display: "none" }}
+                >
+                    <textarea 
+                    id="textContent" 
+                    onChange={
+                        this.textChange.bind(this)
+                    } 
+                    name="text"
+                    value={this.state.text}
+                    ></textarea>
+                </div>
                 <p className="validate-error"></p>
             </div>
         )
@@ -451,13 +521,13 @@ class DreamForm extends BaseCom {
 
     render() {
         const { addBtns, defTagWord, stateComplate, dateTime, findMe } = this.state;
-        const { type } = this.props;
+        const { curForm } = this.state;
 
         let others = null,
             { formEls } = this.state,
             linkForm = null,
             titleForm = null;
-        if (type === "news" || type === "text") {
+        if (curForm === "news" || curForm === "text") {
             others = (
                 <div ref={(ref) => { this._tabNav = ref }} id="dreamReleaseBar" className="nav-group">
                     <ul>
@@ -471,17 +541,21 @@ class DreamForm extends BaseCom {
                             </li>
                         )}
                     </ul>
+                    <FinishBtn 
+                    ref={(ref) => {this._finishBtn = ref}} 
+                    onFinishClick={this.validate.bind(this)} 
+                    />
                 </div>
             )
-            type === "news" && (linkForm = this.renderLinkForm());
+            curForm === "news" && (linkForm = this.renderLinkForm());
         }
 
         let category = "";
-        type === "news" && (category = "正在记录一篇网页，如下...");
-        type === "image" && (category = "正在记录一张图片，如下...");
-        type === "text" && (category = "正在记录一篇文字，如下...");
+        curForm === "news" && (category = "正在记录一篇网页，如下...");
+        curForm === "image" && (category = "正在记录一张图片，如下...");
+        curForm === "text" && (category = "正在记录一篇文字，如下...");
 
-        type !== "text" && (titleForm = this.renderTitleForm());
+        curForm !== "text" && (titleForm = this.renderTitleForm());
 
         let tagField = null,
             tagTips = '内容将分享到您的记事本...',
@@ -500,28 +574,37 @@ class DreamForm extends BaseCom {
         const { container } = this.props;
 
         return (
-            <div className="post-editor-form" ref={(ref) => { this._con = ref }}>
+            <div 
+            className="post-editor-form" 
+            ref={(ref) => { this._con = ref }}>
                 <div className="post-editor-header">
+                    <ul className="category-list">
+                        <li className="cur">
+                            <a rel="postText" href="javascript:;">
+                                <i className="s s-edit s-2x"></i>
+                                <span>文字</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="postImage" href="javascript:;">
+                                <i className="s s-image s-2x"></i>
+                                <span>图片</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="postLink" href="javascript:;">
+                                <i className="s s-link s-2x"></i>
+                                <span>网址</span>
+                            </a>
+                        </li>
+                    </ul>
                     <div className="post-editor-ctrl">
-                        <a href="javascript:;" className="close" onClick={() => { container.close() }}><i className="s s-back s-2x"></i><span>返回</span></a>
-                        <FinishBtn ref={(ref) => {this._finishBtn = ref}} onFinishClick={this.validate.bind(this)} />
-                    </div>
-                </div>
-                <div ref={(ref) => { this._userInfo = ref }} className="post-editor-user">
-                    <div className="userinfo">
-                        <div className="nick-name">我</div>
-                        <div className="post-editor-datetime">
-                            {common.dateBeautify(dateTime)}
-                        </div>
-                        <div className="user-mood">
-                            <span>心情：<em>平静</em></span>
-                            <a href="javascript:;" data-editstate="normal" rel="mood-edit"><i className="s s-edit s-lg"></i>修改</a>
-                        </div>
-                        <div className="user-health">
-                            <span>身体状况：<em>良好</em></span>
-                            <a href="javascript:;" data-editstate="normal" rel="health-edit"><i className="s s-edit s-lg"></i>修改</a>
-                        </div>
-                        <div className="things">{category}</div>
+                        <a href="javascript:;" 
+                        className="close" 
+                        onClick={() => { container.close() }}
+                        >
+                        <i className="s s-close s-2x"></i>
+                        </a>
                     </div>
                 </div>
                 <div className="tab-content" ref={(ref) => { this._tabCon = ref }}>
@@ -609,12 +692,12 @@ class DreamForm extends BaseCom {
     }
 
     validate() {
-        const { type } = this.props;
+        const { curForm } = this.state;
         let validate = true;
 
         self.fields = [];
 
-        if (type === "news") {
+        if (curForm === "news") {
             self.fields = [
                 { name: 'content', require: true, label: '标题' },
                 { name: 'link', label: '网址', err: "链接格式错误", fun: (val) => {
@@ -622,12 +705,12 @@ class DreamForm extends BaseCom {
                 } }
             ]
         }
-        else if (type === "image") {
+        else if (curForm === "image") {
             self.fields = [
                 { name: 'image', require: true, empty_msg: '图片木有添加', label: '图片' },
             ]
         }
-        else if (type === "text") {
+        else if (curForm === "text") {
             self.fields = [
                 { name: 'text', require: true, label: '文字' },
             ]
