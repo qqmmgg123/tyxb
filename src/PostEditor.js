@@ -46,23 +46,54 @@ class DreamForm extends BaseCom {
 
         const dateTime = new Date(),
             { type } = props;
+
         this.tagCheckPassed = false;
         this.btnDis  = true;
         this.formData = null;
+
+        let newBtns = [
+            { label: '文字', rel: 'tab-text-post', name: 'text', active: false },
+            { label: '图片', rel: 'tab-image-post', name: 'image', active: false },
+        ]
+
+        let textBtns = [
+            { label: '标题', rel: 'tab-title-post', name: 'title', active: false }
+        ]
+
+        let formsEls = [],
+            btns = [];
+
+        if (type === 'news') {
+            btns = newBtns;
+        }
+
+        if (type === 'text') {
+            btns = textBtns;
+        }
+
+        if (type !== 'news') {
+            let upcase = this.firstLetter(type);
+            formsEls = [{
+                name: type,
+                com: this['render' + upcase + 'Form'].bind(this)
+            }];
+        }
+
         this.state = {
             curForm: type,
             curImage: '',
             curImageId: '',
-            formEls: [],
+            formEls: formsEls,
             dateTime: dateTime,
             findMe: '',
             text: '',
             link: '',
             linkType: '',
-            addBtns: []
+            addBtns: btns
         }
-
+        
         this._setTextFormData = (ev) => {
+            console.log(ev);
             this.formRenderDataUpdate('text')
         }
 
@@ -84,8 +115,6 @@ class DreamForm extends BaseCom {
     }
 
     componentDidMount() {
-        this.formRenderDataUpdate(type);
-
         if (this._tabNav) {
             let selectors = [
                 '[rel="postText"]',
@@ -109,6 +138,21 @@ class DreamForm extends BaseCom {
             this.delegate(this._tabNav, selectors, handles);
         }
 
+        if (this._categoryList) {
+            let selectors = [
+                '[rel="postText"]',
+                '[rel="postImage"]',
+                '[rel="postLink"]'
+            ],
+                handles   = [
+                    this._setTextFormData,
+                    this._setImageFormData,
+                    this._setLinkFormData
+                ];
+
+            this.delegate(this._categoryList, selectors, handles);
+        }
+
         if (this._userInfo) {
             let selectors = [
                 '[rel="mood-edit"]',
@@ -123,7 +167,9 @@ class DreamForm extends BaseCom {
         }
 
 
-        this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach((inp) => {
+        this._form && this._form.querySelectorAll(
+            'input[type=text], input[type=url], textarea'
+        ).forEach((inp) => {
             inp.onfocus = (ev) => {
                 let inp    = ev.target,
                     field  = utils.closest(inp, '.field'),
@@ -134,7 +180,7 @@ class DreamForm extends BaseCom {
             }
         });
 
-        this.timer = setInterval(this.tick.bind(this), 1000);
+        //this.timer = setInterval(this.tick.bind(this), 1000);
 
         //this.geoFindMe();
         
@@ -142,9 +188,9 @@ class DreamForm extends BaseCom {
         this._textEditor && this._textEditor.focus();
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
+    //componentWillUnmount() {
+        //clearInterval(this.timer);
+    //}
 
     // 设置表单的显示参数
     formRenderDataUpdate(curForm) {
@@ -180,7 +226,7 @@ class DreamForm extends BaseCom {
             curForm: curForm,
             formsEls: formsEls,
             addBtns: btns
-        })
+        });
     }
 
     tick() {
@@ -573,12 +619,19 @@ class DreamForm extends BaseCom {
 
         const { container } = this.props;
 
+        console.log(formEls);
+
         return (
             <div 
             className="post-editor-form" 
             ref={(ref) => { this._con = ref }}>
                 <div className="post-editor-header">
-                    <ul className="category-list">
+                    <ul 
+                    ref={(ref) => {
+                        this._categoryList = ref
+                    }} 
+                    className="category-list"
+                    >
                         <li className="cur">
                             <a rel="postText" href="javascript:;">
                                 <i className="s s-edit s-2x"></i>
@@ -607,12 +660,30 @@ class DreamForm extends BaseCom {
                         </a>
                     </div>
                 </div>
-                <div className="tab-content" ref={(ref) => { this._tabCon = ref }}>
-                    <div ref={(popbd) => { this._popbd = popbd }} className="dream-area">
-                        <div ref={(createInfo) => { this._createInfo = createInfo }} className="alert" style={{ display: "none" }}>
+                <div 
+                className="tab-content" 
+                ref={(ref) => { this._tabCon = ref }}
+                >
+                    <div 
+                    ref={(popbd) => { this._popbd = popbd }} 
+                    className="dream-area"
+                    >
+                        <div 
+                        ref={(createInfo) => { this._createInfo = createInfo }} 
+                        className="alert" 
+                        style={{ display: "none" }}
+                        >
                         </div>
-                        <form ref={(ref) => this._form = ref} action="/dream/new" method="post">
-                            <div ref={(tagInfo) => { this._tagInfo = tagInfo }} className="alert form-group" style={{ display: "none" }}>
+                        <form 
+                        ref={(ref) => this._form = ref} 
+                        action="/dream/new" 
+                        method="post"
+                        >
+                            <div 
+                            ref={(tagInfo) => { this._tagInfo = tagInfo }} 
+                            className="alert form-group" 
+                            style={{ display: "none" }}
+                            >
                             </div>
                             {tagField}
                             {linkForm}
@@ -621,13 +692,13 @@ class DreamForm extends BaseCom {
                                 return (<Form key={i} />)
                             })}
                             {titleForm}
-                            <input type="hidden" name="category" value={type} />
+                            <input type="hidden" name="category" value={curForm} />
                         </form>
                     </div>
                 </div>
                 {others}
             </div>
-        )
+        );
     }
 
     // 修改用户信息

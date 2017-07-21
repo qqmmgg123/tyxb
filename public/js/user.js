@@ -6400,23 +6400,49 @@
 	        var dateTime = new Date(),
 	            type = props.type;
 
+
 	        _this3.tagCheckPassed = false;
 	        _this3.btnDis = true;
 	        _this3.formData = null;
+
+	        var newBtns = [{ label: '文字', rel: 'tab-text-post', name: 'text', active: false }, { label: '图片', rel: 'tab-image-post', name: 'image', active: false }];
+
+	        var textBtns = [{ label: '标题', rel: 'tab-title-post', name: 'title', active: false }];
+
+	        var formsEls = [],
+	            btns = [];
+
+	        if (type === 'news') {
+	            btns = newBtns;
+	        }
+
+	        if (type === 'text') {
+	            btns = textBtns;
+	        }
+
+	        if (type !== 'news') {
+	            var upcase = _this3.firstLetter(type);
+	            formsEls = [{
+	                name: type,
+	                com: _this3['render' + upcase + 'Form'].bind(_this3)
+	            }];
+	        }
+
 	        _this3.state = {
 	            curForm: type,
 	            curImage: '',
 	            curImageId: '',
-	            formEls: [],
+	            formEls: formsEls,
 	            dateTime: dateTime,
 	            findMe: '',
 	            text: '',
 	            link: '',
 	            linkType: '',
-	            addBtns: []
+	            addBtns: btns
 	        };
 
 	        _this3._setTextFormData = function (ev) {
+	            console.log(ev);
 	            _this3.formRenderDataUpdate('text');
 	        };
 
@@ -6427,8 +6453,6 @@
 	        _this3._setLinkFormData = function (ev) {
 	            _this3.formRenderDataUpdate('news');
 	        };
-
-	        _this3.formRenderDataUpdate(type);
 	        return _this3;
 	    }
 
@@ -6452,11 +6476,18 @@
 	                this.delegate(this._tabNav, selectors, handles);
 	            }
 
-	            if (this._userInfo) {
-	                var _selectors = ['[rel="mood-edit"]', '[rel="health-edit"]'],
-	                    _handles = [this.editMood, this.editHealth];
+	            if (this._categoryList) {
+	                var _selectors = ['[rel="postText"]', '[rel="postImage"]', '[rel="postLink"]'],
+	                    _handles = [this._setTextFormData, this._setImageFormData, this._setLinkFormData];
 
-	                this.delegate(this._userInfo, _selectors, _handles);
+	                this.delegate(this._categoryList, _selectors, _handles);
+	            }
+
+	            if (this._userInfo) {
+	                var _selectors2 = ['[rel="mood-edit"]', '[rel="health-edit"]'],
+	                    _handles2 = [this.editMood, this.editHealth];
+
+	                this.delegate(this._userInfo, _selectors2, _handles2);
 	            }
 
 	            this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach(function (inp) {
@@ -6470,18 +6501,17 @@
 	                };
 	            });
 
-	            this.timer = setInterval(this.tick.bind(this), 1000);
+	            //this.timer = setInterval(this.tick.bind(this), 1000);
 
 	            //this.geoFindMe();
 
 	            // 编辑器获得焦点
 	            this._textEditor && this._textEditor.focus();
 	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            clearInterval(this.timer);
-	        }
+
+	        //componentWillUnmount() {
+	        //clearInterval(this.timer);
+	        //}
 
 	        // 设置表单的显示参数
 
@@ -6992,19 +7022,26 @@
 	            var container = this.props.container;
 
 
+	            console.log(formEls);
+
 	            return React.createElement(
 	                'div',
 	                {
 	                    className: 'post-editor-form',
-	                    ref: function ref(_ref7) {
-	                        _this7._con = _ref7;
+	                    ref: function ref(_ref8) {
+	                        _this7._con = _ref8;
 	                    } },
 	                React.createElement(
 	                    'div',
 	                    { className: 'post-editor-header' },
 	                    React.createElement(
 	                        'ul',
-	                        { className: 'category-list' },
+	                        {
+	                            ref: function ref(_ref5) {
+	                                _this7._categoryList = _ref5;
+	                            },
+	                            className: 'category-list'
+	                        },
 	                        React.createElement(
 	                            'li',
 	                            { className: 'cur' },
@@ -7065,25 +7102,43 @@
 	                ),
 	                React.createElement(
 	                    'div',
-	                    { className: 'tab-content', ref: function ref(_ref6) {
-	                            _this7._tabCon = _ref6;
-	                        } },
+	                    {
+	                        className: 'tab-content',
+	                        ref: function ref(_ref7) {
+	                            _this7._tabCon = _ref7;
+	                        }
+	                    },
 	                    React.createElement(
 	                        'div',
-	                        { ref: function ref(popbd) {
+	                        {
+	                            ref: function ref(popbd) {
 	                                _this7._popbd = popbd;
-	                            }, className: 'dream-area' },
-	                        React.createElement('div', { ref: function ref(createInfo) {
+	                            },
+	                            className: 'dream-area'
+	                        },
+	                        React.createElement('div', {
+	                            ref: function ref(createInfo) {
 	                                _this7._createInfo = createInfo;
-	                            }, className: 'alert', style: { display: "none" } }),
+	                            },
+	                            className: 'alert',
+	                            style: { display: "none" }
+	                        }),
 	                        React.createElement(
 	                            'form',
-	                            { ref: function ref(_ref5) {
-	                                    return _this7._form = _ref5;
-	                                }, action: '/dream/new', method: 'post' },
-	                            React.createElement('div', { ref: function ref(tagInfo) {
+	                            {
+	                                ref: function ref(_ref6) {
+	                                    return _this7._form = _ref6;
+	                                },
+	                                action: '/dream/new',
+	                                method: 'post'
+	                            },
+	                            React.createElement('div', {
+	                                ref: function ref(tagInfo) {
 	                                    _this7._tagInfo = tagInfo;
-	                                }, className: 'alert form-group', style: { display: "none" } }),
+	                                },
+	                                className: 'alert form-group',
+	                                style: { display: "none" }
+	                            }),
 	                            tagField,
 	                            linkForm,
 	                            formEls.map(function (form, i) {
@@ -7091,7 +7146,7 @@
 	                                return React.createElement(Form, { key: i });
 	                            }),
 	                            titleForm,
-	                            React.createElement('input', { type: 'hidden', name: 'category', value: type })
+	                            React.createElement('input', { type: 'hidden', name: 'category', value: curForm })
 	                        )
 	                    )
 	                ),
@@ -7331,9 +7386,9 @@
 	                try {
 	                    var ret = +data.result;
 	                    if (ret === 0) {
-	                        var _ref8 = data.data || {},
-	                            _ref8$tagName = _ref8.tagName,
-	                            tagName = _ref8$tagName === undefined ? '' : _ref8$tagName;
+	                        var _ref9 = data.data || {},
+	                            _ref9$tagName = _ref9.tagName,
+	                            tagName = _ref9$tagName === undefined ? '' : _ref9$tagName;
 
 	                        _this11.setState({
 	                            loading: false,
@@ -7395,13 +7450,13 @@
 	            } else {
 	                if (checked) {
 	                    var _state5 = this.state,
-	                        _type = _state5.type,
+	                        type = _state5.type,
 	                        tag = _state5.tag;
 
 
 	                    return React.createElement(DreamForm, {
 	                        container: this,
-	                        type: _type,
+	                        type: type,
 	                        tid: tag,
 	                        tag: tagName
 	                    });
