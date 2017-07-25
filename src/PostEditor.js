@@ -7,6 +7,102 @@ const common = require('common');
 const INDENT = '  ';
 const BREAK  = '<br/>';
 
+class RichEditor extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            html: ''
+        }
+    }
+
+    componentDidMount(){
+        this._editor.focus();
+    }
+
+    render() {
+        return(
+            <div>
+                <TextEditor 
+                html={this.state.html}
+                ref={(ref) => this._editor = ref}
+                placeholder="正文"
+                className="text-editor"
+                onChange={(evt) => {
+                    this.setState({
+                        html: evt.target.value
+                    });
+                }} 
+                />
+                <textarea 
+                style={{display: "none"}}
+                {...this.props}
+                value={this.state.html}
+                ></textarea>
+            </div>
+        );
+    }
+}
+
+class TextArea extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            text: ''
+        }
+    }
+
+    componentDidMount(){
+        this._textArea.focus();
+    }
+
+    render() {
+        return(
+            <textarea 
+            {...this.props}
+            ref={(ref) => { this._textArea = ref; }}
+            onChange={(evt) => {
+                this.setState({
+                    text: evt.target.value
+                });
+            }}
+            value={this.state.text}
+            >
+            </textarea>
+        );
+    }
+}
+
+class Input extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: ''
+        }
+    }
+
+    componentDidMount(){
+        this._input.focus();
+    }
+
+    render() {
+        return(
+            <input 
+            {...this.props}
+            ref={(ref) => { this._input = ref; }}
+            onChange={(evt) => {
+                this.setState({
+                    value: evt.target.value
+                });
+            }} 
+            value={this.state.value}
+            />
+        );
+    }
+}
+
 class FinishBtn extends React.Component {
     constructor(props) {
         super(props);
@@ -40,8 +136,22 @@ class FinishBtn extends React.Component {
     }
 }
 
+const MOOD = {
+    label: '心情',
+    rel: 'tab-mood-post', 
+    name: 'mood', 
+    active: false
+}
+
+const HEALTH = {
+    label: '身体状况',
+    rel: 'tab-health-post', 
+    name: 'health', 
+    active: false
+}
+
 const BTNS = {
-    "image": [],
+    "image": [MOOD, HEALTH],
     "news": [{ 
         label: '摘要', 
         rel: 'tab-text-post', 
@@ -52,7 +162,7 @@ const BTNS = {
         rel: 'tab-image-post', 
         name: 'image', 
         active: false 
-    }], 
+    }, MOOD, HEALTH], 
     "text": [{ 
         label: '标题', 
         rel: 'tab-title-post', 
@@ -63,33 +173,59 @@ const BTNS = {
         rel: 'tab-image-post', 
         name: 'image', 
         active: false 
-    }]
+    }, MOOD, HEALTH]
+};
+
+const NAME_MAP = {
+    "title": "content",
+    "link" : "link",
+    "image": "image",
+    "text" : "text",
+    "mood" : "mood",
+    "health" : "health"
 };
 
 const FIELDS = {
     "text": [{
         name: "text",
+        type: "text",
         com: "textField"
     }],
     "image": [{
         name: "image",
+        type: "image",
         com: "imageField"
     }, {
         name: "content",
+        type: "title",
         com: "titleField"
     }],
     "news": [{
         name: "link",
+        type: "link",
         com: "linkField"
     }, {
         name: "content",
+        type: "title",
         com: "titleField"
     }]
 };
 
 class DreamForm extends BaseCom {
     get fieldBtns() {
-        const { btns } = this.state;
+        let { btns, fields } = this.state;
+
+        // 根据表单渲染表单按妞
+        for (let i = 0, l = btns.length; i < l; i++) {
+            let btn = btns[i];
+            btn.active = false;
+            for (let n = 0, l = fields.length; n < l; n++) {
+                let field = fields[n];
+                if (btn.name === field.type) {
+                    btn.active = true;
+                }
+            }
+        }
 
         return (
             <ul>
@@ -97,7 +233,8 @@ class DreamForm extends BaseCom {
                 <li key={i}>
                     <a 
                     href="javascript:;" 
-                    className={(btn.active? 'btn cur':'btn')} 
+                    className={(btn.active? 'btn cur':'btn')}
+                    data-type={btn.name}
                     rel={btn.rel}
                     >
                         <i className={
@@ -135,7 +272,7 @@ class DreamForm extends BaseCom {
     }
 
     get titleField() {
-        const { type } = this.state,
+        const { type, title } = this.state,
             TITLES_MAP = {
                 'text'  : '简单描述一下文字内容...',
                 'image' : '简单描述一下图片内容...',
@@ -147,14 +284,14 @@ class DreamForm extends BaseCom {
         return () => (
             <div className="form-group">
                 <p className="field">
-                    <textarea 
+                    <TextArea 
                     maxLength="140" 
                     data-cname={NAME} 
                     id="dream-title" 
                     name="content" 
-                    placeholder={NAME}
-                    >
-                    </textarea>
+                    placeholder={NAME} 
+                    onFocus = {this.resetField.bind(this)}
+                    />
                 </p>
                 <p className="validate-error"></p>
             </div>
@@ -166,26 +303,13 @@ class DreamForm extends BaseCom {
 
        return () => (
             <div className="form-group">
-                <TextEditor 
-                ref={(ref) => this._textEditor = ref}
-                placeholder="正文"
-                className="text-editor"
-                onChange={
-                    this.changeText.bind(this)
-                } 
-                />
                 <div 
                 className="field"
-                style={{ display: "none" }}
                 >
-                    <textarea 
-                    id="textContent" 
-                    onChange={
-                        this.textChange.bind(this)
-                    } 
-                    name="text"
-                    value={text}
-                    ></textarea>
+                    <RichEditor 
+                    onFocus = {this.resetField.bind(this)}
+                    name="text" 
+                    />
                 </div>
                 <p className="validate-error"></p>
             </div>
@@ -250,19 +374,16 @@ class DreamForm extends BaseCom {
     }
 
     get linkField() {
-        const { link } = this.state;
-
         return () => (
             <div className="form-group">
                 <p className="field">
-                    <input onChange={
-                        this.linkChange.bind(this)
-                    } 
-                    value={link} 
+                    <Input
                     data-cname="网址" 
                     type="url" 
                     name="link" 
-                    placeholder="网址，例: http://www.ty-xb.com" />
+                    placeholder="网址，例: http://www.ty-xb.com"
+                    onFocus = {this.resetField.bind(this)}
+                    />
                 </p>
                 <p className="validate-error"></p>
             </div>
@@ -272,20 +393,48 @@ class DreamForm extends BaseCom {
     get moreFields() {
         const { type } = this.state;
 
-        if (type === "news" || type === "text") {
-            return (
-                <div 
-                id="dreamReleaseBar" 
-                className="nav-group"
-                >
-                    {this.fieldBtns}
-                    <FinishBtn 
-                    ref={(ref) => {this._finishBtn = ref}} 
-                    onFinishClick={this.validate.bind(this)} 
+        return (
+            <div 
+            id="dreamReleaseBar" 
+            className="nav-group"
+            >
+                {this.fieldBtns}
+                <FinishBtn 
+                ref={(ref) => {this._finishBtn = ref}} 
+                onFinishClick={this.validate.bind(this)} 
+                />
+            </div>
+        )
+    }
+
+    get healthField() {
+        return () => (
+            <div className="form-group">
+                <p className="field">
+                    <TextArea 
+                    maxLength="30" 
+                    name="health" 
+                    placeholder="身体状况" 
                     />
-                </div>
-            )
-        }
+                </p>
+                <p className="validate-error"></p>
+            </div>
+        )
+    }
+
+    get moodField() {
+        return () => (
+            <div className="form-group">
+                <p className="field">
+                    <TextArea 
+                    maxLength="30" 
+                    name="mood" 
+                    placeholder="心情" 
+                    />
+                </p>
+                <p className="validate-error"></p>
+            </div>
+        )
     }
 
     constructor(props) {
@@ -300,18 +449,22 @@ class DreamForm extends BaseCom {
             image: '',
             imageId: '',
             text: '',
-            link: '',
             fields: FIELDS[type],
             btns: BTNS[type]
         }
     }
-    
+
+    resetField(ev) {
+        let inp    = ev.target,
+            field  = utils.closest(inp, '.field'),
+            tips   = field && field.nextElementSibling;
+
+        tips.innerHTML = '';
+        tips.style.display = 'none';
+    }
+
     encodeContent(text) {
         return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\xA0').join('&nbsp;').split('\n').join(BREAK + '\n');
-    }
-    
-    encodeAttr(text) {
-        return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');
     }
 
     componentDidMount() {
@@ -327,35 +480,27 @@ class DreamForm extends BaseCom {
                 '[rel="tab-title-post"]',
                 '[rel="tab-text-post"]',
                 '[rel="tab-link-post"]',
-                '[rel="tab-image-post"]'
+                '[rel="tab-image-post"]',
+                '[rel="tab-mood-post"]',
+                '[rel="tab-health-post"]'
             ],
                 handles   = [
                     this.setTextFormData,
                     this.setImageFormData,
                     this.setNewsFormData,
-                    this.toggleTextForm,
-                    this.toggleImageForm,
-                    this.toggleLinkForm,
+                    this.toggleForm,
+                    this.toggleForm,
+                    this.toggleForm,
+                    this.toggleForm,
+                    this.toggleForm,
+                    this.toggleForm
                 ];
 
             this.delegate(this._con, selectors, handles);
         }
 
-        this._form && this._form.querySelectorAll(
-            'input[type=text], input[type=url], textarea'
-        ).forEach((inp) => {
-            inp.onfocus = (ev) => {
-                let inp    = ev.target,
-                    field  = utils.closest(inp, '.field'),
-                    tips   = field && field.nextElementSibling;
-
-                tips.innerHTML = '';
-                tips.style.display = 'none';
-            }
-        });
-        
         // 编辑器获得焦点
-        this._textEditor && this._textEditor.focus();
+        // this._textEditor && this._textEditor.focus();
     }
 
     setFormData(type) {
@@ -378,27 +523,28 @@ class DreamForm extends BaseCom {
         this.setFormData('news');
     }
 
-    toggleForm(fieldType) {
-        let { btns, fields } = this.state;
+    toggleForm(ev, cur) {
+        const fieldType = utils.getData(cur, 'type');
 
-        let active;
+        let { btns, fields } = this.state, active;
         for (let i = 0, l = btns.length; i < l; i++) {
             let btn = btns[i];
             if (btn.name === fieldType) {
                 active = btn.active;
-                btn.active = !active;
                 break;
             }
         }
+
         if (!active) {
             fields.push({
-                name: fieldType === "title"? "content":fieldType,
+                name: NAME_MAP[fieldType],
+                type: fieldType,
                 com: fieldType + 'Field'
             });
         }
         else{
             fields = fields.filter((field) => {
-                return field.name !== fieldType;
+                return field.type !== fieldType;
             });
         }
 
@@ -406,22 +552,6 @@ class DreamForm extends BaseCom {
             btns: btns,
             fields: fields
         });
-    }
-
-    toggleTitleForm() {
-        this.toggleForm('title');
-    }
-
-    toggleTextForm() {
-        this.toggleForm('text');
-    }
-
-    toggleLinkForm() {
-        this.toggleForm('link');
-    }
-
-    toggleImageForm() {
-        this.toggleForm('image');
     }
 
     onCancelImage() {
@@ -433,7 +563,10 @@ class DreamForm extends BaseCom {
     fileDragHover(e) {
         e.stopPropagation();
         e.preventDefault();
-        e.target.className = (e.type == "dragover" ? "image-drag-box hover" : "image-drag-box");
+        e.target.className = (
+            e.type == "dragover" ? 
+            "image-drag-box hover" : "image-drag-box"
+        );
     }
 
     fileSelectHandler(e) {
@@ -514,26 +647,6 @@ class DreamForm extends BaseCom {
         this._imageUpload.click();
     }
 
-    changeText(evt) {
-        this.setState({
-            text: evt.target.value
-        });
-    }
-
-    textChange(evt) {
-        this.setState({
-            text: evt.target.value
-        });
-    }
-
-    linkChange(ev) {
-        let link = ev.target.value;
-
-        this.setState({
-            link: link
-        })
-    }
-
     render() {
         const { type } = this.state;
         const { container } = this.props;
@@ -541,15 +654,15 @@ class DreamForm extends BaseCom {
                         type: "text",
                         icon: "edit",
                         label: "文字"
-                      }, {
+                     }, {
                         type: "image",
                         icon: "image",
                         label: "图片"
-                      }, {
-                          type: "news",
-                          icon: "link",
-                          label: "网址"
-                      }];
+                     }, {
+                        type: "news",
+                        icon: "link",
+                        label: "网址"
+                     }];
 
         return (
             <div 
@@ -559,7 +672,9 @@ class DreamForm extends BaseCom {
                     <ul className="category-list">
                         {tabs.map((tab, i) => 
                         <li key={i} className={tab.type === type? "cur":""}>
-                            <a rel={`post-${tab.type}`} href="javascript:;">
+                            <a 
+                            rel={`post-${tab.type}`} 
+                            href="javascript:;">
                                 <i className={
                                     `s s-${tab.icon} s-2x`
                                 }>
@@ -591,6 +706,58 @@ class DreamForm extends BaseCom {
         );
     }
 
+    checkField(item, val, tips, i) {
+        const { label } = item;
+
+        const err = utils.getData(tips, 'err'),
+              eindex = utils.getData(tips, 'eindex');
+
+        if (err && eindex !== i) {
+            return false;
+        }
+
+        // 判断是否为空
+        if (item.require) {
+            if (val.length === 0) {
+                tips.innerHTML = item.empty_msg || (label + "木有输入");
+                tips.style.display = 'block';
+                utils.setData(tips, {'err': true});
+                utils.setData(tips, {'eindex': i});
+                return false;
+            }
+            else{
+                tips.innerHTML = '';
+                tips.style.display = 'none';
+                utils.setData(tips, {'err': false});
+                utils.setData(tips, {'eindex': i});
+            }
+        }
+
+        let isValid  = true,
+            errorText = "";
+        if (item.fun) {
+            if (!item.fun(val)) {
+                isValid  = false;
+                errorText = item.err || '';
+            }
+
+            if (!isValid) {
+                tips.style.display = 'block';
+                tips.innerHTML = errorText;
+                utils.setData(tips, {'err': true});
+                utils.setData(tips, {'eindex': i});
+                return false;
+            }
+            else{
+                tips.innerHTML = '';
+                tips.style.display = 'none';
+                utils.setData(tips, {'err': false});
+                utils.setData(tips, {'eindex': i});
+            }
+        }
+        return true;
+    }
+
     getFormData() {
         this.formData = {};
         this._form && this._form
@@ -608,26 +775,37 @@ class DreamForm extends BaseCom {
     validate() {
         const { type } = this.state;
         let validate = true, 
-            fields = [];
+            rules = {};
 
         switch (type) {
             case "news":
-                fields = [
-                    { name: 'content', require: true, label: '标题' },
-                    { name: 'link', label: '网址', err: "链接格式错误", fun: (val) => {
-                        return (!val || utils.isUrl(val));
-                    } }
-                ]
+                rules = {
+                    content: [
+                        { require: true, label: '标题' }
+                    ],
+                    link   : [
+                        { require:true, label: '网址' },
+                        { label: '网址', err: "链接格式错误", fun: (val) => {
+                            return (!val || utils.isUrl(val));
+                        }}
+                    ]
+                }
                 break;
             case "image":
-                fields = [
-                    { name: 'image', require: true, empty_msg: '图片木有添加', label: '图片' },
-                ]
+                rules = {
+                    image: [
+                        { 
+                            require: true, empty_msg: '图片木有添加', label: '图片'
+                        }
+                    ]
+                }
                 break;
             case "text":
-                fields = [
-                    { name: 'text', require: true, label: '文字' },
-                ]
+                rules = {
+                    text: [
+                        { require: true, label: '文字' }
+                    ]
+                }
                 break;
         }
 
@@ -638,56 +816,30 @@ class DreamForm extends BaseCom {
             input[type=hidden], \
             textarea'
         ).forEach((inp, key) => {
-            let val    = inp.value,
+            let val    = inp.value.trim(),
                 field  = utils.closest(inp, '.field'),
                 tips   = field && field.nextElementSibling;
 
-            //if (!tips) {
-                //validate = false;
-                //return;
-            //}
-
             // 判断是否有效
-            fields && fields.forEach((field) => {
-                let name = field.name,
-                    label = field.label;
+            for (let key in rules) {
+                let rule  = rules[key],
+                    name  = key;
+
                 if (name === inp.name) {
-                    val = val.trim();
-
-                    // 判断是否为空
-                    if (field.require) {
-                        if (val.length === 0) {
-                            tips.innerHTML = field.empty_msg || (label + "木有输入");
-                            tips.style.display = 'block';
-                            validate = false;
-                            return;
-                        }else{
-                            tips.innerHTML = '';
-                            tips.style.display = 'none';
-                        }
+                    if (rule.length > 0) {
+                        rule.forEach((item, i) => {
+                            if (!this.checkField(item, val, tips, i)) {
+                                validate = false;
+                            }
+                        });
                     }
-
-                    let isValid  = true,
-                        errorText = "";
-                    if (field.fun) {
-                        if (!field.fun(val)) {
+                    else{
+                        if (!this.checkField(rule, val, tips, 0)) {
                             validate = false;
-                            isValid  = false;
-                            errorText = field.err || '';
                         }
-                    }
-
-                    if (!isValid) {
-                        tips.style.display = 'block';
-                        tips.innerHTML = errorText;
-                        validate = false;
-                        return;
-                    }else{
-                        tips.innerHTML = '';
-                        tips.style.display = 'none';
                     }
                 }
-            });
+            }
         });
 
         if (validate) {

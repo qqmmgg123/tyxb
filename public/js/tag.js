@@ -46,18 +46,18 @@
 
 	'use strict';
 
-	var _react = __webpack_require__(43);
+	var _react = __webpack_require__(44);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(44);
+	var _reactDom = __webpack_require__(45);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(62), __webpack_require__(13), __webpack_require__(42), __webpack_require__(18).default, __webpack_require__(59).default, __webpack_require__(40), __webpack_require__(45), __webpack_require__(63), __webpack_require__(119), __webpack_require__(132));
+	    module.exports = factory(__webpack_require__(62), __webpack_require__(13), __webpack_require__(43), __webpack_require__(18).default, __webpack_require__(59).default, __webpack_require__(40), __webpack_require__(46), __webpack_require__(63), __webpack_require__(119), __webpack_require__(132));
 	})(function (polyfill, utils, settings, req, effect, common, popup, dropdown, router, dreamTpl) {
 	    var _d = document,
 	        _w = window;
@@ -72,7 +72,7 @@
 	    drtTextBtn && drtTextBtn.addEventListener('click', (ev) => {
 	        textPop = common.textNew('text');
 	    });
-	     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+	      var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
 	    drtLinkBtn && drtLinkBtn.addEventListener('click', (ev) => {
 	        textPop = common.textNew('link');
 	    });*/
@@ -1096,11 +1096,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Req, "Req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(req, "req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
 	}();
 
 	;
@@ -1390,7 +1390,7 @@
 	'use strict';
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(47).default, __webpack_require__(62), __webpack_require__(18).default, __webpack_require__(59).default, __webpack_require__(13), __webpack_require__(63), __webpack_require__(45));
+	    module.exports = factory(__webpack_require__(47).default, __webpack_require__(62), __webpack_require__(18).default, __webpack_require__(59).default, __webpack_require__(13), __webpack_require__(63), __webpack_require__(46));
 	})(function (_t, polyfill, req, effect, utils, dropdown, popup) {
 	    var common = {
 	        getPageSize: function getPageSize() {
@@ -1478,8 +1478,8 @@
 	                "m+": date.getMinutes(), //minute
 	                "s+": date.getSeconds(), //second
 	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
-	                "S": date.getMilliseconds //millisecond
-	                () };
+	                "S": date.getMilliseconds() //millisecond
+	            };
 
 	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 	            for (var k in o) {
@@ -1624,15 +1624,15 @@
 	        resetBtn    = document.getElementById('search-reset'),
 	        searchInput = document.getElementById('search-input'),
 	        searchBtn   = document.getElementById('search_dream_btn');
-	     searchBtn && searchBtn.addEventListener('click', function() {
+	      searchBtn && searchBtn.addEventListener('click', function() {
 	        if (inputBox.className.indexOf(' visible') === -1) {
 	            inputBox.className += ' visible';
 	        }
 	    }, false);
-	     backBtn && backBtn.addEventListener('click', function() {
+	      backBtn && backBtn.addEventListener('click', function() {
 	        inputBox.className = inputBox.className.replace(' visible', '');
 	    }, false);
-	     resetBtn && resetBtn.addEventListener('click', function() {
+	      resetBtn && resetBtn.addEventListener('click', function() {
 	        searchInput.value = '';
 	    }, false);*/
 
@@ -1756,12 +1756,40 @@
 
 /***/ }),
 /* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	var _assign = __webpack_require__(122);
+
+	var _assign2 = _interopRequireDefault(_assign);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _assign2.default || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports) {
 
 	exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
@@ -1832,19 +1860,19 @@
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 	module.exports = React;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	module.exports = ReactDOM;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1893,7 +1921,7 @@
 	 * @version 0.1
 	 * @author minggangqiu
 	 */
-	var settings = __webpack_require__(42);
+	var settings = __webpack_require__(43);
 	var utils = __webpack_require__(13);
 	var v = __webpack_require__(65);
 	var picpop = __webpack_require__(110);
@@ -2394,56 +2422,28 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Popup, 'Popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(Win, 'Win', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(popup, 'popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
 	}();
 
 	;
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _assign = __webpack_require__(122);
-
-	var _assign2 = _interopRequireDefault(_assign);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _assign2.default || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-
-	  return target;
-	};
 
 /***/ }),
 /* 47 */
@@ -2505,11 +2505,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Tools, "Tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(tools, "tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
 	}();
 
 	;
@@ -2813,11 +2813,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Effect, 'Effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(effect, 'effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/effect.js');
 	}();
 
 	;
@@ -3002,11 +3002,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
 	}();
 
 	;
@@ -3475,13 +3475,13 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(create, 'create', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
 	}();
 
 	;
@@ -3547,7 +3547,7 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', '/Users/dragon/home/tyxb/tyxb/src/share.js');
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
 	}();
 
 	;
@@ -3574,7 +3574,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var req = __webpack_require__(18).default;
-	var settings = __webpack_require__(42);
+	var settings = __webpack_require__(43);
 	var utils = __webpack_require__(13);
 
 	var Validate = function () {
@@ -3765,11 +3765,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(req, 'req', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
 	}();
 
 	;
@@ -3926,7 +3926,7 @@
 
 	// all enumerable object keys, includes symbols
 	var getKeys = __webpack_require__(17)
-	  , gOPS    = __webpack_require__(41)
+	  , gOPS    = __webpack_require__(42)
 	  , pIE     = __webpack_require__(23);
 	module.exports = function(it){
 	  var result     = getKeys(it)
@@ -4461,7 +4461,7 @@
 	  $DP.f   = $defineProperty;
 	  __webpack_require__(55).f = gOPNExt.f = $getOwnPropertyNames;
 	  __webpack_require__(23).f  = $propertyIsEnumerable;
-	  __webpack_require__(41).f = $getOwnPropertySymbols;
+	  __webpack_require__(42).f = $getOwnPropertySymbols;
 
 	  if(DESCRIPTORS && !__webpack_require__(29)){
 	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
@@ -4587,13 +4587,13 @@
 	with (obj) {
 
 	 list.forEach(function(item) { ;
-	__p += '\n<li><a href="' +
+	__p += '\r\n<li><a href="' +
 	((__t = ( item.url )) == null ? '' : __t) +
 	'">' +
 	((__t = ( item.key )) == null ? '' : __t) +
-	'</a></li>\n';
+	'</a></li>\r\n';
 	 }) ;
-	__p += '\n';
+	__p += '\r\n';
 
 	}
 	return __p
@@ -4607,7 +4607,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="dream-area">\n    <form id="deamcreat-form" action="/dream/new" method="post">\n        <div class="title-head">\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\n            此刻的想法（必填）\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\n        </div>\n        <div>\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            图片\n        </div>\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\n        <div><img id="image-preview" src="" /></div>\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\n        <input type="hidden" name="did" value="" />\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\n    </form>\n</div>\n\n';
+	__p += '<div class="dream-area">\r\n    <form id="deamcreat-form" action="/dream/new" method="post">\r\n        <div class="title-head">\r\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\r\n            此刻的想法（必填）\r\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\r\n        </div>\r\n        <div>\r\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            图片\r\n        </div>\r\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\r\n        <div><img id="image-preview" src="" /></div>\r\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\r\n        <input type="hidden" name="did" value="" />\r\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\r\n    </form>\r\n</div>\r\n\r\n';
 
 	}
 	return __p
@@ -4621,15 +4621,15 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="tab-nav">\n    <ul>\n        <li><a href="javascript:;" class="tab ' +
+	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">+ 注册</a></li>\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 注册</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
-	'">登录 →</a></li>\n    </ul>\n</div>\n<div class="tab-content">\n    <div class="signup-area" style="display: ' +
+	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\n        <form id="signup-form" action="/signup" method="post" novalidate>\n            <div rel="info" class="alert alert-danger" style="display: none;">\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\n                <p class="validate-error"></p>\n            </div class="form-group">\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div>\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\n            </div>\n        </form>\n        <div class="signup-loading" style="display: none;">\n            <p>请稍等...</p>\n        </div>\n    </div>\n    <div class="signin-area" style="display: ' +
+	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
-	'">\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="other-ctrl form-group">\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\n            </div>\n            <div class="btn-group">\n                <button class="btn btn-primary" type="button">登录</button>\n            </div>\n        </form>\n        <div class="signin-loading" style="display: none;">\n            <p>登录中...请稍等</p>\n        </div>\n    </div>\n</div>\n\n';
+	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
 
 	}
 	return __p
@@ -4643,9 +4643,9 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="form-area">\n    <form action="/tag/new" method="post">\n        <div rel="err-info" class="alert" style="display: none;">\n        </div>\n        <div class="title-head">\n            <span class="require">*&nbsp;</span>学派名称\n        </div>\n        <div class="form-group">\n            <p class="field"><input type="text" value="' +
+	__p += '<div class="form-area">\r\n    <form action="/tag/new" method="post">\r\n        <div rel="err-info" class="alert" style="display: none;">\r\n        </div>\r\n        <div class="title-head">\r\n            <span class="require">*&nbsp;</span>学派名称\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><input type="text" value="' +
 	((__t = ( tagName )) == null ? '' : __t) +
-	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            学派描述\n        </div>\n        <div class="form-group">\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\n        </div>\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\n    </form>\n</div>\n';
+	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            学派描述\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\r\n        </div>\r\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\r\n    </form>\r\n</div>\r\n';
 
 	}
 	return __p
@@ -4659,7 +4659,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="hd">\n    <span class="title">标题...</span>\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\n</div>\n<div class="bd">\n    正文...\n</div>\n';
+	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
 
 	}
 	return __p
@@ -4742,9 +4742,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
 	}();
 
 	;
@@ -4759,7 +4759,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(46);
+	var _extends2 = __webpack_require__(41);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -4783,11 +4783,11 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _react = __webpack_require__(43);
+	var _react = __webpack_require__(44);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(44);
+	var _reactDom = __webpack_require__(45);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -4960,9 +4960,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', 'E:/mypro/tyxb/src/Dialog.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/Dialog.js');
 	}();
 
 	;
@@ -4997,11 +4997,11 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _react = __webpack_require__(43);
+	var _react = __webpack_require__(44);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(44);
+	var _reactDom = __webpack_require__(45);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -5123,9 +5123,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/src/ImageViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/ImageViewer.js');
 	}();
 
 	;
@@ -5140,7 +5140,7 @@
 	  value: true
 	});
 
-	var _extends2 = __webpack_require__(46);
+	var _extends2 = __webpack_require__(41);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -5168,11 +5168,11 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _react = __webpack_require__(43);
+	var _react = __webpack_require__(44);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(44);
+	var _reactDom = __webpack_require__(45);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -5585,11 +5585,11 @@
 	      borderRadius = Math.max(borderRadius, 0);
 	      borderRadius = Math.min(borderRadius, width / 2 - borderSize, height / 2 - borderSize);
 
-	      context.beginPath
+	      context.beginPath();
 	      // inner rect, possibly rounded
-	      ();drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
-	      context.rect(width, 0, -width, height // outer rect, drawn "counterclockwise"
-	      );context.fill('evenodd');
+	      drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
+	      context.rect(width, 0, -width, height); // outer rect, drawn "counterclockwise"
+	      context.fill('evenodd');
 
 	      context.restore();
 	    }
@@ -5784,17 +5784,17 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarCroper.js');
 	}();
 
 	;
@@ -5809,7 +5809,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(46);
+	var _extends2 = __webpack_require__(41);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -5833,11 +5833,11 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _react = __webpack_require__(43);
+	var _react = __webpack_require__(44);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(44);
+	var _reactDom = __webpack_require__(45);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -6007,9 +6007,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/AvatarEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarEditor.js');
 	}();
 
 	;
@@ -6039,7 +6039,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(13), __webpack_require__(40), __webpack_require__(45));
+	    module.exports = factory(__webpack_require__(13), __webpack_require__(40), __webpack_require__(46));
 	})(function (utils, common, popup) {
 	    var _d = document,
 	        _w = window,
@@ -6197,6 +6197,10 @@
 	    value: true
 	});
 
+	var _extends2 = __webpack_require__(41);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
 	var _getPrototypeOf = __webpack_require__(6);
 
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -6236,16 +6240,147 @@
 	var INDENT = '  ';
 	var BREAK = '<br/>';
 
-	var FinishBtn = function (_React$Component) {
-	    (0, _inherits3.default)(FinishBtn, _React$Component);
+	var RichEditor = function (_React$Component) {
+	    (0, _inherits3.default)(RichEditor, _React$Component);
+
+	    function RichEditor(props) {
+	        (0, _classCallCheck3.default)(this, RichEditor);
+
+	        var _this = (0, _possibleConstructorReturn3.default)(this, (RichEditor.__proto__ || (0, _getPrototypeOf2.default)(RichEditor)).call(this, props));
+
+	        _this.state = {
+	            html: ''
+	        };
+	        return _this;
+	    }
+
+	    (0, _createClass3.default)(RichEditor, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this._editor.focus();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement(_TextEditor2.default, {
+	                    html: this.state.html,
+	                    ref: function ref(_ref) {
+	                        return _this2._editor = _ref;
+	                    },
+	                    placeholder: '\u6B63\u6587',
+	                    className: 'text-editor',
+	                    onChange: function onChange(evt) {
+	                        _this2.setState({
+	                            html: evt.target.value
+	                        });
+	                    }
+	                }),
+	                React.createElement('textarea', (0, _extends3.default)({
+	                    style: { display: "none" }
+	                }, this.props, {
+	                    value: this.state.html
+	                }))
+	            );
+	        }
+	    }]);
+	    return RichEditor;
+	}(React.Component);
+
+	var TextArea = function (_React$Component2) {
+	    (0, _inherits3.default)(TextArea, _React$Component2);
+
+	    function TextArea(props) {
+	        (0, _classCallCheck3.default)(this, TextArea);
+
+	        var _this3 = (0, _possibleConstructorReturn3.default)(this, (TextArea.__proto__ || (0, _getPrototypeOf2.default)(TextArea)).call(this, props));
+
+	        _this3.state = {
+	            text: ''
+	        };
+	        return _this3;
+	    }
+
+	    (0, _createClass3.default)(TextArea, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this._textArea.focus();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this4 = this;
+
+	            return React.createElement('textarea', (0, _extends3.default)({}, this.props, {
+	                ref: function ref(_ref2) {
+	                    _this4._textArea = _ref2;
+	                },
+	                onChange: function onChange(evt) {
+	                    _this4.setState({
+	                        text: evt.target.value
+	                    });
+	                },
+	                value: this.state.text
+	            }));
+	        }
+	    }]);
+	    return TextArea;
+	}(React.Component);
+
+	var Input = function (_React$Component3) {
+	    (0, _inherits3.default)(Input, _React$Component3);
+
+	    function Input(props) {
+	        (0, _classCallCheck3.default)(this, Input);
+
+	        var _this5 = (0, _possibleConstructorReturn3.default)(this, (Input.__proto__ || (0, _getPrototypeOf2.default)(Input)).call(this, props));
+
+	        _this5.state = {
+	            value: ''
+	        };
+	        return _this5;
+	    }
+
+	    (0, _createClass3.default)(Input, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this._input.focus();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this6 = this;
+
+	            return React.createElement('input', (0, _extends3.default)({}, this.props, {
+	                ref: function ref(_ref3) {
+	                    _this6._input = _ref3;
+	                },
+	                onChange: function onChange(evt) {
+	                    _this6.setState({
+	                        value: evt.target.value
+	                    });
+	                },
+	                value: this.state.value
+	            }));
+	        }
+	    }]);
+	    return Input;
+	}(React.Component);
+
+	var FinishBtn = function (_React$Component4) {
+	    (0, _inherits3.default)(FinishBtn, _React$Component4);
 
 	    function FinishBtn(props) {
 	        (0, _classCallCheck3.default)(this, FinishBtn);
 
-	        var _this = (0, _possibleConstructorReturn3.default)(this, (FinishBtn.__proto__ || (0, _getPrototypeOf2.default)(FinishBtn)).call(this, props));
+	        var _this7 = (0, _possibleConstructorReturn3.default)(this, (FinishBtn.__proto__ || (0, _getPrototypeOf2.default)(FinishBtn)).call(this, props));
 
-	        _this.handleClick = _this.handleClick.bind(_this);
-	        return _this;
+	        _this7.handleClick = _this7.handleClick.bind(_this7);
+	        return _this7;
 	    }
 
 	    (0, _createClass3.default)(FinishBtn, [{
@@ -6256,13 +6391,13 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this8 = this;
 
 	            return React.createElement(
 	                'button',
 	                {
-	                    ref: function ref(_ref) {
-	                        _this2._self = _ref;
+	                    ref: function ref(_ref4) {
+	                        _this8._self = _ref4;
 	                    },
 	                    id: 'finish_cdream_btn',
 	                    onClick: this.handleClick,
@@ -6286,8 +6421,22 @@
 	    return FinishBtn;
 	}(React.Component);
 
+	var MOOD = {
+	    label: '心情',
+	    rel: 'tab-mood-post',
+	    name: 'mood',
+	    active: false
+	};
+
+	var HEALTH = {
+	    label: '身体状况',
+	    rel: 'tab-health-post',
+	    name: 'health',
+	    active: false
+	};
+
 	var BTNS = {
-	    "image": [],
+	    "image": [MOOD, HEALTH],
 	    "news": [{
 	        label: '摘要',
 	        rel: 'tab-text-post',
@@ -6298,7 +6447,7 @@
 	        rel: 'tab-image-post',
 	        name: 'image',
 	        active: false
-	    }],
+	    }, MOOD, HEALTH],
 	    "text": [{
 	        label: '标题',
 	        rel: 'tab-title-post',
@@ -6309,26 +6458,40 @@
 	        rel: 'tab-image-post',
 	        name: 'image',
 	        active: false
-	    }]
+	    }, MOOD, HEALTH]
+	};
+
+	var NAME_MAP = {
+	    "title": "content",
+	    "link": "link",
+	    "image": "image",
+	    "text": "text",
+	    "mood": "mood",
+	    "health": "health"
 	};
 
 	var FIELDS = {
 	    "text": [{
 	        name: "text",
+	        type: "text",
 	        com: "textField"
 	    }],
 	    "image": [{
 	        name: "image",
+	        type: "image",
 	        com: "imageField"
 	    }, {
 	        name: "content",
+	        type: "title",
 	        com: "titleField"
 	    }],
 	    "news": [{
 	        name: "link",
+	        type: "link",
 	        com: "linkField"
 	    }, {
 	        name: "content",
+	        type: "title",
 	        com: "titleField"
 	    }]
 	};
@@ -6338,8 +6501,22 @@
 	    (0, _createClass3.default)(DreamForm, [{
 	        key: 'fieldBtns',
 	        get: function get() {
-	            var btns = this.state.btns;
+	            var _state = this.state,
+	                btns = _state.btns,
+	                fields = _state.fields;
 
+	            // 根据表单渲染表单按妞
+
+	            for (var i = 0, l = btns.length; i < l; i++) {
+	                var btn = btns[i];
+	                btn.active = false;
+	                for (var n = 0, _l = fields.length; n < _l; n++) {
+	                    var field = fields[n];
+	                    if (btn.name === field.type) {
+	                        btn.active = true;
+	                    }
+	                }
+	            }
 
 	            return React.createElement(
 	                'ul',
@@ -6353,6 +6530,7 @@
 	                            {
 	                                href: 'javascript:;',
 	                                className: btn.active ? 'btn cur' : 'btn',
+	                                'data-type': btn.name,
 	                                rel: btn.rel
 	                            },
 	                            React.createElement('i', { className: btn.active ? 's s-subtract s-lg' : "s s-plus s-lg" }),
@@ -6365,24 +6543,24 @@
 	    }, {
 	        key: 'fieldEls',
 	        get: function get() {
-	            var _this4 = this;
+	            var _this10 = this;
 
-	            var _state = this.state,
-	                type = _state.type,
-	                fields = _state.fields;
+	            var _state2 = this.state,
+	                type = _state2.type,
+	                fields = _state2.fields;
 
 
 	            return React.createElement(
 	                'form',
 	                {
-	                    ref: function ref(_ref2) {
-	                        return _this4._form = _ref2;
+	                    ref: function ref(_ref5) {
+	                        return _this10._form = _ref5;
 	                    },
 	                    action: '/dream/new',
 	                    method: 'post'
 	                },
 	                fields.map(function (form, i) {
-	                    var Form = _this4[form.com];
+	                    var Form = _this10[form.com];
 	                    return React.createElement(Form, { key: i });
 	                }),
 	                React.createElement('input', {
@@ -6395,7 +6573,11 @@
 	    }, {
 	        key: 'titleField',
 	        get: function get() {
-	            var type = this.state.type,
+	            var _this11 = this;
+
+	            var _state3 = this.state,
+	                type = _state3.type,
+	                title = _state3.title,
 	                TITLES_MAP = {
 	                'text': '简单描述一下文字内容...',
 	                'image': '简单描述一下图片内容...',
@@ -6412,12 +6594,13 @@
 	                    React.createElement(
 	                        'p',
 	                        { className: 'field' },
-	                        React.createElement('textarea', {
+	                        React.createElement(TextArea, {
 	                            maxLength: '140',
 	                            'data-cname': NAME,
 	                            id: 'dream-title',
 	                            name: 'content',
-	                            placeholder: NAME
+	                            placeholder: NAME,
+	                            onFocus: _this11.resetField.bind(_this11)
 	                        })
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
@@ -6427,7 +6610,7 @@
 	    }, {
 	        key: 'textField',
 	        get: function get() {
-	            var _this5 = this;
+	            var _this12 = this;
 
 	            var text = this.state.text;
 
@@ -6436,25 +6619,14 @@
 	                return React.createElement(
 	                    'div',
 	                    { className: 'form-group' },
-	                    React.createElement(_TextEditor2.default, {
-	                        ref: function ref(_ref3) {
-	                            return _this5._textEditor = _ref3;
-	                        },
-	                        placeholder: '\u6B63\u6587',
-	                        className: 'text-editor',
-	                        onChange: _this5.changeText.bind(_this5)
-	                    }),
 	                    React.createElement(
 	                        'div',
 	                        {
-	                            className: 'field',
-	                            style: { display: "none" }
+	                            className: 'field'
 	                        },
-	                        React.createElement('textarea', {
-	                            id: 'textContent',
-	                            onChange: _this5.textChange.bind(_this5),
-	                            name: 'text',
-	                            value: text
+	                        React.createElement(RichEditor, {
+	                            onFocus: _this12.resetField.bind(_this12),
+	                            name: 'text'
 	                        })
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
@@ -6464,11 +6636,11 @@
 	    }, {
 	        key: 'imageField',
 	        get: function get() {
-	            var _this6 = this;
+	            var _this13 = this;
 
-	            var _state2 = this.state,
-	                image = _state2.image,
-	                imageId = _state2.imageId;
+	            var _state4 = this.state,
+	                image = _state4.image,
+	                imageId = _state4.imageId;
 
 
 	            if (!image) {
@@ -6479,10 +6651,10 @@
 	                        React.createElement(
 	                            'div',
 	                            { className: 'image-drag-box',
-	                                onDragOver: _this6.fileDragHover.bind(_this6),
-	                                onDragLeave: _this6.fileDragHover.bind(_this6),
-	                                onDrop: _this6.fileSelectHandler.bind(_this6),
-	                                onClick: _this6.onAddImage.bind(_this6) },
+	                                onDragOver: _this13.fileDragHover.bind(_this13),
+	                                onDragLeave: _this13.fileDragHover.bind(_this13),
+	                                onDrop: _this13.fileSelectHandler.bind(_this13),
+	                                onClick: _this13.onAddImage.bind(_this13) },
 	                            React.createElement(
 	                                'button',
 	                                {
@@ -6493,10 +6665,10 @@
 	                            ),
 	                            React.createElement('input', {
 	                                ref: function ref(imageUpload) {
-	                                    _this6._imageUpload = imageUpload;
+	                                    _this13._imageUpload = imageUpload;
 	                                },
 	                                accept: 'image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp',
-	                                onChange: _this6.uploadImage.bind(_this6),
+	                                onChange: _this13.uploadImage.bind(_this13),
 	                                style: { display: "none" },
 	                                id: 'image-upload',
 	                                type: 'file',
@@ -6524,7 +6696,7 @@
 	                            'a',
 	                            { href: 'javascript:;',
 	                                className: 'image-cancel-btn',
-	                                onClick: _this6.onCancelImage.bind(_this6)
+	                                onClick: _this13.onCancelImage.bind(_this13)
 	                            },
 	                            React.createElement('i', { className: 's s-close s-lg' })
 	                        ),
@@ -6542,10 +6714,7 @@
 	    }, {
 	        key: 'linkField',
 	        get: function get() {
-	            var _this7 = this;
-
-	            var link = this.state.link;
-
+	            var _this14 = this;
 
 	            return function () {
 	                return React.createElement(
@@ -6554,12 +6723,13 @@
 	                    React.createElement(
 	                        'p',
 	                        { className: 'field' },
-	                        React.createElement('input', { onChange: _this7.linkChange.bind(_this7),
-	                            value: link,
+	                        React.createElement(Input, {
 	                            'data-cname': '\u7F51\u5740',
 	                            type: 'url',
 	                            name: 'link',
-	                            placeholder: '\u7F51\u5740\uFF0C\u4F8B: http://www.ty-xb.com' })
+	                            placeholder: '\u7F51\u5740\uFF0C\u4F8B: http://www.ty-xb.com',
+	                            onFocus: _this14.resetField.bind(_this14)
+	                        })
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
 	                );
@@ -6568,61 +6738,103 @@
 	    }, {
 	        key: 'moreFields',
 	        get: function get() {
-	            var _this8 = this;
+	            var _this15 = this;
 
 	            var type = this.state.type;
 
 
-	            if (type === "news" || type === "text") {
+	            return React.createElement(
+	                'div',
+	                {
+	                    id: 'dreamReleaseBar',
+	                    className: 'nav-group'
+	                },
+	                this.fieldBtns,
+	                React.createElement(FinishBtn, {
+	                    ref: function ref(_ref6) {
+	                        _this15._finishBtn = _ref6;
+	                    },
+	                    onFinishClick: this.validate.bind(this)
+	                })
+	            );
+	        }
+	    }, {
+	        key: 'healthField',
+	        get: function get() {
+	            return function () {
 	                return React.createElement(
 	                    'div',
-	                    {
-	                        id: 'dreamReleaseBar',
-	                        className: 'nav-group'
-	                    },
-	                    this.fieldBtns,
-	                    React.createElement(FinishBtn, {
-	                        ref: function ref(_ref4) {
-	                            _this8._finishBtn = _ref4;
-	                        },
-	                        onFinishClick: this.validate.bind(this)
-	                    })
+	                    { className: 'form-group' },
+	                    React.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        React.createElement(TextArea, {
+	                            maxLength: '30',
+	                            name: 'health',
+	                            placeholder: '\u8EAB\u4F53\u72B6\u51B5'
+	                        })
+	                    ),
+	                    React.createElement('p', { className: 'validate-error' })
 	                );
-	            }
+	            };
+	        }
+	    }, {
+	        key: 'moodField',
+	        get: function get() {
+	            return function () {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    React.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        React.createElement(TextArea, {
+	                            maxLength: '30',
+	                            name: 'mood',
+	                            placeholder: '\u5FC3\u60C5'
+	                        })
+	                    ),
+	                    React.createElement('p', { className: 'validate-error' })
+	                );
+	            };
 	        }
 	    }]);
 
 	    function DreamForm(props) {
 	        (0, _classCallCheck3.default)(this, DreamForm);
 
-	        var _this3 = (0, _possibleConstructorReturn3.default)(this, (DreamForm.__proto__ || (0, _getPrototypeOf2.default)(DreamForm)).call(this, props));
+	        var _this9 = (0, _possibleConstructorReturn3.default)(this, (DreamForm.__proto__ || (0, _getPrototypeOf2.default)(DreamForm)).call(this, props));
 
 	        var type = props.type;
 
 
-	        _this3.formData = null;
+	        _this9.formData = null;
 
-	        _this3.state = {
+	        _this9.state = {
 	            type: type,
 	            image: '',
 	            imageId: '',
 	            text: '',
-	            link: '',
 	            fields: FIELDS[type],
 	            btns: BTNS[type]
 	        };
-	        return _this3;
+	        return _this9;
 	    }
 
 	    (0, _createClass3.default)(DreamForm, [{
+	        key: 'resetField',
+	        value: function resetField(ev) {
+	            var inp = ev.target,
+	                field = utils.closest(inp, '.field'),
+	                tips = field && field.nextElementSibling;
+
+	            tips.innerHTML = '';
+	            tips.style.display = 'none';
+	        }
+	    }, {
 	        key: 'encodeContent',
 	        value: function encodeContent(text) {
 	            return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\xA0').join('&nbsp;').split('\n').join(BREAK + '\n');
-	        }
-	    }, {
-	        key: 'encodeAttr',
-	        value: function encodeAttr(text) {
-	            return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');
 	        }
 	    }, {
 	        key: 'componentDidMount',
@@ -6633,25 +6845,14 @@
 	        key: 'initState',
 	        value: function initState() {
 	            if (this._con) {
-	                var selectors = ['[rel="post-text"]', '[rel="post-image"]', '[rel="post-news"]', '[rel="tab-title-post"]', '[rel="tab-text-post"]', '[rel="tab-link-post"]', '[rel="tab-image-post"]'],
-	                    handles = [this.setTextFormData, this.setImageFormData, this.setNewsFormData, this.toggleTextForm, this.toggleImageForm, this.toggleLinkForm];
+	                var selectors = ['[rel="post-text"]', '[rel="post-image"]', '[rel="post-news"]', '[rel="tab-title-post"]', '[rel="tab-text-post"]', '[rel="tab-link-post"]', '[rel="tab-image-post"]', '[rel="tab-mood-post"]', '[rel="tab-health-post"]'],
+	                    handles = [this.setTextFormData, this.setImageFormData, this.setNewsFormData, this.toggleForm, this.toggleForm, this.toggleForm, this.toggleForm, this.toggleForm, this.toggleForm];
 
 	                this.delegate(this._con, selectors, handles);
 	            }
 
-	            this._form && this._form.querySelectorAll('input[type=text], input[type=url], textarea').forEach(function (inp) {
-	                inp.onfocus = function (ev) {
-	                    var inp = ev.target,
-	                        field = utils.closest(inp, '.field'),
-	                        tips = field && field.nextElementSibling;
-
-	                    tips.innerHTML = '';
-	                    tips.style.display = 'none';
-	                };
-	            });
-
 	            // 编辑器获得焦点
-	            this._textEditor && this._textEditor.focus();
+	            // this._textEditor && this._textEditor.focus();
 	        }
 	    }, {
 	        key: 'setFormData',
@@ -6679,29 +6880,31 @@
 	        }
 	    }, {
 	        key: 'toggleForm',
-	        value: function toggleForm(fieldType) {
-	            var _state3 = this.state,
-	                btns = _state3.btns,
-	                fields = _state3.fields;
+	        value: function toggleForm(ev, cur) {
+	            var fieldType = utils.getData(cur, 'type');
 
+	            var _state5 = this.state,
+	                btns = _state5.btns,
+	                fields = _state5.fields,
+	                active = void 0;
 
-	            var active = void 0;
 	            for (var i = 0, l = btns.length; i < l; i++) {
 	                var btn = btns[i];
 	                if (btn.name === fieldType) {
 	                    active = btn.active;
-	                    btn.active = !active;
 	                    break;
 	                }
 	            }
+
 	            if (!active) {
 	                fields.push({
-	                    name: fieldType === "title" ? "content" : fieldType,
+	                    name: NAME_MAP[fieldType],
+	                    type: fieldType,
 	                    com: fieldType + 'Field'
 	                });
 	            } else {
 	                fields = fields.filter(function (field) {
-	                    return field.name !== fieldType;
+	                    return field.type !== fieldType;
 	                });
 	            }
 
@@ -6709,26 +6912,6 @@
 	                btns: btns,
 	                fields: fields
 	            });
-	        }
-	    }, {
-	        key: 'toggleTitleForm',
-	        value: function toggleTitleForm() {
-	            this.toggleForm('title');
-	        }
-	    }, {
-	        key: 'toggleTextForm',
-	        value: function toggleTextForm() {
-	            this.toggleForm('text');
-	        }
-	    }, {
-	        key: 'toggleLinkForm',
-	        value: function toggleLinkForm() {
-	            this.toggleForm('link');
-	        }
-	    }, {
-	        key: 'toggleImageForm',
-	        value: function toggleImageForm() {
-	            this.toggleForm('image');
 	        }
 	    }, {
 	        key: 'onCancelImage',
@@ -6754,7 +6937,7 @@
 	    }, {
 	        key: 'loadImage',
 	        value: function loadImage(url, id) {
-	            var _this9 = this;
+	            var _this16 = this;
 
 	            var img = new Image();
 	            /*this.setState({
@@ -6770,7 +6953,7 @@
 	                return;
 	            }
 	            img.onload = function () {
-	                _this9.setState({
+	                _this16.setState({
 	                    //loading: false,
 	                    imageId: id,
 	                    image: url
@@ -6828,32 +7011,9 @@
 	            this._imageUpload.click();
 	        }
 	    }, {
-	        key: 'changeText',
-	        value: function changeText(evt) {
-	            this.setState({
-	                text: evt.target.value
-	            });
-	        }
-	    }, {
-	        key: 'textChange',
-	        value: function textChange(evt) {
-	            this.setState({
-	                text: evt.target.value
-	            });
-	        }
-	    }, {
-	        key: 'linkChange',
-	        value: function linkChange(ev) {
-	            var link = ev.target.value;
-
-	            this.setState({
-	                link: link
-	            });
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this10 = this;
+	            var _this17 = this;
 
 	            var type = this.state.type;
 	            var container = this.props.container;
@@ -6876,8 +7036,8 @@
 	                'div',
 	                {
 	                    className: 'post-editor-form',
-	                    ref: function ref(_ref5) {
-	                        _this10._con = _ref5;
+	                    ref: function ref(_ref7) {
+	                        _this17._con = _ref7;
 	                    } },
 	                React.createElement(
 	                    'div',
@@ -6891,7 +7051,9 @@
 	                                { key: i, className: tab.type === type ? "cur" : "" },
 	                                React.createElement(
 	                                    'a',
-	                                    { rel: 'post-' + tab.type, href: 'javascript:;' },
+	                                    {
+	                                        rel: 'post-' + tab.type,
+	                                        href: 'javascript:;' },
 	                                    React.createElement('i', { className: 's s-' + tab.icon + ' s-2x' }),
 	                                    React.createElement(
 	                                        'span',
@@ -6924,7 +7086,7 @@
 	                        'div',
 	                        {
 	                            ref: function ref(popbd) {
-	                                _this10._popbd = popbd;
+	                                _this17._popbd = popbd;
 	                            },
 	                            className: 'dream-area'
 	                        },
@@ -6935,9 +7097,61 @@
 	            );
 	        }
 	    }, {
+	        key: 'checkField',
+	        value: function checkField(item, val, tips, i) {
+	            var label = item.label;
+
+
+	            var err = utils.getData(tips, 'err'),
+	                eindex = utils.getData(tips, 'eindex');
+
+	            if (err && eindex !== i) {
+	                return false;
+	            }
+
+	            // 判断是否为空
+	            if (item.require) {
+	                if (val.length === 0) {
+	                    tips.innerHTML = item.empty_msg || label + "木有输入";
+	                    tips.style.display = 'block';
+	                    utils.setData(tips, { 'err': true });
+	                    utils.setData(tips, { 'eindex': i });
+	                    return false;
+	                } else {
+	                    tips.innerHTML = '';
+	                    tips.style.display = 'none';
+	                    utils.setData(tips, { 'err': false });
+	                    utils.setData(tips, { 'eindex': i });
+	                }
+	            }
+
+	            var isValid = true,
+	                errorText = "";
+	            if (item.fun) {
+	                if (!item.fun(val)) {
+	                    isValid = false;
+	                    errorText = item.err || '';
+	                }
+
+	                if (!isValid) {
+	                    tips.style.display = 'block';
+	                    tips.innerHTML = errorText;
+	                    utils.setData(tips, { 'err': true });
+	                    utils.setData(tips, { 'eindex': i });
+	                    return false;
+	                } else {
+	                    tips.innerHTML = '';
+	                    tips.style.display = 'none';
+	                    utils.setData(tips, { 'err': false });
+	                    utils.setData(tips, { 'eindex': i });
+	                }
+	            }
+	            return true;
+	        }
+	    }, {
 	        key: 'getFormData',
 	        value: function getFormData() {
-	            var _this11 = this;
+	            var _this18 = this;
 
 	            this.formData = {};
 	            this._form && this._form.querySelectorAll('input[type=text], \
@@ -6945,28 +7159,39 @@
 	            input[type=hidden], \
 	            textarea').forEach(function (inp, key) {
 	                var val = inp.value;
-	                _this11.formData[inp.name] = val;
+	                _this18.formData[inp.name] = val;
 	            });
 	        }
 	    }, {
 	        key: 'validate',
 	        value: function validate() {
+	            var _this19 = this;
+
 	            var type = this.state.type;
 
 	            var validate = true,
-	                fields = [];
+	                rules = {};
 
 	            switch (type) {
 	                case "news":
-	                    fields = [{ name: 'content', require: true, label: '标题' }, { name: 'link', label: '网址', err: "链接格式错误", fun: function fun(val) {
-	                            return !val || utils.isUrl(val);
-	                        } }];
+	                    rules = {
+	                        content: [{ require: true, label: '标题' }],
+	                        link: [{ require: true, label: '网址' }, { label: '网址', err: "链接格式错误", fun: function fun(val) {
+	                                return !val || utils.isUrl(val);
+	                            } }]
+	                    };
 	                    break;
 	                case "image":
-	                    fields = [{ name: 'image', require: true, empty_msg: '图片木有添加', label: '图片' }];
+	                    rules = {
+	                        image: [{
+	                            require: true, empty_msg: '图片木有添加', label: '图片'
+	                        }]
+	                    };
 	                    break;
 	                case "text":
-	                    fields = [{ name: 'text', require: true, label: '文字' }];
+	                    rules = {
+	                        text: [{ require: true, label: '文字' }]
+	                    };
 	                    break;
 	            }
 
@@ -6974,56 +7199,29 @@
 	            input[type=url], \
 	            input[type=hidden], \
 	            textarea').forEach(function (inp, key) {
-	                var val = inp.value,
+	                var val = inp.value.trim(),
 	                    field = utils.closest(inp, '.field'),
 	                    tips = field && field.nextElementSibling;
 
-	                //if (!tips) {
-	                //validate = false;
-	                //return;
-	                //}
-
 	                // 判断是否有效
-	                fields && fields.forEach(function (field) {
-	                    var name = field.name,
-	                        label = field.label;
+	                for (var _key in rules) {
+	                    var rule = rules[_key],
+	                        name = _key;
+
 	                    if (name === inp.name) {
-	                        val = val.trim();
-
-	                        // 判断是否为空
-	                        if (field.require) {
-	                            if (val.length === 0) {
-	                                tips.innerHTML = field.empty_msg || label + "木有输入";
-	                                tips.style.display = 'block';
-	                                validate = false;
-	                                return;
-	                            } else {
-	                                tips.innerHTML = '';
-	                                tips.style.display = 'none';
-	                            }
-	                        }
-
-	                        var isValid = true,
-	                            errorText = "";
-	                        if (field.fun) {
-	                            if (!field.fun(val)) {
-	                                validate = false;
-	                                isValid = false;
-	                                errorText = field.err || '';
-	                            }
-	                        }
-
-	                        if (!isValid) {
-	                            tips.style.display = 'block';
-	                            tips.innerHTML = errorText;
-	                            validate = false;
-	                            return;
+	                        if (rule.length > 0) {
+	                            rule.forEach(function (item, i) {
+	                                if (!_this19.checkField(item, val, tips, i)) {
+	                                    validate = false;
+	                                }
+	                            });
 	                        } else {
-	                            tips.innerHTML = '';
-	                            tips.style.display = 'none';
+	                            if (!_this19.checkField(rule, val, tips, 0)) {
+	                                validate = false;
+	                            }
 	                        }
 	                    }
-	                });
+	                }
 	            });
 
 	            if (validate) {
@@ -7068,28 +7266,28 @@
 	    return DreamForm;
 	}(_basecom2.default);
 
-	var PostEditor = function (_React$Component2) {
-	    (0, _inherits3.default)(PostEditor, _React$Component2);
+	var PostEditor = function (_React$Component5) {
+	    (0, _inherits3.default)(PostEditor, _React$Component5);
 
 	    function PostEditor(props) {
 	        (0, _classCallCheck3.default)(this, PostEditor);
 
-	        var _this12 = (0, _possibleConstructorReturn3.default)(this, (PostEditor.__proto__ || (0, _getPrototypeOf2.default)(PostEditor)).call(this, props));
+	        var _this20 = (0, _possibleConstructorReturn3.default)(this, (PostEditor.__proto__ || (0, _getPrototypeOf2.default)(PostEditor)).call(this, props));
 
-	        _this12.state = {
+	        _this20.state = {
 	            loading: true,
 	            checked: false,
 	            tagName: '',
 	            type: '',
 	            tag: ''
 	        };
-	        return _this12;
+	        return _this20;
 	    }
 
 	    (0, _createClass3.default)(PostEditor, [{
 	        key: 'checkUser',
 	        value: function checkUser(cb) {
-	            var _this13 = this;
+	            var _this21 = this;
 
 	            var tag = this.props.tag;
 
@@ -7097,12 +7295,12 @@
 	            if (tag) {
 	                _req2.default.getJSON('/tag/getinfo', { tid: this.curTag }, cb.bind(this), function () {
 	                    alert('网络异常');
-	                    _this13.close();
+	                    _this21.close();
 	                });
 	            } else {
 	                _req2.default.getJSON('/islogin', null, cb.bind(this), function () {
 	                    alert('网络异常');
-	                    _this13.close();
+	                    _this21.close();
 	                });
 	            }
 	        }
@@ -7117,7 +7315,7 @@
 	    }, {
 	        key: 'loadPostForm',
 	        value: function loadPostForm(type, tag) {
-	            var _this14 = this;
+	            var _this22 = this;
 
 	            this.setState({
 	                loading: true
@@ -7126,11 +7324,11 @@
 	                try {
 	                    var ret = +data.result;
 	                    if (ret === 0) {
-	                        var _ref6 = data.data || {},
-	                            _ref6$tagName = _ref6.tagName,
-	                            tagName = _ref6$tagName === undefined ? '' : _ref6$tagName;
+	                        var _ref8 = data.data || {},
+	                            _ref8$tagName = _ref8.tagName,
+	                            tagName = _ref8$tagName === undefined ? '' : _ref8$tagName;
 
-	                        _this14.setState({
+	                        _this22.setState({
 	                            loading: false,
 	                            checked: true,
 	                            type: type,
@@ -7138,11 +7336,11 @@
 	                            tagName: tagName
 	                        });
 	                    } else if (ret === 2) {
-	                        var dialog = _this14.props.dialog;
+	                        var dialog = _this22.props.dialog;
 
 	                        dialog.hide();
 
-	                        _this14.setState({
+	                        _this22.setState({
 	                            loading: false
 	                        });
 
@@ -7154,7 +7352,7 @@
 	                        }
 	                    } else {
 	                        alert(data.info);
-	                        _this14.close();
+	                        _this22.close();
 	                    }
 	                } catch (err) {
 	                    alert(err.message);
@@ -7175,10 +7373,10 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _state4 = this.state,
-	                loading = _state4.loading,
-	                tagName = _state4.tagName,
-	                checked = _state4.checked;
+	            var _state6 = this.state,
+	                loading = _state6.loading,
+	                tagName = _state6.tagName,
+	                checked = _state6.checked;
 
 
 	            if (loading) {
@@ -7189,9 +7387,9 @@
 	                );
 	            } else {
 	                if (checked) {
-	                    var _state5 = this.state,
-	                        type = _state5.type,
-	                        tag = _state5.tag;
+	                    var _state7 = this.state,
+	                        type = _state7.type,
+	                        tag = _state7.tag;
 
 
 	                    return React.createElement(DreamForm, {
@@ -7218,21 +7416,33 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(INDENT, 'INDENT', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(INDENT, 'INDENT', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BREAK, 'BREAK', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(BREAK, 'BREAK', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(Input, 'Input', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', 'E:/mypro/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', 'E:/mypro/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', 'E:/mypro/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', 'E:/mypro/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', 'E:/mypro/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/PostEditor.js');
 	}();
 
 	;
@@ -7247,7 +7457,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(46);
+	var _extends2 = __webpack_require__(41);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -7364,9 +7574,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', 'E:/mypro/tyxb/src/TextEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextEditor.js');
 	}();
 
 	;
@@ -7411,7 +7621,7 @@
 	'use strict';
 	// 19.1.2.1 Object.assign(target, source, ...)
 	var getKeys  = __webpack_require__(17)
-	  , gOPS     = __webpack_require__(41)
+	  , gOPS     = __webpack_require__(42)
 	  , pIE      = __webpack_require__(23)
 	  , toObject = __webpack_require__(24)
 	  , IObject  = __webpack_require__(61)
@@ -7686,263 +7896,263 @@
 	with (obj) {
 
 	 if (dream.category) { ;
-	__p += '\n<li class="list-item">\n    ';
+	__p += '\r\n<li class="list-item">\r\n    ';
 	 if (data.nav !== 'user') { ;
-	__p += '\n    <div class="post-box">\n    ';
+	__p += '\r\n    <div class="post-box">\r\n    ';
 	 } else { ;
-	__p += '\n    <div class="post-box user-mode">\n    ';
+	__p += '\r\n    <div class="post-box user-mode">\r\n    ';
 	 } ;
-	__p += '\n        <div class="user-info-box">\n            ';
+	__p += '\r\n        <div class="user-info-box">\r\n            ';
 	 if (data.nav !== 'user') { ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (dream._belong_u) { ;
-	__p += '\n            <a class="avatar" href="/user/' +
+	__p += '\r\n            <a class="avatar" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
-	'">\n                <img src="' +
+	'">\r\n                <img src="' +
 	((__t = ( dream._belong_u.avatar || '/images/avatar.png' )) == null ? '' : __t) +
-	'" />\n            </a>\n            ';
+	'" />\r\n            </a>\r\n            ';
 	 } else { ;
-	__p += '\n            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>\n            ';
+	__p += '\r\n            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>\r\n            ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 } ;
-	__p += '\n            <div class="userinfo">\n                ';
+	__p += '\r\n            <div class="userinfo">\r\n                ';
 	 if (data.nav !== 'user') { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (dream._belong_u) { ;
-	__p += '\n                <a class="username" href="/user/' +
+	__p += '\r\n                <a class="username" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
 	'">' +
 	((__t = ( dream._belong_u.username )) == null ? '' : __t) +
-	'</a>\n                ';
+	'</a>\r\n                ';
 	 } else { ;
-	__p += '\n                <a class="username" href="/user/unknow">未知</a>\n                ';
+	__p += '\r\n                <a class="username" href="/user/unknow">未知</a>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 } ;
-	__p += '\n                <span class="datetime">\n                    ' +
+	__p += '\r\n                <span class="datetime">\r\n                    ' +
 	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
-	'\n                </span>\n                ';
+	'\r\n                </span>\r\n                ';
 	 if (dream.place) { ;
-	__p += '\n                <span class="place">\n                    地点：' +
+	__p += '\r\n                <span class="place">\r\n                    地点：' +
 	((__t = ( dream.place )) == null ? '' : __t) +
-	'\n                </span>\n                ';
+	'\r\n                </span>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (!is_mobile) { ;
-	__p += '\n                <span class="mood">\n                    心情：<a rel="key-mood" data-mood="' +
+	__p += '\r\n                <span class="mood">\r\n                    心情：<a rel="key-mood" data-mood="' +
 	((__t = ( dream.mood )) == null ? '' : __t) +
 	'" href="javascript:;">' +
 	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\n                </span>\n                <span class="health">\n                    身体状况：<a rel="key-health" data-health="' +
+	'\r\n                </span>\r\n                <span class="health">\r\n                    身体状况：<a rel="key-health" data-health="' +
 	((__t = ( dream.health )) == null ? '' : __t) +
 	'" href="javascript:;">' +
 	((__t = ( dream.health )) == null ? '' : __t) +
-	'\n                </span>\n                <span class="things">\n                    ';
+	'\r\n                </span>\r\n                <span class="things">\r\n                    ';
 	 if (dream.category === 'news') { ;
-	__p += '\n                    记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...\n                    ';
+	__p += '\r\n                    记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...\r\n                    ';
 	 } else if (dream.category === 'image') { ;
-	__p += '\n                    记录了一张<a rel="key-catgory" data-category="图片" href="javascript:;">“图片”</a>...\n                    ';
+	__p += '\r\n                    记录了一张<a rel="key-catgory" data-category="图片" href="javascript:;">“图片”</a>...\r\n                    ';
 	 } else if (dream.category === 'text') { ;
-	__p += '\n                    记录了一篇<a rel="key-catgory" data-category="文字" href="javascript:;">“文字”</a>...\n                    ';
+	__p += '\r\n                    记录了一篇<a rel="key-catgory" data-category="文字" href="javascript:;">“文字”</a>...\r\n                    ';
 	 } ;
-	__p += '\n                </span>\n                ';
+	__p += '\r\n                </span>\r\n                ';
 	 } ;
-	__p += '\n            </div>\n            <div class="userctrl">\n                ';
+	__p += '\r\n            </div>\r\n            <div class="userctrl">\r\n                ';
 	 if (user && (data.tag && data.tag.delperm)) { ;
-	__p += '\n                <a href="javascript:;" data-did="' +
+	__p += '\r\n                <a href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-reject"><i class="s s-remove s-lg"></i>拒绝</a>\n                ';
+	'" rel="dream-reject"><i class="s s-remove s-lg"></i>拒绝</a>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (user && dream._belong_u) { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (dream._belong_u._id.equals(user._id)) { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (!dream.isremove) { ;
-	__p += '\n                <a href="javascript:;" data-did="' +
+	__p += '\r\n                <a href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-delete"><i class="s s-remove s-lg"></i>删除</a>\n                ';
+	'" rel="dream-delete"><i class="s s-remove s-lg"></i>删除</a>\r\n                ';
 	 } else { ;
-	__p += '\n                <span>已删除</span>\n                ';
+	__p += '\r\n                <span>已删除</span>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 } ;
-	__p += '\n            </div>\n        </div>\n        ';
+	__p += '\r\n            </div>\r\n        </div>\r\n        ';
 	 if (is_mobile) { ;
-	__p += '\n        <div class="userinfo-mobile">\n            <span class="mood">\n                心情：' +
+	__p += '\r\n        <div class="userinfo-mobile">\r\n            <span class="mood">\r\n                心情：' +
 	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\n            </span>\n            <span class="health">\n                身体状况：' +
+	'\r\n            </span>\r\n            <span class="health">\r\n                身体状况：' +
 	((__t = ( dream.health )) == null ? '' : __t) +
-	'\n            </span>\n            <span class="things">\n                ';
+	'\r\n            </span>\r\n            <span class="things">\r\n                ';
 	 if (dream.category === 'news') { ;
-	__p += '\n                记录了一篇“网页”...\n                ';
+	__p += '\r\n                记录了一篇“网页”...\r\n                ';
 	 } else if (dream.category === 'image') { ;
-	__p += '\n                记录了一张“图片”...\n                ';
+	__p += '\r\n                记录了一张“图片”...\r\n                ';
 	 } else if (dream.category === 'text') { ;
-	__p += '\n                记录了一篇“文字”...\n                ';
+	__p += '\r\n                记录了一篇“文字”...\r\n                ';
 	 } ;
-	__p += '\n            </span>\n        </div>\n        ';
+	__p += '\r\n            </span>\r\n        </div>\r\n        ';
 	 } ;
-	__p += '\n        ';
+	__p += '\r\n        ';
 	 if (dream.category === 'news') { ;
-	__p += '\n        <a \n            ';
+	__p += '\r\n        <a \r\n            ';
 	 if (dream.link) { ;
-	__p += '\n            href="' +
+	__p += '\r\n            href="' +
 	((__t = ( dream.link )) == null ? '' : __t) +
-	'"\n            ';
+	'"\r\n            ';
 	 } else { ;
-	__p += '\n            href="/dream/' +
+	__p += '\r\n            href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'"\n            ';
+	'"\r\n            ';
 	 } ;
-	__p += '\n        >\n        ';
+	__p += '\r\n        >\r\n        ';
 	 } ;
-	__p += '\n        <div \n            ';
+	__p += '\r\n        <div \r\n            ';
 	 if (dream.category === 'news') { ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (dream.thumbnail) { ;
-	__p += '\n            class="post-content thumb-mode news"\n            ';
+	__p += '\r\n            class="post-content thumb-mode news"\r\n            ';
 	 } else { ;
-	__p += '\n            class="post-content news"\n            ';
+	__p += '\r\n            class="post-content news"\r\n            ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 } else if (dream.category === 'image') { ;
-	__p += '\n            class="post-content image"\n            ';
+	__p += '\r\n            class="post-content image"\r\n            ';
 	 } else if (dream.category === 'text') { ;
-	__p += '\n            class="post-content text"\n            ';
+	__p += '\r\n            class="post-content text"\r\n            ';
 	 } ;
-	__p += '\n        >\n            ';
+	__p += '\r\n        >\r\n            ';
 	 if (dream.isremove) { ;
-	__p += '\n                [已被作者删除]\n            ';
+	__p += '\r\n                [已被作者删除]\r\n            ';
 	 } else { ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (is_mobile) { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (dream.mthumbnail && dream.category !== 'image') { ;
-	__p += '\n                <div class="thumbnail">\n                    <img src="' +
+	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
 	((__t = ( dream.mthumbnail )) == null ? '' : __t) +
-	'" />\n                </div>\n                ';
+	'" />\r\n                </div>\r\n                ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 } else { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (dream.thumbnail && dream.category !== 'image') { ;
-	__p += '\n                <div class="thumbnail">\n                    <img src="' +
+	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\n                </div>\n                ';
+	'" />\r\n                </div>\r\n                ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (dream.thumbnail && dream.category === 'image') { ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (!is_mobile) { ;
-	__p += '\n            <div rel="dream-picsrc" class="piccard">\n                <img src="' +
+	__p += '\r\n            <div rel="dream-picsrc" class="piccard">\r\n                <img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\n            </div>\n            ';
+	'" />\r\n            </div>\r\n            ';
 	 } else { ;
-	__p += '\n            <div class="piccard">\n                <a href="' +
+	__p += '\r\n            <div class="piccard">\r\n                <a href="' +
 	((__t = ( dream.thumbnail.replace('picmini', 'uploads') )) == null ? '' : __t) +
 	'"><img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" /></a>\n            </div>\n            ';
+	'" /></a>\r\n            </div>\r\n            ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 } ;
-	__p += '\n            <div class="entry">\n            ';
+	__p += '\r\n            <div class="entry">\r\n            ';
 	 if (dream.content) { ;
-	__p += '\n            <div class="title">\n            ';
+	__p += '\r\n            <div class="title">\r\n            ';
 	 if (dream.category === 'news') { ;
-	__p += '\n            <i class="s s-link s-lg"></i>&nbsp;\n            ';
+	__p += '\r\n            <i class="s s-link s-lg"></i>&nbsp;\r\n            ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (data.query) { ;
-	__p += '\n            ' +
+	__p += '\r\n            ' +
 	__e( highLight(dlimit(dream.content), data.query) ) +
-	'\n            ';
+	'\r\n            ';
 	 } else { ;
-	__p += '\n            ' +
+	__p += '\r\n            ' +
 	((__t = ( dlimit(dream.content) )) == null ? '' : __t) +
-	'\n            ';
+	'\r\n            ';
 	 } ;
-	__p += '\n            </div>\n            ';
+	__p += '\r\n            </div>\r\n            ';
 	 } ;
-	__p += '\n            ';
+	__p += '\r\n            ';
 	 if (dream.summary) { ;
-	__p += '\n            <div class="summary">\n                ' +
+	__p += '\r\n            <div class="summary">\r\n                ' +
 	__e( dream.summary ) +
-	'\n                ';
+	'\r\n                ';
 	 if (dream.category === 'text' && dream.showall) { ;
-	__p += '\n                <a class="show-all" href="/dream/' +
+	__p += '\r\n                <a class="show-all" href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'">全文&nbsp;↓</a>\n                ';
+	'">全文&nbsp;↓</a>\r\n                ';
 	 } ;
-	__p += '\n            </div>\n            ';
+	__p += '\r\n            </div>\r\n            ';
 	 } ;
-	__p += '\n            </div>\n            ';
+	__p += '\r\n            </div>\r\n            ';
 	 } ;
-	__p += '\n        </div>\n        ';
+	__p += '\r\n        </div>\r\n        ';
 	 if (dream.category === 'news') { ;
-	__p += '\n        </a>\n        ';
+	__p += '\r\n        </a>\r\n        ';
 	 } ;
-	__p += '\n        <div class="post-footer">\n            <div class="ctrl-box">\n                ';
+	__p += '\r\n        <div class="post-footer">\r\n            <div class="ctrl-box">\r\n                ';
 	 if (user) { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (dream.good && dream.good.length > 0) { ;
-	__p += '\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
+	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>\n                ';
+	'" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>\r\n                ';
 	 } else { ;
-	__p += '\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
+	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\n                ';
+	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 } else { ;
-	__p += '\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
+	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\n                ';
+	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (!is_mobile) { ;
-	__p += '\n                <span class="vote-num" rel="vote-num">有' +
+	__p += '\r\n                <span class="vote-num" rel="vote-num">有' +
 	((__t = ( dream.vote )) == null ? '' : __t) +
-	'人喜欢...</span></div></a>\n                ';
+	'人喜欢...</span></div></a>\r\n                ';
 	 } else { ;
-	__p += '\n                <span class="vote-num" rel="vote-num">' +
+	__p += '\r\n                <span class="vote-num" rel="vote-num">' +
 	((__t = ( dream.vote )) == null ? '' : __t) +
-	'</span></div></a>\n                ';
+	'</span></div></a>\r\n                ';
 	 } ;
-	__p += '\n                <a href="/dream/' +
+	__p += '\r\n                <a href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'#dreamCtrlBox">留言&nbsp;<span class="comment-num">' +
 	((__t = ( dream.cnum )) == null ? '' : __t) +
-	'</span></a>\n                ';
+	'</span></a>\r\n                ';
 	 if (user) { ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 if (dream._followers_u && dream._followers_u.length > 0) { ;
-	__p += '\n                <a data-did="' +
+	__p += '\r\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>\n                ';
+	'" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>\r\n                ';
 	 } else { ;
-	__p += '\n                <a data-did="' +
+	__p += '\r\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\n                ';
+	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
 	 } ;
-	__p += '\n                ';
+	__p += '\r\n                ';
 	 } else { ;
-	__p += '\n                <a data-did="' +
+	__p += '\r\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\n                ';
+	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
 	 } ;
-	__p += '\n            </div>\n        </div>\n    </div>\n</li>\n';
+	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n';
 	} else {;
-	__p += '\n<li class="list-item">[该内容显示异常]</li>\n';
+	__p += '\r\n<li class="list-item">[该内容显示异常]</li>\r\n';
 	 } ;
-	__p += '\n\n';
+	__p += '\r\n\r\n';
 
 	}
 	return __p
