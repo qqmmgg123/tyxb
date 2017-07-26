@@ -5889,6 +5889,22 @@
 	    (0, _createClass3.default)(RichEditor, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            var _props = this.props,
+	                focus = _props.focus,
+	                initValue = _props.initValue;
+
+
+	            if (focus) {
+	                this.focus();
+	            }
+
+	            this.setState({
+	                html: initValue
+	            });
+	        }
+	    }, {
+	        key: 'focus',
+	        value: function focus() {
 	            this._editor.focus();
 	        }
 	    }, {
@@ -5906,15 +5922,18 @@
 	                    },
 	                    placeholder: '\u6B63\u6587',
 	                    className: 'text-editor',
+	                    onFocus: this.props.onFocus,
 	                    onChange: function onChange(evt) {
+	                        var val = evt.target.value;
 	                        _this2.setState({
-	                            html: evt.target.value
+	                            html: val
 	                        });
+	                        _this2.props.onChange(val);
 	                    }
 	                }),
 	                React.createElement('textarea', (0, _extends3.default)({
 	                    style: { display: "none" }
-	                }, this.props, {
+	                }, this.props.attrs, {
 	                    value: this.state.html
 	                }))
 	            );
@@ -5940,6 +5959,22 @@
 	    (0, _createClass3.default)(TextArea, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            var _props2 = this.props,
+	                focus = _props2.focus,
+	                initValue = _props2.initValue;
+
+
+	            if (focus) {
+	                this.focus();
+	            }
+
+	            this.setState({
+	                text: initValue
+	            });
+	        }
+	    }, {
+	        key: 'focus',
+	        value: function focus() {
 	            this._textArea.focus();
 	        }
 	    }, {
@@ -5947,14 +5982,17 @@
 	        value: function render() {
 	            var _this4 = this;
 
-	            return React.createElement('textarea', (0, _extends3.default)({}, this.props, {
+	            return React.createElement('textarea', (0, _extends3.default)({}, this.props.attrs, {
 	                ref: function ref(_ref2) {
 	                    _this4._textArea = _ref2;
 	                },
+	                onFocus: this.props.onFocus,
 	                onChange: function onChange(evt) {
+	                    var val = evt.target.value;
 	                    _this4.setState({
-	                        text: evt.target.value
+	                        text: val
 	                    });
+	                    _this4.props.onChange(val);
 	                },
 	                value: this.state.text
 	            }));
@@ -5980,6 +6018,22 @@
 	    (0, _createClass3.default)(Input, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            var _props3 = this.props,
+	                focus = _props3.focus,
+	                initValue = _props3.initValue;
+
+
+	            if (focus) {
+	                this.focus();
+	            }
+
+	            this.setState({
+	                value: initValue
+	            });
+	        }
+	    }, {
+	        key: 'focus',
+	        value: function focus() {
 	            this._input.focus();
 	        }
 	    }, {
@@ -5987,14 +6041,17 @@
 	        value: function render() {
 	            var _this6 = this;
 
-	            return React.createElement('input', (0, _extends3.default)({}, this.props, {
+	            return React.createElement('input', (0, _extends3.default)({}, this.props.attrs, {
 	                ref: function ref(_ref3) {
 	                    _this6._input = _ref3;
 	                },
+	                onFocus: this.props.onFocus,
 	                onChange: function onChange(evt) {
+	                    var val = evt.target.value;
 	                    _this6.setState({
-	                        value: evt.target.value
+	                        value: val
 	                    });
+	                    _this6.props.onChange(val);
 	                },
 	                value: this.state.value
 	            }));
@@ -6106,25 +6163,35 @@
 	    "text": [{
 	        name: "text",
 	        type: "text",
-	        com: "textField"
+	        com: "textField",
+	        val: '',
+	        focus: true
 	    }],
 	    "image": [{
 	        name: "image",
 	        type: "image",
-	        com: "imageField"
+	        com: "imageField",
+	        val: '',
+	        focus: false
 	    }, {
 	        name: "content",
 	        type: "title",
-	        com: "titleField"
+	        com: "titleField",
+	        val: '',
+	        focus: true
 	    }],
 	    "news": [{
 	        name: "link",
 	        type: "link",
-	        com: "linkField"
+	        com: "linkField",
+	        val: '',
+	        focus: true
 	    }, {
 	        name: "content",
 	        type: "title",
-	        com: "titleField"
+	        com: "titleField",
+	        val: '',
+	        focus: false
 	    }]
 	};
 
@@ -6193,7 +6260,12 @@
 	                },
 	                fields.map(function (form, i) {
 	                    var Form = _this10[form.com];
-	                    return React.createElement(Form, { key: i });
+	                    return React.createElement(Form, {
+	                        focus: form.focus,
+	                        initValue: form.val,
+	                        field: form,
+	                        key: i
+	                    });
 	                }),
 	                React.createElement('input', {
 	                    type: 'hidden',
@@ -6219,21 +6291,24 @@
 	                NAME = TITLE ? TITLE : '';
 
 
-	            return function () {
+	            return function (props) {
 	                return React.createElement(
 	                    'div',
 	                    { className: 'form-group' },
 	                    React.createElement(
 	                        'p',
 	                        { className: 'field' },
-	                        React.createElement(TextArea, {
-	                            maxLength: '140',
-	                            'data-cname': NAME,
-	                            id: 'dream-title',
-	                            name: 'content',
-	                            placeholder: NAME,
-	                            onFocus: _this11.resetField.bind(_this11)
-	                        })
+	                        React.createElement(TextArea, (0, _extends3.default)({
+	                            attrs: {
+	                                maxLength: "140",
+	                                name: "content",
+	                                placeholder: NAME
+	                            },
+	                            onFocus: _this11.resetField.bind(_this11),
+	                            onChange: function onChange(val) {
+	                                props.field.val = val;
+	                            }
+	                        }, props))
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
 	                );
@@ -6247,7 +6322,7 @@
 	            var text = this.state.text;
 
 
-	            return function () {
+	            return function (props) {
 	                return React.createElement(
 	                    'div',
 	                    { className: 'form-group' },
@@ -6256,10 +6331,15 @@
 	                        {
 	                            className: 'field'
 	                        },
-	                        React.createElement(RichEditor, {
+	                        React.createElement(RichEditor, (0, _extends3.default)({
 	                            onFocus: _this12.resetField.bind(_this12),
-	                            name: 'text'
-	                        })
+	                            onChange: function onChange(val) {
+	                                props.field.val = val;
+	                            },
+	                            attrs: {
+	                                name: "text"
+	                            }
+	                        }, props))
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
 	                );
@@ -6348,20 +6428,24 @@
 	        get: function get() {
 	            var _this14 = this;
 
-	            return function () {
+	            return function (props) {
 	                return React.createElement(
 	                    'div',
 	                    { className: 'form-group' },
 	                    React.createElement(
 	                        'p',
 	                        { className: 'field' },
-	                        React.createElement(Input, {
-	                            'data-cname': '\u7F51\u5740',
-	                            type: 'url',
-	                            name: 'link',
-	                            placeholder: '\u7F51\u5740\uFF0C\u4F8B: http://www.ty-xb.com',
-	                            onFocus: _this14.resetField.bind(_this14)
-	                        })
+	                        React.createElement(Input, (0, _extends3.default)({
+	                            attrs: {
+	                                type: "url",
+	                                name: "link",
+	                                placeholder: "网址，例: http://www.ty-xb.com"
+	                            },
+	                            onFocus: _this14.resetField.bind(_this14),
+	                            onChange: function onChange(val) {
+	                                props.field.val = val;
+	                            }
+	                        }, props))
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
 	                );
@@ -6393,18 +6477,24 @@
 	    }, {
 	        key: 'healthField',
 	        get: function get() {
-	            return function () {
+	            return function (props) {
 	                return React.createElement(
 	                    'div',
 	                    { className: 'form-group' },
 	                    React.createElement(
 	                        'p',
 	                        { className: 'field' },
-	                        React.createElement(TextArea, {
-	                            maxLength: '30',
-	                            name: 'health',
-	                            placeholder: '\u8EAB\u4F53\u72B6\u51B5'
-	                        })
+	                        React.createElement(Input, (0, _extends3.default)({
+	                            attrs: {
+	                                type: "text",
+	                                maxLength: "30",
+	                                name: "health",
+	                                placeholder: "身体状况"
+	                            },
+	                            onChange: function onChange(val) {
+	                                props.field.val = val;
+	                            }
+	                        }, props))
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
 	                );
@@ -6413,18 +6503,24 @@
 	    }, {
 	        key: 'moodField',
 	        get: function get() {
-	            return function () {
+	            return function (props) {
 	                return React.createElement(
 	                    'div',
 	                    { className: 'form-group' },
 	                    React.createElement(
 	                        'p',
 	                        { className: 'field' },
-	                        React.createElement(TextArea, {
-	                            maxLength: '30',
-	                            name: 'mood',
-	                            placeholder: '\u5FC3\u60C5'
-	                        })
+	                        React.createElement(Input, (0, _extends3.default)({
+	                            attrs: {
+	                                type: "text",
+	                                maxLength: "30",
+	                                name: "health",
+	                                placeholder: "心情"
+	                            },
+	                            onChange: function onChange(val) {
+	                                props.field.val = val;
+	                            }
+	                        }, props))
 	                    ),
 	                    React.createElement('p', { className: 'validate-error' })
 	                );
@@ -6444,9 +6540,6 @@
 
 	        _this9.state = {
 	            type: type,
-	            image: '',
-	            imageId: '',
-	            text: '',
 	            fields: FIELDS[type],
 	            btns: BTNS[type]
 	        };
@@ -6462,6 +6555,8 @@
 
 	            tips.innerHTML = '';
 	            tips.style.display = 'none';
+	            utils.setData(tips, { 'err': false });
+	            utils.setData(tips, { 'eindex': 0 });
 	        }
 	    }, {
 	        key: 'encodeContent',
@@ -6532,7 +6627,9 @@
 	                fields.push({
 	                    name: NAME_MAP[fieldType],
 	                    type: fieldType,
-	                    com: fieldType + 'Field'
+	                    com: fieldType + 'Field',
+	                    focus: true,
+	                    val: ''
 	                });
 	            } else {
 	                fields = fields.filter(function (field) {
@@ -7148,6 +7245,7 @@
 	                },
 	                onInput: this.emitChange,
 	                onBlur: this.props.onBlur || this.emitChange,
+	                onFocus: this.props.onFocus,
 	                contentEditable: !this.props.disabled,
 	                dangerouslySetInnerHTML: { __html: html }
 	            }), this.props.children);

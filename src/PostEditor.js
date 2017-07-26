@@ -16,7 +16,19 @@ class RichEditor extends React.Component{
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        const { focus, initValue } = this.props;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            html: initValue
+        });
+    }
+
+    focus(){
         this._editor.focus();
     }
 
@@ -28,15 +40,18 @@ class RichEditor extends React.Component{
                 ref={(ref) => this._editor = ref}
                 placeholder="正文"
                 className="text-editor"
+                onFocus={this.props.onFocus}
                 onChange={(evt) => {
+                    const val = evt.target.value;
                     this.setState({
-                        html: evt.target.value
+                        html: val
                     });
+                    this.props.onChange(val);
                 }} 
                 />
                 <textarea 
                 style={{display: "none"}}
-                {...this.props}
+                {...this.props.attrs}
                 value={this.state.html}
                 ></textarea>
             </div>
@@ -53,19 +68,34 @@ class TextArea extends React.Component{
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        const { focus, initValue } = this.props;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            text: initValue
+        });
+    }
+
+    focus() {
         this._textArea.focus();
     }
 
     render() {
         return(
             <textarea 
-            {...this.props}
+            {...this.props.attrs}
             ref={(ref) => { this._textArea = ref; }}
+            onFocus={this.props.onFocus}
             onChange={(evt) => {
+                const val = evt.target.value;
                 this.setState({
-                    text: evt.target.value
+                    text: val
                 });
+                this.props.onChange(val);
             }}
             value={this.state.text}
             >
@@ -83,19 +113,34 @@ class Input extends React.Component{
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        const { focus, initValue } = this.props;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            value: initValue
+        });
+    }
+
+    focus(){
         this._input.focus();
     }
 
     render() {
         return(
             <input 
-            {...this.props}
+            {...this.props.attrs}
             ref={(ref) => { this._input = ref; }}
+            onFocus={this.props.onFocus}
             onChange={(evt) => {
+                const val = evt.target.value;
                 this.setState({
-                    value: evt.target.value
+                    value: val
                 });
+                this.props.onChange(val);
             }} 
             value={this.state.value}
             />
@@ -189,25 +234,35 @@ const FIELDS = {
     "text": [{
         name: "text",
         type: "text",
-        com: "textField"
+        com: "textField",
+        val: '',
+        focus: true
     }],
     "image": [{
         name: "image",
         type: "image",
-        com: "imageField"
+        com: "imageField",
+        val: '',
+        focus: false
     }, {
         name: "content",
         type: "title",
-        com: "titleField"
+        com: "titleField",
+        val: '',
+        focus: true
     }],
     "news": [{
         name: "link",
         type: "link",
-        com: "linkField"
+        com: "linkField",
+        val: '',
+        focus: true
     }, {
         name: "content",
         type: "title",
-        com: "titleField"
+        com: "titleField",
+        val: '',
+        focus: false
     }]
 };
 
@@ -260,7 +315,14 @@ class DreamForm extends BaseCom {
             >
                 {fields.map((form, i) => {
                     let Form = this[form.com];
-                    return (<Form key={i} />)
+                    return (
+                        <Form 
+                        focus={form.focus} 
+                        initValue={form.val} 
+                        field={form}
+                        key={i} 
+                        />
+                    )
                 })}
                 <input 
                 type="hidden" 
@@ -281,16 +343,20 @@ class DreamForm extends BaseCom {
             TITLE = TITLES_MAP[type],
             NAME = TITLE? TITLE:'';
 
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
                     <TextArea 
-                    maxLength="140" 
-                    data-cname={NAME} 
-                    id="dream-title" 
-                    name="content" 
-                    placeholder={NAME} 
+                    attrs={{
+                        maxLength: "140",
+                        name: "content",
+                        placeholder: NAME
+                    }}
                     onFocus = {this.resetField.bind(this)}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -301,14 +367,20 @@ class DreamForm extends BaseCom {
     get textField() {
        const { text } = this.state;
 
-       return () => (
+       return (props) => (
             <div className="form-group">
                 <div 
                 className="field"
                 >
                     <RichEditor 
                     onFocus = {this.resetField.bind(this)}
-                    name="text" 
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    attrs={{
+                        name: "text"
+                    }}
+                    {...props}
                     />
                 </div>
                 <p className="validate-error"></p>
@@ -374,15 +446,20 @@ class DreamForm extends BaseCom {
     }
 
     get linkField() {
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
                     <Input
-                    data-cname="网址" 
-                    type="url" 
-                    name="link" 
-                    placeholder="网址，例: http://www.ty-xb.com"
+                    attrs={{
+                        type: "url",
+                        name: "link",
+                        placeholder: "网址，例: http://www.ty-xb.com"
+                    }}
                     onFocus = {this.resetField.bind(this)}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -408,13 +485,20 @@ class DreamForm extends BaseCom {
     }
 
     get healthField() {
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
-                    <TextArea 
-                    maxLength="30" 
-                    name="health" 
-                    placeholder="身体状况" 
+                    <Input 
+                    attrs={{
+                        type: "text",
+                        maxLength: "30",
+                        name: "health",
+                        placeholder: "身体状况"
+                    }}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -423,13 +507,20 @@ class DreamForm extends BaseCom {
     }
 
     get moodField() {
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
-                    <TextArea 
-                    maxLength="30" 
-                    name="mood" 
-                    placeholder="心情" 
+                    <Input 
+                    attrs={{
+                        type: "text",
+                        maxLength: "30",
+                        name: "health",
+                        placeholder: "心情"
+                    }}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -446,9 +537,6 @@ class DreamForm extends BaseCom {
 
         this.state = {
             type: type,
-            image: '',
-            imageId: '',
-            text: '',
             fields: FIELDS[type],
             btns: BTNS[type]
         }
@@ -461,6 +549,8 @@ class DreamForm extends BaseCom {
 
         tips.innerHTML = '';
         tips.style.display = 'none';
+        utils.setData(tips, {'err': false});
+        utils.setData(tips, {'eindex': 0});
     }
 
     encodeContent(text) {
@@ -539,7 +629,9 @@ class DreamForm extends BaseCom {
             fields.push({
                 name: NAME_MAP[fieldType],
                 type: fieldType,
-                com: fieldType + 'Field'
+                com: fieldType + 'Field',
+                focus: true,
+                val: ''
             });
         }
         else{

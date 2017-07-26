@@ -59,7 +59,16 @@ router.post('/new', function(req, res, next) {
         return next(new Error(settings.PARAMS_PASSED_ERR_TIPS));
     }
 
-    let { tag, content, link, text, image, category } = req.body;
+    let { 
+        tag, 
+        content, 
+        link, 
+        text, 
+        image, 
+        category, 
+        mood, 
+        health 
+    } = req.body;
         
     if (!category || !category.trim()) {
         return next(new Error("参数错误!"));
@@ -71,10 +80,11 @@ router.post('/new', function(req, res, next) {
     let fields = {
         _belong_u  : uid,
         category   : category.trim(),
-        place      : user.place,
-        mood       : user.mood,
-        health     : user.health
+        place      : user.place
     }
+
+    if (mood && mood.trim()) fields.mood = mood.trim();
+    if (health && health.trim()) fields.health = health.trim();
 
     if (tag && tag.trim()) {
         fields._belong_t = tag;

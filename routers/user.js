@@ -961,31 +961,6 @@ router.post('/update', function(req, res, next) {
     }
 });
 
-// Track user info.
-router.post('/track', function(req, res, next) {
-    if (!req.user) {
-        return next();
-    }
-
-    if (!req.xhr) {
-        const user = req.user;
-        common.getIpInfo(req.ip, (err, cityInfo) => {
-            const city = cityInfo? cityInfo.city:'未知',
-                  now = new Date();
-
-            user.update({
-                place: city,
-                last_online: now
-            }, function(err, course) {
-                next();
-            });
-        });
-    }
-    else{
-        next();
-    }
-});
-
 router.post('/cfollow', function(req, res, next) {
     if (!req.user) {
         return res.json({
