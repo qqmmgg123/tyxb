@@ -7,6 +7,181 @@ const common = require('common');
 const INDENT = '  ';
 const BREAK  = '<br/>';
 
+class ImageUpload extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            url: '',
+            imageId: ''
+        }
+    }
+
+    componentDidMount() {
+        const { focus, initValue, data } = this.props;
+        const { url } = data;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            url: url,
+            imageId: initValue
+        });
+    }
+
+    focus() {
+        this.onAddImage();
+    }
+
+    onAddImage() {
+        this._imageUpload.click();
+    }
+
+        onCancelImage() {
+        this.setState({
+            curImage: ''
+        });
+    }
+
+    fileDragHover(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.target.className = (
+            e.type == "dragover" ? 
+            "image-drag-box hover" : "image-drag-box"
+        );
+    }
+
+    fileSelectHandler(e) {
+        this.fileDragHover(e);
+
+        this.uploadImage.call(this, e);
+    }
+
+    loadImage(url, id) {
+        var img = new Image();
+        /*this.setState({
+            loading: true
+        });*/
+        img.src = url;
+        if(img.complete) {
+            this.setState({
+                //loading: false,
+                imageId: id,
+                url: url
+            });
+            this.props.onUploadSuccess({
+                imageId: id,
+                url: url
+            });
+            return;
+        }
+        img.onload = () => {
+            this.setState({
+                //loading: false,
+                imageId: id,
+                url: url
+            });
+        };
+        img.onerror = () => {
+            alert("网络异常，图片加载失败");
+        }
+    }
+
+    uploadImage(ev) {
+        var self = this;
+        var files = ev.target.files || ev.dataTransfer.files;
+        var file = files[0];
+        var fd = new FormData();
+        fd.append("pic", file);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/pic/upload', true);
+        xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
+
+        xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) {
+                var percentComplete = (e.loaded / e.total) * 100;
+            }
+        };
+        xhr.onload = function() {
+            if (this.status == 200) {
+                var resp = JSON.parse(this.response);
+
+                if (resp.result === 0) {
+                    var url = resp.dataUrl,
+                        imgId = resp.imageId;
+                    if (url && imgId) self.loadImage(url, imgId);
+                }
+                else if (resp.result === 1) {
+                    alert(resp.info)
+                }
+                else if (resp.result === 2) {
+                    const { container } = this.props;
+                    container.close();
+                    const state = History.getState(),
+                        { action } = state.data;
+                    if (action && action !== 'signin') {
+                        History.replaceState({ action: 'signin'}, 'signin', "?popup=signin");
+                    }
+                }
+
+            };
+        };
+        xhr.send(fd);
+    }
+
+    render() {
+        const { url, imageId } = this.state;
+
+            if (!url) {
+                return (
+                        <div className="image-drag-box" 
+                        onDragOver={this.fileDragHover.bind(this)} 
+                        onDragLeave={this.fileDragHover.bind(this)} 
+                        onDrop={this.fileSelectHandler.bind(this)} 
+                        onClick={this.onAddImage.bind(this)}>
+                            <button 
+                            type="button" 
+                            className="btn"
+                            >
+                            添加图片 +
+                            </button>
+                            <input 
+                                ref={(imageUpload) => { this._imageUpload = imageUpload }} 
+                                accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" 
+                                onChange={this.uploadImage.bind(this)} 
+                                style={{ display : "none" }} 
+                                id="image-upload" 
+                                type="file" 
+                                name="upload_file" 
+                            />
+                            <input 
+                            type="hidden" 
+                            name="image" 
+                            value={imageId} 
+                            />
+                        </div>
+                );
+            }
+            else{
+                return (
+                    <div className="image-preview-area">
+                        <a href="javascript:;" 
+                        className="image-cancel-btn" 
+                        onClick={this.onCancelImage.bind(this)}
+                        >
+                            <i className="s s-close s-lg"></i>
+                        </a>
+                        <img src={url} />
+                        <input type="hidden" name="image" value={imageId} />
+                    </div>
+                )
+            }
+    }
+}
+
 class RichEditor extends React.Component{
     constructor(props) {
         super(props);
@@ -389,59 +564,8 @@ class DreamForm extends BaseCom {
     }
 
     get imageField() {
-        const { image, imageId } = this.state;
+        return (props) => {
 
-        if (!image) {
-            return () => (
-                <div className="form-group">
-                    <div className="image-drag-box" 
-                    onDragOver={this.fileDragHover.bind(this)} 
-                    onDragLeave={this.fileDragHover.bind(this)} 
-                    onDrop={this.fileSelectHandler.bind(this)} 
-                    onClick={this.onAddImage.bind(this)}>
-                        <button 
-                        type="button" 
-                        className="btn"
-                        >
-                        添加图片 +
-                        </button>
-                        <input 
-                            ref={(imageUpload) => { this._imageUpload = imageUpload }} 
-                            accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" 
-                            onChange={this.uploadImage.bind(this)} 
-                            style={{ display : "none" }} 
-                            id="image-upload" 
-                            type="file" 
-                            name="upload_file" 
-                        />
-                    </div>
-                    <p className="field">
-                        <input 
-                        type="hidden" 
-                        name="image" 
-                        value={imageId} 
-                        />
-                    </p>
-                    <p className="validate-error"></p>
-                </div>
-            );
-        }
-        else{
-            return () => (
-                <div className="image-preview-area">
-                    <a href="javascript:;" 
-                    className="image-cancel-btn" 
-                    onClick={this.onCancelImage.bind(this)}
-                    >
-                        <i className="s s-close s-lg"></i>
-                    </a>
-                    <img src={image} />
-                    <p className="field">
-                        <input type="hidden" name="image" value={imageId} />
-                    </p>
-                    <p className="validate-error"></p>
-                </div>
-            )
         }
     }
 
@@ -588,9 +712,6 @@ class DreamForm extends BaseCom {
 
             this.delegate(this._con, selectors, handles);
         }
-
-        // 编辑器获得焦点
-        // this._textEditor && this._textEditor.focus();
     }
 
     setFormData(type) {
@@ -644,99 +765,6 @@ class DreamForm extends BaseCom {
             btns: btns,
             fields: fields
         });
-    }
-
-    onCancelImage() {
-        this.setState({
-            curImage: ''
-        });
-    }
-
-    fileDragHover(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        e.target.className = (
-            e.type == "dragover" ? 
-            "image-drag-box hover" : "image-drag-box"
-        );
-    }
-
-    fileSelectHandler(e) {
-        this.fileDragHover(e);
-
-        this.uploadImage.call(this, e);
-    }
-
-    loadImage(url, id) {
-        var img = new Image();
-        /*this.setState({
-            loading: true
-        });*/
-        img.src = url;
-        if(img.complete) {
-            this.setState({
-                //loading: false,
-                imageId: id,
-                image: url
-            });
-            return;
-        }
-        img.onload = () => {
-            this.setState({
-                //loading: false,
-                imageId: id,
-                image: url
-            });
-        };
-        img.onerror = () => {
-            alert("网络异常，图片加载失败");
-        }
-    }
-
-    uploadImage(ev) {
-        var self = this;
-        var files = ev.target.files || ev.dataTransfer.files;
-        var file = files[0];
-        var fd = new FormData();
-        fd.append("pic", file);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/pic/upload', true);
-        xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
-
-        xhr.upload.onprogress = function(e) {
-            if (e.lengthComputable) {
-                var percentComplete = (e.loaded / e.total) * 100;
-            }
-        };
-        xhr.onload = function() {
-            if (this.status == 200) {
-                var resp = JSON.parse(this.response);
-
-                if (resp.result === 0) {
-                    var url = resp.dataUrl,
-                        imgId = resp.imageId;
-                    if (url && imgId) self.loadImage(url, imgId);
-                }
-                else if (resp.result === 1) {
-                    alert(resp.info)
-                }
-                else if (resp.result === 2) {
-                    const { container } = this.props;
-                    container.close();
-                    const state = History.getState(),
-                        { action } = state.data;
-                    if (action && action !== 'signin') {
-                        History.replaceState({ action: 'signin'}, 'signin', "?popup=signin");
-                    }
-                }
-
-            };
-        };
-        xhr.send(fd);
-    }
-
-    onAddImage() {
-        this._imageUpload.click();
     }
 
     render() {
