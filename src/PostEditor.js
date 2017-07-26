@@ -39,9 +39,10 @@ class ImageUpload extends React.Component{
         this._imageUpload.click();
     }
 
-        onCancelImage() {
+    onCancelImage() {
         this.setState({
-            curImage: ''
+            imageId: '',
+            url: ''
         });
     }
 
@@ -418,6 +419,9 @@ const FIELDS = {
         type: "image",
         com: "imageField",
         val: '',
+        data: {
+            imageId: ''
+        },
         focus: false
     }, {
         name: "content",
@@ -495,6 +499,7 @@ class DreamForm extends BaseCom {
                         focus={form.focus} 
                         initValue={form.val} 
                         field={form}
+                        data={form.data? form.data:{}}
                         key={i} 
                         />
                     )
@@ -564,9 +569,21 @@ class DreamForm extends BaseCom {
     }
 
     get imageField() {
-        return (props) => {
-
-        }
+        return (props) => (
+            <div className="form-group">
+                <p className="field">
+                    <ImageUpload 
+                    onUploadSuccess={(val) => {
+                        const { url, imageId } = val;
+                        props.field.val = val;
+                        props.field.data.imageId = imageId;
+                    }}
+                    {...props}
+                    />
+                </p>
+                <p className="validate-error"></p>
+            </div>
+        )
     }
 
     get linkField() {

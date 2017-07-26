@@ -72,7 +72,7 @@
 	    drtTextBtn && drtTextBtn.addEventListener('click', (ev) => {
 	        textPop = common.textNew('text');
 	    });
-	      var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
+	     var drtLinkBtn = _d.querySelector('#dreamReleaseLink');
 	    drtLinkBtn && drtLinkBtn.addEventListener('click', (ev) => {
 	        textPop = common.textNew('link');
 	    });*/
@@ -1096,11 +1096,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(Req, "Req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(req, "req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/req.js");
 	}();
 
 	;
@@ -1478,8 +1478,8 @@
 	                "m+": date.getMinutes(), //minute
 	                "s+": date.getSeconds(), //second
 	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
-	                "S": date.getMilliseconds() //millisecond
-	            };
+	                "S": date.getMilliseconds //millisecond
+	                () };
 
 	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 	            for (var k in o) {
@@ -1624,15 +1624,15 @@
 	        resetBtn    = document.getElementById('search-reset'),
 	        searchInput = document.getElementById('search-input'),
 	        searchBtn   = document.getElementById('search_dream_btn');
-	      searchBtn && searchBtn.addEventListener('click', function() {
+	     searchBtn && searchBtn.addEventListener('click', function() {
 	        if (inputBox.className.indexOf(' visible') === -1) {
 	            inputBox.className += ' visible';
 	        }
 	    }, false);
-	      backBtn && backBtn.addEventListener('click', function() {
+	     backBtn && backBtn.addEventListener('click', function() {
 	        inputBox.className = inputBox.className.replace(' visible', '');
 	    }, false);
-	      resetBtn && resetBtn.addEventListener('click', function() {
+	     resetBtn && resetBtn.addEventListener('click', function() {
 	        searchInput.value = '';
 	    }, false);*/
 
@@ -2422,25 +2422,25 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Win, 'Win', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(popup, 'popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 	}();
 
 	;
@@ -2505,11 +2505,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(tools, "tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
 	}();
 
 	;
@@ -2813,11 +2813,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(Effect, 'Effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(effect, 'effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
 	}();
 
 	;
@@ -3002,11 +3002,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
 	}();
 
 	;
@@ -3475,13 +3475,13 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(create, 'create', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 	}();
 
 	;
@@ -3547,7 +3547,7 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', '/Users/dragon/home/tyxb/tyxb/src/share.js');
 	}();
 
 	;
@@ -3765,11 +3765,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(req, 'req', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
 	}();
 
 	;
@@ -4587,13 +4587,13 @@
 	with (obj) {
 
 	 list.forEach(function(item) { ;
-	__p += '\r\n<li><a href="' +
+	__p += '\n<li><a href="' +
 	((__t = ( item.url )) == null ? '' : __t) +
 	'">' +
 	((__t = ( item.key )) == null ? '' : __t) +
-	'</a></li>\r\n';
+	'</a></li>\n';
 	 }) ;
-	__p += '\r\n';
+	__p += '\n';
 
 	}
 	return __p
@@ -4607,7 +4607,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="dream-area">\r\n    <form id="deamcreat-form" action="/dream/new" method="post">\r\n        <div class="title-head">\r\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\r\n            此刻的想法（必填）\r\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\r\n        </div>\r\n        <div>\r\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            图片\r\n        </div>\r\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\r\n        <div><img id="image-preview" src="" /></div>\r\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\r\n        <input type="hidden" name="did" value="" />\r\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\r\n    </form>\r\n</div>\r\n\r\n';
+	__p += '<div class="dream-area">\n    <form id="deamcreat-form" action="/dream/new" method="post">\n        <div class="title-head">\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\n            此刻的想法（必填）\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\n        </div>\n        <div>\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            图片\n        </div>\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\n        <div><img id="image-preview" src="" /></div>\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\n        <input type="hidden" name="did" value="" />\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\n    </form>\n</div>\n\n';
 
 	}
 	return __p
@@ -4621,15 +4621,15 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
+	__p += '<div class="tab-nav">\n    <ul>\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">+ 注册</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 注册</a></li>\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
-	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
+	'">登录 →</a></li>\n    </ul>\n</div>\n<div class="tab-content">\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
+	'">\n        <form id="signup-form" action="/signup" method="post" novalidate>\n            <div rel="info" class="alert alert-danger" style="display: none;">\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\n                <p class="validate-error"></p>\n            </div class="form-group">\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div>\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\n            </div>\n        </form>\n        <div class="signup-loading" style="display: none;">\n            <p>请稍等...</p>\n        </div>\n    </div>\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
+	'">\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="other-ctrl form-group">\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\n            </div>\n            <div class="btn-group">\n                <button class="btn btn-primary" type="button">登录</button>\n            </div>\n        </form>\n        <div class="signin-loading" style="display: none;">\n            <p>登录中...请稍等</p>\n        </div>\n    </div>\n</div>\n\n';
 
 	}
 	return __p
@@ -4643,9 +4643,9 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="form-area">\r\n    <form action="/tag/new" method="post">\r\n        <div rel="err-info" class="alert" style="display: none;">\r\n        </div>\r\n        <div class="title-head">\r\n            <span class="require">*&nbsp;</span>学派名称\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><input type="text" value="' +
+	__p += '<div class="form-area">\n    <form action="/tag/new" method="post">\n        <div rel="err-info" class="alert" style="display: none;">\n        </div>\n        <div class="title-head">\n            <span class="require">*&nbsp;</span>学派名称\n        </div>\n        <div class="form-group">\n            <p class="field"><input type="text" value="' +
 	((__t = ( tagName )) == null ? '' : __t) +
-	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            学派描述\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\r\n        </div>\r\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\r\n    </form>\r\n</div>\r\n';
+	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            学派描述\n        </div>\n        <div class="form-group">\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\n        </div>\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\n    </form>\n</div>\n';
 
 	}
 	return __p
@@ -4659,7 +4659,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
+	__p += '<div class="hd">\n    <span class="title">标题...</span>\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\n</div>\n<div class="bd">\n    正文...\n</div>\n';
 
 	}
 	return __p
@@ -4742,9 +4742,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
 	}();
 
 	;
@@ -4960,9 +4960,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', 'E:/mypro/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
 	}();
 
 	;
@@ -5123,9 +5123,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
 	}();
 
 	;
@@ -5585,11 +5585,11 @@
 	      borderRadius = Math.max(borderRadius, 0);
 	      borderRadius = Math.min(borderRadius, width / 2 - borderSize, height / 2 - borderSize);
 
-	      context.beginPath();
+	      context.beginPath
 	      // inner rect, possibly rounded
-	      drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
-	      context.rect(width, 0, -width, height); // outer rect, drawn "counterclockwise"
-	      context.fill('evenodd');
+	      ();drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
+	      context.rect(width, 0, -width, height // outer rect, drawn "counterclockwise"
+	      );context.fill('evenodd');
 
 	      context.restore();
 	    }
@@ -5784,17 +5784,17 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 	}();
 
 	;
@@ -6007,9 +6007,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
 	}();
 
 	;
@@ -6240,26 +6240,231 @@
 	var INDENT = '  ';
 	var BREAK = '<br/>';
 
-	var RichEditor = function (_React$Component) {
-	    (0, _inherits3.default)(RichEditor, _React$Component);
+	var ImageUpload = function (_React$Component) {
+	    (0, _inherits3.default)(ImageUpload, _React$Component);
+
+	    function ImageUpload(props) {
+	        (0, _classCallCheck3.default)(this, ImageUpload);
+
+	        var _this = (0, _possibleConstructorReturn3.default)(this, (ImageUpload.__proto__ || (0, _getPrototypeOf2.default)(ImageUpload)).call(this, props));
+
+	        _this.state = {
+	            url: '',
+	            imageId: ''
+	        };
+	        return _this;
+	    }
+
+	    (0, _createClass3.default)(ImageUpload, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _props = this.props,
+	                focus = _props.focus,
+	                initValue = _props.initValue,
+	                data = _props.data;
+	            var url = data.url;
+
+
+	            if (focus) {
+	                this.focus();
+	            }
+
+	            this.setState({
+	                url: url,
+	                imageId: initValue
+	            });
+	        }
+	    }, {
+	        key: 'focus',
+	        value: function focus() {
+	            this.onAddImage();
+	        }
+	    }, {
+	        key: 'onAddImage',
+	        value: function onAddImage() {
+	            this._imageUpload.click();
+	        }
+	    }, {
+	        key: 'onCancelImage',
+	        value: function onCancelImage() {
+	            this.setState({
+	                imageId: '',
+	                url: ''
+	            });
+	        }
+	    }, {
+	        key: 'fileDragHover',
+	        value: function fileDragHover(e) {
+	            e.stopPropagation();
+	            e.preventDefault();
+	            e.target.className = e.type == "dragover" ? "image-drag-box hover" : "image-drag-box";
+	        }
+	    }, {
+	        key: 'fileSelectHandler',
+	        value: function fileSelectHandler(e) {
+	            this.fileDragHover(e);
+
+	            this.uploadImage.call(this, e);
+	        }
+	    }, {
+	        key: 'loadImage',
+	        value: function loadImage(url, id) {
+	            var _this2 = this;
+
+	            var img = new Image();
+	            /*this.setState({
+	                loading: true
+	            });*/
+	            img.src = url;
+	            if (img.complete) {
+	                this.setState({
+	                    //loading: false,
+	                    imageId: id,
+	                    url: url
+	                });
+	                this.props.onUploadSuccess({
+	                    imageId: id,
+	                    url: url
+	                });
+	                return;
+	            }
+	            img.onload = function () {
+	                _this2.setState({
+	                    //loading: false,
+	                    imageId: id,
+	                    url: url
+	                });
+	            };
+	            img.onerror = function () {
+	                alert("网络异常，图片加载失败");
+	            };
+	        }
+	    }, {
+	        key: 'uploadImage',
+	        value: function uploadImage(ev) {
+	            var self = this;
+	            var files = ev.target.files || ev.dataTransfer.files;
+	            var file = files[0];
+	            var fd = new FormData();
+	            fd.append("pic", file);
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', '/pic/upload', true);
+	            xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
+
+	            xhr.upload.onprogress = function (e) {
+	                if (e.lengthComputable) {
+	                    var percentComplete = e.loaded / e.total * 100;
+	                }
+	            };
+	            xhr.onload = function () {
+	                if (this.status == 200) {
+	                    var resp = JSON.parse(this.response);
+
+	                    if (resp.result === 0) {
+	                        var url = resp.dataUrl,
+	                            imgId = resp.imageId;
+	                        if (url && imgId) self.loadImage(url, imgId);
+	                    } else if (resp.result === 1) {
+	                        alert(resp.info);
+	                    } else if (resp.result === 2) {
+	                        var container = this.props.container;
+
+	                        container.close();
+	                        var state = History.getState(),
+	                            action = state.data.action;
+
+	                        if (action && action !== 'signin') {
+	                            History.replaceState({ action: 'signin' }, 'signin', "?popup=signin");
+	                        }
+	                    }
+	                };
+	            };
+	            xhr.send(fd);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+
+	            var _state = this.state,
+	                url = _state.url,
+	                imageId = _state.imageId;
+
+
+	            if (!url) {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'image-drag-box',
+	                        onDragOver: this.fileDragHover.bind(this),
+	                        onDragLeave: this.fileDragHover.bind(this),
+	                        onDrop: this.fileSelectHandler.bind(this),
+	                        onClick: this.onAddImage.bind(this) },
+	                    React.createElement(
+	                        'button',
+	                        {
+	                            type: 'button',
+	                            className: 'btn'
+	                        },
+	                        '\u6DFB\u52A0\u56FE\u7247 +'
+	                    ),
+	                    React.createElement('input', {
+	                        ref: function ref(imageUpload) {
+	                            _this3._imageUpload = imageUpload;
+	                        },
+	                        accept: 'image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp',
+	                        onChange: this.uploadImage.bind(this),
+	                        style: { display: "none" },
+	                        id: 'image-upload',
+	                        type: 'file',
+	                        name: 'upload_file'
+	                    }),
+	                    React.createElement('input', {
+	                        type: 'hidden',
+	                        name: 'image',
+	                        value: imageId
+	                    })
+	                );
+	            } else {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'image-preview-area' },
+	                    React.createElement(
+	                        'a',
+	                        { href: 'javascript:;',
+	                            className: 'image-cancel-btn',
+	                            onClick: this.onCancelImage.bind(this)
+	                        },
+	                        React.createElement('i', { className: 's s-close s-lg' })
+	                    ),
+	                    React.createElement('img', { src: url }),
+	                    React.createElement('input', { type: 'hidden', name: 'image', value: imageId })
+	                );
+	            }
+	        }
+	    }]);
+	    return ImageUpload;
+	}(React.Component);
+
+	var RichEditor = function (_React$Component2) {
+	    (0, _inherits3.default)(RichEditor, _React$Component2);
 
 	    function RichEditor(props) {
 	        (0, _classCallCheck3.default)(this, RichEditor);
 
-	        var _this = (0, _possibleConstructorReturn3.default)(this, (RichEditor.__proto__ || (0, _getPrototypeOf2.default)(RichEditor)).call(this, props));
+	        var _this4 = (0, _possibleConstructorReturn3.default)(this, (RichEditor.__proto__ || (0, _getPrototypeOf2.default)(RichEditor)).call(this, props));
 
-	        _this.state = {
+	        _this4.state = {
 	            html: ''
 	        };
-	        return _this;
+	        return _this4;
 	    }
 
 	    (0, _createClass3.default)(RichEditor, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _props = this.props,
-	                focus = _props.focus,
-	                initValue = _props.initValue;
+	            var _props2 = this.props,
+	                focus = _props2.focus,
+	                initValue = _props2.initValue;
 
 
 	            if (focus) {
@@ -6278,7 +6483,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this5 = this;
 
 	            return React.createElement(
 	                'div',
@@ -6286,17 +6491,17 @@
 	                React.createElement(_TextEditor2.default, {
 	                    html: this.state.html,
 	                    ref: function ref(_ref) {
-	                        return _this2._editor = _ref;
+	                        return _this5._editor = _ref;
 	                    },
 	                    placeholder: '\u6B63\u6587',
 	                    className: 'text-editor',
 	                    onFocus: this.props.onFocus,
 	                    onChange: function onChange(evt) {
 	                        var val = evt.target.value;
-	                        _this2.setState({
+	                        _this5.setState({
 	                            html: val
 	                        });
-	                        _this2.props.onChange(val);
+	                        _this5.props.onChange(val);
 	                    }
 	                }),
 	                React.createElement('textarea', (0, _extends3.default)({
@@ -6310,26 +6515,26 @@
 	    return RichEditor;
 	}(React.Component);
 
-	var TextArea = function (_React$Component2) {
-	    (0, _inherits3.default)(TextArea, _React$Component2);
+	var TextArea = function (_React$Component3) {
+	    (0, _inherits3.default)(TextArea, _React$Component3);
 
 	    function TextArea(props) {
 	        (0, _classCallCheck3.default)(this, TextArea);
 
-	        var _this3 = (0, _possibleConstructorReturn3.default)(this, (TextArea.__proto__ || (0, _getPrototypeOf2.default)(TextArea)).call(this, props));
+	        var _this6 = (0, _possibleConstructorReturn3.default)(this, (TextArea.__proto__ || (0, _getPrototypeOf2.default)(TextArea)).call(this, props));
 
-	        _this3.state = {
+	        _this6.state = {
 	            text: ''
 	        };
-	        return _this3;
+	        return _this6;
 	    }
 
 	    (0, _createClass3.default)(TextArea, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _props2 = this.props,
-	                focus = _props2.focus,
-	                initValue = _props2.initValue;
+	            var _props3 = this.props,
+	                focus = _props3.focus,
+	                initValue = _props3.initValue;
 
 
 	            if (focus) {
@@ -6348,19 +6553,19 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this4 = this;
+	            var _this7 = this;
 
 	            return React.createElement('textarea', (0, _extends3.default)({}, this.props.attrs, {
 	                ref: function ref(_ref2) {
-	                    _this4._textArea = _ref2;
+	                    _this7._textArea = _ref2;
 	                },
 	                onFocus: this.props.onFocus,
 	                onChange: function onChange(evt) {
 	                    var val = evt.target.value;
-	                    _this4.setState({
+	                    _this7.setState({
 	                        text: val
 	                    });
-	                    _this4.props.onChange(val);
+	                    _this7.props.onChange(val);
 	                },
 	                value: this.state.text
 	            }));
@@ -6369,26 +6574,26 @@
 	    return TextArea;
 	}(React.Component);
 
-	var Input = function (_React$Component3) {
-	    (0, _inherits3.default)(Input, _React$Component3);
+	var Input = function (_React$Component4) {
+	    (0, _inherits3.default)(Input, _React$Component4);
 
 	    function Input(props) {
 	        (0, _classCallCheck3.default)(this, Input);
 
-	        var _this5 = (0, _possibleConstructorReturn3.default)(this, (Input.__proto__ || (0, _getPrototypeOf2.default)(Input)).call(this, props));
+	        var _this8 = (0, _possibleConstructorReturn3.default)(this, (Input.__proto__ || (0, _getPrototypeOf2.default)(Input)).call(this, props));
 
-	        _this5.state = {
+	        _this8.state = {
 	            value: ''
 	        };
-	        return _this5;
+	        return _this8;
 	    }
 
 	    (0, _createClass3.default)(Input, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _props3 = this.props,
-	                focus = _props3.focus,
-	                initValue = _props3.initValue;
+	            var _props4 = this.props,
+	                focus = _props4.focus,
+	                initValue = _props4.initValue;
 
 
 	            if (focus) {
@@ -6407,19 +6612,19 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this6 = this;
+	            var _this9 = this;
 
 	            return React.createElement('input', (0, _extends3.default)({}, this.props.attrs, {
 	                ref: function ref(_ref3) {
-	                    _this6._input = _ref3;
+	                    _this9._input = _ref3;
 	                },
 	                onFocus: this.props.onFocus,
 	                onChange: function onChange(evt) {
 	                    var val = evt.target.value;
-	                    _this6.setState({
+	                    _this9.setState({
 	                        value: val
 	                    });
-	                    _this6.props.onChange(val);
+	                    _this9.props.onChange(val);
 	                },
 	                value: this.state.value
 	            }));
@@ -6428,16 +6633,16 @@
 	    return Input;
 	}(React.Component);
 
-	var FinishBtn = function (_React$Component4) {
-	    (0, _inherits3.default)(FinishBtn, _React$Component4);
+	var FinishBtn = function (_React$Component5) {
+	    (0, _inherits3.default)(FinishBtn, _React$Component5);
 
 	    function FinishBtn(props) {
 	        (0, _classCallCheck3.default)(this, FinishBtn);
 
-	        var _this7 = (0, _possibleConstructorReturn3.default)(this, (FinishBtn.__proto__ || (0, _getPrototypeOf2.default)(FinishBtn)).call(this, props));
+	        var _this10 = (0, _possibleConstructorReturn3.default)(this, (FinishBtn.__proto__ || (0, _getPrototypeOf2.default)(FinishBtn)).call(this, props));
 
-	        _this7.handleClick = _this7.handleClick.bind(_this7);
-	        return _this7;
+	        _this10.handleClick = _this10.handleClick.bind(_this10);
+	        return _this10;
 	    }
 
 	    (0, _createClass3.default)(FinishBtn, [{
@@ -6448,13 +6653,13 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this8 = this;
+	            var _this11 = this;
 
 	            return React.createElement(
 	                'button',
 	                {
 	                    ref: function ref(_ref4) {
-	                        _this8._self = _ref4;
+	                        _this11._self = _ref4;
 	                    },
 	                    id: 'finish_cdream_btn',
 	                    onClick: this.handleClick,
@@ -6540,6 +6745,9 @@
 	        type: "image",
 	        com: "imageField",
 	        val: '',
+	        data: {
+	            imageId: ''
+	        },
 	        focus: false
 	    }, {
 	        name: "content",
@@ -6568,9 +6776,9 @@
 	    (0, _createClass3.default)(DreamForm, [{
 	        key: 'fieldBtns',
 	        get: function get() {
-	            var _state = this.state,
-	                btns = _state.btns,
-	                fields = _state.fields;
+	            var _state2 = this.state,
+	                btns = _state2.btns,
+	                fields = _state2.fields;
 
 	            // 根据表单渲染表单按妞
 
@@ -6610,28 +6818,29 @@
 	    }, {
 	        key: 'fieldEls',
 	        get: function get() {
-	            var _this10 = this;
+	            var _this13 = this;
 
-	            var _state2 = this.state,
-	                type = _state2.type,
-	                fields = _state2.fields;
+	            var _state3 = this.state,
+	                type = _state3.type,
+	                fields = _state3.fields;
 
 
 	            return React.createElement(
 	                'form',
 	                {
 	                    ref: function ref(_ref5) {
-	                        return _this10._form = _ref5;
+	                        return _this13._form = _ref5;
 	                    },
 	                    action: '/dream/new',
 	                    method: 'post'
 	                },
 	                fields.map(function (form, i) {
-	                    var Form = _this10[form.com];
+	                    var Form = _this13[form.com];
 	                    return React.createElement(Form, {
 	                        focus: form.focus,
 	                        initValue: form.val,
 	                        field: form,
+	                        data: form.data ? form.data : {},
 	                        key: i
 	                    });
 	                }),
@@ -6645,11 +6854,11 @@
 	    }, {
 	        key: 'titleField',
 	        get: function get() {
-	            var _this11 = this;
+	            var _this14 = this;
 
-	            var _state3 = this.state,
-	                type = _state3.type,
-	                title = _state3.title,
+	            var _state4 = this.state,
+	                type = _state4.type,
+	                title = _state4.title,
 	                TITLES_MAP = {
 	                'text': '简单描述一下文字内容...',
 	                'image': '简单描述一下图片内容...',
@@ -6672,7 +6881,7 @@
 	                                name: "content",
 	                                placeholder: NAME
 	                            },
-	                            onFocus: _this11.resetField.bind(_this11),
+	                            onFocus: _this14.resetField.bind(_this14),
 	                            onChange: function onChange(val) {
 	                                props.field.val = val;
 	                            }
@@ -6685,7 +6894,7 @@
 	    }, {
 	        key: 'textField',
 	        get: function get() {
-	            var _this12 = this;
+	            var _this15 = this;
 
 	            var text = this.state.text;
 
@@ -6700,7 +6909,7 @@
 	                            className: 'field'
 	                        },
 	                        React.createElement(RichEditor, (0, _extends3.default)({
-	                            onFocus: _this12.resetField.bind(_this12),
+	                            onFocus: _this15.resetField.bind(_this15),
 	                            onChange: function onChange(val) {
 	                                props.field.val = val;
 	                            },
@@ -6716,85 +6925,31 @@
 	    }, {
 	        key: 'imageField',
 	        get: function get() {
-	            var _this13 = this;
+	            return function (props) {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    React.createElement(
+	                        'p',
+	                        { className: 'field' },
+	                        React.createElement(ImageUpload, (0, _extends3.default)({
+	                            onUploadSuccess: function onUploadSuccess(val) {
+	                                var url = val.url,
+	                                    imageId = val.imageId;
 
-	            var _state4 = this.state,
-	                image = _state4.image,
-	                imageId = _state4.imageId;
-
-
-	            if (!image) {
-	                return function () {
-	                    return React.createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        React.createElement(
-	                            'div',
-	                            { className: 'image-drag-box',
-	                                onDragOver: _this13.fileDragHover.bind(_this13),
-	                                onDragLeave: _this13.fileDragHover.bind(_this13),
-	                                onDrop: _this13.fileSelectHandler.bind(_this13),
-	                                onClick: _this13.onAddImage.bind(_this13) },
-	                            React.createElement(
-	                                'button',
-	                                {
-	                                    type: 'button',
-	                                    className: 'btn'
-	                                },
-	                                '\u6DFB\u52A0\u56FE\u7247 +'
-	                            ),
-	                            React.createElement('input', {
-	                                ref: function ref(imageUpload) {
-	                                    _this13._imageUpload = imageUpload;
-	                                },
-	                                accept: 'image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp',
-	                                onChange: _this13.uploadImage.bind(_this13),
-	                                style: { display: "none" },
-	                                id: 'image-upload',
-	                                type: 'file',
-	                                name: 'upload_file'
-	                            })
-	                        ),
-	                        React.createElement(
-	                            'p',
-	                            { className: 'field' },
-	                            React.createElement('input', {
-	                                type: 'hidden',
-	                                name: 'image',
-	                                value: imageId
-	                            })
-	                        ),
-	                        React.createElement('p', { className: 'validate-error' })
-	                    );
-	                };
-	            } else {
-	                return function () {
-	                    return React.createElement(
-	                        'div',
-	                        { className: 'image-preview-area' },
-	                        React.createElement(
-	                            'a',
-	                            { href: 'javascript:;',
-	                                className: 'image-cancel-btn',
-	                                onClick: _this13.onCancelImage.bind(_this13)
-	                            },
-	                            React.createElement('i', { className: 's s-close s-lg' })
-	                        ),
-	                        React.createElement('img', { src: image }),
-	                        React.createElement(
-	                            'p',
-	                            { className: 'field' },
-	                            React.createElement('input', { type: 'hidden', name: 'image', value: imageId })
-	                        ),
-	                        React.createElement('p', { className: 'validate-error' })
-	                    );
-	                };
-	            }
+	                                props.field.val = val;
+	                                props.field.data.imageId = imageId;
+	                            }
+	                        }, props))
+	                    ),
+	                    React.createElement('p', { className: 'validate-error' })
+	                );
+	            };
 	        }
 	    }, {
 	        key: 'linkField',
 	        get: function get() {
-	            var _this14 = this;
+	            var _this16 = this;
 
 	            return function (props) {
 	                return React.createElement(
@@ -6809,7 +6964,7 @@
 	                                name: "link",
 	                                placeholder: "网址，例: http://www.ty-xb.com"
 	                            },
-	                            onFocus: _this14.resetField.bind(_this14),
+	                            onFocus: _this16.resetField.bind(_this16),
 	                            onChange: function onChange(val) {
 	                                props.field.val = val;
 	                            }
@@ -6822,7 +6977,7 @@
 	    }, {
 	        key: 'moreFields',
 	        get: function get() {
-	            var _this15 = this;
+	            var _this17 = this;
 
 	            var type = this.state.type;
 
@@ -6836,7 +6991,7 @@
 	                this.fieldBtns,
 	                React.createElement(FinishBtn, {
 	                    ref: function ref(_ref6) {
-	                        _this15._finishBtn = _ref6;
+	                        _this17._finishBtn = _ref6;
 	                    },
 	                    onFinishClick: this.validate.bind(this)
 	                })
@@ -6899,19 +7054,19 @@
 	    function DreamForm(props) {
 	        (0, _classCallCheck3.default)(this, DreamForm);
 
-	        var _this9 = (0, _possibleConstructorReturn3.default)(this, (DreamForm.__proto__ || (0, _getPrototypeOf2.default)(DreamForm)).call(this, props));
+	        var _this12 = (0, _possibleConstructorReturn3.default)(this, (DreamForm.__proto__ || (0, _getPrototypeOf2.default)(DreamForm)).call(this, props));
 
 	        var type = props.type;
 
 
-	        _this9.formData = null;
+	        _this12.formData = null;
 
-	        _this9.state = {
+	        _this12.state = {
 	            type: type,
 	            fields: FIELDS[type],
 	            btns: BTNS[type]
 	        };
-	        return _this9;
+	        return _this12;
 	    }
 
 	    (0, _createClass3.default)(DreamForm, [{
@@ -6945,9 +7100,6 @@
 
 	                this.delegate(this._con, selectors, handles);
 	            }
-
-	            // 编辑器获得焦点
-	            // this._textEditor && this._textEditor.focus();
 	        }
 	    }, {
 	        key: 'setFormData',
@@ -7011,106 +7163,9 @@
 	            });
 	        }
 	    }, {
-	        key: 'onCancelImage',
-	        value: function onCancelImage() {
-	            this.setState({
-	                curImage: ''
-	            });
-	        }
-	    }, {
-	        key: 'fileDragHover',
-	        value: function fileDragHover(e) {
-	            e.stopPropagation();
-	            e.preventDefault();
-	            e.target.className = e.type == "dragover" ? "image-drag-box hover" : "image-drag-box";
-	        }
-	    }, {
-	        key: 'fileSelectHandler',
-	        value: function fileSelectHandler(e) {
-	            this.fileDragHover(e);
-
-	            this.uploadImage.call(this, e);
-	        }
-	    }, {
-	        key: 'loadImage',
-	        value: function loadImage(url, id) {
-	            var _this16 = this;
-
-	            var img = new Image();
-	            /*this.setState({
-	                loading: true
-	            });*/
-	            img.src = url;
-	            if (img.complete) {
-	                this.setState({
-	                    //loading: false,
-	                    imageId: id,
-	                    image: url
-	                });
-	                return;
-	            }
-	            img.onload = function () {
-	                _this16.setState({
-	                    //loading: false,
-	                    imageId: id,
-	                    image: url
-	                });
-	            };
-	            img.onerror = function () {
-	                alert("网络异常，图片加载失败");
-	            };
-	        }
-	    }, {
-	        key: 'uploadImage',
-	        value: function uploadImage(ev) {
-	            var self = this;
-	            var files = ev.target.files || ev.dataTransfer.files;
-	            var file = files[0];
-	            var fd = new FormData();
-	            fd.append("pic", file);
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('POST', '/pic/upload', true);
-	            xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
-
-	            xhr.upload.onprogress = function (e) {
-	                if (e.lengthComputable) {
-	                    var percentComplete = e.loaded / e.total * 100;
-	                }
-	            };
-	            xhr.onload = function () {
-	                if (this.status == 200) {
-	                    var resp = JSON.parse(this.response);
-
-	                    if (resp.result === 0) {
-	                        var url = resp.dataUrl,
-	                            imgId = resp.imageId;
-	                        if (url && imgId) self.loadImage(url, imgId);
-	                    } else if (resp.result === 1) {
-	                        alert(resp.info);
-	                    } else if (resp.result === 2) {
-	                        var container = this.props.container;
-
-	                        container.close();
-	                        var state = History.getState(),
-	                            action = state.data.action;
-
-	                        if (action && action !== 'signin') {
-	                            History.replaceState({ action: 'signin' }, 'signin', "?popup=signin");
-	                        }
-	                    }
-	                };
-	            };
-	            xhr.send(fd);
-	        }
-	    }, {
-	        key: 'onAddImage',
-	        value: function onAddImage() {
-	            this._imageUpload.click();
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this17 = this;
+	            var _this18 = this;
 
 	            var type = this.state.type;
 	            var container = this.props.container;
@@ -7134,7 +7189,7 @@
 	                {
 	                    className: 'post-editor-form',
 	                    ref: function ref(_ref7) {
-	                        _this17._con = _ref7;
+	                        _this18._con = _ref7;
 	                    } },
 	                React.createElement(
 	                    'div',
@@ -7183,7 +7238,7 @@
 	                        'div',
 	                        {
 	                            ref: function ref(popbd) {
-	                                _this17._popbd = popbd;
+	                                _this18._popbd = popbd;
 	                            },
 	                            className: 'dream-area'
 	                        },
@@ -7248,7 +7303,7 @@
 	    }, {
 	        key: 'getFormData',
 	        value: function getFormData() {
-	            var _this18 = this;
+	            var _this19 = this;
 
 	            this.formData = {};
 	            this._form && this._form.querySelectorAll('input[type=text], \
@@ -7256,13 +7311,13 @@
 	            input[type=hidden], \
 	            textarea').forEach(function (inp, key) {
 	                var val = inp.value;
-	                _this18.formData[inp.name] = val;
+	                _this19.formData[inp.name] = val;
 	            });
 	        }
 	    }, {
 	        key: 'validate',
 	        value: function validate() {
-	            var _this19 = this;
+	            var _this20 = this;
 
 	            var type = this.state.type;
 
@@ -7308,12 +7363,12 @@
 	                    if (name === inp.name) {
 	                        if (rule.length > 0) {
 	                            rule.forEach(function (item, i) {
-	                                if (!_this19.checkField(item, val, tips, i)) {
+	                                if (!_this20.checkField(item, val, tips, i)) {
 	                                    validate = false;
 	                                }
 	                            });
 	                        } else {
-	                            if (!_this19.checkField(rule, val, tips, 0)) {
+	                            if (!_this20.checkField(rule, val, tips, 0)) {
 	                                validate = false;
 	                            }
 	                        }
@@ -7363,28 +7418,28 @@
 	    return DreamForm;
 	}(_basecom2.default);
 
-	var PostEditor = function (_React$Component5) {
-	    (0, _inherits3.default)(PostEditor, _React$Component5);
+	var PostEditor = function (_React$Component6) {
+	    (0, _inherits3.default)(PostEditor, _React$Component6);
 
 	    function PostEditor(props) {
 	        (0, _classCallCheck3.default)(this, PostEditor);
 
-	        var _this20 = (0, _possibleConstructorReturn3.default)(this, (PostEditor.__proto__ || (0, _getPrototypeOf2.default)(PostEditor)).call(this, props));
+	        var _this21 = (0, _possibleConstructorReturn3.default)(this, (PostEditor.__proto__ || (0, _getPrototypeOf2.default)(PostEditor)).call(this, props));
 
-	        _this20.state = {
+	        _this21.state = {
 	            loading: true,
 	            checked: false,
 	            tagName: '',
 	            type: '',
 	            tag: ''
 	        };
-	        return _this20;
+	        return _this21;
 	    }
 
 	    (0, _createClass3.default)(PostEditor, [{
 	        key: 'checkUser',
 	        value: function checkUser(cb) {
-	            var _this21 = this;
+	            var _this22 = this;
 
 	            var tag = this.props.tag;
 
@@ -7392,12 +7447,12 @@
 	            if (tag) {
 	                _req2.default.getJSON('/tag/getinfo', { tid: this.curTag }, cb.bind(this), function () {
 	                    alert('网络异常');
-	                    _this21.close();
+	                    _this22.close();
 	                });
 	            } else {
 	                _req2.default.getJSON('/islogin', null, cb.bind(this), function () {
 	                    alert('网络异常');
-	                    _this21.close();
+	                    _this22.close();
 	                });
 	            }
 	        }
@@ -7412,7 +7467,7 @@
 	    }, {
 	        key: 'loadPostForm',
 	        value: function loadPostForm(type, tag) {
-	            var _this22 = this;
+	            var _this23 = this;
 
 	            this.setState({
 	                loading: true
@@ -7425,7 +7480,7 @@
 	                            _ref8$tagName = _ref8.tagName,
 	                            tagName = _ref8$tagName === undefined ? '' : _ref8$tagName;
 
-	                        _this22.setState({
+	                        _this23.setState({
 	                            loading: false,
 	                            checked: true,
 	                            type: type,
@@ -7433,11 +7488,11 @@
 	                            tagName: tagName
 	                        });
 	                    } else if (ret === 2) {
-	                        var dialog = _this22.props.dialog;
+	                        var dialog = _this23.props.dialog;
 
 	                        dialog.hide();
 
-	                        _this22.setState({
+	                        _this23.setState({
 	                            loading: false
 	                        });
 
@@ -7449,7 +7504,7 @@
 	                        }
 	                    } else {
 	                        alert(data.info);
-	                        _this22.close();
+	                        _this23.close();
 	                    }
 	                } catch (err) {
 	                    alert(err.message);
@@ -7513,33 +7568,35 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(INDENT, 'INDENT', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(INDENT, 'INDENT', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BREAK, 'BREAK', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(BREAK, 'BREAK', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(Input, 'Input', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(Input, 'Input', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 	}();
 
 	;
@@ -7672,9 +7729,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', 'E:/mypro/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
 	}();
 
 	;
@@ -7994,263 +8051,263 @@
 	with (obj) {
 
 	 if (dream.category) { ;
-	__p += '\r\n<li class="list-item">\r\n    ';
+	__p += '\n<li class="list-item">\n    ';
 	 if (data.nav !== 'user') { ;
-	__p += '\r\n    <div class="post-box">\r\n    ';
+	__p += '\n    <div class="post-box">\n    ';
 	 } else { ;
-	__p += '\r\n    <div class="post-box user-mode">\r\n    ';
+	__p += '\n    <div class="post-box user-mode">\n    ';
 	 } ;
-	__p += '\r\n        <div class="user-info-box">\r\n            ';
+	__p += '\n        <div class="user-info-box">\n            ';
 	 if (data.nav !== 'user') { ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (dream._belong_u) { ;
-	__p += '\r\n            <a class="avatar" href="/user/' +
+	__p += '\n            <a class="avatar" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
-	'">\r\n                <img src="' +
+	'">\n                <img src="' +
 	((__t = ( dream._belong_u.avatar || '/images/avatar.png' )) == null ? '' : __t) +
-	'" />\r\n            </a>\r\n            ';
+	'" />\n            </a>\n            ';
 	 } else { ;
-	__p += '\r\n            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>\r\n            ';
+	__p += '\n            <a class="avatar" href="/user/unknow"><img src="/images/avatar.png" /></a>\n            ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 } ;
-	__p += '\r\n            <div class="userinfo">\r\n                ';
+	__p += '\n            <div class="userinfo">\n                ';
 	 if (data.nav !== 'user') { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (dream._belong_u) { ;
-	__p += '\r\n                <a class="username" href="/user/' +
+	__p += '\n                <a class="username" href="/user/' +
 	((__t = ( dream._belong_u._id )) == null ? '' : __t) +
 	'">' +
 	((__t = ( dream._belong_u.username )) == null ? '' : __t) +
-	'</a>\r\n                ';
+	'</a>\n                ';
 	 } else { ;
-	__p += '\r\n                <a class="username" href="/user/unknow">未知</a>\r\n                ';
+	__p += '\n                <a class="username" href="/user/unknow">未知</a>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 } ;
-	__p += '\r\n                <span class="datetime">\r\n                    ' +
+	__p += '\n                <span class="datetime">\n                    ' +
 	((__t = ( timeFormat(dream.date) )) == null ? '' : __t) +
-	'\r\n                </span>\r\n                ';
+	'\n                </span>\n                ';
 	 if (dream.place) { ;
-	__p += '\r\n                <span class="place">\r\n                    地点：' +
+	__p += '\n                <span class="place">\n                    地点：' +
 	((__t = ( dream.place )) == null ? '' : __t) +
-	'\r\n                </span>\r\n                ';
+	'\n                </span>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (!is_mobile) { ;
-	__p += '\r\n                <span class="mood">\r\n                    心情：<a rel="key-mood" data-mood="' +
+	__p += '\n                <span class="mood">\n                    心情：<a rel="key-mood" data-mood="' +
 	((__t = ( dream.mood )) == null ? '' : __t) +
 	'" href="javascript:;">' +
 	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\r\n                </span>\r\n                <span class="health">\r\n                    身体状况：<a rel="key-health" data-health="' +
+	'\n                </span>\n                <span class="health">\n                    身体状况：<a rel="key-health" data-health="' +
 	((__t = ( dream.health )) == null ? '' : __t) +
 	'" href="javascript:;">' +
 	((__t = ( dream.health )) == null ? '' : __t) +
-	'\r\n                </span>\r\n                <span class="things">\r\n                    ';
+	'\n                </span>\n                <span class="things">\n                    ';
 	 if (dream.category === 'news') { ;
-	__p += '\r\n                    记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...\r\n                    ';
+	__p += '\n                    记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...\n                    ';
 	 } else if (dream.category === 'image') { ;
-	__p += '\r\n                    记录了一张<a rel="key-catgory" data-category="图片" href="javascript:;">“图片”</a>...\r\n                    ';
+	__p += '\n                    记录了一张<a rel="key-catgory" data-category="图片" href="javascript:;">“图片”</a>...\n                    ';
 	 } else if (dream.category === 'text') { ;
-	__p += '\r\n                    记录了一篇<a rel="key-catgory" data-category="文字" href="javascript:;">“文字”</a>...\r\n                    ';
+	__p += '\n                    记录了一篇<a rel="key-catgory" data-category="文字" href="javascript:;">“文字”</a>...\n                    ';
 	 } ;
-	__p += '\r\n                </span>\r\n                ';
+	__p += '\n                </span>\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n            <div class="userctrl">\r\n                ';
+	__p += '\n            </div>\n            <div class="userctrl">\n                ';
 	 if (user && (data.tag && data.tag.delperm)) { ;
-	__p += '\r\n                <a href="javascript:;" data-did="' +
+	__p += '\n                <a href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-reject"><i class="s s-remove s-lg"></i>拒绝</a>\r\n                ';
+	'" rel="dream-reject"><i class="s s-remove s-lg"></i>拒绝</a>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (user && dream._belong_u) { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (dream._belong_u._id.equals(user._id)) { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (!dream.isremove) { ;
-	__p += '\r\n                <a href="javascript:;" data-did="' +
+	__p += '\n                <a href="javascript:;" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" rel="dream-delete"><i class="s s-remove s-lg"></i>删除</a>\r\n                ';
+	'" rel="dream-delete"><i class="s s-remove s-lg"></i>删除</a>\n                ';
 	 } else { ;
-	__p += '\r\n                <span>已删除</span>\r\n                ';
+	__p += '\n                <span>已删除</span>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n        ';
+	__p += '\n            </div>\n        </div>\n        ';
 	 if (is_mobile) { ;
-	__p += '\r\n        <div class="userinfo-mobile">\r\n            <span class="mood">\r\n                心情：' +
+	__p += '\n        <div class="userinfo-mobile">\n            <span class="mood">\n                心情：' +
 	((__t = ( dream.mood )) == null ? '' : __t) +
-	'\r\n            </span>\r\n            <span class="health">\r\n                身体状况：' +
+	'\n            </span>\n            <span class="health">\n                身体状况：' +
 	((__t = ( dream.health )) == null ? '' : __t) +
-	'\r\n            </span>\r\n            <span class="things">\r\n                ';
+	'\n            </span>\n            <span class="things">\n                ';
 	 if (dream.category === 'news') { ;
-	__p += '\r\n                记录了一篇“网页”...\r\n                ';
+	__p += '\n                记录了一篇“网页”...\n                ';
 	 } else if (dream.category === 'image') { ;
-	__p += '\r\n                记录了一张“图片”...\r\n                ';
+	__p += '\n                记录了一张“图片”...\n                ';
 	 } else if (dream.category === 'text') { ;
-	__p += '\r\n                记录了一篇“文字”...\r\n                ';
+	__p += '\n                记录了一篇“文字”...\n                ';
 	 } ;
-	__p += '\r\n            </span>\r\n        </div>\r\n        ';
+	__p += '\n            </span>\n        </div>\n        ';
 	 } ;
-	__p += '\r\n        ';
+	__p += '\n        ';
 	 if (dream.category === 'news') { ;
-	__p += '\r\n        <a \r\n            ';
+	__p += '\n        <a \n            ';
 	 if (dream.link) { ;
-	__p += '\r\n            href="' +
+	__p += '\n            href="' +
 	((__t = ( dream.link )) == null ? '' : __t) +
-	'"\r\n            ';
+	'"\n            ';
 	 } else { ;
-	__p += '\r\n            href="/dream/' +
+	__p += '\n            href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'"\r\n            ';
+	'"\n            ';
 	 } ;
-	__p += '\r\n        >\r\n        ';
+	__p += '\n        >\n        ';
 	 } ;
-	__p += '\r\n        <div \r\n            ';
+	__p += '\n        <div \n            ';
 	 if (dream.category === 'news') { ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (dream.thumbnail) { ;
-	__p += '\r\n            class="post-content thumb-mode news"\r\n            ';
+	__p += '\n            class="post-content thumb-mode news"\n            ';
 	 } else { ;
-	__p += '\r\n            class="post-content news"\r\n            ';
+	__p += '\n            class="post-content news"\n            ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 } else if (dream.category === 'image') { ;
-	__p += '\r\n            class="post-content image"\r\n            ';
+	__p += '\n            class="post-content image"\n            ';
 	 } else if (dream.category === 'text') { ;
-	__p += '\r\n            class="post-content text"\r\n            ';
+	__p += '\n            class="post-content text"\n            ';
 	 } ;
-	__p += '\r\n        >\r\n            ';
+	__p += '\n        >\n            ';
 	 if (dream.isremove) { ;
-	__p += '\r\n                [已被作者删除]\r\n            ';
+	__p += '\n                [已被作者删除]\n            ';
 	 } else { ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (is_mobile) { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (dream.mthumbnail && dream.category !== 'image') { ;
-	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
+	__p += '\n                <div class="thumbnail">\n                    <img src="' +
 	((__t = ( dream.mthumbnail )) == null ? '' : __t) +
-	'" />\r\n                </div>\r\n                ';
+	'" />\n                </div>\n                ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 } else { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (dream.thumbnail && dream.category !== 'image') { ;
-	__p += '\r\n                <div class="thumbnail">\r\n                    <img src="' +
+	__p += '\n                <div class="thumbnail">\n                    <img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\r\n                </div>\r\n                ';
+	'" />\n                </div>\n                ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (dream.thumbnail && dream.category === 'image') { ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (!is_mobile) { ;
-	__p += '\r\n            <div rel="dream-picsrc" class="piccard">\r\n                <img src="' +
+	__p += '\n            <div rel="dream-picsrc" class="piccard">\n                <img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" />\r\n            </div>\r\n            ';
+	'" />\n            </div>\n            ';
 	 } else { ;
-	__p += '\r\n            <div class="piccard">\r\n                <a href="' +
+	__p += '\n            <div class="piccard">\n                <a href="' +
 	((__t = ( dream.thumbnail.replace('picmini', 'uploads') )) == null ? '' : __t) +
 	'"><img src="' +
 	((__t = ( dream.thumbnail )) == null ? '' : __t) +
-	'" /></a>\r\n            </div>\r\n            ';
+	'" /></a>\n            </div>\n            ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 } ;
-	__p += '\r\n            <div class="entry">\r\n            ';
+	__p += '\n            <div class="entry">\n            ';
 	 if (dream.content) { ;
-	__p += '\r\n            <div class="title">\r\n            ';
+	__p += '\n            <div class="title">\n            ';
 	 if (dream.category === 'news') { ;
-	__p += '\r\n            <i class="s s-link s-lg"></i>&nbsp;\r\n            ';
+	__p += '\n            <i class="s s-link s-lg"></i>&nbsp;\n            ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (data.query) { ;
-	__p += '\r\n            ' +
+	__p += '\n            ' +
 	__e( highLight(dlimit(dream.content), data.query) ) +
-	'\r\n            ';
+	'\n            ';
 	 } else { ;
-	__p += '\r\n            ' +
+	__p += '\n            ' +
 	((__t = ( dlimit(dream.content) )) == null ? '' : __t) +
-	'\r\n            ';
+	'\n            ';
 	 } ;
-	__p += '\r\n            </div>\r\n            ';
+	__p += '\n            </div>\n            ';
 	 } ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (dream.summary) { ;
-	__p += '\r\n            <div class="summary">\r\n                ' +
+	__p += '\n            <div class="summary">\n                ' +
 	__e( dream.summary ) +
-	'\r\n                ';
+	'\n                ';
 	 if (dream.category === 'text' && dream.showall) { ;
-	__p += '\r\n                <a class="show-all" href="/dream/' +
+	__p += '\n                <a class="show-all" href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'">全文&nbsp;↓</a>\r\n                ';
+	'">全文&nbsp;↓</a>\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n            ';
+	__p += '\n            </div>\n            ';
 	 } ;
-	__p += '\r\n            </div>\r\n            ';
+	__p += '\n            </div>\n            ';
 	 } ;
-	__p += '\r\n        </div>\r\n        ';
+	__p += '\n        </div>\n        ';
 	 if (dream.category === 'news') { ;
-	__p += '\r\n        </a>\r\n        ';
+	__p += '\n        </a>\n        ';
 	 } ;
-	__p += '\r\n        <div class="post-footer">\r\n            <div class="ctrl-box">\r\n                ';
+	__p += '\n        <div class="post-footer">\n            <div class="ctrl-box">\n                ';
 	 if (user) { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (dream.good && dream.good.length > 0) { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
+	__p += '\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>\r\n                ';
+	'" data-hasgood="true" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x s-ac"></i>\n                ';
 	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
+	__p += '\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
+	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
+	__p += '\n                <a class="owed" href="javascript:;" title="喜欢" data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\r\n                ';
+	'" data-hasgood="false" rel="dream-good"><div class="owed-inner"><i class="s s-arrow_up s-2x"></i>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (!is_mobile) { ;
-	__p += '\r\n                <span class="vote-num" rel="vote-num">有' +
+	__p += '\n                <span class="vote-num" rel="vote-num">有' +
 	((__t = ( dream.vote )) == null ? '' : __t) +
-	'人喜欢...</span></div></a>\r\n                ';
+	'人喜欢...</span></div></a>\n                ';
 	 } else { ;
-	__p += '\r\n                <span class="vote-num" rel="vote-num">' +
+	__p += '\n                <span class="vote-num" rel="vote-num">' +
 	((__t = ( dream.vote )) == null ? '' : __t) +
-	'</span></div></a>\r\n                ';
+	'</span></div></a>\n                ';
 	 } ;
-	__p += '\r\n                <a href="/dream/' +
+	__p += '\n                <a href="/dream/' +
 	((__t = ( dream._id )) == null ? '' : __t) +
 	'#dreamCtrlBox">留言&nbsp;<span class="comment-num">' +
 	((__t = ( dream.cnum )) == null ? '' : __t) +
-	'</span></a>\r\n                ';
+	'</span></a>\n                ';
 	 if (user) { ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 if (dream._followers_u && dream._followers_u.length > 0) { ;
-	__p += '\r\n                <a data-did="' +
+	__p += '\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>\r\n                ';
+	'" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>\n                ';
 	 } else { ;
-	__p += '\r\n                <a data-did="' +
+	__p += '\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
+	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\n                ';
 	 } ;
-	__p += '\r\n                ';
+	__p += '\n                ';
 	 } else { ;
-	__p += '\r\n                <a data-did="' +
+	__p += '\n                <a data-did="' +
 	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
+	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n';
+	__p += '\n            </div>\n        </div>\n    </div>\n</li>\n';
 	} else {;
-	__p += '\r\n<li class="list-item">[该内容显示异常]</li>\r\n';
+	__p += '\n<li class="list-item">[该内容显示异常]</li>\n';
 	 } ;
-	__p += '\r\n\r\n';
+	__p += '\n\n';
 
 	}
 	return __p
