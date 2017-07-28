@@ -204,10 +204,10 @@
 
     // 菜单下拉
     var navSelect = dropdown.create({
-        el: '#navbar-toggle',
+        el: '[rel="conf-toggle"]',
         container: '.user-in',
         selector: '.user-in',
-        menu: '#navbar-collapse',
+        menu: '.config-list',
         width: 'auto',
         modal: true
     });
@@ -355,16 +355,6 @@
             }
         });
     }
-
-    // 创建下拉
-    var configDropdown = document.querySelector('#config-dropdown');
-    configDropdown && dropdown.create({
-        el: '[rel="conf-toggle"]',
-        container: '#config-dropdown',
-        selector: '#config-dropdown',
-        menu: '.config-list',
-        width: 'auto'
-    });
 
     /*var submitBtn = document.querySelector('button[type="submit"]'),
         submitform = utils.closest(submitBtn, 'form');

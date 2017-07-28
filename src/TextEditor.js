@@ -1,3 +1,5 @@
+const striptags = require("striptags");
+
 export default class TextEditor extends React.Component {
     constructor() {
         super();
@@ -47,7 +49,7 @@ export default class TextEditor extends React.Component {
 
     emitChange(evt) {
         if (!this.htmlEl) return;
-        var html = this.htmlEl.innerHTML;
+        var html = striptags(this.htmlEl.innerHTML, '<div><br>');
         if (this.props.onChange && html !== this.lastHtml) {
             evt.target = { value: html };
             this.props.onChange(evt);

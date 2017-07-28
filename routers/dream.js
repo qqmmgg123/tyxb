@@ -59,6 +59,8 @@ router.post('/new', function(req, res, next) {
         return next(new Error(settings.PARAMS_PASSED_ERR_TIPS));
     }
 
+console.log(req.body);
+
     let { 
         tag, 
         content, 

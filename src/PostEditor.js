@@ -4,8 +4,6 @@ import TextEditor from 'TextEditor';
 
 const utils  = require('utils');
 const common = require('common');
-const INDENT = '  ';
-const BREAK  = '<br/>';
 
 class ImageUpload extends React.Component{
     constructor(props) {
@@ -73,10 +71,6 @@ class ImageUpload extends React.Component{
                 imageId: id,
                 url: url
             });
-            this.props.onUploadSuccess({
-                imageId: id,
-                url: url
-            });
             return;
         }
         img.onload = () => {
@@ -113,7 +107,14 @@ class ImageUpload extends React.Component{
                 if (resp.result === 0) {
                     var url = resp.dataUrl,
                         imgId = resp.imageId;
-                    if (url && imgId) self.loadImage(url, imgId);
+                    if (url && imgId) { 
+                        self.loadImage(url, imgId);
+                        this.props.onUploadSuccess({
+                            imageId: id,
+                            url: url,
+                            target: this._imageUpload
+                        });
+                    }
                 }
                 else if (resp.result === 1) {
                     alert(resp.info)
@@ -186,22 +187,19 @@ class ImageUpload extends React.Component{
 class RichEditor extends React.Component{
     constructor(props) {
         super(props);
+        const { initValue } = props
 
         this.state = {
-            html: ''
+            html: initValue
         }
     }
 
     componentDidMount() {
-        const { focus, initValue } = this.props;
+        const { focus } = this.props;
 
         if (focus) {
             this.focus();
         }
-
-        this.setState({
-            html: initValue
-        });
     }
 
     focus(){
@@ -218,11 +216,11 @@ class RichEditor extends React.Component{
                 className="text-editor"
                 onFocus={this.props.onFocus}
                 onChange={(evt) => {
-                    const val = evt.target.value;
+                    const { value } = evt.target;
                     this.setState({
-                        html: val
+                        html: value
                     });
-                    this.props.onChange(val);
+                    this.props.onChange(evt);
                 }} 
                 />
                 <textarea 
@@ -420,7 +418,7 @@ const FIELDS = {
         com: "imageField",
         val: '',
         data: {
-            imageId: ''
+            url: ''
         },
         focus: false
     }, {
@@ -554,8 +552,9 @@ class DreamForm extends BaseCom {
                 >
                     <RichEditor 
                     onFocus = {this.resetField.bind(this)}
-                    onChange={(val) => {
-                        props.field.val = val;
+                    onChange={(evt) => {
+                        const { value } = evt.target;
+                        props.field.val = value;
                     }}
                     attrs={{
                         name: "text"
@@ -573,10 +572,11 @@ class DreamForm extends BaseCom {
             <div className="form-group">
                 <p className="field">
                     <ImageUpload 
-                    onUploadSuccess={(val) => {
-                        const { url, imageId } = val;
-                        props.field.val = val;
-                        props.field.data.imageId = imageId;
+                    onUploadSuccess={(ev) => {
+                        const { url, imageId } = ev;
+                        props.field.val = imageId;
+                        props.field.data.url = url;
+                        this.resetField(ev);
                     }}
                     {...props}
                     />
@@ -694,10 +694,6 @@ class DreamForm extends BaseCom {
         utils.setData(tips, {'eindex': 0});
     }
 
-    encodeContent(text) {
-        return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\xA0').join('&nbsp;').split('\n').join(BREAK + '\n');
-    }
-
     componentDidMount() {
         this.initState();
     }
@@ -768,7 +764,7 @@ class DreamForm extends BaseCom {
                 name: NAME_MAP[fieldType],
                 type: fieldType,
                 com: fieldType + 'Field',
-                focus: true,
+                focus: fieldType === "image"? false:true,
                 val: ''
             });
         }
@@ -1010,7 +1006,7 @@ class DreamForm extends BaseCom {
     submit() {
         let text = this.formData.text;
         if (text) {
-            this.formData.text = this.encodeContent(text);
+            this.formData.text = text;
         }
 
         req.post(

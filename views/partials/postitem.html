@@ -32,12 +32,16 @@
                 </span>
                 <% } %>
                 <% if (!is_mobile) { %>
+                <% if (dream.mood) { %>
                 <span class="mood">
-                    心情：<a rel="key-mood" data-mood="<%= dream.mood %>" href="javascript:;"><%= dream.mood %>
+                    心情：<%= dream.mood %>
                 </span>
+                <% } %>
+                <% if (dream.health) { %>
                 <span class="health">
-                    身体状况：<a rel="key-health" data-health="<%= dream.health %>" href="javascript:;"><%= dream.health %>
+                    身体状况：<%= dream.health %>
                 </span>
+                <% } %>
                 <span class="things">
                     <% if (dream.category === 'news') { %>
                     记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...
@@ -174,16 +178,6 @@
                 <span class="vote-num" rel="vote-num">有<%= dream.vote %>人喜欢...</span></div></a>
                 <% } else { %>
                 <span class="vote-num" rel="vote-num"><%= dream.vote %></span></div></a>
-                <% } %>
-                <a href="/dream/<%= dream._id %>#dreamCtrlBox">留言&nbsp;<span class="comment-num"><%= dream.cnum %></span></a>
-                <% if (user) { %>
-                <% if (dream._followers_u && dream._followers_u.length > 0) { %>
-                <a data-did="<%= dream._id %>" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>
-                <% } else { %>
-                <a data-did="<%= dream._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
-                <% } %>
-                <% } else { %>
-                <a data-did="<%= dream._id %>" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>
                 <% } %>
             </div>
         </div>

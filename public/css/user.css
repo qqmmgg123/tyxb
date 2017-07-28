@@ -186,10 +186,9 @@
   counter-reset: ol4;
 }
 .user-page-head {
-  background-color: #fefefe;
   border-bottom: 1px solid #f2f3f4;
   height: 100px;
-  padding: 20px 0;
+  padding-top: 20px;
 }
 .user-page-head .user-head-info {
   overflow: hidden;

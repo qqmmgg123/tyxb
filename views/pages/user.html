@@ -46,44 +46,21 @@
         </div>
     </div>
     </div>
+    <% if (is_mobile) { %>
+    <div class="container">
+        <div class="main">
+    <% } else { %>
     <div class="container clearfix">
         <div class="main">
-            <div class="tab-nav user-tab-bar">
-                <ul>
-                    <li><a href="/user/<%= data.account._id %>" class="<%if (data.tab == "dream") {%>cur<% } %> tab">日常</a></li>
-                    <li><a href="/user/<%= data.account._id %>/comment" class="<%if (data.tab == "comment") {%>cur<% } %> tab">留言</a></li>
-                    <li><a href="/user/<%= data.account._id %>/favourite" class="<%if (data.tab == "favourite") {%>cur<% } %> tab">收藏</a></li>
-                </ul>
-            </div>
+            <div class="col-8">
+            <% } %>
             <% if (data.tab == "dream") { %>
             <% include ../partials/postlist.html %>
-            <% } else if (data.tab == "comment") { %>
-            <ul id="commentList" class="list-group comment-list">
-                <% include ../partials/commentlist.html %>
-            </ul>
-            <% } else if (data.tab == "favourite") { %>
-            <ul id="dream-list" class="list-group">
-                <% if (data.dreams && data.dreams.length > 0) { %>
-                <% data.dreams.forEach(function(dream) { %>
-                <% include ../partials/postitem.html %>
-                <% }); %>
-                <li class="list-item">
-                    <% if (data.hasprev && data.next > 1) { %>
-                    <div class="more"><a href="/user/<%= data.account._id %>/favourite?r=<%= data.role %>&p=<%= data.prev %>&o=<%= data.order %>" class="btn">上一页 ></a></div>
-                    <% } %>
-                    <% if (data.hasmore) { %>
-                    <div class="more"><a href="/user/<%= data.account._id %>/?r=<%= data.role %>&p=<%= data.next %>&o=<%= data.order %>" class="btn">下一页 ></a></div>
-                    <% } %>
-                </li>
-                <% } else { %>
-                <li class="list-item">
-                    <div class="nodata">
-                        <% if (user && user._id && data.account && data.account._id && user._id.equals(data.account._id)) { %>您<% } else { %>他<% } %>还没有收藏内容
-                    </div>
-                </li>
-                <% } %>
             <% } %>
         </div>
+        <% if (!is_mobile) { %>
+        </div>
+        <% } %>
     </div>
     <div id="avatarEditorCon"></div>
     <div id="postEditorCon"></div>

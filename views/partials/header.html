@@ -67,24 +67,19 @@
 
             <% if (user) { %>
             <li class="user-in">
-                <button id="navbar-toggle" data-expanded="false" class="collapsed navbar-toggle" type="button">
-                    <i class="s s-list s-lg"></i>
-                </button>
-                <nav id="navbar-collapse" class="navbar-collapse">
-                    <ul class="navbar-nav nav clearfix">
-                        <li id="config-dropdown" class="config-dropdown">
-                            <div class="user-nav">
-                                <a href="javascript:;" rel="conf-toggle" class="list-arrow">
-                                    <i class="s s-list s-lg"></i>
-                                </a>
-                            </div>
-                            <ul class="config-list">
-                                <li><a href="/settings">设置</a></li>
-                                <li><a href="/signout">退出</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                <ul class="navbar-nav nav clearfix">
+                    <li id="config-dropdown" class="config-dropdown">
+                        <div class="user-nav">
+                            <a href="javascript:;" rel="conf-toggle" class="list-arrow">
+                                <i class="s s-list s-lg"></i>
+                            </a>
+                        </div>
+                        <ul class="config-list">
+                            <li><a href="/settings">设置</a></li>
+                            <li><a href="/signout">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
             <% } %>
         </ul>

@@ -17,9 +17,13 @@ class Req {
 
         var params = '';
         if (data) {
-            params = Object.keys(data).map(function(o) {
-                return o + '=' + data[o];
-            }).join('&');
+            for(name in data) {
+                var value = encodeURIComponent(data[name]).replace('%20','+').replace('%3D','=');
+                params += name + "=" + value + "&";
+            }
+
+            // 删除掉最后的"&"字符
+            params = params.slice(0, -1);
         }
 
         function reqComplete() {

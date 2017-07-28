@@ -15,6 +15,7 @@
     <% data.dreams.forEach(function(dream) { %>
     <% include ../partials/postitem.html %>
     <% }); %>
+    <% if ((data.hasprev && data.next > 1) || data.hasmore) { %>
     <li class="list-item">
         <div class="pagination">
             <% if (data.hasprev && data.next > 1) { %>
@@ -25,6 +26,7 @@
             <% } %>
         </div>
     </li>
+    <% } %>
     <% } else { %>
     <% if (user) { %>
     <li class="list-item">

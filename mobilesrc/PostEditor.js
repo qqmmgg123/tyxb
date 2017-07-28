@@ -4,15 +4,201 @@ import TextEditor from 'TextEditor';
 
 const utils  = require('utils');
 const common = require('common');
-const INDENT = '  ';
-const BREAK  = '<br/>';
 
-class RichEditor extends React.Component{
+class ImageUpload extends React.Component{
     constructor(props) {
         super(props);
 
         this.state = {
-            html: ''
+            url: '',
+            imageId: ''
+        }
+    }
+
+    componentDidMount() {
+        const { focus, initValue, data } = this.props;
+        const { url } = data;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            url: url,
+            imageId: initValue
+        });
+    }
+
+    focus() {
+        this.onAddImage();
+    }
+
+    onAddImage() {
+        this._imageUpload.click();
+    }
+
+    onCancelImage() {
+        this.setState({
+            imageId: '',
+            url: ''
+        });
+    }
+
+    fileDragHover(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.target.className = (
+            e.type == "dragover" ? 
+            "image-drag-box hover" : "image-drag-box"
+        );
+    }
+
+    fileSelectHandler(e) {
+        this.fileDragHover(e);
+
+        this.uploadImage.call(this, e);
+    }
+
+    loadImage(url, id) {
+        var img = new Image();
+        /*this.setState({
+            loading: true
+        });*/
+        img.src = url;
+        if(img.complete) {
+            this.setState({
+                //loading: false,
+                imageId: id,
+                url: url
+            });
+            return;
+        }
+        img.onload = () => {
+            this.setState({
+                //loading: false,
+                imageId: id,
+                url: url
+            });
+        };
+        img.onerror = () => {
+            alert("网络异常，图片加载失败");
+        }
+    }
+
+    uploadImage(ev) {
+        var self = this;
+        var files = ev.target.files || ev.dataTransfer.files;
+        var file = files[0];
+        var fd = new FormData();
+        fd.append("pic", file);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/pic/upload', true);
+        xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
+
+        xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) {
+                var percentComplete = (e.loaded / e.total) * 100;
+            }
+        };
+        xhr.onload = function() {
+            if (this.status == 200) {
+                var resp = JSON.parse(this.response);
+
+                if (resp.result === 0) {
+                    var url = resp.dataUrl,
+                        imgId = resp.imageId;
+                    if (url && imgId) { 
+                        self.loadImage(url, imgId);
+                        this.props.onUploadSuccess({
+                            imageId: id,
+                            url: url,
+                            target: this._imageUpload
+                        });
+                    }
+                }
+                else if (resp.result === 1) {
+                    alert(resp.info)
+                }
+                else if (resp.result === 2) {
+                    const { container } = this.props;
+                    container.close();
+                    const state = History.getState(),
+                        { action } = state.data;
+                    if (action && action !== 'signin') {
+                        History.replaceState({ action: 'signin'}, 'signin', "?popup=signin");
+                    }
+                }
+
+            };
+        };
+        xhr.send(fd);
+    }
+
+    render() {
+        const { url, imageId } = this.state;
+
+            if (!url) {
+                return (
+                        <div className="image-drag-box" 
+                        onDragOver={this.fileDragHover.bind(this)} 
+                        onDragLeave={this.fileDragHover.bind(this)} 
+                        onDrop={this.fileSelectHandler.bind(this)} 
+                        onClick={this.onAddImage.bind(this)}>
+                            <button 
+                            type="button" 
+                            className="btn"
+                            >
+                            添加图片 +
+                            </button>
+                            <input 
+                                ref={(imageUpload) => { this._imageUpload = imageUpload }} 
+                                accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" 
+                                onChange={this.uploadImage.bind(this)} 
+                                style={{ display : "none" }} 
+                                id="image-upload" 
+                                type="file" 
+                                name="upload_file" 
+                            />
+                            <input 
+                            type="hidden" 
+                            name="image" 
+                            value={imageId} 
+                            />
+                        </div>
+                );
+            }
+            else{
+                return (
+                    <div className="image-preview-area">
+                        <a href="javascript:;" 
+                        className="image-cancel-btn" 
+                        onClick={this.onCancelImage.bind(this)}
+                        >
+                            <i className="s s-close s-lg"></i>
+                        </a>
+                        <img src={url} />
+                        <input type="hidden" name="image" value={imageId} />
+                    </div>
+                )
+            }
+    }
+}
+
+class RichEditor extends React.Component{
+    constructor(props) {
+        super(props);
+        const { initValue } = props
+
+        this.state = {
+            html: initValue
+        }
+    }
+
+    componentDidMount() {
+        const { focus } = this.props;
+
+        if (focus) {
+            this.focus();
         }
     }
 
@@ -30,14 +216,16 @@ class RichEditor extends React.Component{
                 className="text-editor"
                 onFocus={this.props.onFocus}
                 onChange={(evt) => {
+                    const { value } = evt.target;
                     this.setState({
-                        html: evt.target.value
+                        html: value
                     });
+                    this.props.onChange(evt);
                 }} 
                 />
                 <textarea 
                 style={{display: "none"}}
-                {...this.props}
+                {...this.props.attrs}
                 value={this.state.html}
                 ></textarea>
             </div>
@@ -54,6 +242,18 @@ class TextArea extends React.Component{
         }
     }
 
+    componentDidMount() {
+        const { focus, initValue } = this.props;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            text: initValue
+        });
+    }
+
     focus() {
         this._textArea.focus();
     }
@@ -61,12 +261,15 @@ class TextArea extends React.Component{
     render() {
         return(
             <textarea 
-            {...this.props}
+            {...this.props.attrs}
             ref={(ref) => { this._textArea = ref; }}
+            onFocus={this.props.onFocus}
             onChange={(evt) => {
+                const val = evt.target.value;
                 this.setState({
-                    text: evt.target.value
+                    text: val
                 });
+                this.props.onChange(val);
             }}
             value={this.state.text}
             >
@@ -84,6 +287,18 @@ class Input extends React.Component{
         }
     }
 
+    componentDidMount() {
+        const { focus, initValue } = this.props;
+
+        if (focus) {
+            this.focus();
+        }
+
+        this.setState({
+            value: initValue
+        });
+    }
+
     focus(){
         this._input.focus();
     }
@@ -91,12 +306,15 @@ class Input extends React.Component{
     render() {
         return(
             <input 
-            {...this.props}
+            {...this.props.attrs}
             ref={(ref) => { this._input = ref; }}
+            onFocus={this.props.onFocus}
             onChange={(evt) => {
+                const val = evt.target.value;
                 this.setState({
-                    value: evt.target.value
+                    value: val
                 });
+                this.props.onChange(val);
             }} 
             value={this.state.value}
             />
@@ -190,25 +408,38 @@ const FIELDS = {
     "text": [{
         name: "text",
         type: "text",
-        com: "textField"
+        com: "textField",
+        val: '',
+        focus: true
     }],
     "image": [{
         name: "image",
         type: "image",
-        com: "imageField"
+        com: "imageField",
+        val: '',
+        data: {
+            url: ''
+        },
+        focus: false
     }, {
         name: "content",
         type: "title",
-        com: "titleField"
+        com: "titleField",
+        val: '',
+        focus: true
     }],
     "news": [{
         name: "link",
         type: "link",
-        com: "linkField"
+        com: "linkField",
+        val: '',
+        focus: true
     }, {
         name: "content",
         type: "title",
-        com: "titleField"
+        com: "titleField",
+        val: '',
+        focus: false
     }]
 };
 
@@ -240,8 +471,9 @@ class DreamForm extends BaseCom {
                 href="javascript:;">
                   •••
                   <ul 
+                  ref={(ref) => { this._moreBtns = ref }}
                   className="hidden-btns" 
-                  style={{display: this.state.btnShow}}>
+                  style={{display: 'none'}}>
                     {hiddenBtns.map((btn, i) =>
                         <li key={i}>
                             <a 
@@ -299,7 +531,15 @@ class DreamForm extends BaseCom {
             >
                 {fields.map((form, i) => {
                     let Form = this[form.com];
-                    return (<Form key={i} />)
+                    return (
+                        <Form 
+                        focus={form.focus} 
+                        initValue={form.val} 
+                        field={form}
+                        data={form.data? form.data:{}}
+                        key={i} 
+                        />
+                    )
                 })}
                 <input 
                 type="hidden" 
@@ -320,16 +560,20 @@ class DreamForm extends BaseCom {
             TITLE = TITLES_MAP[type],
             NAME = TITLE? TITLE:'';
 
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
                     <TextArea 
-                    maxLength="140" 
-                    data-cname={NAME} 
-                    id="dream-title" 
-                    name="content" 
-                    placeholder={NAME} 
+                    attrs={{
+                        maxLength: "140",
+                        name: "content",
+                        placeholder: NAME
+                    }}
                     onFocus = {this.resetField.bind(this)}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -340,14 +584,21 @@ class DreamForm extends BaseCom {
     get textField() {
        const { text } = this.state;
 
-       return () => (
+       return (props) => (
             <div className="form-group">
                 <div 
                 className="field"
                 >
                     <RichEditor 
                     onFocus = {this.resetField.bind(this)}
-                    name="text" 
+                    onChange={(evt) => {
+                        const { value } = evt.target;
+                        props.field.val = value;
+                    }}
+                    attrs={{
+                        name: "text"
+                    }}
+                    {...props}
                     />
                 </div>
                 <p className="validate-error"></p>
@@ -356,72 +607,39 @@ class DreamForm extends BaseCom {
     }
 
     get imageField() {
-        const { image, imageId } = this.state;
-
-        if (!image) {
-            return () => (
-                <div className="form-group">
-                    <div className="image-drag-box" 
-                    onDragOver={this.fileDragHover.bind(this)} 
-                    onDragLeave={this.fileDragHover.bind(this)} 
-                    onDrop={this.fileSelectHandler.bind(this)} 
-                    onClick={this.onAddImage.bind(this)}>
-                        <button 
-                        type="button" 
-                        className="btn"
-                        >
-                        添加图片 +
-                        </button>
-                        <input 
-                            ref={(imageUpload) => { this._imageUpload = imageUpload }} 
-                            accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" 
-                            onChange={this.uploadImage.bind(this)} 
-                            style={{ display : "none" }} 
-                            id="image-upload" 
-                            type="file" 
-                            name="upload_file" 
-                        />
-                    </div>
-                    <p className="field">
-                        <input 
-                        type="hidden" 
-                        name="image" 
-                        value={imageId} 
-                        />
-                    </p>
-                    <p className="validate-error"></p>
-                </div>
-            );
-        }
-        else{
-            return () => (
-                <div className="image-preview-area">
-                    <a href="javascript:;" 
-                    className="image-cancel-btn" 
-                    onClick={this.onCancelImage.bind(this)}
-                    >
-                        <i className="s s-close s-lg"></i>
-                    </a>
-                    <img src={image} />
-                    <p className="field">
-                        <input type="hidden" name="image" value={imageId} />
-                    </p>
-                    <p className="validate-error"></p>
-                </div>
-            )
-        }
+        return (props) => (
+            <div className="form-group">
+                <p className="field">
+                    <ImageUpload 
+                    onUploadSuccess={(ev) => {
+                        const { url, imageId } = ev;
+                        props.field.val = imageId;
+                        props.field.data.url = url;
+                        this.resetField(ev);
+                    }}
+                    {...props}
+                    />
+                </p>
+                <p className="validate-error"></p>
+            </div>
+        )
     }
 
     get linkField() {
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
                     <Input
-                    data-cname="网址" 
-                    type="url" 
-                    name="link" 
-                    placeholder="网址，例: http://www.ty-xb.com"
+                    attrs={{
+                        type: "url",
+                        name: "link",
+                        placeholder: "网址，例: http://www.ty-xb.com"
+                    }}
                     onFocus = {this.resetField.bind(this)}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -447,14 +665,20 @@ class DreamForm extends BaseCom {
     }
 
     get healthField() {
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
                     <Input 
-                    type="text"
-                    maxLength="30" 
-                    name="health" 
-                    placeholder="身体状况" 
+                    attrs={{
+                        type: "text",
+                        maxLength: "30",
+                        name: "health",
+                        placeholder: "身体状况"
+                    }}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -463,14 +687,20 @@ class DreamForm extends BaseCom {
     }
 
     get moodField() {
-        return () => (
+        return (props) => (
             <div className="form-group">
                 <p className="field">
                     <Input 
-                    type="text"
-                    maxLength="30" 
-                    name="mood" 
-                    placeholder="心情" 
+                    attrs={{
+                        type: "text",
+                        maxLength: "30",
+                        name: "health",
+                        placeholder: "心情"
+                    }}
+                    onChange={(val) => {
+                        props.field.val = val;
+                    }}
+                    {...props}
                     />
                 </p>
                 <p className="validate-error"></p>
@@ -487,12 +717,8 @@ class DreamForm extends BaseCom {
 
         this.state = {
             type: type,
-            image: '',
-            imageId: '',
-            text: '',
             fields: FIELDS[type],
-            btns: BTNS[type],
-            btnShow: 'none'
+            btns: BTNS[type]
         }
     }
 
@@ -505,10 +731,6 @@ class DreamForm extends BaseCom {
         tips.style.display = 'none';
         utils.setData(tips, {'err': false});
         utils.setData(tips, {'eindex': 0});
-    }
-
-    encodeContent(text) {
-        return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\xA0').join('&nbsp;').split('\n').join(BREAK + '\n');
     }
 
     componentDidMount() {
@@ -542,17 +764,11 @@ class DreamForm extends BaseCom {
 
             this.delegate(this._con, selectors, handles);
         }
-
-        // 编辑器获得焦点
-        // this._textEditor && this._textEditor.focus();
     }
 
     toggleHiddenBtns() {
-        const { btnShow } = this.state;
-
-        this.setState({
-            btnShow: btnShow === "none"? "block":"none"
-        });
+        const { display } = this._moreBtns.style
+        this._moreBtns.style.display = display === "none"? "block":"none"
     }
 
     setFormData(type) {
@@ -591,7 +807,9 @@ class DreamForm extends BaseCom {
             fields.push({
                 name: NAME_MAP[fieldType],
                 type: fieldType,
-                com: fieldType + 'Field'
+                com: fieldType + 'Field',
+                focus: fieldType === "image"? false:true,
+                val: ''
             });
         }
         else{
@@ -604,99 +822,6 @@ class DreamForm extends BaseCom {
             btns: btns,
             fields: fields
         });
-    }
-
-    onCancelImage() {
-        this.setState({
-            curImage: ''
-        });
-    }
-
-    fileDragHover(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        e.target.className = (
-            e.type == "dragover" ? 
-            "image-drag-box hover" : "image-drag-box"
-        );
-    }
-
-    fileSelectHandler(e) {
-        this.fileDragHover(e);
-
-        this.uploadImage.call(this, e);
-    }
-
-    loadImage(url, id) {
-        var img = new Image();
-        /*this.setState({
-            loading: true
-        });*/
-        img.src = url;
-        if(img.complete) {
-            this.setState({
-                //loading: false,
-                imageId: id,
-                image: url
-            });
-            return;
-        }
-        img.onload = () => {
-            this.setState({
-                //loading: false,
-                imageId: id,
-                image: url
-            });
-        };
-        img.onerror = () => {
-            alert("网络异常，图片加载失败");
-        }
-    }
-
-    uploadImage(ev) {
-        var self = this;
-        var files = ev.target.files || ev.dataTransfer.files;
-        var file = files[0];
-        var fd = new FormData();
-        fd.append("pic", file);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/pic/upload', true);
-        xhr.setRequestHeader("x-requested-with", "XMLHttpRequest");
-
-        xhr.upload.onprogress = function(e) {
-            if (e.lengthComputable) {
-                var percentComplete = (e.loaded / e.total) * 100;
-            }
-        };
-        xhr.onload = function() {
-            if (this.status == 200) {
-                var resp = JSON.parse(this.response);
-
-                if (resp.result === 0) {
-                    var url = resp.dataUrl,
-                        imgId = resp.imageId;
-                    if (url && imgId) self.loadImage(url, imgId);
-                }
-                else if (resp.result === 1) {
-                    alert(resp.info)
-                }
-                else if (resp.result === 2) {
-                    const { container } = this.props;
-                    container.close();
-                    const state = History.getState(),
-                        { action } = state.data;
-                    if (action && action !== 'signin') {
-                        History.replaceState({ action: 'signin'}, 'signin', "?popup=signin");
-                    }
-                }
-
-            };
-        };
-        xhr.send(fd);
-    }
-
-    onAddImage() {
-        this._imageUpload.click();
     }
 
     render() {
@@ -925,7 +1050,7 @@ class DreamForm extends BaseCom {
     submit() {
         let text = this.formData.text;
         if (text) {
-            this.formData.text = this.encodeContent(text);
+            this.formData.text = text;
         }
 
         req.post(
