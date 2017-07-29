@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
-    <meta name="description" content="一个轻媒体小应用，用户可以用来记录一些事情。">
+    <meta name="description" content="一个轻媒体小应用，用户可以用来记录一些文字和图画。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= settings.APP_NAME %> - <%= settings.SLOGAN %></title>
     <link rel="shortcut icon" href="/favicon.ico" /> 
@@ -75,9 +75,9 @@
             </div>
             <div class="notes">
                 <ul class="category-list">
-                    <li class="cur"><a href="javascript:;"><i class="s s-edit s-2x"></i><span>文字</span></a></li>
-                    <li><a id="postImage" href="javascript:;"><i class="s s-image s-2x"></i><span>图片</span></a></li>
-                    <li><a id="postLink" href="javascript:;"><i class="s s-link s-2x"></i><span>网址</span></a></li>
+                    <li class="cur"><a href="javascript:;"><i class="s s-edit s-2x"></i><span><%= settings.CATEGORY.TEXT %></span></a></li>
+                    <li><a id="postImage" href="javascript:;"><i class="s s-image s-2x"></i><span><%= settings.CATEGORY.IMAGE %></span></a></li>
+                    <!--<li><a id="postLink" href="javascript:;"><i class="s s-link s-2x"></i><span><%= settings.CATEGORY.NEWS %></span></a></li>-->
                 </ul>
                 <textarea id="PostText" placeholder="记录点滴，感受彼此..."></textarea>
             </div>
@@ -97,9 +97,9 @@
                 </div>
                 <div class="notes">
                     <ul class="category-list">
-                        <li class="cur"><a href="javascript:;"><i class="s s-edit s-2x"></i><span>文字</span></a></li>
-                        <li><a id="postImage" href="javascript:;"><i class="s s-image s-2x"></i><span>图片</span></a></li>
-                        <li><a id="postLink" href="javascript:;"><i class="s s-link s-2x"></i><span>网址</span></a></li>
+                        <li class="cur"><a href="javascript:;"><i class="s s-edit s-2x"></i><span><%= settings.CATEGORY.TEXT %></span></a></li>
+                        <li><a id="postImage" href="javascript:;"><i class="s s-image s-2x"></i><span><%= settings.CATEGORY.IMAGE %></span></a></li>
+                        <!--<li><a id="postLink" href="javascript:;"><i class="s s-link s-2x"></i><span><%= settings.CATEGORY.NEWS %></span></a></li>-->
                     </ul>
                     <textarea id="PostText" placeholder="记录点滴，感受彼此..."></textarea>
                 </div>

@@ -153,6 +153,18 @@
                 }, 'avatareditor', "?popup=avatareditor&src=" + src + "&id=" + id);
             }
         },
+        showTextViewer: function(did) {
+            const state = History.getState(),
+                  { action } = state.data;
+            if (!action && action !== 'textview') {
+                History.pushState({ 
+                    action: 'textview',
+                    params: {
+                        did: did
+                    }
+                }, 'textview', "?popup=textview&did=" + did);
+            }
+        },
         showImageViewer: function(src) {
             const state = History.getState(),
                   { action } = state.data;

@@ -42,6 +42,30 @@ router.get('/getsite', function(req, res, next) {
         })
 });
 
+// 加载文章
+router.get('/textloaded', function(req, res, next) {
+    const { did } = req.query;
+
+    Dream.findById(did, "conetnt text", function(err, doc) {
+        if (err) return next(err);
+
+        if (!doc) {
+            return res.json({
+                info: "文字不在了，也许已经被作者删除...",
+                result: 1
+            });
+        }
+
+        res.json({
+            info: "成功",
+            data: {
+                dream: doc
+            },
+            result: 0
+        });
+    });
+});
+
 // 创建一个想法
 router.post('/new', function(req, res, next) {
     let user     = req.user;
@@ -58,8 +82,6 @@ router.post('/new', function(req, res, next) {
     if (!req.body) {
         return next(new Error(settings.PARAMS_PASSED_ERR_TIPS));
     }
-
-console.log(req.body);
 
     let { 
         tag, 

@@ -2,6 +2,7 @@ import Dialog from 'Dialog';
 import PostEditor from 'PostEditor';
 import ImageViewer from 'ImageViewer';
 import AvatarEditor from 'AvatarEditor';
+import TextViewer from 'TextViewer';
 
 (function(factory) {
     module.exports = factory(
@@ -12,10 +13,17 @@ import AvatarEditor from 'AvatarEditor';
 } (function(utils, common, popup) {
     const _d = document,
           _w = window,
-        popups = ['avatareditor', 'imageview', 'signin', 'signup', 'posteditor'],
+        popups = [
+            'avatareditor', 
+            'imageview', 
+            'signin', 
+            'signup', 
+            'posteditor'
+        ],
         postCon = _d.querySelector('#postEditorCon'),
         viewerCon = _d.querySelector('#imageViewerCon'),
-        avatarCon = _d.querySelector('#avatarEditorCon');
+        avatarCon = _d.querySelector('#avatarEditorCon'),
+        textViewerCon = _d.querySelector('#textViewerCon');
 
     if (postCon) {
         _w.postEditor = ReactDOM.render(
@@ -64,6 +72,22 @@ import AvatarEditor from 'AvatarEditor';
         _w.avatarEditor.create();
     }
 
+    if (textViewerCon) {
+        _w.textViewer= ReactDOM.render(
+            <Dialog 
+            routerName="textviewer"
+            needWin={true}
+            needKey={true}
+            needMouse={true}
+            sence={{
+                name: "TextViewer",
+                component: TextViewer
+            }} />,
+            textViewerCon
+        );
+        _w.textViewer.create();
+    }
+
     function popupRouter(action, params) {
         switch(action) {
             case "avatareditor":
@@ -101,6 +125,12 @@ import AvatarEditor from 'AvatarEditor';
                     _w.postEditor.show();
                 }
                 break;
+            case "textview":
+                _w.textViewer && _w.textViewer.setComProps({
+                    did: params && params.did
+                });
+                _w.textViewer && _w.textViewer.show();
+                break;
         }
     }
         
@@ -112,6 +142,7 @@ import AvatarEditor from 'AvatarEditor';
             popupRouter(action, params);
         }
         else{
+            _w.textViewer && _w.textViewer.close();
             _w.avatarEditor && _w.avatarEditor.close();
             _w.imageViewer && _w.imageViewer.close();
             _w.postEditor && _w.postEditor.close();

@@ -1,43 +1,63 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import req from 'req';
+
+const common   = require('common');
 
 export default class TextViewer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            loading: true,
-            content: ''
+            loading : true,
+            did     : '',
+            content : '',
+            text : ''
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.dreamUrl && nextProps.dreamUrl !== this.state.dreamUrl) {
-            this.loadContent(nextProps.dreamUrl);
+        if (nextProps.did && nextProps.did !== this.state.did) {
+            this.loadContent(nextProps.did);
         }
     }
 
-    loadContent(url) {
+    loadContent(did) {
         this.setState({
             loading: true
         });
-        if(img.complete) {
-            this.setState({
-                loading: false,
-                imageSrc: src
-            });
-            return;
-        }
-        img.onload = () => {
-            this.setState({
-                loading: false,
-                imageSrc: src
-            });
-        };
-        img.onerror = () => {
-            alert("网络异常，图片加载失败");
-        }
+        
+        req.getJSON(
+            "/dream/textloaded",
+            {
+                did: did
+            },
+            (data) => {
+                try {
+                common.xhrReponseManage(data, (data) => {
+                    let content = "", 
+                        text = "文字没有找到...";
+
+                    if (data.data && data.data.dream) {
+                        let dream = data.data.dream;
+                        content = dream.content;
+                        text = dream.text;
+                    }
+
+                    this.setState({
+                        content: content,
+                        text: text,
+                        loading: false,
+                    });
+                });
+                }
+                catch(err) {
+                    alert(err.message);
+                }
+            },
+            () => {
+                this.close();
+                alert("网络异常，内容获取失败");
+            }
+        );
     }
 
     close() {
@@ -46,11 +66,14 @@ export default class TextViewer extends React.Component {
     }
 
     render() {
-        const { loading, content } = this.state;
+        const { loading, content, text } = this.state;
 
         if (!loading) {
             return (
-                <div className="">{content}</div>
+                <div className="text-viewer-box">
+                    <h1>{content}</h1>
+                    <div dangerouslySetInnerHTML={{__html: text}} />
+                </div>
             )
         }
         else{

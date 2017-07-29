@@ -20,6 +20,11 @@ var settings = {
     DREAM_PASS_ERROR: '您的发布的内容由于不符合本圈子或本站的发文规则，因此被该圈子驳回，敬请谅解。',
     SUBSCRIBE: '关注 +',
     CANCEL_SUBSCRIBE: '取消关注 -',
+    CATEGORY: {
+        TEXT: "文",
+        IMAGE: "画",
+        NEWS: "网址"
+    },
     COMMENT_TEXT: {
         EXPANSION_COMMENT: '回复'
     },

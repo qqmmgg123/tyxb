@@ -6,7 +6,7 @@
                 href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>"></i>受欢迎的</a></li>
             <li><a 
                 hidefocus="true" class="tag <% if (data.role == '2') { %>cur"<% } %>" 
-                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2"></i>新发布的</a></li>
+                href="<%= (data.nav && ('/' + data.nav)) %>/<%= (data.tag && data.tag._id) %><%= (data.account && data.account._id) %><%= data.site %>?r=2"></i>新的</a></li>
         </ul>
     </div>
 </div>
@@ -62,4 +62,5 @@
     <% } %>
 </ul>
 <div id="imageViewerCon"></div>
+<div id="textViewerCon"></div>
 

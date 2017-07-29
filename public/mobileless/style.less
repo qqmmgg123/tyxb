@@ -1744,12 +1744,15 @@ a.logo {
         font-size: 12px;
         color: #666;
     }
-    .health:before, 
-    .things:before {
+    span:not(:first-child):before {
         content: '，';
         font-family: Arial;
         color: #bbb;
     }
+}
+
+.error-data {
+    padding: 5px 0;
 }
 
 .post-content {

@@ -44,11 +44,11 @@
                 <% } %>
                 <span class="things">
                     <% if (dream.category === 'news') { %>
-                    记录了一篇<a rel="key-catgory" data-category="网页" href="javascript:;">“网页”</a>...
+                    记录了一篇“网页”...
                     <% } else if (dream.category === 'image') { %>
-                    记录了一张<a rel="key-catgory" data-category="图片" href="javascript:;">“图片”</a>...
+                    分享了一张“图画”...
                     <% } else if (dream.category === 'text') { %>
-                    记录了一篇<a rel="key-catgory" data-category="文字" href="javascript:;">“文字”</a>...
+                    写了一篇“文字”...
                     <% } %>
                 </span>
                 <% } %>
@@ -70,19 +70,28 @@
         </div>
         <% if (is_mobile) { %>
         <div class="userinfo-mobile">
+            <% if (dream.place) { %>
+            <span class="place">
+                地点：<%= dream.place %>
+            </span>
+            <% } %>
+            <% if (dream.mood) { %>
             <span class="mood">
                 心情：<%= dream.mood %>
             </span>
+            <% } %>
+            <% if (dream.health) { %>
             <span class="health">
                 身体状况：<%= dream.health %>
             </span>
+            <% } %>
             <span class="things">
                 <% if (dream.category === 'news') { %>
                 记录了一篇“网页”...
                 <% } else if (dream.category === 'image') { %>
-                记录了一张“图片”...
+                分享了一张“图画”...
                 <% } else if (dream.category === 'text') { %>
-                记录了一篇“文字”...
+                写了一篇“文字”...
                 <% } %>
             </span>
         </div>
@@ -153,7 +162,7 @@
             <div class="summary">
                 <%- dream.summary %>
                 <% if (dream.category === 'text' && dream.showall) { %>
-                <a class="show-all" href="/dream/<%= dream._id %>">全文&nbsp;↓</a>
+                <a href="javascript:;" class="show-all" data-did="<%= dream._id %>" rel="text-view">全文&nbsp;↓</a>
                 <% } %>
             </div>
             <% } %>
@@ -184,6 +193,12 @@
     </div>
 </li>
 <%} else {%>
-<li class="list-item">[该内容显示异常]</li>
+<li class="list-item">
+    <div class="post-box">
+        <div class="error-data">
+            [该内容显示异常]
+        </div>
+    </div>
+</li>
 <% } %>
 

@@ -2,8 +2,9 @@ import BaseCom from 'basecom';
 import req from 'req';
 import TextEditor from 'TextEditor';
 
-const utils  = require('utils');
-const common = require('common');
+const settings = require('../const/settings');
+const utils    = require('utils');
+const common   = require('common');
 
 class ImageUpload extends React.Component{
     constructor(props) {
@@ -830,15 +831,15 @@ class DreamForm extends BaseCom {
         const tabs = [{
                         type: "text",
                         icon: "edit",
-                        label: "文字"
+                        label: settings.CATEGORY.TEXT
                      }, {
                         type: "image",
                         icon: "image",
-                        label: "图片"
+                        label: settings.CATEGORY.IMAGE
                      }, {
                         type: "news",
                         icon: "link",
-                        label: "网址"
+                        label: settings.CATEGORY.NEWS
                      }];
 
         return (

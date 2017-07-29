@@ -1832,6 +1832,9 @@ a.logo {
   width: 38px;
   height: 38px;
 }
+.error-data {
+  padding: 10px 0;
+}
 #dream-list .list-item {
   background-color: #fff;
   margin-top: 10px;

@@ -57,7 +57,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(13), __webpack_require__(17).default, __webpack_require__(59).default, __webpack_require__(38), __webpack_require__(45), __webpack_require__(63), __webpack_require__(116), __webpack_require__(130));
+	    module.exports = factory(__webpack_require__(13), __webpack_require__(17).default, __webpack_require__(59).default, __webpack_require__(39), __webpack_require__(45), __webpack_require__(63), __webpack_require__(116), __webpack_require__(130));
 	})(function (utils, req, effect, common, popup, dropdown, router, dreamTpl) {
 	    var _d = document;
 
@@ -331,6 +331,15 @@
 
 	    common.statistics();
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 1 */
@@ -400,7 +409,7 @@
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
 	var IObject = __webpack_require__(61)
-	  , defined = __webpack_require__(25);
+	  , defined = __webpack_require__(26);
 	module.exports = function(it){
 	  return IObject(defined(it));
 	};
@@ -435,7 +444,7 @@
 
 	var anObject       = __webpack_require__(18)
 	  , IE8_DOM_DEFINE = __webpack_require__(52)
-	  , toPrimitive    = __webpack_require__(35)
+	  , toPrimitive    = __webpack_require__(36)
 	  , dP             = Object.defineProperty;
 
 	exports.f = __webpack_require__(7) ? Object.defineProperty : function defineProperty(O, P, Attributes){
@@ -775,6 +784,15 @@
 
 	    return utilities;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 14 */
@@ -793,7 +811,7 @@
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var store      = __webpack_require__(33)('wks')
+	var store      = __webpack_require__(34)('wks')
 	  , uid        = __webpack_require__(22)
 	  , Symbol     = __webpack_require__(4).Symbol
 	  , USE_SYMBOL = typeof Symbol == 'function';
@@ -933,7 +951,23 @@
 
 	var req = new Req();
 
-	exports.default = req;
+	var _default = req;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/mobilesrc/req.js");
+
+	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/mobilesrc/req.js");
+
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/mobilesrc/req.js");
+	}();
+
+	;
 
 /***/ }),
 /* 18 */
@@ -959,7 +993,7 @@
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
 	var $keys       = __webpack_require__(56)
-	  , enumBugKeys = __webpack_require__(26);
+	  , enumBugKeys = __webpack_require__(27);
 
 	module.exports = Object.keys || function keys(O){
 	  return $keys(O, enumBugKeys);
@@ -1022,6 +1056,82 @@
 
 /***/ }),
 /* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
+	    COPY_RIGHT: "© 2017 娑婆诃",
+	    APP_NAME: "太阳记事",
+	    CASE_NUMBER: "粤ICP备16089330号-1",
+	    DOMAIN: 'www.ty-xb.com',
+	    SLOGAN: "记录点滴，感受彼此，生命是最美丽的书卷...",
+	    UNKNOW_ERR: '异常错误',
+	    PARAMS_PASSED_ERR_TIPS: "参数传递错误!",
+	    USER_EXISTS_TIPS: "对不起，该用户已经存在，请重新尝试",
+	    PAGE_NOT_FOND_TIPS: "该页面不存在",
+	    USER_NOT_EXIST_TIPS: "该用户不存在",
+	    DREAM_NOT_EXIST_TIPS: "抱歉，你查看的内容不存在",
+	    TAG_EXIST_ERR: "该圈子已经存在，不能重复创建了",
+	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建1个圈子，可以留给他人些机会，圈子名称是唯一的，也请谨慎创建",
+	    COMMENT_REQUIRE_ERR: "回复不能为空",
+	    TAG_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
+	    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
+	    PASSWORD_VALIDATION: "必须是6~16个字符的字母或数字组成",
+	    BUILDING_WORD: "该功能正在建设中，敬请谅解太阳圈子小站长一个人战斗，会累死~抱歉",
+	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本圈子或本站的发文规则，因此被该圈子驳回，敬请谅解。',
+	    SUBSCRIBE: '关注 +',
+	    CANCEL_SUBSCRIBE: '取消关注 -',
+	    CATEGORY: {
+	        TEXT: "文",
+	        IMAGE: "画",
+	        NEWS: "网址"
+	    },
+	    COMMENT_TEXT: {
+	        EXPANSION_COMMENT: '回复'
+	    },
+
+	    OBJEXT_TYPE: {
+	        DREAM      : 0, // 想法
+	        COMMENT    : 1  // 留言
+	    },
+
+	    OBJECT: {
+	        DREAM: {
+	            CNNAME: '日常'
+	        },
+	        TAG: {
+	            CNNAME: '圈子'
+	        }
+	    },
+
+	    SORT_ROLE: {
+	        HOT       : 1,  // 好评
+	        NEW       : 2   // 最新
+	    },
+
+	    REGISTRATION: {
+	        WORDING: "感谢您使用红太阳记事本"
+	    },
+
+	    PERMS: {
+	        DREAM_REMOVE: '58a6ab9a1abc2e1c60f8c9ae'
+	    }
+	};
+
+	// 模块定义
+	if (typeof(module) === 'object' && module.exports === exports) {
+	    module.exports = settings;
+	} else if (true) {
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
+	        'use strict';
+	        return settings;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+	    exports.settings = settings;
+	}
+
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
@@ -1031,7 +1141,7 @@
 	};
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	// IE 8- don't enum bug keys
@@ -1040,26 +1150,26 @@
 	).split(',');
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 	module.exports = {};
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	module.exports = true;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 	var anObject    = __webpack_require__(18)
 	  , dPs         = __webpack_require__(88)
-	  , enumBugKeys = __webpack_require__(26)
-	  , IE_PROTO    = __webpack_require__(32)('IE_PROTO')
+	  , enumBugKeys = __webpack_require__(27)
+	  , IE_PROTO    = __webpack_require__(33)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
 	  , PROTOTYPE   = 'prototype';
 
@@ -1099,13 +1209,13 @@
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var pIE            = __webpack_require__(24)
 	  , createDesc     = __webpack_require__(21)
 	  , toIObject      = __webpack_require__(5)
-	  , toPrimitive    = __webpack_require__(35)
+	  , toPrimitive    = __webpack_require__(36)
 	  , has            = __webpack_require__(8)
 	  , IE8_DOM_DEFINE = __webpack_require__(52)
 	  , gOPD           = Object.getOwnPropertyDescriptor;
@@ -1120,7 +1230,7 @@
 	};
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var def = __webpack_require__(9).f
@@ -1132,17 +1242,17 @@
 	};
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var shared = __webpack_require__(33)('keys')
+	var shared = __webpack_require__(34)('keys')
 	  , uid    = __webpack_require__(22);
 	module.exports = function(key){
 	  return shared[key] || (shared[key] = uid(key));
 	};
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var global = __webpack_require__(4)
@@ -1153,7 +1263,7 @@
 	};
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 	// 7.1.4 ToInteger
@@ -1164,7 +1274,7 @@
 	};
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
@@ -1181,13 +1291,13 @@
 	};
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var global         = __webpack_require__(4)
 	  , core           = __webpack_require__(3)
-	  , LIBRARY        = __webpack_require__(28)
-	  , wksExt         = __webpack_require__(37)
+	  , LIBRARY        = __webpack_require__(29)
+	  , wksExt         = __webpack_require__(38)
 	  , defineProperty = __webpack_require__(9).f;
 	module.exports = function(name){
 	  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -1195,13 +1305,13 @@
 	};
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports.f = __webpack_require__(15);
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1551,9 +1661,18 @@
 
 	    return common;
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1581,91 +1700,20 @@
 	};
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__(25);
-	module.exports = function(it){
-	  return Object(defined(it));
-	};
-
-/***/ }),
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
-	    COPY_RIGHT: "© 2017 娑婆诃",
-	    APP_NAME: "太阳记事",
-	    CASE_NUMBER: "粤ICP备16089330号-1",
-	    DOMAIN: 'www.ty-xb.com',
-	    SLOGAN: "记录点滴，感受彼此，生命是最美丽的书卷...",
-	    UNKNOW_ERR: '异常错误',
-	    PARAMS_PASSED_ERR_TIPS: "参数传递错误!",
-	    USER_EXISTS_TIPS: "对不起，该用户已经存在，请重新尝试",
-	    PAGE_NOT_FOND_TIPS: "该页面不存在",
-	    USER_NOT_EXIST_TIPS: "该用户不存在",
-	    DREAM_NOT_EXIST_TIPS: "抱歉，你查看的内容不存在",
-	    TAG_EXIST_ERR: "该圈子已经存在，不能重复创建了",
-	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建1个圈子，可以留给他人些机会，圈子名称是唯一的，也请谨慎创建",
-	    COMMENT_REQUIRE_ERR: "回复不能为空",
-	    TAG_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
-	    USERNAME_VALIDATION: "必须是由2~24个小写字母、数字、中文或下划线组成",
-	    PASSWORD_VALIDATION: "必须是6~16个字符的字母或数字组成",
-	    BUILDING_WORD: "该功能正在建设中，敬请谅解太阳圈子小站长一个人战斗，会累死~抱歉",
-	    DREAM_PASS_ERROR: '您的发布的内容由于不符合本圈子或本站的发文规则，因此被该圈子驳回，敬请谅解。',
-	    SUBSCRIBE: '关注 +',
-	    CANCEL_SUBSCRIBE: '取消关注 -',
-	    COMMENT_TEXT: {
-	        EXPANSION_COMMENT: '回复'
-	    },
-
-	    OBJEXT_TYPE: {
-	        DREAM      : 0, // 想法
-	        COMMENT    : 1  // 留言
-	    },
-
-	    OBJECT: {
-	        DREAM: {
-	            CNNAME: '日常'
-	        },
-	        TAG: {
-	            CNNAME: '圈子'
-	        }
-	    },
-
-	    SORT_ROLE: {
-	        HOT       : 1,  // 好评
-	        NEW       : 2   // 最新
-	    },
-
-	    REGISTRATION: {
-	        WORDING: "感谢您使用红太阳记事本"
-	    },
-
-	    PERMS: {
-	        DREAM_REMOVE: '58a6ab9a1abc2e1c60f8c9ae'
-	    }
+	// 7.1.13 ToObject(argument)
+	var defined = __webpack_require__(26);
+	module.exports = function(it){
+	  return Object(defined(it));
 	};
-
-	// 模块定义
-	if (typeof(module) === 'object' && module.exports === exports) {
-	    module.exports = settings;
-	} else if (true) {
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
-	        'use strict';
-	        return settings;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-	    exports.settings = settings;
-	}
-
 
 /***/ }),
 /* 43 */
@@ -1729,7 +1777,7 @@
 	 * @version 0.1
 	 * @author minggangqiu
 	 */
-	var settings = __webpack_require__(42);
+	var settings = __webpack_require__(25);
 	var utils = __webpack_require__(13);
 	var v = __webpack_require__(65);
 	var picpop = __webpack_require__(107);
@@ -2223,6 +2271,35 @@
 	exports.registrationPop = registrationPop;
 	exports.tagNewPop = tagNewPop;
 	exports.presidentPop = presidentPop;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/mobilesrc/popup.js');
+	}();
+
+	;
 
 /***/ }),
 /* 46 */
@@ -2275,7 +2352,23 @@
 
 	var tools = new Tools();
 
-	exports.default = tools;
+	var _default = tools;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/mobilesrc/tools.js");
+
+	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/mobilesrc/tools.js");
+
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/mobilesrc/tools.js");
+	}();
+
+	;
 
 /***/ }),
 /* 47 */
@@ -2386,14 +2479,14 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY        = __webpack_require__(28)
+	var LIBRARY        = __webpack_require__(29)
 	  , $export        = __webpack_require__(10)
 	  , redefine       = __webpack_require__(58)
 	  , hide           = __webpack_require__(14)
 	  , has            = __webpack_require__(8)
-	  , Iterators      = __webpack_require__(27)
+	  , Iterators      = __webpack_require__(28)
 	  , $iterCreate    = __webpack_require__(84)
-	  , setToStringTag = __webpack_require__(31)
+	  , setToStringTag = __webpack_require__(32)
 	  , getPrototypeOf = __webpack_require__(55)
 	  , ITERATOR       = __webpack_require__(15)('iterator')
 	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
@@ -2462,7 +2555,7 @@
 
 	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 	var $keys      = __webpack_require__(56)
-	  , hiddenKeys = __webpack_require__(26).concat('length', 'prototype');
+	  , hiddenKeys = __webpack_require__(27).concat('length', 'prototype');
 
 	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
 	  return $keys(O, hiddenKeys);
@@ -2474,8 +2567,8 @@
 
 	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 	var has         = __webpack_require__(8)
-	  , toObject    = __webpack_require__(41)
-	  , IE_PROTO    = __webpack_require__(32)('IE_PROTO')
+	  , toObject    = __webpack_require__(42)
+	  , IE_PROTO    = __webpack_require__(33)('IE_PROTO')
 	  , ObjectProto = Object.prototype;
 
 	module.exports = Object.getPrototypeOf || function(O){
@@ -2493,7 +2586,7 @@
 	var has          = __webpack_require__(8)
 	  , toIObject    = __webpack_require__(5)
 	  , arrayIndexOf = __webpack_require__(80)(false)
-	  , IE_PROTO     = __webpack_require__(32)('IE_PROTO');
+	  , IE_PROTO     = __webpack_require__(33)('IE_PROTO');
 
 	module.exports = function(object, names){
 	  var O      = toIObject(object)
@@ -2582,7 +2675,23 @@
 
 	var effect = new Effect();
 
-	exports.default = effect;
+	var _default = effect;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/mobilesrc/effect.js');
+
+	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/mobilesrc/effect.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/effect.js');
+	}();
+
+	;
 
 /***/ }),
 /* 60 */
@@ -2755,7 +2864,23 @@
 
 	var keyboard = new Keyboard();
 
-	exports.default = keyboard;
+	var _default = keyboard;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/mobilesrc/keyboard.js');
+
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/mobilesrc/keyboard.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/keyboard.js');
+	}();
+
+	;
 
 /***/ }),
 /* 61 */
@@ -2862,6 +2987,15 @@
 	        }
 	    })();
 	}
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 63 */
@@ -3205,6 +3339,23 @@
 
 	exports.create = create;
 	exports.shareDrop = shareDrop;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/mobilesrc/dropdown.js');
+
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/mobilesrc/dropdown.js');
+
+	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/mobilesrc/dropdown.js');
+
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/mobilesrc/dropdown.js');
+	}();
+
+	;
 
 /***/ }),
 /* 64 */
@@ -3260,6 +3411,17 @@
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    return shareaside;
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/mobilesrc/share.js');
+	}();
+
+	;
 
 /***/ }),
 /* 65 */
@@ -3283,7 +3445,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var req = __webpack_require__(17).default;
-	var settings = __webpack_require__(42);
+	var settings = __webpack_require__(25);
 	var utils = __webpack_require__(13);
 
 	var Validate = function () {
@@ -3467,6 +3629,21 @@
 	}
 
 	exports.validate = validate;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/mobilesrc/validate.js');
+
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/mobilesrc/validate.js');
+
+	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/mobilesrc/validate.js');
+	}();
+
+	;
 
 /***/ }),
 /* 66 */
@@ -3558,7 +3735,7 @@
 
 	__webpack_require__(101);
 	__webpack_require__(105);
-	module.exports = __webpack_require__(37).f('iterator');
+	module.exports = __webpack_require__(38).f('iterator');
 
 /***/ }),
 /* 78 */
@@ -3607,7 +3784,7 @@
 
 	// all enumerable object keys, includes symbols
 	var getKeys = __webpack_require__(20)
-	  , gOPS    = __webpack_require__(40)
+	  , gOPS    = __webpack_require__(41)
 	  , pIE     = __webpack_require__(24);
 	module.exports = function(it){
 	  var result     = getKeys(it)
@@ -3642,9 +3819,9 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var create         = __webpack_require__(29)
+	var create         = __webpack_require__(30)
 	  , descriptor     = __webpack_require__(21)
-	  , setToStringTag = __webpack_require__(31)
+	  , setToStringTag = __webpack_require__(32)
 	  , IteratorPrototype = {};
 
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
@@ -3795,7 +3972,7 @@
 	  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
 	    function(test, buggy, set){
 	      try {
-	        set = __webpack_require__(50)(Function.call, __webpack_require__(30).f(Object.prototype, '__proto__').set, 2);
+	        set = __webpack_require__(50)(Function.call, __webpack_require__(31).f(Object.prototype, '__proto__').set, 2);
 	        set(test, []);
 	        buggy = !(test instanceof Array);
 	      } catch(e){ buggy = true; }
@@ -3813,8 +3990,8 @@
 /* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(34)
-	  , defined   = __webpack_require__(25);
+	var toInteger = __webpack_require__(35)
+	  , defined   = __webpack_require__(26);
 	// true  -> String#at
 	// false -> String#codePointAt
 	module.exports = function(TO_STRING){
@@ -3835,7 +4012,7 @@
 /* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(34)
+	var toInteger = __webpack_require__(35)
 	  , max       = Math.max
 	  , min       = Math.min;
 	module.exports = function(index, length){
@@ -3848,7 +4025,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
-	var toInteger = __webpack_require__(34)
+	var toInteger = __webpack_require__(35)
 	  , min       = Math.min;
 	module.exports = function(it){
 	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -3861,7 +4038,7 @@
 	'use strict';
 	var addToUnscopables = __webpack_require__(79)
 	  , step             = __webpack_require__(85)
-	  , Iterators        = __webpack_require__(27)
+	  , Iterators        = __webpack_require__(28)
 	  , toIObject        = __webpack_require__(5);
 
 	// 22.1.3.4 Array.prototype.entries()
@@ -3899,7 +4076,7 @@
 
 	var $export = __webpack_require__(10)
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	$export($export.S, 'Object', {create: __webpack_require__(29)});
+	$export($export.S, 'Object', {create: __webpack_require__(30)});
 
 /***/ }),
 /* 96 */
@@ -3915,7 +4092,7 @@
 
 	// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 	var toIObject                 = __webpack_require__(5)
-	  , $getOwnPropertyDescriptor = __webpack_require__(30).f;
+	  , $getOwnPropertyDescriptor = __webpack_require__(31).f;
 
 	__webpack_require__(57)('getOwnPropertyDescriptor', function(){
 	  return function getOwnPropertyDescriptor(it, key){
@@ -3928,7 +4105,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.9 Object.getPrototypeOf(O)
-	var toObject        = __webpack_require__(41)
+	var toObject        = __webpack_require__(42)
 	  , $getPrototypeOf = __webpack_require__(55);
 
 	__webpack_require__(57)('getPrototypeOf', function(){
@@ -3986,22 +4163,22 @@
 	  , redefine       = __webpack_require__(58)
 	  , META           = __webpack_require__(87).KEY
 	  , $fails         = __webpack_require__(16)
-	  , shared         = __webpack_require__(33)
-	  , setToStringTag = __webpack_require__(31)
+	  , shared         = __webpack_require__(34)
+	  , setToStringTag = __webpack_require__(32)
 	  , uid            = __webpack_require__(22)
 	  , wks            = __webpack_require__(15)
-	  , wksExt         = __webpack_require__(37)
-	  , wksDefine      = __webpack_require__(36)
+	  , wksExt         = __webpack_require__(38)
+	  , wksDefine      = __webpack_require__(37)
 	  , keyOf          = __webpack_require__(86)
 	  , enumKeys       = __webpack_require__(81)
 	  , isArray        = __webpack_require__(83)
 	  , anObject       = __webpack_require__(18)
 	  , toIObject      = __webpack_require__(5)
-	  , toPrimitive    = __webpack_require__(35)
+	  , toPrimitive    = __webpack_require__(36)
 	  , createDesc     = __webpack_require__(21)
-	  , _create        = __webpack_require__(29)
+	  , _create        = __webpack_require__(30)
 	  , gOPNExt        = __webpack_require__(89)
-	  , $GOPD          = __webpack_require__(30)
+	  , $GOPD          = __webpack_require__(31)
 	  , $DP            = __webpack_require__(9)
 	  , $keys          = __webpack_require__(20)
 	  , gOPD           = $GOPD.f
@@ -4128,9 +4305,9 @@
 	  $DP.f   = $defineProperty;
 	  __webpack_require__(54).f = gOPNExt.f = $getOwnPropertyNames;
 	  __webpack_require__(24).f  = $propertyIsEnumerable;
-	  __webpack_require__(40).f = $getOwnPropertySymbols;
+	  __webpack_require__(41).f = $getOwnPropertySymbols;
 
-	  if(DESCRIPTORS && !__webpack_require__(28)){
+	  if(DESCRIPTORS && !__webpack_require__(29)){
 	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
 	  }
 
@@ -4217,13 +4394,13 @@
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(36)('asyncIterator');
+	__webpack_require__(37)('asyncIterator');
 
 /***/ }),
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(36)('observable');
+	__webpack_require__(37)('observable');
 
 /***/ }),
 /* 105 */
@@ -4232,7 +4409,7 @@
 	__webpack_require__(94);
 	var global        = __webpack_require__(4)
 	  , hide          = __webpack_require__(14)
-	  , Iterators     = __webpack_require__(27)
+	  , Iterators     = __webpack_require__(28)
 	  , TO_STRING_TAG = __webpack_require__(15)('toStringTag');
 
 	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
@@ -4400,7 +4577,21 @@
 
 	;
 
-	exports.default = BaseCom;
+	var _default = BaseCom;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/mobilesrc/basecom.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/basecom.js');
+	}();
+
+	;
 
 /***/ }),
 /* 112 */
@@ -4412,7 +4603,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(39);
+	var _extends2 = __webpack_require__(40);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -4600,7 +4791,21 @@
 	    return Dialog;
 	}(_basecom2.default);
 
-	exports.default = Dialog;
+	var _default = Dialog;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', 'E:/mypro/tyxb/mobilesrc/Dialog.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/Dialog.js');
+	}();
+
+	;
 
 /***/ }),
 /* 113 */
@@ -4749,7 +4954,21 @@
 	    return ImageViewer;
 	}(_react2.default.Component);
 
-	exports.default = ImageViewer;
+	var _default = ImageViewer;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/mobilesrc/ImageViewer.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/ImageViewer.js');
+	}();
+
+	;
 
 /***/ }),
 /* 114 */
@@ -4761,7 +4980,7 @@
 	  value: true
 	});
 
-	var _extends2 = __webpack_require__(39);
+	var _extends2 = __webpack_require__(40);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -5396,7 +5615,29 @@
 	  onMouseMove: function onMouseMove() {},
 	  onPositionChange: function onPositionChange() {}
 	};
-	exports.default = AvatarCroper;
+	var _default = AvatarCroper;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+
+	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', 'E:/mypro/tyxb/mobilesrc/AvatarCroper.js');
+
+	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', 'E:/mypro/tyxb/mobilesrc/AvatarCroper.js');
+
+	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', 'E:/mypro/tyxb/mobilesrc/AvatarCroper.js');
+
+	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', 'E:/mypro/tyxb/mobilesrc/AvatarCroper.js');
+
+	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', 'E:/mypro/tyxb/mobilesrc/AvatarCroper.js');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/AvatarCroper.js');
+	}();
+
+	;
 
 /***/ }),
 /* 115 */
@@ -5408,7 +5649,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(39);
+	var _extends2 = __webpack_require__(40);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -5450,7 +5691,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var common = __webpack_require__(38);
+	var common = __webpack_require__(39);
 
 	var MyEditor = function (_React$Component) {
 	    (0, _inherits3.default)(MyEditor, _React$Component);
@@ -5597,7 +5838,21 @@
 	    return MyEditor;
 	}(_react2.default.Component);
 
-	exports.default = MyEditor;
+	var _default = MyEditor;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/mobilesrc/AvatarEditor.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/AvatarEditor.js');
+	}();
+
+	;
 
 /***/ }),
 /* 116 */
@@ -5624,7 +5879,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(function (factory) {
-	    module.exports = factory(__webpack_require__(13), __webpack_require__(38), __webpack_require__(45));
+	    module.exports = factory(__webpack_require__(13), __webpack_require__(39), __webpack_require__(45));
 	})(function (utils, common, popup) {
 	    var _d = document,
 	        _w = window,
@@ -5759,6 +6014,15 @@
 	        }
 	    }
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 117 */
@@ -5770,7 +6034,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(39);
+	var _extends2 = __webpack_require__(40);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -5808,8 +6072,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var settings = __webpack_require__(25);
 	var utils = __webpack_require__(13);
-	var common = __webpack_require__(38);
+	var common = __webpack_require__(39);
 
 	var ImageUpload = function (_React$Component) {
 	    (0, _inherits3.default)(ImageUpload, _React$Component);
@@ -6800,15 +7065,15 @@
 	            var tabs = [{
 	                type: "text",
 	                icon: "edit",
-	                label: "文字"
+	                label: settings.CATEGORY.TEXT
 	            }, {
 	                type: "image",
 	                icon: "image",
-	                label: "图片"
+	                label: settings.CATEGORY.IMAGE
 	            }, {
 	                type: "news",
 	                icon: "link",
-	                label: "网址"
+	                label: settings.CATEGORY.NEWS
 	            }];
 
 	            return React.createElement(
@@ -7186,7 +7451,43 @@
 	    return PostEditor;
 	}(React.Component);
 
-	exports.default = PostEditor;
+	var _default = PostEditor;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(Input, 'Input', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/PostEditor.js');
+	}();
+
+	;
 
 /***/ }),
 /* 118 */
@@ -7198,7 +7499,7 @@
 	    value: true
 	});
 
-	var _extends2 = __webpack_require__(39);
+	var _extends2 = __webpack_require__(40);
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
@@ -7309,7 +7610,21 @@
 	    return TextEditor;
 	}(React.Component);
 
-	exports.default = TextEditor;
+	var _default = TextEditor;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', 'E:/mypro/tyxb/mobilesrc/TextEditor.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/mobilesrc/TextEditor.js');
+	}();
+
+	;
 
 /***/ }),
 /* 119 */
@@ -7584,6 +7899,15 @@
 
 	    return striptags;
 	});
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+	}();
+
+	;
 
 /***/ }),
 /* 120 */
@@ -7625,9 +7949,9 @@
 	'use strict';
 	// 19.1.2.1 Object.assign(target, source, ...)
 	var getKeys  = __webpack_require__(20)
-	  , gOPS     = __webpack_require__(40)
+	  , gOPS     = __webpack_require__(41)
 	  , pIE      = __webpack_require__(24)
-	  , toObject = __webpack_require__(41)
+	  , toObject = __webpack_require__(42)
 	  , IObject  = __webpack_require__(61)
 	  , $assign  = Object.assign;
 
@@ -8133,28 +8457,6 @@
 	__p += '\r\n                <span class="vote-num" rel="vote-num">' +
 	((__t = ( dream.vote )) == null ? '' : __t) +
 	'</span></div></a>\r\n                ';
-	 } ;
-	__p += '\r\n                <a href="/dream/' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'#dreamCtrlBox">留言&nbsp;<span class="comment-num">' +
-	((__t = ( dream.cnum )) == null ? '' : __t) +
-	'</span></a>\r\n                ';
-	 if (user) { ;
-	__p += '\r\n                ';
-	 if (dream._followers_u && dream._followers_u.length > 0) { ;
-	__p += '\r\n                <a data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="true" rel="dream-favourite" href="javascript:;">已收藏</a>\r\n                ';
-	 } else { ;
-	__p += '\r\n                <a data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
-	 } ;
-	__p += '\r\n                ';
-	 } else { ;
-	__p += '\r\n                <a data-did="' +
-	((__t = ( dream._id )) == null ? '' : __t) +
-	'" data-hasfav="false" rel="dream-favourite" href="javascript:;">收藏</a>\r\n                ';
 	 } ;
 	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n';
 	} else {;
