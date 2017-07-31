@@ -18,7 +18,8 @@ import TextViewer from 'TextViewer';
             'imageview', 
             'signin', 
             'signup', 
-            'posteditor'
+            'posteditor',
+            'textview'
         ],
         postCon = _d.querySelector('#postEditorCon'),
         viewerCon = _d.querySelector('#imageViewerCon'),

@@ -5891,7 +5891,7 @@
 	})(function (utils, common, popup) {
 	    var _d = document,
 	        _w = window,
-	        popups = ['avatareditor', 'imageview', 'signin', 'signup', 'posteditor'],
+	        popups = ['avatareditor', 'imageview', 'signin', 'signup', 'posteditor', 'textview'],
 	        postCon = _d.querySelector('#postEditorCon'),
 	        viewerCon = _d.querySelector('#imageViewerCon'),
 	        avatarCon = _d.querySelector('#avatarEditorCon'),
@@ -7648,6 +7648,9 @@
 	        _this.state = {
 	            loading: true,
 	            did: '',
+	            hasHeart: false,
+	            heartNum: 0,
+	            heartCls: 's s-arrow_up s-2x',
 	            content: '',
 	            text: ''
 	        };
@@ -7699,6 +7702,80 @@
 	            });
 	        }
 	    }, {
+	        key: 'showLogin',
+	        value: function showLogin() {
+	            var container = this.props.container;
+
+	            container.close();
+	            var state = History.getState(),
+	                action = state.data.action;
+
+	            if (action && action !== 'signin') {
+	                History.replaceState({ action: 'signin' }, 'signin', "?popup=signin");
+	            }
+	        }
+	    }, {
+	        key: 'heartIt',
+	        value: function heartIt(ev) {
+	            var _this3 = this;
+
+	            var _state = this.state,
+	                did = _state.did,
+	                hasHeart = _state.hasHeart,
+	                heartNum = _state.heartNum;
+
+
+	            if (!hasHeart) {
+	                _req2.default.post("/dream/goodit", {
+	                    did: did
+	                }, function (data) {
+	                    switch (data.result) {
+	                        case 0:
+	                            if (data.data) {
+	                                _this3.setState({
+	                                    hearNum: data.data.num,
+	                                    hasHeart: true,
+	                                    heartCls: "s s-arrow_up s-2x s-ac"
+	                                });
+	                            }
+	                            break;
+	                        case 1:
+	                            alert(data.info);
+	                            break;
+	                        case 2:
+	                            _this3.showLogin();
+	                            break;
+	                        default:
+	                            break;
+	                    }
+	                }, function () {});
+	            } else {
+	                _req2.default.post("/dream/cgood", {
+	                    did: did
+	                }, function (data) {
+	                    switch (data.result) {
+	                        case 0:
+	                            if (data.data) {
+	                                _this3.setState({
+	                                    hearNum: data.data.num,
+	                                    hasHeart: false,
+	                                    heartCls: "s s-arrow_up s-2x"
+	                                });
+	                            }
+	                            break;
+	                        case 1:
+	                            alert(data.info);
+	                            break;
+	                        case 2:
+	                            _this3.showLogin();
+	                            break;
+	                        default:
+	                            break;
+	                    }
+	                }, function () {});
+	            }
+	        }
+	    }, {
 	        key: 'close',
 	        value: function close() {
 	            var dialog = this.props.dialog;
@@ -7708,22 +7785,58 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _state = this.state,
-	                loading = _state.loading,
-	                content = _state.content,
-	                text = _state.text;
+	            var _state2 = this.state,
+	                loading = _state2.loading,
+	                content = _state2.content,
+	                text = _state2.text,
+	                did = _state2.did,
+	                heartCls = _state2.heartCls;
 
 
 	            if (!loading) {
 	                return React.createElement(
 	                    'div',
-	                    { className: 'text-viewer-box' },
+	                    { className: 'dialog-inner' },
 	                    React.createElement(
-	                        'h1',
-	                        null,
-	                        content
+	                        'div',
+	                        { className: 'hd' },
+	                        React.createElement(
+	                            'a',
+	                            { href: 'javascript:;',
+	                                className: 'back',
+	                                onClick: this.close.bind(this)
+	                            },
+	                            React.createElement('i', { className: 's s-back s-2x' }),
+	                            React.createElement(
+	                                'span',
+	                                null,
+	                                '\u8FD4\u56DE'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'a',
+	                            { className: 'owed',
+	                                href: 'javascript:;',
+	                                title: '\u559C\u6B22',
+	                                onClick: this.heartIt.bind(this)
+	                            },
+	                            React.createElement(
+	                                'div',
+	                                { className: 'owed-inner' },
+	                                React.createElement('i', { className: heartCls })
+	                            )
+	                        )
 	                    ),
-	                    React.createElement('div', { dangerouslySetInnerHTML: { __html: text } })
+	                    React.createElement(
+	                        'div',
+	                        { className: 'text-viewer-box bd' },
+	                        React.createElement(
+	                            'h1',
+	                            null,
+	                            '\u5927\u5BB6\u597D\uFF0C\u4F60\u4EEC\u597D\u5417'
+	                        ),
+	                        React.createElement('div', { className: 'text-viewer-content', dangerouslySetInnerHTML: { __html: text } })
+	                    )
 	                );
 	            } else {
 	                return React.createElement(

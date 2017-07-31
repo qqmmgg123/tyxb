@@ -7,10 +7,13 @@ export default class TextViewer extends React.Component {
         super(props);
 
         this.state = {
-            loading : true,
-            did     : '',
-            content : '',
-            text : ''
+            loading  : true,
+            did      : '',
+            hasHeart : false,
+            heartNum : 0,
+            heartCls : 's s-arrow_up s-2x',
+            content  : '',
+            text     : ''
         }
     }
 
@@ -60,20 +63,116 @@ export default class TextViewer extends React.Component {
         );
     }
 
+    showLogin() {
+        const { container } = this.props;
+        container.close();
+        const state = History.getState(),
+            { action } = state.data;
+        if (action && action !== 'signin') {
+            History.replaceState({ action: 'signin'}, 'signin', "?popup=signin");
+        }
+    }
+
+    heartIt(ev) {
+        const { did, hasHeart, heartNum } = this.state;
+            
+        if (!hasHeart) {
+            req.post(
+                "/dream/goodit",
+                {
+                    did: did
+                },
+                (data) => {
+                    switch(data.result) {
+                        case 0:
+                            if (data.data) {
+                                this.setState({
+                                    hearNum: data.data.num,
+                                    hasHeart: true,
+                                    heartCls: "s s-arrow_up s-2x s-ac"
+                                });
+                            }
+                            break;
+                        case 1:
+                            alert(data.info);
+                            break;
+                        case 2:
+                            this.showLogin();
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                () => {
+                }
+            );
+        }else{
+            req.post(
+                "/dream/cgood",
+                {
+                    did: did
+                },
+                (data) => {
+                    switch(data.result) {
+                        case 0:
+                            if (data.data) {
+                                this.setState({
+                                    hearNum: data.data.num,
+                                    hasHeart: false,
+                                    heartCls: "s s-arrow_up s-2x"
+                                });
+                            }
+                            break;
+                        case 1:
+                            alert(data.info);
+                            break;
+                        case 2:
+                            this.showLogin();
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                () => {
+                }
+            );
+        }
+    }
+
     close() {
         const { dialog } = this.props;
         dialog.close();
     }
 
     render() {
-        const { loading, content, text } = this.state;
+        const { loading, content, text, did, heartCls } = this.state;
 
         if (!loading) {
             return (
-                <div className="text-viewer-box">
-                    <h1>{content}</h1>
-                    <div dangerouslySetInnerHTML={{__html: text}} />
+              <div className="dialog-inner">
+                <div className="hd">
+                  <a href="javascript:;" 
+                     className="back" 
+                     onClick={this.close.bind(this)}
+                  >
+                     <i className="s s-back s-2x"></i>
+                     <span>返回</span>
+                  </a>
+                  <a className="owed" 
+                     href="javascript:;" 
+                     title="喜欢"
+                     onClick={this.heartIt.bind(this)}
+                    >
+                    <div className="owed-inner">
+                      <i className={heartCls}></i>
+                    </div>
+                  </a>
                 </div>
+                <div className="text-viewer-box bd">
+                    <h1>大家好，你们好吗</h1>
+                    <div className="text-viewer-content" dangerouslySetInnerHTML={{__html: text}} />
+                </div>
+            </div>
             )
         }
         else{

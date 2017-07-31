@@ -2146,6 +2146,14 @@ div.more a.btn {
   width: 690px;
   margin: 0 auto;
 }
+#textViewerCon .text-viewer-box h1 {
+  margin-top: 10px;
+  font-size: 24px;
+  text-align: center;
+}
+#textViewerCon .text-viewer-content {
+  margin-top: 10px;
+}
 .dialog {
   margin: 0 auto 0;
   top: 20%;
