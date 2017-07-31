@@ -2135,6 +2135,17 @@ div.more a.btn {
 #imageViewerCon .image-viewer-box img {
   cursor: zoom-out;
 }
+#textViewerCon .dialog {
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+  border-radius: 0;
+}
+#textViewerCon .text-viewer-box {
+  font-size: 14px;
+  width: 690px;
+  margin: 0 auto;
+}
 .dialog {
   margin: 0 auto 0;
   top: 20%;

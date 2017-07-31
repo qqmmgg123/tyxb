@@ -61,3 +61,4 @@ export default class TextEditor extends React.Component {
         this.htmlEl && this.htmlEl.focus();
     }
 }
+

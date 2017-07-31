@@ -75,7 +75,7 @@ import TextViewer from 'TextViewer';
     if (textViewerCon) {
         _w.textViewer= ReactDOM.render(
             <Dialog 
-            routerName="textviewer"
+            routerName="textview"
             needWin={true}
             needKey={true}
             needMouse={true}
