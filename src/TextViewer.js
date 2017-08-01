@@ -9,15 +9,9 @@ export default class TextViewer extends React.Component {
         this.state = {
             loading  : true,
             did      : '',
-            hasHeart : false,
-            heartNum : 0,
             heartCls : 's s-arrow_up s-2x',
-            content  : '',
-            text     : '',
-            pic      : '',
-            mood     : '',
-            health   : '',
-            date     : ''
+            hasHeart : false,
+            dream    : {}
         }
     }
 
@@ -40,18 +34,20 @@ export default class TextViewer extends React.Component {
             (data) => {
                 try {
                 common.xhrReponseManage(data, (data) => {
-                    let content = "", 
-                        text = "文字没有找到...";
+                    let dream = {};
 
                     if (data.data && data.data.dream) {
-                        let dream = data.data.dream;
-                        content = dream.content;
-                        text = dream.text;
+                        dream = data.data.dream;
                     }
 
+                    let hasHeart = !!(dream.good && dream.good[0]),
+                        hasCls = hasHeart? "s s-arrow_up s-2x s-ac":"s s-arrow_up s-2x";
+
                     this.setState({
-                        content: content,
-                        text: text,
+                        dream: dream,
+                        hasHeart: hasHeart,
+                        did: did,
+                        hasCls: hasCls,
                         loading: false,
                     });
                 });
@@ -78,8 +74,9 @@ export default class TextViewer extends React.Component {
     }
 
     heartIt(ev) {
-        const { did, hasHeart, heartNum } = this.state;
-            
+        const { did, dream } = this.state,
+            hasHeart = !!(dream.good && dream.good[0]);
+
         if (!hasHeart) {
             req.post(
                 "/dream/goodit",
@@ -149,17 +146,18 @@ export default class TextViewer extends React.Component {
     }
 
     render() {
-        const { loading, content, text, did, heartCls, heartNum } = this.state;
-        const href = "/user/" + did;
+        const { loading, dream, did, heartCls } = this.state;
+        const href = "/user/" + (dream._belong_u && dream._belong_u._id || "unknow");
+        const username = (dream._belong_u && dream._belong_u.username || "未知");
 
         if (!loading) {
             return (
               <div className="dialog-inner">
                 <div className="dialog-header">
                   <div className="userinfo">
-                    <a className="username" href={href}>小居士</a>
+                    <a className="username" href={href}>{username}</a>
                     <span className="datetime">
-                        07-29 15:46
+                    {dream.date}
                     </span>
                     <span className="things">
                         写了一篇“文字”...
@@ -179,9 +177,9 @@ export default class TextViewer extends React.Component {
                 </div>
                 <div className="dialog-container">
                   <div className="text-viewer-box">
-                    <h1>{content}</h1>
+                    <h1>{dream.content || ""}</h1>
                     <div className="text-viewer-content" 
-                         dangerouslySetInnerHTML={{__html: text}}
+                         dangerouslySetInnerHTML={{__html: dream.text || "文字没有找到..."}}
                     />
                   </div>
                 </div>
@@ -194,7 +192,7 @@ export default class TextViewer extends React.Component {
                       >
                       <div className="owed-inner">
                         <i className={heartCls}></i>
-                        <span className="vote-num" rel="vote-num">有{heartNum}人喜欢...</span>
+                        <span className="vote-num" rel="vote-num">有{dream.vote || 0}人喜欢...</span>
                       </div>
                     </a>
                   </div>

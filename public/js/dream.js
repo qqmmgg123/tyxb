@@ -1075,11 +1075,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(Req, "Req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(req, "req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/req.js");
 	}();
 
 	;
@@ -1514,8 +1514,8 @@
 	                "m+": date.getMinutes(), //minute
 	                "s+": date.getSeconds(), //second
 	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
-	                "S": date.getMilliseconds() //millisecond
-	            };
+	                "S": date.getMilliseconds //millisecond
+	                () };
 
 	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 	            for (var k in o) {
@@ -1673,15 +1673,15 @@
 	        resetBtn    = document.getElementById('search-reset'),
 	        searchInput = document.getElementById('search-input'),
 	        searchBtn   = document.getElementById('search_dream_btn');
-	      searchBtn && searchBtn.addEventListener('click', function() {
+	     searchBtn && searchBtn.addEventListener('click', function() {
 	        if (inputBox.className.indexOf(' visible') === -1) {
 	            inputBox.className += ' visible';
 	        }
 	    }, false);
-	      backBtn && backBtn.addEventListener('click', function() {
+	     backBtn && backBtn.addEventListener('click', function() {
 	        inputBox.className = inputBox.className.replace(' visible', '');
 	    }, false);
-	      resetBtn && resetBtn.addEventListener('click', function() {
+	     resetBtn && resetBtn.addEventListener('click', function() {
 	        searchInput.value = '';
 	    }, false);*/
 
@@ -1808,7 +1808,7 @@
 	    USER_EXISTS_TIPS: "对不起，该用户已经存在，请重新尝试",
 	    PAGE_NOT_FOND_TIPS: "该页面不存在",
 	    USER_NOT_EXIST_TIPS: "该用户不存在",
-	    DREAM_NOT_EXIST_TIPS: "抱歉，你查看的内容不存在",
+	    DREAM_NOT_EXIST_TIPS: "内容不在了，也许已经被作者删除...",
 	    TAG_EXIST_ERR: "该圈子已经存在，不能重复创建了",
 	    TAG_MORE_ERR: "抱歉，目前一个用户只能创建1个圈子，可以留给他人些机会，圈子名称是唯一的，也请谨慎创建",
 	    COMMENT_REQUIRE_ERR: "回复不能为空",
@@ -2656,25 +2656,25 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Win, 'Win', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(popup, 'popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
 	}();
 
 	;
@@ -2739,11 +2739,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(tools, "tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
 	}();
 
 	;
@@ -3062,11 +3062,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(Effect, 'Effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(effect, 'effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
 	}();
 
 	;
@@ -3251,11 +3251,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
 	}();
 
 	;
@@ -3724,13 +3724,13 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(create, 'create', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
 	}();
 
 	;
@@ -3796,7 +3796,7 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', '/Users/dragon/home/tyxb/tyxb/src/share.js');
 	}();
 
 	;
@@ -4014,11 +4014,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(req, 'req', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
 	}();
 
 	;
@@ -4809,13 +4809,13 @@
 	with (obj) {
 
 	 list.forEach(function(item) { ;
-	__p += '\r\n<li><a href="' +
+	__p += '\n<li><a href="' +
 	((__t = ( item.url )) == null ? '' : __t) +
 	'">' +
 	((__t = ( item.key )) == null ? '' : __t) +
-	'</a></li>\r\n';
+	'</a></li>\n';
 	 }) ;
-	__p += '\r\n';
+	__p += '\n';
 
 	}
 	return __p
@@ -4829,7 +4829,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="dream-area">\r\n    <form id="deamcreat-form" action="/dream/new" method="post">\r\n        <div class="title-head">\r\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\r\n            此刻的想法（必填）\r\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\r\n        </div>\r\n        <div>\r\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            图片\r\n        </div>\r\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\r\n        <div><img id="image-preview" src="" /></div>\r\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\r\n        <input type="hidden" name="did" value="" />\r\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\r\n    </form>\r\n</div>\r\n\r\n';
+	__p += '<div class="dream-area">\n    <form id="deamcreat-form" action="/dream/new" method="post">\n        <div class="title-head">\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\n            此刻的想法（必填）\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\n        </div>\n        <div>\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            图片\n        </div>\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\n        <div><img id="image-preview" src="" /></div>\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\n        <input type="hidden" name="did" value="" />\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\n    </form>\n</div>\n\n';
 
 	}
 	return __p
@@ -4843,15 +4843,15 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
+	__p += '<div class="tab-nav">\n    <ul>\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">+ 注册</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 注册</a></li>\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
-	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
+	'">登录 →</a></li>\n    </ul>\n</div>\n<div class="tab-content">\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
+	'">\n        <form id="signup-form" action="/signup" method="post" novalidate>\n            <div rel="info" class="alert alert-danger" style="display: none;">\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\n                <p class="validate-error"></p>\n            </div class="form-group">\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div>\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\n            </div>\n        </form>\n        <div class="signup-loading" style="display: none;">\n            <p>请稍等...</p>\n        </div>\n    </div>\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
-	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
+	'">\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="other-ctrl form-group">\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\n            </div>\n            <div class="btn-group">\n                <button class="btn btn-primary" type="button">登录</button>\n            </div>\n        </form>\n        <div class="signin-loading" style="display: none;">\n            <p>登录中...请稍等</p>\n        </div>\n    </div>\n</div>\n\n';
 
 	}
 	return __p
@@ -4865,9 +4865,9 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="form-area">\r\n    <form action="/tag/new" method="post">\r\n        <div rel="err-info" class="alert" style="display: none;">\r\n        </div>\r\n        <div class="title-head">\r\n            <span class="require">*&nbsp;</span>学派名称\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><input type="text" value="' +
+	__p += '<div class="form-area">\n    <form action="/tag/new" method="post">\n        <div rel="err-info" class="alert" style="display: none;">\n        </div>\n        <div class="title-head">\n            <span class="require">*&nbsp;</span>学派名称\n        </div>\n        <div class="form-group">\n            <p class="field"><input type="text" value="' +
 	((__t = ( tagName )) == null ? '' : __t) +
-	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            学派描述\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\r\n        </div>\r\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\r\n    </form>\r\n</div>\r\n';
+	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            学派描述\n        </div>\n        <div class="form-group">\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\n        </div>\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\n    </form>\n</div>\n';
 
 	}
 	return __p
@@ -4881,7 +4881,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
+	__p += '<div class="hd">\n    <span class="title">标题...</span>\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\n</div>\n<div class="bd">\n    正文...\n</div>\n';
 
 	}
 	return __p
@@ -4964,9 +4964,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
 	}();
 
 	;
@@ -5182,9 +5182,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', 'E:/mypro/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
 	}();
 
 	;
@@ -5345,9 +5345,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
 	}();
 
 	;
@@ -5807,11 +5807,11 @@
 	      borderRadius = Math.max(borderRadius, 0);
 	      borderRadius = Math.min(borderRadius, width / 2 - borderSize, height / 2 - borderSize);
 
-	      context.beginPath();
+	      context.beginPath
 	      // inner rect, possibly rounded
-	      drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
-	      context.rect(width, 0, -width, height); // outer rect, drawn "counterclockwise"
-	      context.fill('evenodd');
+	      ();drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
+	      context.rect(width, 0, -width, height // outer rect, drawn "counterclockwise"
+	      );context.fill('evenodd');
 
 	      context.restore();
 	    }
@@ -6006,17 +6006,17 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
 	}();
 
 	;
@@ -6229,9 +6229,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
 	}();
 
 	;
@@ -7811,31 +7811,31 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(Input, 'Input', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(Input, 'Input', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
 	}();
 
 	;
@@ -7970,9 +7970,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', 'E:/mypro/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
 	}();
 
 	;
@@ -8026,11 +8026,9 @@
 	        _this.state = {
 	            loading: true,
 	            did: '',
-	            hasHeart: false,
-	            heartNum: 0,
 	            heartCls: 's s-arrow_up s-2x',
-	            content: '',
-	            text: ''
+	            hasHeart: false,
+	            dream: {}
 	        };
 	        return _this;
 	    }
@@ -8056,18 +8054,20 @@
 	            }, function (data) {
 	                try {
 	                    common.xhrReponseManage(data, function (data) {
-	                        var content = "",
-	                            text = "文字没有找到...";
+	                        var dream = {};
 
 	                        if (data.data && data.data.dream) {
-	                            var dream = data.data.dream;
-	                            content = dream.content;
-	                            text = dream.text;
+	                            dream = data.data.dream;
 	                        }
 
+	                        var hasHeart = !!(dream.good && dream.good[0]),
+	                            hasCls = hasHeart ? "s s-arrow_up s-2x s-ac" : "s s-arrow_up s-2x";
+
 	                        _this2.setState({
-	                            content: content,
-	                            text: text,
+	                            dream: dream,
+	                            hasHeart: hasHeart,
+	                            did: did,
+	                            hasCls: hasCls,
 	                            loading: false
 	                        });
 	                    });
@@ -8099,8 +8099,8 @@
 
 	            var _state = this.state,
 	                did = _state.did,
-	                hasHeart = _state.hasHeart,
-	                heartNum = _state.heartNum;
+	                dream = _state.dream,
+	                hasHeart = !!(dream.good && dream.good[0]);
 
 
 	            if (!hasHeart) {
@@ -8165,13 +8165,12 @@
 	        value: function render() {
 	            var _state2 = this.state,
 	                loading = _state2.loading,
-	                content = _state2.content,
-	                text = _state2.text,
+	                dream = _state2.dream,
 	                did = _state2.did,
-	                heartCls = _state2.heartCls,
-	                heartNum = _state2.heartNum;
+	                heartCls = _state2.heartCls;
 
-	            var href = "/user/" + did;
+	            var href = "/user/" + (dream._belong_u && dream._belong_u._id || "unknow");
+	            var username = dream._belong_u && dream._belong_u.username || "未知";
 
 	            if (!loading) {
 	                return React.createElement(
@@ -8186,12 +8185,12 @@
 	                            React.createElement(
 	                                'a',
 	                                { className: 'username', href: href },
-	                                '\u5C0F\u5C45\u58EB'
+	                                username
 	                            ),
 	                            React.createElement(
 	                                'span',
 	                                { className: 'datetime' },
-	                                '07-29 15:46'
+	                                dream.date
 	                            ),
 	                            React.createElement(
 	                                'span',
@@ -8227,10 +8226,10 @@
 	                            React.createElement(
 	                                'h1',
 	                                null,
-	                                content
+	                                dream.content || ""
 	                            ),
 	                            React.createElement('div', { className: 'text-viewer-content',
-	                                dangerouslySetInnerHTML: { __html: text }
+	                                dangerouslySetInnerHTML: { __html: dream.text || "文字没有找到..." }
 	                            })
 	                        )
 	                    ),
@@ -8255,7 +8254,7 @@
 	                                        'span',
 	                                        { className: 'vote-num', rel: 'vote-num' },
 	                                        '\u6709',
-	                                        heartNum,
+	                                        dream.vote || 0,
 	                                        '\u4EBA\u559C\u6B22...'
 	                                    )
 	                                )
@@ -8300,9 +8299,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextViewer, 'TextViewer', 'E:/mypro/tyxb/src/TextViewer.js');
+	    __REACT_HOT_LOADER__.register(TextViewer, 'TextViewer', '/Users/dragon/home/tyxb/tyxb/src/TextViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextViewer.js');
 	}();
 
 	;
@@ -8905,71 +8904,71 @@
 	var __t, __p = '', __j = Array.prototype.join;
 	function print() { __p += __j.call(arguments, '') }
 	with (obj) {
-	__p += '<div class="comment-box">\r\n    <div>\r\n        ';
+	__p += '<div class="comment-box">\n    <div>\n        ';
 	 if (!comment.isremove) { ;
-	__p += '\r\n        ';
+	__p += '\n        ';
 	 if (comment._belong_u) { ;
-	__p += '\r\n        <p class="user-info">\r\n        <a class="avatar" href="/user/' +
+	__p += '\n        <p class="user-info">\n        <a class="avatar" href="/user/' +
 	((__t = ( comment._belong_u.id )) == null ? '' : __t) +
-	'">\r\n            <img width="25" height="25" src="' +
+	'">\n            <img width="25" height="25" src="' +
 	((__t = ( comment._belong_u.avatar_mini )) == null ? '' : __t) +
-	'" />\r\n        </a>\r\n        <em class="username">\r\n            <a href="/user/' +
+	'" />\n        </a>\n        <em class="username">\n            <a href="/user/' +
 	((__t = ( comment._belong_u.id )) == null ? '' : __t) +
-	'">\r\n                ' +
+	'">\n                ' +
 	((__t = ( comment._belong_u.username )) == null ? '' : __t) +
-	'\r\n            </a>\r\n            &nbsp;' +
+	'\n            </a>\n            &nbsp;' +
 	((__t = ( timeFormat(comment.date) )) == null ? '' : __t) +
-	'\r\n        </em>\r\n        </p>\r\n        ';
+	'\n        </em>\n        </p>\n        ';
 	 } else { ;
-	__p += '\r\n        <p class="user-info">\r\n        <a class="avatar" href="/user/unknow">\r\n            <img width="25" height="25" src="/images/avatar_mini.png" />\r\n        </a>\r\n        <em class="username">\r\n            <a href="/user/unknow">未知用户</a>\r\n            &nbsp;\r\n            ' +
+	__p += '\n        <p class="user-info">\n        <a class="avatar" href="/user/unknow">\n            <img width="25" height="25" src="/images/avatar_mini.png" />\n        </a>\n        <em class="username">\n            <a href="/user/unknow">未知用户</a>\n            &nbsp;\n            ' +
 	((__t = ( timeFormat(comment.date) )) == null ? '' : __t) +
-	'\r\n        </em>\r\n        </p>\r\n        ';
+	'\n        </em>\n        </p>\n        ';
 	 } ;
-	__p += '\r\n        <div class="comment-content">' +
+	__p += '\n        <div class="comment-content">' +
 	((__t = ( comment.content )) == null ? '' : __t) +
-	'</div>\r\n        ';
+	'</div>\n        ';
 	 } else { ;
-	__p += '\r\n        <div class="comment-content no-exist-content">[该留言已删除]</div>\r\n        ';
+	__p += '\n        <div class="comment-content no-exist-content">[该留言已删除]</div>\n        ';
 	 } ;
-	__p += '\r\n    </div>\r\n    <div data-rid="' +
+	__p += '\n    </div>\n    <div data-rid="' +
 	((__t = ( comment._id )) == null ? '' : __t) +
 	'" data-haslogged="' +
 	((__t = ( !!user )) == null ? '' : __t) +
-	'" class="comment-ctrl">\r\n        <div class="vote-ctrl-box">\r\n            ';
+	'" class="comment-ctrl">\n        <div class="vote-ctrl-box">\n            ';
 	 if (user) { ;
-	__p += '\r\n            ';
+	__p += '\n            ';
 	 if (comment.good && comment.good.length > 0) { ;
-	__p += '\r\n            <a class="owed" href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-2x s-ac"></i>\r\n                ';
+	__p += '\n            <a class="owed" href="javascript:;" data-hasgood="true" rel="comment-good"><i class="s s-arrow_up s-2x s-ac"></i>\n                ';
 	 } else { ;
-	__p += '\r\n                <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>\r\n                    ';
+	__p += '\n                <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>\n                    ';
 	 } ;
-	__p += '\r\n                    ';
+	__p += '\n                    ';
 	 } else { ;
-	__p += '\r\n                    <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>\r\n                        ';
+	__p += '\n                    <a class="owed" href="javascript:;" data-hasgood="false" rel="comment-good"><i class="s s-arrow_up s-2x"></i>\n                        ';
 	 } ;
-	__p += '\r\n                        <span class="vote-num" rel="vote-num">' +
+	__p += '\n                        <span class="vote-num" rel="vote-num">' +
 	((__t = ( comment.vote )) == null ? '' : __t) +
-	'</span></a>\r\n        </div>\r\n        <div class="more-ctrl-box">\r\n            ';
+	'</span></a>\n        </div>\n        <div class="more-ctrl-box">\n            ';
 	 if (!comment.isremove) { ;
-	__p += '\r\n            <a class="remove" data-cid="' +
+	__p += '\n            <a class="remove" data-cid="' +
 	((__t = ( comment._id )) == null ? '' : __t) +
-	'" rel="comment-delete" href="javascript:;"><i class="remove-icon"></i>\r\n                删除\r\n                ';
+	'" rel="comment-delete" href="javascript:;"><i class="remove-icon"></i>\n                删除\n                ';
 	 } else { ;
-	__p += '\r\n                <span>已删除</span>\r\n                ';
+	__p += '\n                <span>已删除</span>\n                ';
 	 } ;
-	__p += '\r\n        </div>\r\n        <div class="reply-ctrl-box">\r\n            <a rel="comment-new" data-show="false" href="javascript:;">\r\n                <i class="comment-icon"></i>\r\n                ' +
+	__p += '\n        </div>\n        <div class="reply-ctrl-box">\n            <a rel="comment-new" data-show="false" href="javascript:;">\n                <i class="comment-icon"></i>\n                ' +
 	((__t = ( text.EXPANSION_COMMENT )) == null ? '' : __t) +
-	'\r\n            </a>\r\n        </div>\r\n    </div>\r\n    <div data-rid="' +
+	'\n            </a>\n        </div>\n    </div>\n    <div data-rid="' +
 	((__t = ( comment._id )) == null ? '' : __t) +
 	'" data-haslogged="' +
 	((__t = ( !!user )) == null ? '' : __t) +
-	'" class="comment-child">\r\n        <div class="comment-input" style="display: none;">\r\n            <textarea rel="comment-input" placeholder="说说你的看法..."></textarea>\r\n            <div class="btn-group">\r\n                <button rel="cancel-reply" class="btn">取消 ×</button>\r\n                <button rel="comment-reply" class="btn">送出 ></button>\r\n                <div class="common-new-state" style="display: none;"></div>\r\n            </div>\r\n        </div>\r\n        ';
+	'" class="comment-child">\n        <div class="comment-input" style="display: none;">\n            <textarea rel="comment-input" placeholder="说说你的看法..."></textarea>\n            <div class="btn-group">\n                <button rel="cancel-reply" class="btn">取消 ×</button>\n                <button rel="comment-reply" class="btn">送出 ></button>\n                <div class="common-new-state" style="display: none;"></div>\n            </div>\n        </div>\n        ';
 	 if (comment.replys && comment.replys.length > 0) { ;
-	__p += '\r\n        <ul class="comment-list">\r\n            ' +
+	__p += '\n        <ul class="comment-list">\n            ' +
 	((__t = ( comment.replys )) == null ? '' : __t) +
-	'\r\n        </ul>\r\n        ';
+	'\n        </ul>\n        ';
 	 } ;
-	__p += '\r\n    </div>\r\n</div>\r\n\r\n';
+	__p += '\n    </div>\n</div>\n\n';
 
 	}
 	return __p
