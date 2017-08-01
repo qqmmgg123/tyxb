@@ -1563,6 +1563,65 @@ a.logo {
 #avatarEditorCon .dialog .bd canvas {
   margin-top: 20px;
 }
+/* 图片浏览器 */
+#imageViewerCon .center {
+  overflow: auto;
+}
+#imageViewerCon .image-viewer-box {
+  text-align: center;
+}
+#imageViewerCon .image-viewer-box img {
+  cursor: zoom-out;
+}
+/* 文字阅读器 */
+#textViewerCon .dialog {
+  width: 690px;
+  top: 20px;
+  left: 180px;
+  bottom: 20px;
+  right: inherit;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 50px 0 45px;
+}
+#textViewerCon .dialog-header {
+  overflow: hidden;
+  padding: 10px;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid #eaeaea;
+  position: absolute;
+  background: #fff;
+  box-sizing: border-box;
+}
+#textViewerCon .dialog-header a.owed {
+  float: right;
+}
+#textViewerCon .dialog-container {
+  padding: 10px;
+  height: 100%;
+  overflow: auto;
+  top: 50px;
+  box-sizing: border-box;
+}
+#textViewerCon .dialog-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+#textViewerCon .text-viewer-box {
+  font-size: 14px;
+  box-sizing: border-box;
+}
+#textViewerCon .text-viewer-box h1 {
+  font-size: 24px;
+  text-align: center;
+}
+#textViewerCon .text-viewer-content {
+  margin-top: 10px;
+}
 .company-area {
   overflow: hidden;
   padding: 20px;
@@ -1846,30 +1905,38 @@ a.logo {
   padding: 10px 0;
   border-bottom: 1px solid #eaeaea;
 }
-.user-info-box .avatar {
+.user-info-box .avatar,
+.dialog-header .avatar {
   position: absolute;
   left: -58px;
 }
-.user-info-box .userinfo {
+.user-info-box .userinfo,
+.dialog-header .userinfo {
   float: left;
 }
 .user-info-box .userinfo a,
-.user-info-box .userinfo span {
+.dialog-header .userinfo a,
+.user-info-box .userinfo span,
+.dialog-header .userinfo span {
   font-size: 14px;
   color: #666;
 }
-.user-info-box .userinfo span:not(:first-child):before {
+.user-info-box .userinfo span:not(:first-child):before,
+.dialog-header .userinfo span:not(:first-child):before {
   content: '，';
   font-family: Arial;
   color: #bbb;
 }
-.user-info-box .userctrl {
+.user-info-box .userctrl,
+.dialog-header .userctrl {
   overflow: hidden;
   height: 25px;
   float: right;
 }
 .user-info-box .userctrl a,
-.user-info-box .userctrl span {
+.dialog-header .userctrl a,
+.user-info-box .userctrl span,
+.dialog-header .userctrl span {
   line-height: 25px;
   color: #a8a8a8;
   padding: 0 10px;
@@ -1919,30 +1986,40 @@ a.logo {
   padding: 10px 0;
 }
 .post-footer > div > a,
-.post-footer > div span {
+.dialog-footer > div > a,
+.post-footer > div span,
+.dialog-footer > div span {
   display: inline-block;
   font-size: 12px;
   color: #a8a8a8;
   padding: 0 10px;
 }
 .post-footer > div > a:not(:last-child),
-.post-footer > div span:not(:last-child) {
+.dialog-footer > div > a:not(:last-child),
+.post-footer > div span:not(:last-child),
+.dialog-footer > div span:not(:last-child) {
   margin-right: 10px;
 }
-.post-footer > div > a:hover {
+.post-footer > div > a:hover,
+.dialog-footer > div > a:hover {
   text-decoration: underline;
 }
-.post-footer .ctrl-box {
+.post-footer .ctrl-box,
+.dialog-footer .ctrl-box {
+  height: 25px;
   float: right;
 }
-.post-footer .ctrl-box a.owed {
+.post-footer a.owed,
+.dialog-footer a.owed {
   position: absolute;
   left: 0;
 }
-.post-footer .ctrl-box a.owed span.vote-num {
+.post-footer a.owed span.vote-num,
+.dialog-footer a.owed span.vote-num {
   font-size: 14px;
 }
-.post-footer .ctrl-box i.s-arrow_up {
+.post-footer i.s-arrow_up,
+.dialog-footer i.s-arrow_up {
   font-size: 2em;
   float: left;
 }
@@ -2125,34 +2202,6 @@ div.more a.btn {
 .team-way li a.last {
   border-radius: 0 4px 4px 0;
   border-right-width: 1px;
-}
-#imageViewerCon .center {
-  overflow: auto;
-}
-#imageViewerCon .image-viewer-box {
-  text-align: center;
-}
-#imageViewerCon .image-viewer-box img {
-  cursor: zoom-out;
-}
-#textViewerCon .dialog {
-  overflow: auto;
-  top: 0;
-  bottom: 0;
-  border-radius: 0;
-}
-#textViewerCon .text-viewer-box {
-  font-size: 14px;
-  width: 690px;
-  margin: 0 auto;
-}
-#textViewerCon .text-viewer-box h1 {
-  margin-top: 10px;
-  font-size: 24px;
-  text-align: center;
-}
-#textViewerCon .text-viewer-content {
-  margin-top: 10px;
 }
 .dialog {
   margin: 0 auto 0;

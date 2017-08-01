@@ -44,25 +44,80 @@ router.get('/getsite', function(req, res, next) {
 
 // 加载文章
 router.get('/textloaded', function(req, res, next) {
-    const { did } = req.query;
+    const { did } = req.query,
+        _curId = mongoose.Types.ObjectId(did);
 
-    Dream.findById(did, "conetnt text", function(err, doc) {
+    const user  = req.user,
+        dproject = {
+        content   : 1,
+        text      : 1,
+        pic       : 1,
+        mood      : 1,
+        health    : 1,
+        place     : 1,
+        vote      : { $subtract: [{ $size: '$good'}, { $size: '$bad' }]},
+        cnum      : { $size: '$comments' },
+        isremove  : 1,
+        _belong_u : 1,
+        date      : 1
+    };
+
+    if (user) {
+        var uid = user._id
+        dproject.isowner = { $eq: [ '$_belong_u', uid ] };
+        dproject.good = {
+            $filter: {
+                input: '$good',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+        dproject.bad = {
+            $filter: {
+                input: '$bad',
+                as   : 'uid',
+                cond : { $eq: ['$$uid', uid] }
+            }
+        };
+    }
+
+    Dream.aggregate([{
+        $match: {
+            _id: _curId
+        }
+    }, {
+        $project: dproject
+    }], function(err, docs) {
         if (err) return next(err);
 
-        if (!doc) {
+        if (!docs || !docs[0]) {
             return res.json({
-                info: "文字不在了，也许已经被作者删除...",
+                info: settings.DREAM_NOT_EXIST_TIPS,
                 result: 1
             });
         }
 
-        res.json({
-            info: "成功",
-            data: {
-                dream: doc
-            },
-            result: 0
-        });
+        let dream = docs[0];
+
+        let populate = [{ 
+            path: '_belong_u',
+            select: '_id username avatar_mini',
+            option: { lean: true },
+            model: Account
+        }];
+
+        Account.populate(docs, populate, 
+            function(err, docs) {
+                dream = (docs && docs[0]) || dream;
+
+                res.json({
+                    info: "成功",
+                    data: {
+                        dream: dream
+                    },
+                    result: 0
+                });
+            });
     });
 });
 
@@ -282,349 +337,6 @@ router.post('/new', function(req, res, next) {
             }
         });
     }
-});
-
-// 想法详情页
-router.get('/:id([a-z0-9]+)', function(req, res, next) {
-    req.session.redirectTo = req.originalUrl;
-
-    var curId  = req.params.id,
-        _curId = mongoose.Types.ObjectId(curId);
-
-    // 查询耗时测试
-    var start = new Date().getTime(),
-        user  = req.user;
-    var dproject = {
-        _id       : 1,
-        content   : 1,
-        text      : 1,
-        summary   : 1,
-        link      : 1,
-        site      : 1,
-        pic       : 1,
-        mood      : 1,
-        health    : 1,
-        place     : 1,
-        vote      : { $subtract: [{ $size: '$good'}, { $size: '$bad' }]},
-        cnum      : { $size: '$comments' },
-        isremove  : 1,
-        _belong_u : 1,
-        _belong_t : 1,
-        date      : 1
-    };
-
-    if (user) {
-        var uid = user._id
-        dproject.isowner = { $eq: [ '$_belong_u', uid ] };
-        dproject.good = {
-            $filter: {
-                input: '$good',
-                as   : 'uid',
-                cond : { $eq: ['$$uid', uid] }
-            }
-        };
-        dproject.bad = {
-            $filter: {
-                input: '$bad',
-                as   : 'uid',
-                cond : { $eq: ['$$uid', uid] }
-            }
-        };
-        dproject._followers_u = {
-            $filter: {
-                input: '$_followers_u',
-                as   : 'uid',
-                cond : { $eq: ['$$uid', uid] }
-            }
-        };
-    }
-
-    Dream.aggregate([{
-        $match: {
-            _id: _curId
-        }
-    }, {
-        $project: dproject
-    }], function(err, dreams) {
-        if (err) return next(err);
-
-        // 确定回复显示规则逻辑
-        var role    = 1,
-            page    = 1,
-            order   = -1,
-            limit   = 10,
-            focus   = 'dream',
-            cid     = '',
-            cproject = {
-                _id       : 1,
-                content   : 1,
-                _belong_u : 1,
-                _belong_d : 1,
-                _reply_c  : 1,
-                good      : 1,
-                bad       : 1,
-                comments  : { $slice: [ "$comments", limit ] },
-                cnum      : { $size: '$comments' },
-                hasmore   : { $gt: [ { $size: '$comments' }, limit ] },
-                isremove  : 1,
-                date      : 1,
-                vote: { 
-                    "$subtract": [ 
-                        { "$size": "$good" },
-                        { "$size": "$bad" }
-                    ]
-                }
-            };
-
-        if (focus === 'comment') {
-            cproject.summary = 1;
-        }
-
-        if (user) {
-            var uid = user._id
-            cproject.isowner = { $eq: [ '$_belong_u', uid ] };
-            cproject.good = {
-                $filter: {
-                    input: '$good',
-                    as   : 'uid',
-                    cond : { $eq: ['$$uid', uid] }
-                }
-            };
-            cproject.bad = {
-                $filter: {
-                    input: '$bad',
-                    as   : 'uid',
-                    cond : { $eq: ['$$uid', uid] }
-                }
-            };
-        }
-
-        if (req.query && req.query.p) {
-            page = parseInt(req.query.p) || page;
-        }
-
-        if (req.query && req.query.o) {
-            order = parseInt(req.query.o) || order;
-        }
-
-        if (req.query && req.query.r) {
-            role = parseInt(req.query.r) || role;
-        }
-
-        var sort = null;
-        switch(role) {
-            case settings.SORT_ROLE.HOT:
-                cproject.hot = {
-                    '$let': {
-                        vars: {
-                            time : {
-                                "$subtract": [
-                                    "$date",
-                                    new Date("1970-01-01")
-                                ]
-                            },
-                            score: {
-                                "$subtract": [ 
-                                    { "$size": "$good" },
-                                    { "$size": "$bad" }
-                                ]
-                            }
-                        },
-                        in: common.hotSort()
-                    }
-                }
-                sort    = { hot: order };
-                break;
-            case settings.SORT_ROLE.NEW:
-                sort = { date: order };
-                break;
-        }
-
-        var skip = (page - 1) * 10;
-
-        var cmatch = {
-            $match: {
-                _reply_d: _curId
-            }
-        }, qtimes = 0;
-
-        // 查看指定留言串
-        if (req.query && req.query.cid) {
-            cid  = req.query.cid.trim(),
-                _cid = mongoose.Types.ObjectId(cid);
-
-            cmatch.$match = {
-                _id: _cid
-            };
-
-            focus = 'comment';
-        }
-
-        queryComment(cmatch, page);
-
-        var allComments = [];
-
-        function queryComment(match, page) {
-            if (qtimes === 2) {
-                cproject.hasmore = { $gt: [ { $size: '$comments' }, 0 ] };
-            }
-
-            var opts = [match, {
-                $project: cproject
-            }];
-
-            if (focus !== 'comment') {
-                opts.push({
-                    $sort: sort
-                });
-
-                if (qtimes === 0) {
-                    opts.push({
-                        $skip: skip
-                    }, {
-                        $limit: limit + 1
-                    });
-                }
-            }
-
-            Comment.aggregate(opts, function(err, comments) {
-                if (err) return next(err);
-
-                Account.populate(comments, [{ 
-                    path: '_belong_u',
-                    select: '_id username avatar_mini',
-                    option: { lean: true },
-                    model: Account
-                }],
-                    function(err, comments) {
-                        if (err) {
-                            return next(err);
-                        }
-
-                        allComments.push(comments);
-
-                        var cids = [];
-                        comments.forEach(function(comment) {
-                            var ccids = comment.comments;
-                            if (ccids && ccids.length > 0) {
-                                cids = cids.concat(ccids);
-                            }
-                        });
-
-                        var match = {
-                            $match: {
-                                _id: {
-                                    $in: cids
-                                }
-                            }
-                        };
-                        if (cids.length > 0 && qtimes < 2) {
-                            qtimes++;
-                            queryComment(match, 1);
-                        }else{
-                            var n = allComments.length;
-                            
-                            if (n > 1) {
-                                for (var i = n - 1; i > 0; i--) {
-                                    allComments[i].forEach(function(childNode) {
-                                        allComments[i - 1].forEach(function(parentNode) {
-                                            if (childNode._reply_c.equals(parentNode._id)) {
-                                                if (!parentNode.replys) {
-                                                    parentNode.replys = [];
-                                                }
-                                                parentNode.replys.push(childNode);
-                                            }
-                                        });
-                                    });
-                                    allComments.splice(i, 1);
-                                }
-                            }
-
-                            // 
-                            if (!dreams[0]) {
-                                var noExistErr  = new Error(
-                                    settings.DREAM_NOT_EXIST_TIPS
-                                );
-                                return next(noExistErr);
-                            }
-
-                            var populate = [{ 
-                                path: '_belong_u',
-                                select: '_id username avatar_mini',
-                                option: { lean: true },
-                                model: Account
-                            }];
-
-                            Account.populate(dreams, populate, 
-                                function(err, dreams) {
-                                    if (err) {
-                                        return next(err);
-                                    }
-
-                                        Tag.populate(dreams, { 
-                                            path: '_belong_t',
-                                            select: "_id key description ispublic",
-                                            option: { lean: true },
-                                            model: Tag
-                                        }, function(err, dreams) {
-                                            if (err) {
-                                                return next(err);
-                                            }
-                                            
-                                            var comments = allComments[0],
-                                                hasprev = false,
-                                                hasmore = false;
-                                            if (comments && comments.length > 10) {
-                                                hasmore = true;
-                                            }
-                                            comments = comments.slice(0, 10);
-
-                                            if (focus === 'comment') {
-                                                if (comments && comments.length > 0) {
-                                                    hasprev = !!comments[0]._reply_c;
-                                                }
-                                            }
-
-                                            var next = page + 1;
-
-                                            var dream = dreams[0],
-                                                resData = {
-                                                current    : dream,
-                                                comments   : comments,
-                                                hasprev    : hasprev,
-                                                hasmore    : hasmore,
-                                                role       : role,
-                                                focus      : focus,
-                                                cnext      : next,
-                                                text       : settings.COMMENT_TEXT,
-                                                isauthenticated: !!req.user,
-                                                domain     : req.get('origin') || req.get('host')
-                                            };
-
-                                            if (focus === 'comment') {
-                                                resData.cid = cid;
-                                            }
-
-                                            res.render('pages/dream', common.makeCommon({
-                                                user  : req.user,
-                                                title : settings.APP_NAME,
-                                                notice: common.getFlash(req, 'notice'),
-                                                data  : resData,
-                                                success: 1
-                                            }, res));
-
-                                            var end = new Date().getTime(),
-                                                spend = end - start;
-                                            if (spend > common.maxtime) {
-                                                console.log(req.originalUrl + ' spend' + spend + 'ms');
-                                            }
-                                        });
-                                });
-                        }
-                    });
-            });
-        };
-    });
 });
 
 // 获取回复

@@ -1494,6 +1494,72 @@ a.logo {
     }
 }
 
+/* 图片浏览器 */
+#imageViewerCon {
+    .center {
+        overflow: auto;
+    }
+    .image-viewer-box {
+        text-align: center;
+        img {
+            cursor: zoom-out;
+        }
+    }
+}
+
+/* 文字阅读器 */
+#textViewerCon {
+    .dialog {
+        width: 690px;
+        top: 20px;
+        left: 180px;
+        bottom: 20px;
+        right: inherit;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 50px 0 45px;
+    }
+    .dialog-header {
+        overflow: hidden;
+        padding: 10px;
+        width: 100%;
+        top: 0;
+        border-bottom: 1px solid #eaeaea;
+        position: absolute;
+        background: #fff;
+        box-sizing: border-box;
+        a.owed {
+            float: right;
+        }
+    }
+    .dialog-container {
+        padding: 10px;
+        height: 100%;
+        overflow: auto;
+        top: 50px;
+        box-sizing: border-box;
+    }
+    .dialog-footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .text-viewer-box {
+        font-size: 14px;
+        box-sizing: border-box;
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+    }
+    .text-viewer-content {
+        margin-top: 10px;
+    }
+}
+
 .company-area {
     overflow: hidden;
     padding: 20px;
@@ -1793,6 +1859,9 @@ a.logo {
     overflow: hidden;
     padding: 10px 0;
     border-bottom: 1px solid #eaeaea;
+}
+
+.user-info-box, .dialog-header {
     .avatar {
         position: absolute;
         left: -58px;
@@ -1865,6 +1934,9 @@ a.logo {
     height: 25px;
     line-height: 25px;
     padding: 10px 0;
+}
+
+.post-footer, .dialog-footer {
     > div {
         > a, span {
             display: inline-block;
@@ -1882,18 +1954,19 @@ a.logo {
         }
     }
     .ctrl-box {
+        height: 25px;
         float: right;
-        a.owed {
-            position: absolute;
-            left: 0;
-            span.vote-num {
-                font-size: 14px;
-            }
+    }
+    a.owed {
+        position: absolute;
+        left: 0;
+        span.vote-num {
+            font-size: 14px;
         }
-        i.s-arrow_up {
-            font-size: 2em;
-            float: left;
-        }
+    }
+    i.s-arrow_up {
+        font-size: 2em;
+        float: left;
     }
 }
 
@@ -2085,40 +2158,6 @@ div.more {
                 border-right-width: 1px;
             }
         }
-    }
-}
-
-#imageViewerCon {
-    .center {
-        overflow: auto;
-    }
-    .image-viewer-box {
-        text-align: center;
-        img {
-            cursor: zoom-out;
-        }
-    }
-}
-
-#textViewerCon {
-    .dialog {
-        overflow: auto;
-        top: 0;
-        bottom: 0;
-        border-radius: 0;
-    }
-    .text-viewer-box {
-        font-size: 14px;
-        width: 690px;
-        margin: 0 auto;
-        h1 {
-            margin-top: 10px;
-            font-size: 24px;
-            text-align: center;
-        }
-    }
-    .text-viewer-content {
-        margin-top: 10px;
     }
 }
 

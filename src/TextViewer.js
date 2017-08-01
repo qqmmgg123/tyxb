@@ -13,7 +13,11 @@ export default class TextViewer extends React.Component {
             heartNum : 0,
             heartCls : 's s-arrow_up s-2x',
             content  : '',
-            text     : ''
+            text     : '',
+            pic      : '',
+            mood     : '',
+            health   : '',
+            date     : ''
         }
     }
 
@@ -145,32 +149,55 @@ export default class TextViewer extends React.Component {
     }
 
     render() {
-        const { loading, content, text, did, heartCls } = this.state;
+        const { loading, content, text, did, heartCls, heartNum } = this.state;
+        const href = "/user/" + did;
 
         if (!loading) {
             return (
               <div className="dialog-inner">
-                <div className="hd">
-                  <a href="javascript:;" 
-                     className="back" 
-                     onClick={this.close.bind(this)}
-                  >
-                     <i className="s s-back s-2x"></i>
-                     <span>返回</span>
-                  </a>
-                  <a className="owed" 
-                     href="javascript:;" 
-                     title="喜欢"
-                     onClick={this.heartIt.bind(this)}
+                <div className="dialog-header">
+                  <div className="userinfo">
+                    <a className="username" href={href}>小居士</a>
+                    <span className="datetime">
+                        07-29 15:46
+                    </span>
+                    <span className="things">
+                        写了一篇“文字”...
+                    </span>
+                  </div>
+                  <div className="userctrl">
+                    <a href="javascript:;">
+                      <i className="s s-remove s-lg"></i>删除
+                    </a>
+                    <a href="javascript:;" 
+                       className="close" 
+                       onClick={this.close.bind(this)}
                     >
-                    <div className="owed-inner">
-                      <i className={heartCls}></i>
-                    </div>
-                  </a>
+                      <i className="s s-close s-2x"></i>
+                    </a>
+                  </div>
                 </div>
-                <div className="text-viewer-box bd">
-                    <h1>大家好，你们好吗</h1>
-                    <div className="text-viewer-content" dangerouslySetInnerHTML={{__html: text}} />
+                <div className="dialog-container">
+                  <div className="text-viewer-box">
+                    <h1>{content}</h1>
+                    <div className="text-viewer-content" 
+                         dangerouslySetInnerHTML={{__html: text}}
+                    />
+                  </div>
+                </div>
+                <div className="dialog-footer">
+                  <div className="ctrl-box">
+                    <a className="owed" 
+                      href="javascript:;" 
+                      title="喜欢" 
+                      onClick={this.heartIt.bind(this)}
+                      >
+                      <div className="owed-inner">
+                        <i className={heartCls}></i>
+                        <span className="vote-num" rel="vote-num">有{heartNum}人喜欢...</span>
+                      </div>
+                    </a>
+                  </div>
                 </div>
             </div>
             )

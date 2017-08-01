@@ -466,11 +466,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Req, "Req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(req, "req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
 	}();
 
 	;
@@ -905,8 +905,8 @@
 	                "m+": date.getMinutes(), //minute
 	                "s+": date.getSeconds(), //second
 	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
-	                "S": date.getMilliseconds //millisecond
-	                () };
+	                "S": date.getMilliseconds() //millisecond
+	            };
 
 	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 	            for (var k in o) {
@@ -1064,15 +1064,15 @@
 	        resetBtn    = document.getElementById('search-reset'),
 	        searchInput = document.getElementById('search-input'),
 	        searchBtn   = document.getElementById('search_dream_btn');
-	     searchBtn && searchBtn.addEventListener('click', function() {
+	      searchBtn && searchBtn.addEventListener('click', function() {
 	        if (inputBox.className.indexOf(' visible') === -1) {
 	            inputBox.className += ' visible';
 	        }
 	    }, false);
-	     backBtn && backBtn.addEventListener('click', function() {
+	      backBtn && backBtn.addEventListener('click', function() {
 	        inputBox.className = inputBox.className.replace(' visible', '');
 	    }, false);
-	     resetBtn && resetBtn.addEventListener('click', function() {
+	      resetBtn && resetBtn.addEventListener('click', function() {
 	        searchInput.value = '';
 	    }, false);*/
 
@@ -1190,7 +1190,7 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var settings = {
 	    COPY_RIGHT: "© 2017 娑婆诃",
-	    APP_NAME: "太阳记事",
+	    APP_NAME: "初",
 	    CASE_NUMBER: "粤ICP备16089330号-1",
 	    DOMAIN: 'www.ty-xb.com',
 	    SLOGAN: "记录点滴，感受彼此，生命是最美丽的书卷...",
@@ -2047,25 +2047,25 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Popup, 'Popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(Win, 'Win', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(popup, 'popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
 	}();
 
 	;
@@ -2130,11 +2130,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Tools, "Tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(tools, "tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
 	}();
 
 	;
@@ -2453,11 +2453,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Effect, 'Effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(Effect, 'Effect', 'E:/mypro/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(effect, 'effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(effect, 'effect', 'E:/mypro/tyxb/src/effect.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/effect.js');
 	}();
 
 	;
@@ -2642,11 +2642,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
 	}();
 
 	;
@@ -3115,13 +3115,13 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(create, 'create', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
 	}();
 
 	;
@@ -3187,7 +3187,7 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', '/Users/dragon/home/tyxb/tyxb/src/share.js');
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
 	}();
 
 	;
@@ -3405,11 +3405,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(req, 'req', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
 	}();
 
 	;
@@ -4200,13 +4200,13 @@
 	with (obj) {
 
 	 list.forEach(function(item) { ;
-	__p += '\n<li><a href="' +
+	__p += '\r\n<li><a href="' +
 	((__t = ( item.url )) == null ? '' : __t) +
 	'">' +
 	((__t = ( item.key )) == null ? '' : __t) +
-	'</a></li>\n';
+	'</a></li>\r\n';
 	 }) ;
-	__p += '\n';
+	__p += '\r\n';
 
 	}
 	return __p
@@ -4220,7 +4220,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="dream-area">\n    <form id="deamcreat-form" action="/dream/new" method="post">\n        <div class="title-head">\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\n            此刻的想法（必填）\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\n        </div>\n        <div>\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            图片\n        </div>\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\n        <div><img id="image-preview" src="" /></div>\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\n        <input type="hidden" name="did" value="" />\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\n    </form>\n</div>\n\n';
+	__p += '<div class="dream-area">\r\n    <form id="deamcreat-form" action="/dream/new" method="post">\r\n        <div class="title-head">\r\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\r\n            此刻的想法（必填）\r\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\r\n        </div>\r\n        <div>\r\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            图片\r\n        </div>\r\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\r\n        <div><img id="image-preview" src="" /></div>\r\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\r\n        <input type="hidden" name="did" value="" />\r\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\r\n    </form>\r\n</div>\r\n\r\n';
 
 	}
 	return __p
@@ -4234,15 +4234,15 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="tab-nav">\n    <ul>\n        <li><a href="javascript:;" class="tab ' +
+	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">+ 注册</a></li>\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 注册</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
-	'">登录 →</a></li>\n    </ul>\n</div>\n<div class="tab-content">\n    <div class="signup-area" style="display: ' +
+	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\n        <form id="signup-form" action="/signup" method="post" novalidate>\n            <div rel="info" class="alert alert-danger" style="display: none;">\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\n                <p class="validate-error"></p>\n            </div class="form-group">\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div>\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\n            </div>\n        </form>\n        <div class="signup-loading" style="display: none;">\n            <p>请稍等...</p>\n        </div>\n    </div>\n    <div class="signin-area" style="display: ' +
+	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
-	'">\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="other-ctrl form-group">\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\n            </div>\n            <div class="btn-group">\n                <button class="btn btn-primary" type="button">登录</button>\n            </div>\n        </form>\n        <div class="signin-loading" style="display: none;">\n            <p>登录中...请稍等</p>\n        </div>\n    </div>\n</div>\n\n';
+	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
 
 	}
 	return __p
@@ -4256,9 +4256,9 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="form-area">\n    <form action="/tag/new" method="post">\n        <div rel="err-info" class="alert" style="display: none;">\n        </div>\n        <div class="title-head">\n            <span class="require">*&nbsp;</span>学派名称\n        </div>\n        <div class="form-group">\n            <p class="field"><input type="text" value="' +
+	__p += '<div class="form-area">\r\n    <form action="/tag/new" method="post">\r\n        <div rel="err-info" class="alert" style="display: none;">\r\n        </div>\r\n        <div class="title-head">\r\n            <span class="require">*&nbsp;</span>学派名称\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><input type="text" value="' +
 	((__t = ( tagName )) == null ? '' : __t) +
-	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            学派描述\n        </div>\n        <div class="form-group">\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\n        </div>\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\n    </form>\n</div>\n';
+	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            学派描述\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\r\n        </div>\r\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\r\n    </form>\r\n</div>\r\n';
 
 	}
 	return __p
@@ -4272,7 +4272,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="hd">\n    <span class="title">标题...</span>\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\n</div>\n<div class="bd">\n    正文...\n</div>\n';
+	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
 
 	}
 	return __p
@@ -4355,9 +4355,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
 	}();
 
 	;
@@ -4573,9 +4573,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', 'E:/mypro/tyxb/src/Dialog.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/Dialog.js');
 	}();
 
 	;
@@ -4736,9 +4736,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/src/ImageViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/ImageViewer.js');
 	}();
 
 	;
@@ -5198,11 +5198,11 @@
 	      borderRadius = Math.max(borderRadius, 0);
 	      borderRadius = Math.min(borderRadius, width / 2 - borderSize, height / 2 - borderSize);
 
-	      context.beginPath
+	      context.beginPath();
 	      // inner rect, possibly rounded
-	      ();drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
-	      context.rect(width, 0, -width, height // outer rect, drawn "counterclockwise"
-	      );context.fill('evenodd');
+	      drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
+	      context.rect(width, 0, -width, height); // outer rect, drawn "counterclockwise"
+	      context.fill('evenodd');
 
 	      context.restore();
 	    }
@@ -5397,17 +5397,17 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarCroper.js');
 	}();
 
 	;
@@ -5620,9 +5620,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/AvatarEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarEditor.js');
 	}();
 
 	;
@@ -7202,31 +7202,31 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(Input, 'Input', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(Input, 'Input', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/PostEditor.js');
 	}();
 
 	;
@@ -7361,9 +7361,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', 'E:/mypro/tyxb/src/TextEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextEditor.js');
 	}();
 
 	;
@@ -7559,8 +7559,10 @@
 	                content = _state2.content,
 	                text = _state2.text,
 	                did = _state2.did,
-	                heartCls = _state2.heartCls;
+	                heartCls = _state2.heartCls,
+	                heartNum = _state2.heartNum;
 
+	            var href = "/user/" + did;
 
 	            if (!loading) {
 	                return React.createElement(
@@ -7568,43 +7570,88 @@
 	                    { className: 'dialog-inner' },
 	                    React.createElement(
 	                        'div',
-	                        { className: 'hd' },
+	                        { className: 'dialog-header' },
 	                        React.createElement(
-	                            'a',
-	                            { href: 'javascript:;',
-	                                className: 'back',
-	                                onClick: this.close.bind(this)
-	                            },
-	                            React.createElement('i', { className: 's s-back s-2x' }),
+	                            'div',
+	                            { className: 'userinfo' },
+	                            React.createElement(
+	                                'a',
+	                                { className: 'username', href: href },
+	                                '\u5C0F\u5C45\u58EB'
+	                            ),
 	                            React.createElement(
 	                                'span',
-	                                null,
-	                                '\u8FD4\u56DE'
+	                                { className: 'datetime' },
+	                                '07-29 15:46'
+	                            ),
+	                            React.createElement(
+	                                'span',
+	                                { className: 'things' },
+	                                '\u5199\u4E86\u4E00\u7BC7\u201C\u6587\u5B57\u201D...'
 	                            )
 	                        ),
 	                        React.createElement(
-	                            'a',
-	                            { className: 'owed',
-	                                href: 'javascript:;',
-	                                title: '\u559C\u6B22',
-	                                onClick: this.heartIt.bind(this)
-	                            },
+	                            'div',
+	                            { className: 'userctrl' },
 	                            React.createElement(
-	                                'div',
-	                                { className: 'owed-inner' },
-	                                React.createElement('i', { className: heartCls })
+	                                'a',
+	                                { href: 'javascript:;' },
+	                                React.createElement('i', { className: 's s-remove s-lg' }),
+	                                '\u5220\u9664'
+	                            ),
+	                            React.createElement(
+	                                'a',
+	                                { href: 'javascript:;',
+	                                    className: 'close',
+	                                    onClick: this.close.bind(this)
+	                                },
+	                                React.createElement('i', { className: 's s-close s-2x' })
 	                            )
 	                        )
 	                    ),
 	                    React.createElement(
 	                        'div',
-	                        { className: 'text-viewer-box bd' },
+	                        { className: 'dialog-container' },
 	                        React.createElement(
-	                            'h1',
-	                            null,
-	                            '\u5927\u5BB6\u597D\uFF0C\u4F60\u4EEC\u597D\u5417'
-	                        ),
-	                        React.createElement('div', { className: 'text-viewer-content', dangerouslySetInnerHTML: { __html: text } })
+	                            'div',
+	                            { className: 'text-viewer-box' },
+	                            React.createElement(
+	                                'h1',
+	                                null,
+	                                content
+	                            ),
+	                            React.createElement('div', { className: 'text-viewer-content',
+	                                dangerouslySetInnerHTML: { __html: text }
+	                            })
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'dialog-footer' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'ctrl-box' },
+	                            React.createElement(
+	                                'a',
+	                                { className: 'owed',
+	                                    href: 'javascript:;',
+	                                    title: '\u559C\u6B22',
+	                                    onClick: this.heartIt.bind(this)
+	                                },
+	                                React.createElement(
+	                                    'div',
+	                                    { className: 'owed-inner' },
+	                                    React.createElement('i', { className: heartCls }),
+	                                    React.createElement(
+	                                        'span',
+	                                        { className: 'vote-num', rel: 'vote-num' },
+	                                        '\u6709',
+	                                        heartNum,
+	                                        '\u4EBA\u559C\u6B22...'
+	                                    )
+	                                )
+	                            )
+	                        )
 	                    )
 	                );
 	            } else {
@@ -7644,9 +7691,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextViewer, 'TextViewer', '/Users/dragon/home/tyxb/tyxb/src/TextViewer.js');
+	    __REACT_HOT_LOADER__.register(TextViewer, 'TextViewer', 'E:/mypro/tyxb/src/TextViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextViewer.js');
 	}();
 
 	;
