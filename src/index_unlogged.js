@@ -139,7 +139,7 @@ import ImageViewer from 'ImageViewer';
                                         var num = parseInt(data.data.num);
                                         utils.addClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': true });
-                                        heartNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = "有" + (isNaN(num)? 0:num) + "人喜欢..."
                                     }
                                     break;
                                 case 1:
@@ -168,7 +168,7 @@ import ImageViewer from 'ImageViewer';
                                         var num = parseInt(data.data.num);
                                         utils.removeClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': false });
-                                        heartNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = "有" + (isNaN(num)? 0:num) + "人喜欢...";
                                     }
                                     break;
                                 case 1:

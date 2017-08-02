@@ -24,7 +24,13 @@
                     <% if (!is_mobile) { %>
                     <div class="update-avatar-tips"><p>更新头像</p></div>
                     <% } %>
-                    <input accept="image/*" style="display: none;" id="avatarUpload" type="file" name="upload_file" />
+                    <input 
+                        accept="image/gif, image/png, image/jpeg, image/jpg, image/bmp, image/webp" 
+                        style="display: none;" 
+                        id="avatarUpload" 
+                        type="file" 
+                        name="upload_file" 
+                    />
                     <% } %>
                 </div>
                 <div class="userHead-infoInner">
