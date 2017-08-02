@@ -128,7 +128,8 @@ import TextViewer from 'TextViewer';
                 break;
             case "textview":
                 _w.textViewer && _w.textViewer.setComProps({
-                    did: params && params.did
+                    did: params && params.did,
+                    el: _w.curDreamItem
                 });
                 _w.textViewer && _w.textViewer.show();
                 break;

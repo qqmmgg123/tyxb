@@ -1411,7 +1411,6 @@ a.logo {
     }
 }
 
-
 /* 头像编辑 */
 #avatarEditorCon .dialog {
     .bd {
@@ -1419,6 +1418,69 @@ a.logo {
         canvas {
             margin-top: 20px;
         }
+    }
+}
+
+/* 图片浏览器 */
+#imageViewerCon {
+    .center {
+        overflow: auto;
+    }
+    .image-viewer-box {
+        text-align: center;
+        img {
+            cursor: zoom-out;
+        }
+    }
+}
+
+/* 文字阅读器 */
+#textViewerCon {
+    .dialog {
+        width: 690px;
+        overflow: hidden;
+        box-sizing: border-box;
+        border-radius: none;
+        padding: 36px 0 36px;
+    }
+    .dialog-header {
+        overflow: hidden;
+        padding: 5px;
+        width: 100%;
+        top: 0;
+        border-bottom: 1px solid #eaeaea;
+        position: absolute;
+        background: #fff;
+        box-sizing: border-box;
+        a.owed {
+            float: right;
+        }
+    }
+    .dialog-container {
+        padding: 5px;
+        height: 100%;
+        overflow: auto;
+        top: 36px;
+        box-sizing: border-box;
+    }
+    .dialog-footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+    .text-viewer-box {
+        font-size: 14px;
+        box-sizing: border-box;
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+    }
+    .text-viewer-content {
+        margin-top: 5px;
     }
 }
 
@@ -1707,6 +1769,9 @@ a.logo {
     border-bottom: 1px solid #eaeaea;
     height: 25px;
     line-height: 25px;
+}
+
+.user-info-box, .dialog-header {
     .avatar {
         position: absolute;
         left: 5px;
@@ -1732,27 +1797,29 @@ a.logo {
             line-height: 25px;
             color: #a8a8a8;
             padding: 0 10px;
+            float: left;
         }
-    }
-}
-
-.userinfo-mobile {
-    padding: 0 5px;
-    margin-top: 5px;
-    line-height: 25px;
-    a, span {
-        font-size: 12px;
-        color: #666;
-    }
-    span:not(:first-child):before {
-        content: '，';
-        font-family: Arial;
-        color: #bbb;
     }
 }
 
 .error-data {
     padding: 5px 0;
+}
+
+.post-content, .dialog-container {
+    .userstate {
+        padding: 0 5px;
+        line-height: 25px;
+        a, span {
+            font-size: 12px;
+            color: #666;
+        }
+        span:not(:first-child):before {
+            content: '，';
+            font-family: Arial;
+            color: #bbb;
+        }
+    }
 }
 
 .post-content {
@@ -1799,6 +1866,10 @@ a.logo {
     height: 25px;
     line-height: 25px;
     padding: 5px 0;
+}
+
+.post-footer, .dialog-footer {
+    border-top: 1px solid #eaeaea;
     > div {
         > a, span {
             font-size: 12px;

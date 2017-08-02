@@ -234,22 +234,16 @@ router.post('/new', function(req, res, next) {
                 im.scale.apply(im, args)
                     .crop(600, 360, x, y)
                     .write(miniFile, function(err){
-                        //if (err) {
-                            //return next(err);
-                        //}
                         if (err) return res.json({
                             info: err.message,
                             result: 1
                         });
                         doc.usage = 1;
                         doc.save(function(err) {
-                            //if(err) {
-                                //return next(err);
-                            //}
-                                        if (err) return res.json({
-                                            info: err.message,
-                                            result: 1
-                                        });
+                            if (err) return res.json({
+                                info: err.message,
+                                result: 1
+                            });
 
                             dream.thumbnail = '/picmini/' + doc.name;
                             dream.mthumbnail = '/mpicmini/' + doc.name;

@@ -105,6 +105,7 @@ import ImageViewer from 'ImageViewer';
              'dream-favourite',
              'dream-delete',
              'dream-picsrc',
+             'text-view',
              'key-category',
              'key-mood',
              'key-health'
@@ -270,12 +271,18 @@ import ImageViewer from 'ImageViewer';
                     function() {
                     }
                 );
-            }else if (rel === 'dream-picsrc') {
+            }
+            else if (rel === 'dream-picsrc') {
                 ev.preventdefault;
                 let thumb   = cur.querySelector('img'),
                     src     = thumb.src.replace('picmini', 'uploads');
-
                 common.showImageViewer(src);
+            }
+            else if (rel === 'text-view') {
+                ev.preventdefault;
+                let did = utils.getData(cur, "did");
+                _w.curDreamItem = utils.closest(cur, '.list-item');
+                common.showTextViewer(did, cur);
             }
         }
     });

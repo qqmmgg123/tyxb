@@ -1013,11 +1013,72 @@ class DreamForm extends BaseCom {
                 common.xhrReponseManage(data, (data) => {
                     if (data.result === 0 && data.data) {
                         const { did } = data.data;
-                        did && window.location.replace('/dream/' + did);
+                        try {
+                        const dreamList = document.querySelector('#dream-list');
+                        console.log(this.newDream.refs);
+                        //dreamList.insertBefore(this.newDream.refs, dreamList.children[0]);
+                        }catch(err) {
+                            alert(err.message);
+                        }
                     }
                 });
             }
         );
+    }
+
+    get newDream() {
+        return (<div ref="newDream">test...</div>);
+
+        /*const { dream, did, heartCls } = this.state;
+        const href = "/user/" + (dream._belong_u && dream._belong_u._id || "unknow");
+        const username = (dream._belong_u && dream._belong_u.username || "未知");
+
+            return (
+              <div className="dialog-inner">
+                <div className="dialog-header">
+                  <div className="userinfo">
+                    <a className="username" href={href}>{username}</a>
+                    <span className="datetime">
+                    {common.dateBeautify(new Date(dream.date))}
+                    </span>
+                    <span className="things">
+                        写了一篇“文字”...
+                    </span>
+                  </div>
+                  <div className="userctrl">
+                    {this.removeText}
+                    <a href="javascript:;" 
+                       className="close" 
+                       onClick={this.close.bind(this)}
+                    >
+                      <i className="s s-close s-2x"></i>
+                    </a>
+                  </div>
+                </div>
+                <div className="dialog-container">
+                  <div className="text-viewer-box">
+                    <h1>{dream.content || ""}</h1>
+                    <div className="text-viewer-content" 
+                         dangerouslySetInnerHTML={{__html: dream.text || "文字没有找到..."}}
+                    />
+                  </div>
+                </div>
+                <div className="dialog-footer">
+                  <div className="ctrl-box">
+                    <a className="owed" 
+                      href="javascript:;" 
+                      title="喜欢" 
+                      onClick={this.heartIt.bind(this)}
+                      >
+                      <div className="owed-inner">
+                        <i className={heartCls}></i>
+                        <span className="vote-num" rel="vote-num">有{dream.vote || 0}人喜欢...</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+            </div>
+            )*/
     }
 }
 

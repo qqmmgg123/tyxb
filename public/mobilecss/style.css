@@ -1445,6 +1445,62 @@ a.logo {
 #avatarEditorCon .dialog .bd canvas {
   margin-top: 20px;
 }
+/* 图片浏览器 */
+#imageViewerCon .center {
+  overflow: auto;
+}
+#imageViewerCon .image-viewer-box {
+  text-align: center;
+}
+#imageViewerCon .image-viewer-box img {
+  cursor: zoom-out;
+}
+/* 文字阅读器 */
+#textViewerCon .dialog {
+  width: 690px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: none;
+  padding: 36px 0 36px;
+}
+#textViewerCon .dialog-header {
+  overflow: hidden;
+  padding: 5px;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid #eaeaea;
+  position: absolute;
+  background: #fff;
+  box-sizing: border-box;
+}
+#textViewerCon .dialog-header a.owed {
+  float: right;
+}
+#textViewerCon .dialog-container {
+  padding: 5px;
+  height: 100%;
+  overflow: auto;
+  top: 36px;
+  box-sizing: border-box;
+}
+#textViewerCon .dialog-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+#textViewerCon .text-viewer-box {
+  font-size: 14px;
+  box-sizing: border-box;
+}
+#textViewerCon .text-viewer-box h1 {
+  font-size: 24px;
+  text-align: center;
+}
+#textViewerCon .text-viewer-content {
+  margin-top: 5px;
+}
 .company-area {
   overflow: hidden;
   padding: 20px;
@@ -1714,52 +1770,64 @@ a.logo {
   height: 25px;
   line-height: 25px;
 }
-.user-info-box .avatar {
+.user-info-box .avatar,
+.dialog-header .avatar {
   position: absolute;
   left: 5px;
 }
-.user-info-box .userinfo {
+.user-info-box .userinfo,
+.dialog-header .userinfo {
   float: left;
   margin-left: 35px;
 }
 .user-info-box .userinfo a,
-.user-info-box .userinfo span {
+.dialog-header .userinfo a,
+.user-info-box .userinfo span,
+.dialog-header .userinfo span {
   font-size: 12px;
   color: #666;
 }
-.user-info-box .userinfo span:not(:first-child):before {
+.user-info-box .userinfo span:not(:first-child):before,
+.dialog-header .userinfo span:not(:first-child):before {
   content: '，';
   font-family: Arial;
   color: #bbb;
 }
-.user-info-box .userctrl {
+.user-info-box .userctrl,
+.dialog-header .userctrl {
   overflow: hidden;
   height: 25px;
   float: right;
 }
 .user-info-box .userctrl a,
-.user-info-box .userctrl span {
+.dialog-header .userctrl a,
+.user-info-box .userctrl span,
+.dialog-header .userctrl span {
   line-height: 25px;
   color: #a8a8a8;
   padding: 0 10px;
-}
-.userinfo-mobile {
-  padding: 0 5px;
-  margin-top: 5px;
-  line-height: 25px;
-}
-.userinfo-mobile a,
-.userinfo-mobile span {
-  font-size: 12px;
-  color: #666;
-}
-.userinfo-mobile span:not(:first-child):before {
-  content: '，';
-  font-family: Arial;
-  color: #bbb;
+  float: left;
 }
 .error-data {
   padding: 5px 0;
+}
+.post-content .userstate,
+.dialog-container .userstate {
+  padding: 0 5px;
+  line-height: 25px;
+}
+.post-content .userstate a,
+.dialog-container .userstate a,
+.post-content .userstate span,
+.dialog-container .userstate span {
+  font-size: 12px;
+  color: #666;
+}
+.post-content .userstate span:not(:first-child):before,
+.dialog-container .userstate span:not(:first-child):before {
+  content: '，';
+  font-family: Arial;
+  color: #bbb;
 }
 .post-content {
   padding: 5px 0;
@@ -1803,29 +1871,41 @@ a.logo {
   line-height: 25px;
   padding: 5px 0;
 }
+.post-footer,
+.dialog-footer {
+  border-top: 1px solid #eaeaea;
+}
 .post-footer > div > a,
-.post-footer > div span {
+.dialog-footer > div > a,
+.post-footer > div span,
+.dialog-footer > div span {
   font-size: 12px;
   color: #a8a8a8;
   width: 33.33%;
   text-align: center;
 }
-.post-footer > div > a {
+.post-footer > div > a,
+.dialog-footer > div > a {
   display: block;
   float: left;
 }
-.post-footer > div > a:hover {
+.post-footer > div > a:hover,
+.dialog-footer > div > a:hover {
   text-decoration: underline;
 }
-.post-footer > div a.owed i {
+.post-footer > div a.owed i,
+.dialog-footer > div a.owed i {
   float: left;
 }
-.post-footer > div a.owed .owed-inner {
+.post-footer > div a.owed .owed-inner,
+.dialog-footer > div a.owed .owed-inner {
   width: 45px;
   margin: 0 auto;
 }
 .post-footer > div span.vote-num,
-.post-footer > div span.comment-num {
+.dialog-footer > div span.vote-num,
+.post-footer > div span.comment-num,
+.dialog-footer > div span.comment-num {
   margin-left: 10px;
 }
 .dream-post-btns {

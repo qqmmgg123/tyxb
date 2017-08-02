@@ -281,7 +281,8 @@ import ImageViewer from 'ImageViewer';
             else if (rel === 'text-view') {
                 ev.preventdefault;
                 let did = utils.getData(cur, "did");
-                common.showTextViewer(did);
+                _w.curDreamItem = utils.closest(cur, '.list-item');
+                common.showTextViewer(did, cur);
             }
         }
     });

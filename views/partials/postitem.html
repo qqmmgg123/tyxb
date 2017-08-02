@@ -68,34 +68,6 @@
                 <% } %>
             </div>
         </div>
-        <% if (is_mobile) { %>
-        <div class="userinfo-mobile">
-            <% if (dream.place) { %>
-            <span class="place">
-                地点：<%= dream.place %>
-            </span>
-            <% } %>
-            <% if (dream.mood) { %>
-            <span class="mood">
-                心情：<%= dream.mood %>
-            </span>
-            <% } %>
-            <% if (dream.health) { %>
-            <span class="health">
-                身体状况：<%= dream.health %>
-            </span>
-            <% } %>
-            <span class="things">
-                <% if (dream.category === 'news') { %>
-                记录了一篇“网页”...
-                <% } else if (dream.category === 'image') { %>
-                分享了一张“图画”...
-                <% } else if (dream.category === 'text') { %>
-                写了一篇“文字”...
-                <% } %>
-            </span>
-        </div>
-        <% } %>
         <% if (dream.category === 'news') { %>
         <a 
             <% if (dream.link) { %>
@@ -118,6 +90,34 @@
             class="post-content text"
             <% } %>
         >
+            <% if (is_mobile) { %>
+            <div class="userstate">
+                <% if (dream.place) { %>
+                <span class="place">
+                    地点：<%= dream.place %>
+                </span>
+                <% } %>
+                <% if (dream.mood) { %>
+                <span class="mood">
+                    心情：<%= dream.mood %>
+                </span>
+                <% } %>
+                <% if (dream.health) { %>
+                <span class="health">
+                    身体状况：<%= dream.health %>
+                </span>
+                <% } %>
+                <span class="things">
+                    <% if (dream.category === 'news') { %>
+                    记录了一篇“网页”...
+                    <% } else if (dream.category === 'image') { %>
+                    分享了一张“图画”...
+                    <% } else if (dream.category === 'text') { %>
+                    写了一篇“文字”...
+                    <% } %>
+                </span>
+            </div>
+            <% } %>
             <% if (dream.isremove) { %>
                 [已被作者删除]
             <% } else { %>
