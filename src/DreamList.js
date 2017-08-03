@@ -11,24 +11,24 @@ class DreamItem extends React.Component {
         this.state = {
             dream    : props.dream,
             heartCls : 's s-arrow_up s-2x',
-            hasHeart : false,
-            hasDel   : false
+            hasHeart : false
         }
     }
 
     componentDidMount() {
-        setTimeout(() => {
+        let { dream } = this.state;
+        if (dream.state === "new") {
+            const width = this._dreamEl.offsetWidth;
             this._dreamEl.className = "list-item fadeout fadein";
-        }, 250);
-    }
-
-    /*componentWillReceiveProps(nextProps) {
-        if (nextProps.dream._id !== this.state.dream._id) {
-            this.setState({
-                dream: nextProps.dream
-            });
+            dream.state = "normal";
         }
-    }*/
+        else if (dream.state === "normal") {
+            this._dreamEl.className = "list-item";
+        }
+        else if (dream.state === "remove") {
+            this._dreamEl.className = "list-item fadeout";
+        }
+    }
 
     get removeText() {
         const { dream } = this.state;
@@ -123,10 +123,8 @@ class DreamItem extends React.Component {
                 common
                     .xhrReponseManage(data, 
                       (data) => {
-                        this.setState({
-                            hasDel: true
-                        });
-                    });
+                          dream.state = "remove";
+                      });
             },
             () => {
                 alert("网络异常");
@@ -202,6 +200,7 @@ export default class DreamList extends React.Component {
     addItem(item) {
         console.log('add item and set list ...' + this.state.list);
         let list = this.state.list;
+        item.state = 'new';
         list.unshift(item);
         this.setState({
             list: list,
