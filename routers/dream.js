@@ -169,8 +169,7 @@ router.post('/new', function(req, res, next) {
         fields._belong_t = tag;
     }
 
-    var dream = new Dream(fields),
-        did      = dream._id;
+    var dream = new Dream(fields);
 
     dream.good.push(user);
 
@@ -247,17 +246,20 @@ router.post('/new', function(req, res, next) {
 
                             dream.thumbnail = '/picmini/' + doc.name;
                             dream.mthumbnail = '/mpicmini/' + doc.name;
-                            dream.save(function(err) {
+                            dream.save(function(err, dream) {
                                 //if (err) return next(err);
                                 if (err) return res.json({
                                     info: err.message,
                                     result: 1
                                 });
-
+                                dream = dream.toObject();
+                                dream.isowner = true;
+                                dream.vote = 1;
+                                dream._belong_u = user;
                                 return res.json({
                                     info: "发布成功",
                                     data: {
-                                        did: did
+                                        dream: dream
                                     },
                                     result: 0
                                 });
@@ -295,13 +297,17 @@ router.post('/new', function(req, res, next) {
 
                                     dream.thumbnail = '/picmini/' + doc.name;
                                     dream.mthumbnail = '/mpicmini/' + doc.name;
-                                    dream.save(function(err) {
+                                    dream.save(function(err, dream) {
                                         if (err) return next(err);
 
+                                        dream = dream.toObject();
+                                        dream.isowner = true;
+                                        dream.vote = 1;
+                                        dream._belong_u = user;
                                         return res.json({
                                             info: "发布成功",
                                             data: {
-                                                did: did
+                                                dream: dream
                                             },
                                             result: 0
                                         });
@@ -313,13 +319,17 @@ router.post('/new', function(req, res, next) {
         });
     }
     else{
-        dream.save(function(err) {
+        dream.save(function(err, dream) {
             if (err) return next(err);
 
+            dream = dream.toObject();
+            dream.isowner = true;
+            dream.vote = 1;
+            dream._belong_u = user;
             return res.json({
                 info: "发布成功",
                 data: {
-                    did: did
+                    dream: dream
                 },
                 result: 0
             });

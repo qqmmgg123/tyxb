@@ -1846,12 +1846,21 @@ a.logo {
     padding: 10px 0;
 }
 
-#dream-list {
+#dream-list, #newDreamsCon > ul {
     .list-item {
         background-color: #fff;
         margin-top: 10px;
         border-radius: 4px;
         .pr();
+        &.fadeout {
+            opacity: 0;
+            -webkit-transition: opacity 2s ease-in-out;
+            transition: opacity 2s ease-in-out;
+        }
+        &.fadein {
+            zoom: 1;
+            opacity: 1;
+        }
     }
 }
 

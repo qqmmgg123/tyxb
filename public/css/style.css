@@ -1894,11 +1894,23 @@ a.logo {
 .error-data {
   padding: 10px 0;
 }
-#dream-list .list-item {
+#dream-list .list-item,
+#newDreamsCon > ul .list-item {
   background-color: #fff;
   margin-top: 10px;
   border-radius: 4px;
   position: relative;
+}
+#dream-list .list-item.fadeout,
+#newDreamsCon > ul .list-item.fadeout {
+  opacity: 0;
+  -webkit-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
+}
+#dream-list .list-item.fadein,
+#newDreamsCon > ul .list-item.fadein {
+  zoom: 1;
+  opacity: 1;
 }
 .user-info-box {
   overflow: hidden;
