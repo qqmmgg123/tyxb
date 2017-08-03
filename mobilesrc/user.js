@@ -204,7 +204,17 @@ import ReactDOM from 'react-dom';
         var cur  = ev.target;
 
         while(cur.getAttribute &&
-            ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc'].indexOf(cur.getAttribute('rel'))
+            [
+             'dream-good',
+             'dream-bad',
+             'dream-favourite',
+             'dream-delete',
+             'dream-picsrc',
+             'text-view',
+             'key-category',
+             'key-mood',
+             'key-health'
+            ].indexOf(cur.getAttribute('rel'))
                 === -1 && cur.parentNode &&
                 cur.parentNode !== ev.currentTarget) {
                     cur = cur.parentNode;
@@ -373,6 +383,12 @@ import ReactDOM from 'react-dom';
                     src     = thumb.src.replace('picmini', 'uploads');
 
                  common.showImageViewer(src);
+            }
+            else if (rel === 'text-view') {
+                ev.preventdefault;
+                let did = utils.getData(cur, "did");
+                _w.curDreamItem = utils.closest(cur, '.list-item');
+                common.showTextViewer(did, cur);
             }
         }
     });

@@ -11,9 +11,8 @@ import ReactDOM from 'react-dom';
         require('popup'),
         require('dropdown'),
         require('PopRouter'),
-        require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, settings, req, effect, common, popup, dropdown, router, dreamTpl) {
+}(function(utils, settings, req, effect, common, popup, dropdown, router) {
     const _d = document,
           _w = window;
 
@@ -204,7 +203,17 @@ import ReactDOM from 'react-dom';
         var cur  = ev.target;
 
         while(cur.getAttribute &&
-            ['dream-good', 'dream-bad', 'dream-favourite', 'dream-delete', 'dream-picsrc'].indexOf(cur.getAttribute('rel'))
+            [
+             'dream-good',
+             'dream-bad',
+             'dream-favourite',
+             'dream-delete',
+             'dream-picsrc',
+             'text-view',
+             'key-category',
+             'key-mood',
+             'key-health'
+            ].indexOf(cur.getAttribute('rel'))
                 === -1 && cur.parentNode &&
                 cur.parentNode !== ev.currentTarget) {
                     cur = cur.parentNode;
@@ -234,7 +243,7 @@ import ReactDOM from 'react-dom';
                                         var num = parseInt(data.data.num);
                                         utils.addClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': true });
-                                        heartNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = "有" + (isNaN(num)? 0:num) + "人喜欢...";
                                     }
                                     break;
                                 case 1:
@@ -263,7 +272,7 @@ import ReactDOM from 'react-dom';
                                         var num = parseInt(data.data.num);
                                         utils.removeClass(cur.querySelector('i'), "s-ac");
                                         utils.setData(cur, { 'hasgood': false });
-                                        heartNum.innerHTML = (isNaN(num)? 0:num);
+                                        heartNum.innerHTML = "有" + (isNaN(num)? 0:num) + "人喜欢...";
                                     }
                                     break;
                                 case 1:
@@ -373,6 +382,12 @@ import ReactDOM from 'react-dom';
                     src     = thumb.src.replace('picmini', 'uploads');
 
                  common.showImageViewer(src);
+            }
+            else if (rel === 'text-view') {
+                ev.preventdefault;
+                let did = utils.getData(cur, "did");
+                _w.curDreamItem = utils.closest(cur, '.list-item');
+                common.showTextViewer(did, cur);
             }
         }
     });

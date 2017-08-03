@@ -217,8 +217,8 @@
     // 菜单下拉
     var navSelect = dropdown.create({
         el: '[rel="conf-toggle"]',
-        container: '.user-in',
-        selector: '.user-in',
+        container: '#config-dropdown',
+        selector: '#config-dropdown',
         menu: '.config-list',
         width: 'auto',
         modal: true
