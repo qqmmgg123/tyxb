@@ -1,6 +1,9 @@
 import BaseCom from 'basecom';
 import req from 'req';
 import TextEditor from 'TextEditor';
+import DreamList from 'DreamList';
+import { NAME_MAP } from 'PostConst';
+import PostConst from 'PostConst';
 
 const settings = require('../const/settings');
 const utils    = require('utils');
@@ -356,93 +359,7 @@ class FinishBtn extends React.Component {
     }
 }
 
-const MOOD = {
-    label: '心情',
-    rel: 'tab-mood-post', 
-    name: 'mood', 
-    active: false
-}
-
-const HEALTH = {
-    label: '身体状况',
-    rel: 'tab-health-post', 
-    name: 'health', 
-    active: false
-}
-
-const BTNS = {
-    "image": [MOOD, HEALTH],
-    "news": [{ 
-        label: '摘要', 
-        rel: 'tab-text-post', 
-        name: 'text', 
-        active: false
-    }, { 
-        label: '配图',
-        rel: 'tab-image-post', 
-        name: 'image', 
-        active: false 
-    }, MOOD, HEALTH], 
-    "text": [{ 
-        label: '标题', 
-        rel: 'tab-title-post', 
-        name: 'title', 
-        active: false 
-    }, { 
-        label: '配图',
-        rel: 'tab-image-post', 
-        name: 'image', 
-        active: false 
-    }, MOOD, HEALTH]
-};
-
-const NAME_MAP = {
-    "title": "content",
-    "link" : "link",
-    "image": "image",
-    "text" : "text",
-    "mood" : "mood",
-    "health" : "health"
-};
-
-const FIELDS = {
-    "text": [{
-        name: "text",
-        type: "text",
-        com: "textField",
-        val: '',
-        focus: true
-    }],
-    "image": [{
-        name: "image",
-        type: "image",
-        com: "imageField",
-        val: '',
-        data: {
-            url: ''
-        },
-        focus: false
-    }, {
-        name: "content",
-        type: "title",
-        com: "titleField",
-        val: '',
-        focus: true
-    }],
-    "news": [{
-        name: "link",
-        type: "link",
-        com: "linkField",
-        val: '',
-        focus: true
-    }, {
-        name: "content",
-        type: "title",
-        com: "titleField",
-        val: '',
-        focus: false
-    }]
-};
+let newDreamsCon = null;
 
 class DreamForm extends BaseCom {
     get fieldBtns() {
@@ -715,11 +632,13 @@ class DreamForm extends BaseCom {
         const { type } = props;
 
         this.formData = null;
+        this.BTNS = PostConst.BTNS;
+        this.FIELDS = PostConst.FIELDS;
 
         this.state = {
             type: type,
-            fields: FIELDS[type],
-            btns: BTNS[type]
+            fields: this.FIELDS[type],
+            btns: this.BTNS[type]
         }
     }
 
@@ -775,8 +694,8 @@ class DreamForm extends BaseCom {
     setFormData(type) {
         this.setState({
             type: type,
-            fields: FIELDS[type],
-            btns: BTNS[type]
+            fields: this.FIELDS[type],
+            btns: this.BTNS[type]
         });
     }
 
@@ -836,10 +755,6 @@ class DreamForm extends BaseCom {
                         type: "image",
                         icon: "image",
                         label: settings.CATEGORY.IMAGE
-                     }, {
-                        type: "news",
-                        icon: "link",
-                        label: settings.CATEGORY.NEWS
                      }];
 
         return (
@@ -1059,9 +974,24 @@ class DreamForm extends BaseCom {
             this.formData,
             (data) => {
                 common.xhrReponseManage(data, (data) => {
-                    if (data.result === 0 && data.data) {
-                        const { did } = data.data;
-                        did && window.location.replace('/dream/' + did);
+                    try{
+                    if (data.result === 0 && data.data && data.data.dream) {
+                        if (!newDreamsCon) {
+                            console.log('new list ...');
+                            const newDreamsEl = document.querySelector('#newDreamsCon');
+                            newDreamsCon = ReactDOM.render(
+                                <DreamList />,
+                                newDreamsEl
+                            );
+                        }
+                        console.log('add item ...');
+                        newDreamsCon.addItem(data.data.dream);
+                        const { container } = this.props;
+                        container.close();
+                    }
+                    }
+                    catch(err) {
+                        alert(err.message);
                     }
                 });
             }

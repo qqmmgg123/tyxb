@@ -1,31 +1,86 @@
 // 效果处理
 class Effect {
-    
-    fadeOut(el, cb) {
-        var self = this;
-        el.style.opacity = 1;
-
-        window.requestAnimFrame = (function(){
-            return  window.requestAnimationFrame       || 
-                window.webkitRequestAnimationFrame || 
-                window.mozRequestAnimationFrame    || 
-                window.oRequestAnimationFrame      || 
-                window.msRequestAnimationFrame     || 
-                function( callback ){
-                    window.setTimeout(callback, 1000 / 60);
-                };
-        })();
-
-        (function fade() {
-            if ((el.style.opacity -= .1) < 0) {
-                el.style.display = 'none';
-                cb && cb.call(self, el);
-            } else {
-                if (requestAnimFrame) requestAnimFrame(fade);
-            }
-        })();
+    linear(progress) {
+        return progress;
     }
 
+    quadratic(progress) {
+        return Math.pow(progress, 2);
+    }
+
+    swing(progress) {
+        return 0.5 - Math.cos(progress * Math.PI) / 2;
+    }
+
+    circ(progress) {
+        return 1 - Math.sin(Math.acos(progress));
+    }
+
+    back(progress, x) {
+        return Math.pow(progress, 2) * ((x + 1) * progress - x);
+    }
+
+    bounce(progress) {
+        for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+            if (progress >= (7 - 4 * a) / 11) {
+                return -Math.pow((11 - 6 * a - 11 * progress) / 4, 2) + Math.pow(b, 2);
+            }
+        }
+    }
+
+    elastic(progress, x) {
+        return Math.pow(2, 10 * (progress - 1)) * Math.cos(20 * Math.PI * x / 3 * progress);
+    }
+
+    animate(options) {
+        var start = new Date;
+        var id = setInterval(function() {
+            var timePassed = new Date - start;
+            var progress = timePassed / options.duration;
+            if (progress > 1) {
+                progress = 1;
+            }
+            options.progress = progress;
+            var delta = options.delta(progress);
+            options.step(delta);
+            if (progress == 1) {
+                clearInterval(id);
+                options.complete();
+            }
+        }, options.delay || 10);
+    }
+
+    fadeOut(element, options) {
+        var to = 1;
+        var self = this;
+        this.animate({
+            duration: options.duration,
+            delta: function(progress) {
+                progress = this.progress;
+                return self.swing(progress);
+            },
+            complete: options.complete,
+            step: function(delta) {
+                element.style.opacity = to - delta;
+            }
+        });
+    }
+
+    fadeIn(element, options) {
+        var to = 0;
+        var self = this;
+        this.animate({
+            duration: options.duration,
+            delta: function(progress) {
+                progress = this.progress;
+                return self.swing(progress);
+            },
+            complete: options.complete,
+            step: function(delta) {
+                element.style.opacity = to + delta;
+            }
+        });
+    }
 }
 
 var effect = new Effect();

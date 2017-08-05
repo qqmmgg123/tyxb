@@ -11,9 +11,8 @@ import ReactDOM from 'react-dom';
         require('popup'),
         require('dropdown'),
         require('PopRouter'),
-        require('ejs!../views/partials/postitem.html')
     );
-}(function(utils, settings, req, effect, common, popup, dropdown, router, dreamTpl) {
+}(function(utils, settings, req, effect, common, popup, dropdown, router) {
     const _d = document,
           _w = window;
 
