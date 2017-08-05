@@ -10,23 +10,23 @@ class DreamItem extends React.Component {
 
         this.state = {
             dream    : props.dream,
-            heartCls : 's s-arrow_up s-2x',
-            hasHeart : false
+            heartCls : 's s-arrow_up s-2x s-ac',
+            hasHeart : true
         }
     }
 
     componentDidMount() {
         let { dream } = this.state;
         if (dream.state === "new") {
-            const width = this._dreamEl.offsetWidth;
-            this._dreamEl.className = "list-item fadeout fadein";
-            dream.state = "normal";
-        }
-        else if (dream.state === "normal") {
-            this._dreamEl.className = "list-item";
-        }
-        else if (dream.state === "remove") {
-            this._dreamEl.className = "list-item fadeout";
+            console.log('new...');
+            const { container } = this.props;
+            effect.fadeIn(this._dreamEl, {
+                duration: 2000,
+                complete: () => {
+                    dream.state = 'normal';
+                    container.waiting = false;
+                }
+            });
         }
     }
 
@@ -114,6 +114,7 @@ class DreamItem extends React.Component {
 
     deleteDream() {
         const { dream } = this.state;
+        const { container } = this.props;
         req.post(
             "/dream/delete",
             {
@@ -123,7 +124,12 @@ class DreamItem extends React.Component {
                 common
                     .xhrReponseManage(data, 
                       (data) => {
-                          dream.state = "remove";
+                          effect.fadeOut(this._dreamEl, {
+                              duration: 2000,
+                              complete: () => {
+                                  container.removeItem(dream);
+                              }
+                          });
                       });
             },
             () => {
@@ -133,18 +139,14 @@ class DreamItem extends React.Component {
     }
 
     render() {
-        const { dream, heartCls, hasDel } = this.state;
+        const { dream, heartCls } = this.state;
         const href = "/user/" + (dream._belong_u && dream._belong_u._id || "unknow");
         const username = (dream._belong_u && dream._belong_u.username || "未知");
-
-        if (hasDel) {
-            return null;
-        }
 
         return (
             <li 
               ref={ (ref) => this._dreamEl = ref } 
-              className="list-item fadeout">
+              className="list-item">
               <div className="post-box">
                 <div className="user-info-box">
                   <div className="userinfo">
@@ -192,6 +194,7 @@ export default class DreamList extends React.Component {
     constructor(props) {
         super(props);
 
+        this.waiting = false;
         this.state = {
             list     : []
         }
@@ -199,6 +202,7 @@ export default class DreamList extends React.Component {
 
     addItem(item) {
         console.log('add item and set list ...' + this.state.list);
+        this.waiting = true;
         let list = this.state.list;
         item.state = 'new';
         list.unshift(item);
@@ -207,9 +211,21 @@ export default class DreamList extends React.Component {
         });
     }
 
+    removeItem(item) {
+        console.log('remove 2...');
+        let list = this.state.list;
+        console.log(list.length)
+        let index = list.indexOf(item);
+        list.splice(index, 1);
+        console.log(list.length)
+        this.setState({
+            list: list,
+        });
+    }
+
     get item() {
         return (props) => {
-            return (<DreamItem dream={props.dream} />);
+            return (<DreamItem container={this} dream={props.dream} />);
         }
     }
 

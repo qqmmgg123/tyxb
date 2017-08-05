@@ -254,8 +254,13 @@ import ImageViewer from 'ImageViewer';
                     function(data) {
                         switch (data.result) {
                             case 0:
-                                effect.fadeOut(curDreamItem, function(el) {
-                                    el.parentNode.removeChild(el);
+                                effect.fadeOut(curDreamItem, {
+                                    duration: 2000,
+                                    complete: () => {
+                                        curDreamItem
+                                            .parentNode
+                                            .removeChild(curDreamItem);
+                                    }
                                 });
                                 break;
                             case 1:

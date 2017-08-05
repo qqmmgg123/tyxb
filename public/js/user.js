@@ -1085,11 +1085,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Req, "Req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(Req, "Req", "E:/mypro/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(req, "req", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(req, "req", "E:/mypro/tyxb/src/req.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/req.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/req.js");
 	}();
 
 	;
@@ -1326,8 +1326,8 @@
 	                "m+": date.getMinutes(), //minute
 	                "s+": date.getSeconds(), //second
 	                "q+": Math.floor((date.getMonth() + 3) / 3), //quarter
-	                "S": date.getMilliseconds //millisecond
-	                () };
+	                "S": date.getMilliseconds() //millisecond
+	            };
 
 	            if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 	            for (var k in o) {
@@ -1485,15 +1485,15 @@
 	        resetBtn    = document.getElementById('search-reset'),
 	        searchInput = document.getElementById('search-input'),
 	        searchBtn   = document.getElementById('search_dream_btn');
-	     searchBtn && searchBtn.addEventListener('click', function() {
+	      searchBtn && searchBtn.addEventListener('click', function() {
 	        if (inputBox.className.indexOf(' visible') === -1) {
 	            inputBox.className += ' visible';
 	        }
 	    }, false);
-	     backBtn && backBtn.addEventListener('click', function() {
+	      backBtn && backBtn.addEventListener('click', function() {
 	        inputBox.className = inputBox.className.replace(' visible', '');
 	    }, false);
-	     resetBtn && resetBtn.addEventListener('click', function() {
+	      resetBtn && resetBtn.addEventListener('click', function() {
 	        searchInput.value = '';
 	    }, false);*/
 
@@ -1668,7 +1668,7 @@
 
 	exports.__esModule = true;
 
-	var _assign = __webpack_require__(122);
+	var _assign = __webpack_require__(123);
 
 	var _assign2 = _interopRequireDefault(_assign);
 
@@ -1948,7 +1948,7 @@
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -1971,25 +1971,96 @@
 	    }
 
 	    (0, _createClass3.default)(Effect, [{
-	        key: 'fadeOut',
-	        value: function fadeOut(el, cb) {
-	            var self = this;
-	            el.style.opacity = 1;
-
-	            window.requestAnimFrame = function () {
-	                return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
-	                    window.setTimeout(callback, 1000 / 60);
-	                };
-	            }();
-
-	            (function fade() {
-	                if ((el.style.opacity -= .1) < 0) {
-	                    el.style.display = 'none';
-	                    cb && cb.call(self, el);
-	                } else {
-	                    if (requestAnimFrame) requestAnimFrame(fade);
+	        key: "linear",
+	        value: function linear(progress) {
+	            return progress;
+	        }
+	    }, {
+	        key: "quadratic",
+	        value: function quadratic(progress) {
+	            return Math.pow(progress, 2);
+	        }
+	    }, {
+	        key: "swing",
+	        value: function swing(progress) {
+	            return 0.5 - Math.cos(progress * Math.PI) / 2;
+	        }
+	    }, {
+	        key: "circ",
+	        value: function circ(progress) {
+	            return 1 - Math.sin(Math.acos(progress));
+	        }
+	    }, {
+	        key: "back",
+	        value: function back(progress, x) {
+	            return Math.pow(progress, 2) * ((x + 1) * progress - x);
+	        }
+	    }, {
+	        key: "bounce",
+	        value: function bounce(progress) {
+	            for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+	                if (progress >= (7 - 4 * a) / 11) {
+	                    return -Math.pow((11 - 6 * a - 11 * progress) / 4, 2) + Math.pow(b, 2);
 	                }
-	            })();
+	            }
+	        }
+	    }, {
+	        key: "elastic",
+	        value: function elastic(progress, x) {
+	            return Math.pow(2, 10 * (progress - 1)) * Math.cos(20 * Math.PI * x / 3 * progress);
+	        }
+	    }, {
+	        key: "animate",
+	        value: function animate(options) {
+	            var start = new Date();
+	            var id = setInterval(function () {
+	                var timePassed = new Date() - start;
+	                var progress = timePassed / options.duration;
+	                if (progress > 1) {
+	                    progress = 1;
+	                }
+	                options.progress = progress;
+	                var delta = options.delta(progress);
+	                options.step(delta);
+	                if (progress == 1) {
+	                    clearInterval(id);
+	                    options.complete();
+	                }
+	            }, options.delay || 10);
+	        }
+	    }, {
+	        key: "fadeOut",
+	        value: function fadeOut(element, options) {
+	            var to = 1;
+	            var self = this;
+	            this.animate({
+	                duration: options.duration,
+	                delta: function delta(progress) {
+	                    progress = this.progress;
+	                    return self.swing(progress);
+	                },
+	                complete: options.complete,
+	                step: function step(delta) {
+	                    element.style.opacity = to - delta;
+	                }
+	            });
+	        }
+	    }, {
+	        key: "fadeIn",
+	        value: function fadeIn(element, options) {
+	            var to = 0;
+	            var self = this;
+	            this.animate({
+	                duration: options.duration,
+	                delta: function delta(progress) {
+	                    progress = this.progress;
+	                    return self.swing(progress);
+	                },
+	                complete: options.complete,
+	                step: function step(delta) {
+	                    element.style.opacity = to + delta;
+	                }
+	            });
 	        }
 	    }]);
 	    return Effect;
@@ -2006,11 +2077,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Effect, 'Effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(Effect, "Effect", "E:/mypro/tyxb/src/effect.js");
 
-	    __REACT_HOT_LOADER__.register(effect, 'effect', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(effect, "effect", "E:/mypro/tyxb/src/effect.js");
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/effect.js');
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/effect.js");
 	}();
 
 	;
@@ -2594,25 +2665,25 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Popup, 'Popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Popup, 'Popup', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(Win, 'Win', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(Win, 'Win', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(RegPop, 'RegPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(TagNewPop, 'TagNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(PresidentPop, 'PresidentPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(popup, 'popup', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(popup, 'popup', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(textNewPop, 'textNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(registrationPop, 'registrationPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(tagNewPop, 'tagNewPop', 'E:/mypro/tyxb/src/popup.js');
 
-	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', '/Users/dragon/home/tyxb/tyxb/src/popup.js');
+	    __REACT_HOT_LOADER__.register(presidentPop, 'presidentPop', 'E:/mypro/tyxb/src/popup.js');
 	}();
 
 	;
@@ -2677,11 +2748,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Tools, "Tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(Tools, "Tools", "E:/mypro/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(tools, "tools", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(tools, "tools", "E:/mypro/tyxb/src/tools.js");
 
-	    __REACT_HOT_LOADER__.register(_default, "default", "/Users/dragon/home/tyxb/tyxb/src/tools.js");
+	    __REACT_HOT_LOADER__.register(_default, "default", "E:/mypro/tyxb/src/tools.js");
 	}();
 
 	;
@@ -3118,11 +3189,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(Keyboard, 'Keyboard', 'E:/mypro/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(keyboard, 'keyboard', 'E:/mypro/tyxb/src/keyboard.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/keyboard.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/keyboard.js');
 	}();
 
 	;
@@ -3591,13 +3662,13 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(DropDown, 'DropDown', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(ShareDropDown, 'ShareDropDown', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(create, 'create', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(create, 'create', 'E:/mypro/tyxb/src/dropdown.js');
 
-	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', '/Users/dragon/home/tyxb/tyxb/src/dropdown.js');
+	    __REACT_HOT_LOADER__.register(shareDrop, 'shareDrop', 'E:/mypro/tyxb/src/dropdown.js');
 	}();
 
 	;
@@ -3663,7 +3734,7 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', '/Users/dragon/home/tyxb/tyxb/src/share.js');
+	    __REACT_HOT_LOADER__.register(shareaside, 'shareaside', 'E:/mypro/tyxb/src/share.js');
 	}();
 
 	;
@@ -3881,11 +3952,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(req, 'req', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(req, 'req', 'E:/mypro/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(Validate, 'Validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(Validate, 'Validate', 'E:/mypro/tyxb/src/validate.js');
 
-	    __REACT_HOT_LOADER__.register(validate, 'validate', '/Users/dragon/home/tyxb/tyxb/src/validate.js');
+	    __REACT_HOT_LOADER__.register(validate, 'validate', 'E:/mypro/tyxb/src/validate.js');
 	}();
 
 	;
@@ -4676,13 +4747,13 @@
 	with (obj) {
 
 	 list.forEach(function(item) { ;
-	__p += '\n<li><a href="' +
+	__p += '\r\n<li><a href="' +
 	((__t = ( item.url )) == null ? '' : __t) +
 	'">' +
 	((__t = ( item.key )) == null ? '' : __t) +
-	'</a></li>\n';
+	'</a></li>\r\n';
 	 }) ;
-	__p += '\n';
+	__p += '\r\n';
 
 	}
 	return __p
@@ -4696,7 +4767,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="dream-area">\n    <form id="deamcreat-form" action="/dream/new" method="post">\n        <div class="title-head">\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\n            此刻的想法（必填）\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\n        </div>\n        <div>\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            图片\n        </div>\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\n        <div><img id="image-preview" src="" /></div>\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\n        <input type="hidden" name="did" value="" />\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\n    </form>\n</div>\n\n';
+	__p += '<div class="dream-area">\r\n    <form id="deamcreat-form" action="/dream/new" method="post">\r\n        <div class="title-head">\r\n            <p class="title-prompt">你可以畅所欲言，但不要长篇大论</p>\r\n            此刻的想法（必填）\r\n            <a href="javascript:;" title="表情" alt="表情" class="desc-face">(∩＿∩)</a>\r\n        </div>\r\n        <div>\r\n            <p class="field"><textarea id="dream-title" name="content" placeholder="想法..."></textarea></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            图片\r\n        </div>\r\n        <div><p class="field"><input id="image-upload" type="file" name="upload_file"></p></div>\r\n        <div><img id="image-preview" src="" /></div>\r\n        <div><p class="field"><input id="dream-tag" type="tag" name="tag" placeholder="选择版面"></p></div>\r\n        <input type="hidden" name="did" value="" />\r\n        <div><button id="finish_cdream_btn" type="submit" class="btn">分享 > </button></div>\r\n    </form>\r\n</div>\r\n\r\n';
 
 	}
 	return __p
@@ -4710,15 +4781,15 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="tab-nav">\n    <ul>\n        <li><a href="javascript:;" class="tab ' +
+	__p += '<div class="tab-nav">\r\n    <ul>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signup'? 'cur':'' )) == null ? '' : __t) +
-	'">+ 注册</a></li>\n        <li><a href="javascript:;" class="tab ' +
+	'">+ 注册</a></li>\r\n        <li><a href="javascript:;" class="tab ' +
 	((__t = ( data.current === 'signin'? 'cur':'' )) == null ? '' : __t) +
-	'">登录 →</a></li>\n    </ul>\n</div>\n<div class="tab-content">\n    <div class="signup-area" style="display: ' +
+	'">登录 →</a></li>\r\n    </ul>\r\n</div>\r\n<div class="tab-content">\r\n    <div class="signup-area" style="display: ' +
 	((__t = ( data.current === "signup"? '':'none' )) == null ? '' : __t) +
-	'">\n        <form id="signup-form" action="/signup" method="post" novalidate>\n            <div rel="info" class="alert alert-danger" style="display: none;">\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\n                <p class="validate-error"></p>\n            </div class="form-group">\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div>\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\n            </div>\n        </form>\n        <div class="signup-loading" style="display: none;">\n            <p>请稍等...</p>\n        </div>\n    </div>\n    <div class="signin-area" style="display: ' +
+	'">\r\n        <form id="signup-form" action="/signup" method="post" novalidate>\r\n            <div rel="info" class="alert alert-danger" style="display: none;">\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" name="username" id="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="email" data-label="邮箱" name="email" id="emial" placeholder="邮箱" required></p>\r\n                <p class="validate-error"></p>\r\n            </div class="form-group">\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" name="password" id="password" placeholder="密码" autocomplete="off" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div>\r\n                <button id="signup-btn" type="button" class="btn btn-primary">确定</button>&nbsp;\r\n            </div>\r\n        </form>\r\n        <div class="signup-loading" style="display: none;">\r\n            <p>请稍等...</p>\r\n        </div>\r\n    </div>\r\n    <div class="signin-area" style="display: ' +
 	((__t = ( data.current === "signin"? '':'none' )) == null ? '' : __t) +
-	'">\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\n            <div class="form-group">\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="form-group">\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\n                <p class="validate-error"></p>\n            </div>\n            <div class="other-ctrl form-group">\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\n            </div>\n            <div class="btn-group">\n                <button class="btn btn-primary" type="button">登录</button>\n            </div>\n        </form>\n        <div class="signin-loading" style="display: none;">\n            <p>登录中...请稍等</p>\n        </div>\n    </div>\n</div>\n\n';
+	'">\r\n        <form id="signinForm" action="/signin" method="post" autocomplete="off">\r\n            <div rel="info" class="alert alert-danger" style="display: none;"></div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="text" data-label="名字" id="username" name="username" placeholder="名字" required></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="form-group">\r\n                <p class="field"><input type="password" data-label="密码" id="password" name="password" placeholder="密码" required autocomplete="off"></p>\r\n                <p class="validate-error"></p>\r\n            </div>\r\n            <div class="other-ctrl form-group">\r\n                <a class="forget-pwd" href="/forgot">忘记密码 ?</a>\r\n            </div>\r\n            <div class="btn-group">\r\n                <button class="btn btn-primary" type="button">登录</button>\r\n            </div>\r\n        </form>\r\n        <div class="signin-loading" style="display: none;">\r\n            <p>登录中...请稍等</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n';
 
 	}
 	return __p
@@ -4732,9 +4803,9 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="form-area">\n    <form action="/tag/new" method="post">\n        <div rel="err-info" class="alert" style="display: none;">\n        </div>\n        <div class="title-head">\n            <span class="require">*&nbsp;</span>学派名称\n        </div>\n        <div class="form-group">\n            <p class="field"><input type="text" value="' +
+	__p += '<div class="form-area">\r\n    <form action="/tag/new" method="post">\r\n        <div rel="err-info" class="alert" style="display: none;">\r\n        </div>\r\n        <div class="title-head">\r\n            <span class="require">*&nbsp;</span>学派名称\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><input type="text" value="' +
 	((__t = ( tagName )) == null ? '' : __t) +
-	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\n            <p class="validate-error"></p>\n        </div>\n        <div class="desc-head">\n            学派描述\n        </div>\n        <div class="form-group">\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\n        </div>\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\n    </form>\n</div>\n';
+	'" data-label="学派名称" data-require="true" name="key" maxlength="24" placeholder="名称..." autocomplete="off" /></p>\r\n            <p class="validate-error"></p>\r\n        </div>\r\n        <div class="desc-head">\r\n            学派描述\r\n        </div>\r\n        <div class="form-group">\r\n            <p class="field"><textarea name="description" placeholder="描述..."></textarea></p>\r\n        </div>\r\n        <div><button rel="sumbit-btn" type="button" class="btn">创建 > </button></div>\r\n    </form>\r\n</div>\r\n';
 
 	}
 	return __p
@@ -4748,7 +4819,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="hd">\n    <span class="title">标题...</span>\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\n</div>\n<div class="bd">\n    正文...\n</div>\n';
+	__p += '<div class="hd">\r\n    <span class="title">标题...</span>\r\n    <a href="javascript:;" class="close"><i class="s s-close s-2x"></i></a>\r\n</div>\r\n<div class="bd">\r\n    正文...\r\n</div>\r\n';
 
 	}
 	return __p
@@ -4831,9 +4902,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(BaseCom, 'BaseCom', 'E:/mypro/tyxb/src/basecom.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/basecom.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/basecom.js');
 	}();
 
 	;
@@ -5049,9 +5120,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(Dialog, 'Dialog', 'E:/mypro/tyxb/src/Dialog.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/Dialog.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/Dialog.js');
 	}();
 
 	;
@@ -5212,9 +5283,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(ImageViewer, 'ImageViewer', 'E:/mypro/tyxb/src/ImageViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/ImageViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/ImageViewer.js');
 	}();
 
 	;
@@ -5253,7 +5324,7 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _propTypes = __webpack_require__(130);
+	var _propTypes = __webpack_require__(131);
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -5674,11 +5745,11 @@
 	      borderRadius = Math.max(borderRadius, 0);
 	      borderRadius = Math.min(borderRadius, width / 2 - borderSize, height / 2 - borderSize);
 
-	      context.beginPath
+	      context.beginPath();
 	      // inner rect, possibly rounded
-	      ();drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
-	      context.rect(width, 0, -width, height // outer rect, drawn "counterclockwise"
-	      );context.fill('evenodd');
+	      drawRoundedRect(context, borderSize, borderSize, width - borderSize * 2, height - borderSize * 2, borderRadius);
+	      context.rect(width, 0, -width, height); // outer rect, drawn "counterclockwise"
+	      context.fill('evenodd');
 
 	      context.restore();
 	    }
@@ -5873,17 +5944,17 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(isTouchDevice, 'isTouchDevice', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(draggableEvents, 'draggableEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(deviceEvents, 'deviceEvents', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(drawRoundedRect, 'drawRoundedRect', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(AvatarCroper, 'AvatarCroper', 'E:/mypro/tyxb/src/AvatarCroper.js');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarCroper.js');
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarCroper.js');
 	}();
 
 	;
@@ -6096,9 +6167,9 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(MyEditor, 'MyEditor', 'E:/mypro/tyxb/src/AvatarEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/AvatarEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/AvatarEditor.js');
 	}();
 
 	;
@@ -6160,8 +6231,8 @@
 
 	        _this.state = {
 	            dream: props.dream,
-	            heartCls: 's s-arrow_up s-2x',
-	            hasHeart: false
+	            heartCls: 's s-arrow_up s-2x s-ac',
+	            hasHeart: true
 	        };
 	        return _this;
 	    }
@@ -6172,13 +6243,16 @@
 	            var dream = this.state.dream;
 
 	            if (dream.state === "new") {
-	                var width = this._dreamEl.offsetWidth;
-	                this._dreamEl.className = "list-item fadeout fadein";
-	                dream.state = "normal";
-	            } else if (dream.state === "normal") {
-	                this._dreamEl.className = "list-item";
-	            } else if (dream.state === "remove") {
-	                this._dreamEl.className = "list-item fadeout";
+	                console.log('new...');
+	                var container = this.props.container;
+
+	                _effect2.default.fadeIn(this._dreamEl, {
+	                    duration: 2000,
+	                    complete: function complete() {
+	                        dream.state = 'normal';
+	                        container.waiting = false;
+	                    }
+	                });
 	            }
 	        }
 	    }, {
@@ -6234,13 +6308,21 @@
 	    }, {
 	        key: 'deleteDream',
 	        value: function deleteDream() {
+	            var _this3 = this;
+
 	            var dream = this.state.dream;
+	            var container = this.props.container;
 
 	            _req2.default.post("/dream/delete", {
 	                did: dream._id
 	            }, function (data) {
 	                common.xhrReponseManage(data, function (data) {
-	                    dream.state = "remove";
+	                    _effect2.default.fadeOut(_this3._dreamEl, {
+	                        duration: 2000,
+	                        complete: function complete() {
+	                            container.removeItem(dream);
+	                        }
+	                    });
 	                });
 	            }, function () {
 	                alert("网络异常");
@@ -6249,27 +6331,22 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            var _state2 = this.state,
 	                dream = _state2.dream,
-	                heartCls = _state2.heartCls,
-	                hasDel = _state2.hasDel;
+	                heartCls = _state2.heartCls;
 
 	            var href = "/user/" + (dream._belong_u && dream._belong_u._id || "unknow");
 	            var username = dream._belong_u && dream._belong_u.username || "未知";
-
-	            if (hasDel) {
-	                return null;
-	            }
 
 	            return React.createElement(
 	                'li',
 	                {
 	                    ref: function ref(_ref) {
-	                        return _this3._dreamEl = _ref;
+	                        return _this4._dreamEl = _ref;
 	                    },
-	                    className: 'list-item fadeout' },
+	                    className: 'list-item' },
 	                React.createElement(
 	                    'div',
 	                    { className: 'post-box' },
@@ -6385,18 +6462,20 @@
 	    function DreamList(props) {
 	        (0, _classCallCheck3.default)(this, DreamList);
 
-	        var _this4 = (0, _possibleConstructorReturn3.default)(this, (DreamList.__proto__ || (0, _getPrototypeOf2.default)(DreamList)).call(this, props));
+	        var _this5 = (0, _possibleConstructorReturn3.default)(this, (DreamList.__proto__ || (0, _getPrototypeOf2.default)(DreamList)).call(this, props));
 
-	        _this4.state = {
+	        _this5.waiting = false;
+	        _this5.state = {
 	            list: []
 	        };
-	        return _this4;
+	        return _this5;
 	    }
 
 	    (0, _createClass3.default)(DreamList, [{
 	        key: 'addItem',
 	        value: function addItem(item) {
 	            console.log('add item and set list ...' + this.state.list);
+	            this.waiting = true;
 	            var list = this.state.list;
 	            item.state = 'new';
 	            list.unshift(item);
@@ -6405,9 +6484,22 @@
 	            });
 	        }
 	    }, {
+	        key: 'removeItem',
+	        value: function removeItem(item) {
+	            console.log('remove 2...');
+	            var list = this.state.list;
+	            console.log(list.length);
+	            var index = list.indexOf(item);
+	            list.splice(index, 1);
+	            console.log(list.length);
+	            this.setState({
+	                list: list
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            var list = this.state.list;
 
@@ -6418,7 +6510,7 @@
 	                'ul',
 	                (0, _extends3.default)({}, this.props, { className: 'list-group' }),
 	                list.map(function (dream, i) {
-	                    var Item = _this5.item;
+	                    var Item = _this6.item;
 	                    return React.createElement(Item, { key: i, dream: dream });
 	                })
 	            );
@@ -6426,8 +6518,10 @@
 	    }, {
 	        key: 'item',
 	        get: function get() {
+	            var _this7 = this;
+
 	            return function (props) {
-	                return React.createElement(DreamItem, { dream: props.dream });
+	                return React.createElement(DreamItem, { container: _this7, dream: props.dream });
 	            };
 	        }
 	    }]);
@@ -6443,11 +6537,11 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(DreamItem, 'DreamItem', '/Users/dragon/home/tyxb/tyxb/src/DreamList.js');
+	    __REACT_HOT_LOADER__.register(DreamItem, 'DreamItem', 'E:/mypro/tyxb/src/DreamList.js');
 
-	    __REACT_HOT_LOADER__.register(DreamList, 'DreamList', '/Users/dragon/home/tyxb/tyxb/src/DreamList.js');
+	    __REACT_HOT_LOADER__.register(DreamList, 'DreamList', 'E:/mypro/tyxb/src/DreamList.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/DreamList.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/DreamList.js');
 	}();
 
 	;
@@ -6462,7 +6556,7 @@
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
-	var _PostEditor = __webpack_require__(118);
+	var _PostEditor = __webpack_require__(119);
 
 	var _PostEditor2 = _interopRequireDefault(_PostEditor);
 
@@ -6474,7 +6568,7 @@
 
 	var _AvatarEditor2 = _interopRequireDefault(_AvatarEditor);
 
-	var _TextViewer = __webpack_require__(120);
+	var _TextViewer = __webpack_require__(121);
 
 	var _TextViewer2 = _interopRequireDefault(_TextViewer);
 
@@ -6660,6 +6754,152 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.NAME_MAP = undefined;
+
+	var _classCallCheck2 = __webpack_require__(1);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(2);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MOOD = {
+	    label: '心情',
+	    rel: 'tab-mood-post',
+	    name: 'mood',
+	    active: false
+	};
+
+	var HEALTH = {
+	    label: '身体状况',
+	    rel: 'tab-health-post',
+	    name: 'health',
+	    active: false
+	};
+
+	var NAME_MAP = exports.NAME_MAP = {
+	    "title": "content",
+	    "link": "link",
+	    "image": "image",
+	    "text": "text",
+	    "mood": "mood",
+	    "health": "health"
+	};
+
+	var PostConst = function () {
+	    function PostConst() {
+	        (0, _classCallCheck3.default)(this, PostConst);
+	    }
+
+	    (0, _createClass3.default)(PostConst, null, [{
+	        key: 'BTNS',
+	        get: function get() {
+	            return {
+	                "image": [MOOD, HEALTH],
+	                "news": [{
+	                    label: '摘要',
+	                    rel: 'tab-text-post',
+	                    name: 'text',
+	                    active: false
+	                }, {
+	                    label: '配图',
+	                    rel: 'tab-image-post',
+	                    name: 'image',
+	                    active: false
+	                }, MOOD, HEALTH],
+	                "text": [{
+	                    label: '标题',
+	                    rel: 'tab-title-post',
+	                    name: 'title',
+	                    active: false
+	                }, {
+	                    label: '配图',
+	                    rel: 'tab-image-post',
+	                    name: 'image',
+	                    active: false
+	                }, MOOD, HEALTH]
+	            };
+	        }
+	    }, {
+	        key: 'FIELDS',
+	        get: function get() {
+	            return {
+	                "text": [{
+	                    name: "text",
+	                    type: "text",
+	                    com: "textField",
+	                    val: '',
+	                    focus: true
+	                }],
+	                "image": [{
+	                    name: "image",
+	                    type: "image",
+	                    com: "imageField",
+	                    val: '',
+	                    data: {
+	                        url: ''
+	                    },
+	                    focus: false
+	                }, {
+	                    name: "content",
+	                    type: "title",
+	                    com: "titleField",
+	                    val: '',
+	                    focus: true
+	                }],
+	                "news": [{
+	                    name: "link",
+	                    type: "link",
+	                    com: "linkField",
+	                    val: '',
+	                    focus: true
+	                }, {
+	                    name: "content",
+	                    type: "title",
+	                    com: "titleField",
+	                    val: '',
+	                    focus: false
+	                }]
+	            };
+	        }
+	    }]);
+	    return PostConst;
+	}();
+
+	var _default = PostConst;
+	exports.default = _default;
+	;
+
+	var _temp = function () {
+	    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	        return;
+	    }
+
+	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', 'E:/mypro/tyxb/src/PostConst.js');
+
+	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', 'E:/mypro/tyxb/src/PostConst.js');
+
+	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', 'E:/mypro/tyxb/src/PostConst.js');
+
+	    __REACT_HOT_LOADER__.register(PostConst, 'PostConst', 'E:/mypro/tyxb/src/PostConst.js');
+
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/PostConst.js');
+	}();
+
+	;
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _extends2 = __webpack_require__(26);
 
@@ -6693,13 +6933,17 @@
 
 	var _req2 = _interopRequireDefault(_req);
 
-	var _TextEditor = __webpack_require__(119);
+	var _TextEditor = __webpack_require__(120);
 
 	var _TextEditor2 = _interopRequireDefault(_TextEditor);
 
 	var _DreamList = __webpack_require__(116);
 
 	var _DreamList2 = _interopRequireDefault(_DreamList);
+
+	var _PostConst = __webpack_require__(118);
+
+	var _PostConst2 = _interopRequireDefault(_PostConst);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7153,94 +7397,6 @@
 
 	var newDreamsCon = null;
 
-	var MOOD = {
-	    label: '心情',
-	    rel: 'tab-mood-post',
-	    name: 'mood',
-	    active: false
-	};
-
-	var HEALTH = {
-	    label: '身体状况',
-	    rel: 'tab-health-post',
-	    name: 'health',
-	    active: false
-	};
-
-	var BTNS = {
-	    "image": [MOOD, HEALTH],
-	    "news": [{
-	        label: '摘要',
-	        rel: 'tab-text-post',
-	        name: 'text',
-	        active: false
-	    }, {
-	        label: '配图',
-	        rel: 'tab-image-post',
-	        name: 'image',
-	        active: false
-	    }, MOOD, HEALTH],
-	    "text": [{
-	        label: '标题',
-	        rel: 'tab-title-post',
-	        name: 'title',
-	        active: false
-	    }, {
-	        label: '配图',
-	        rel: 'tab-image-post',
-	        name: 'image',
-	        active: false
-	    }, MOOD, HEALTH]
-	};
-
-	var NAME_MAP = {
-	    "title": "content",
-	    "link": "link",
-	    "image": "image",
-	    "text": "text",
-	    "mood": "mood",
-	    "health": "health"
-	};
-
-	var FIELDS = {
-	    "text": [{
-	        name: "text",
-	        type: "text",
-	        com: "textField",
-	        val: '',
-	        focus: true
-	    }],
-	    "image": [{
-	        name: "image",
-	        type: "image",
-	        com: "imageField",
-	        val: '',
-	        data: {
-	            url: ''
-	        },
-	        focus: false
-	    }, {
-	        name: "content",
-	        type: "title",
-	        com: "titleField",
-	        val: '',
-	        focus: true
-	    }],
-	    "news": [{
-	        name: "link",
-	        type: "link",
-	        com: "linkField",
-	        val: '',
-	        focus: true
-	    }, {
-	        name: "content",
-	        type: "title",
-	        com: "titleField",
-	        val: '',
-	        focus: false
-	    }]
-	};
-
 	var DreamForm = function (_BaseCom) {
 	    (0, _inherits3.default)(DreamForm, _BaseCom);
 	    (0, _createClass3.default)(DreamForm, [{
@@ -7535,11 +7691,13 @@
 
 
 	        _this12.formData = null;
+	        _this12.BTNS = _PostConst2.default.BTNS;
+	        _this12.FIELDS = _PostConst2.default.FIELDS;
 
 	        _this12.state = {
 	            type: type,
-	            fields: FIELDS[type],
-	            btns: BTNS[type]
+	            fields: _this12.FIELDS[type],
+	            btns: _this12.BTNS[type]
 	        };
 	        return _this12;
 	    }
@@ -7576,8 +7734,8 @@
 	        value: function setFormData(type) {
 	            this.setState({
 	                type: type,
-	                fields: FIELDS[type],
-	                btns: BTNS[type]
+	                fields: this.FIELDS[type],
+	                btns: this.BTNS[type]
 	            });
 	        }
 	    }, {
@@ -7615,7 +7773,7 @@
 
 	            if (!active) {
 	                fields.push({
-	                    name: NAME_MAP[fieldType],
+	                    name: _PostConst.NAME_MAP[fieldType],
 	                    type: fieldType,
 	                    com: fieldType + 'Field',
 	                    focus: fieldType === "image" ? false : true,
@@ -8047,39 +8205,29 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(ImageUpload, 'ImageUpload', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(RichEditor, 'RichEditor', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(TextArea, 'TextArea', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(Input, 'Input', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(Input, 'Input', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(FinishBtn, 'FinishBtn', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(newDreamsCon, 'newDreamsCon', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(newDreamsCon, 'newDreamsCon', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(MOOD, 'MOOD', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(HEALTH, 'HEALTH', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', 'E:/mypro/tyxb/src/PostEditor.js');
 
-	    __REACT_HOT_LOADER__.register(BTNS, 'BTNS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
-
-	    __REACT_HOT_LOADER__.register(NAME_MAP, 'NAME_MAP', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
-
-	    __REACT_HOT_LOADER__.register(FIELDS, 'FIELDS', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
-
-	    __REACT_HOT_LOADER__.register(DreamForm, 'DreamForm', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
-
-	    __REACT_HOT_LOADER__.register(PostEditor, 'PostEditor', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
-
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/PostEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/PostEditor.js');
 	}();
 
 	;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8092,7 +8240,7 @@
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
-	var _objectWithoutProperties2 = __webpack_require__(123);
+	var _objectWithoutProperties2 = __webpack_require__(124);
 
 	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
@@ -8118,7 +8266,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var striptags = __webpack_require__(121);
+	var striptags = __webpack_require__(122);
 
 	var TextEditor = function (_React$Component) {
 	    (0, _inherits3.default)(TextEditor, _React$Component);
@@ -8208,15 +8356,15 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(TextEditor, 'TextEditor', 'E:/mypro/tyxb/src/TextEditor.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextEditor.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextEditor.js');
 	}();
 
 	;
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8634,15 +8782,15 @@
 	        return;
 	    }
 
-	    __REACT_HOT_LOADER__.register(TextViewer, 'TextViewer', '/Users/dragon/home/tyxb/tyxb/src/TextViewer.js');
+	    __REACT_HOT_LOADER__.register(TextViewer, 'TextViewer', 'E:/mypro/tyxb/src/TextViewer.js');
 
-	    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/dragon/home/tyxb/tyxb/src/TextViewer.js');
+	    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/mypro/tyxb/src/TextViewer.js');
 	}();
 
 	;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -8925,13 +9073,13 @@
 	;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(124), __esModule: true };
+	module.exports = { "default": __webpack_require__(125), __esModule: true };
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -8951,14 +9099,14 @@
 	};
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(126);
+	__webpack_require__(127);
 	module.exports = __webpack_require__(3).Object.assign;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8996,16 +9144,16 @@
 	} : $assign;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(14);
 
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(125)});
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(126)});
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -9048,7 +9196,7 @@
 	module.exports = emptyFunction;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9108,7 +9256,7 @@
 	module.exports = invariant;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9122,9 +9270,9 @@
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(127);
-	var invariant = __webpack_require__(128);
-	var ReactPropTypesSecret = __webpack_require__(131);
+	var emptyFunction = __webpack_require__(128);
+	var invariant = __webpack_require__(129);
+	var ReactPropTypesSecret = __webpack_require__(132);
 
 	module.exports = function() {
 	  function shim(props, propName, componentName, location, propFullName, secret) {
@@ -9173,7 +9321,7 @@
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -9204,12 +9352,12 @@
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(129)();
+	  module.exports = __webpack_require__(130)();
 	}
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports) {
 
 	/**
