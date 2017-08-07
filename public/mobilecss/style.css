@@ -83,20 +83,26 @@
 .s-refresh:before {
   content: "\EA10";
 }
-.s-search:before {
+.s-save:before {
   content: "\EA11";
 }
-.s-subtract:before {
+.s-search:before {
   content: "\EA12";
 }
-.s-text:before {
+.s-subtract:before {
   content: "\EA13";
 }
-.s-wb:before {
+.s-text:before {
   content: "\EA14";
 }
-.s-weixin:before {
+.s-time:before {
   content: "\EA15";
+}
+.s-wb:before {
+  content: "\EA16";
+}
+.s-weixin:before {
+  content: "\EA17";
 }
 .clearfix:after {
   clear: both;

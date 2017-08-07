@@ -8847,6 +8847,19 @@
 	                                        '\u4EBA\u559C\u6B22...'
 	                                    )
 	                                )
+	                            ),
+	                            React.createElement(
+	                                'a',
+	                                { href: 'javascript:;',
+	                                    'data-did': '<%= dream._id %>',
+	                                    rel: 'comment-view'
+	                                },
+	                                '\u7559\u8A00\xA0',
+	                                React.createElement(
+	                                    'span',
+	                                    { className: 'comment-num' },
+	                                    dream.cnum
+	                                )
 	                            )
 	                        )
 	                    )

@@ -8482,6 +8482,19 @@
 	                                        '\u4EBA\u559C\u6B22...'
 	                                    )
 	                                )
+	                            ),
+	                            React.createElement(
+	                                'a',
+	                                { href: 'javascript:;',
+	                                    'data-did': '<%= dream._id %>',
+	                                    rel: 'comment-view'
+	                                },
+	                                '\u7559\u8A00\xA0',
+	                                React.createElement(
+	                                    'span',
+	                                    { className: 'comment-num' },
+	                                    dream.cnum
+	                                )
 	                            )
 	                        )
 	                    )
@@ -9403,7 +9416,11 @@
 	((__t = ( dream.vote )) == null ? '' : __t) +
 	'</span></div></a>\r\n                ';
 	 } ;
-	__p += '\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n';
+	__p += '\r\n                <a href="javascript:;" data-did="' +
+	((__t = ( dream._id )) == null ? '' : __t) +
+	'" rel="comment-view">留言&nbsp;<span class="comment-num">' +
+	((__t = ( dream.cnum )) == null ? '' : __t) +
+	'</span></a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</li>\r\n';
 	} else {;
 	__p += '\r\n<li class="list-item">\r\n    <div class="post-box">\r\n        <div class="error-data">\r\n            [该内容显示异常]\r\n        </div>\r\n    </div>\r\n</li>\r\n';
 	 } ;
